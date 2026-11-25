@@ -4,7 +4,7 @@ Source: AODN THREDDS (near real-time, NOT quality controlled). DoT wave data lic
 Output: buoys.json  ->  pushed by the workflow to the `live-data` branch (no history growth).
 Usage: python pipeline/fetch_buoys.py OUTPUT_DIR
 """
-import json, os, sys, tempfile, urllib.request, xml.etree.ElementTree as ET
+import json, os, re, sys, tempfile, urllib.request, xml.etree.ElementTree as ET
 from datetime import datetime, timezone, timedelta
 
 BASE = "https://thredds.aodn.org.au/thredds"
@@ -23,6 +23,22 @@ VARS = {  # IMOS wave parameter names; first match wins
 def get(url, binary=False):
     with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=60) as r:
         return r.read() if binary else r.read().decode()
+
+
+def site_key(url_path):
+    """Buoy identity from a dataset path. Folders are like .../<SITE>/<YEAR>/<file>.nc (or .../<YEAR>/<file>),
+    so drop year/month folders and, if no site folder is left, strip dates/timestamps from the file name."""
+    parts = url_path.split("/")
+    fname = parts[-1]
+    folders = [p for p in parts[:-1] if p and not re.fullmatch(r"\d{2,6}", p)]
+    root_depth = len([p for p in ROOT.split("/") if p])
+    if len(folders) > root_depth:
+        return "/".join(folders[root_depth:])
+    stem = re.sub(r"\.nc$", "", fname)
+    stem = re.sub(r"\d{8}(T\d{4,6}Z?)?", "", stem)       # 20261124T180000Z
+    stem = re.sub(r"(END|C)-?\d+", "", stem)              # END-..., C-20261125
+    stem = re.sub(r"_?END-?$", "", re.sub(r"_+", "_", stem).strip("_"))
+    return re.sub(r"_FV0\d", "", stem)  # FV00 / FV01 versions of the same buoy
 
 
 def crawl(path, depth=0):
@@ -86,9 +102,10 @@ def main(outdir):
     # group by parent folder (site) and keep the newest file name per site
     by_site = {}
     for up, name in files:
-        site = up.split("/")[-2]
+        site = site_key(up)
         if site not in by_site or name > by_site[site][1]:
             by_site[site] = (up, name)
+    print("buoy sites:", len(by_site), sorted(by_site)[:40])
     buoys, cutoff = [], datetime.now(timezone.utc) - timedelta(days=3)
     for site, (up, name) in sorted(by_site.items()):
         try:
@@ -108,6 +125,13 @@ def main(outdir):
         vals["lat"], vals["lon"] = round(vals["lat"], 4), round(vals["lon"], 4)
         buoys.append(vals)
         print("ok", site, vals)
+    # same buoy can appear under two names: keep the newest reading per location
+    best = {}
+    for b in buoys:
+        k = (round(b["lat"], 2), round(b["lon"], 2))
+        if k not in best or b["time"] > best[k]["time"]:
+            best[k] = b
+    buoys = sorted(best.values(), key=lambda b: -b["lat"])
     out = {"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
            "source": "WA Department of Transport wave buoys via AODN (near real-time, not quality controlled). CC BY.",
            "type": "measured", "buoys": buoys}

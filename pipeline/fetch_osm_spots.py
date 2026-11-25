@@ -2,38 +2,32 @@
 Groynes, breakwaters, piers/jetties, reefs, capes/headlands, rocky shores, named beaches, and
 anything tagged leisure=fishing or fishing=yes. Output: data/osm-spots.geojson (points + tags).
 """
-import json, time, urllib.parse, urllib.request
+import json, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+import overpass
 from datetime import datetime, timezone
 
-S, W, N, E = -35.3, 114.9, -31.5, 122.4
-ENDPOINTS = ["https://overpass-api.de/api/interpreter", "https://overpass.private.coffee/api/interpreter"]
-QUERY = f"""
-[out:json][timeout:180];
+def query(s, w, n, e):
+    b = f"({s},{w},{n},{e})"
+    return f"""
+[out:json][timeout:120];
 (
-  nwr["leisure"="fishing"]({S},{W},{N},{E});
-  nwr["fishing"="yes"]({S},{W},{N},{E});
-  nwr["man_made"~"^(pier|groyne|breakwater|jetty)$"]({S},{W},{N},{E});
-  nwr["natural"~"^(reef|cape)$"]({S},{W},{N},{E});
-  nwr["natural"="bare_rock"]["name"]({S},{W},{N},{E});
-  nwr["natural"="beach"]["name"]({S},{W},{N},{E});
+  nwr["leisure"="fishing"]{b};
+  nwr["fishing"="yes"]{b};
+  nwr["man_made"~"^(pier|groyne|breakwater|jetty)$"]{b};
+  nwr["natural"~"^(reef|cape)$"]{b};
+  nwr["natural"="bare_rock"]["name"]{b};
+  nwr["natural"="beach"]["name"]{b};
 );
 out center tags;
 """
+
+
 KEEP = ("name", "leisure", "fishing", "man_made", "natural", "access")
 
 
 def main():
-    body = urllib.parse.urlencode({"data": QUERY}).encode()
-    raw = None
-    for url in ENDPOINTS:
-        try:
-            req = urllib.request.Request(url, data=body, headers={"User-Agent": "wa-fishing-intelligence/0.5 (weekly spot extract)"})
-            with urllib.request.urlopen(req, timeout=240) as r:
-                raw = json.load(r); break
-        except Exception as ex:
-            print("failed", url, ex); time.sleep(5)
-    if not raw:
-        raise SystemExit("Overpass unavailable")
+    raw = {"elements": overpass.run(query)}
     feats = []
     for el in raw.get("elements", []):
         lat = el.get("lat") or el.get("center", {}).get("lat")

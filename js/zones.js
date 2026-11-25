@@ -30,11 +30,17 @@ export function zoneHitsFor(zones, loc) {
 }
 
 // Plain-English legal status for a spot
+const nice = z => (z || 'zone').replace(/_/g, ' ');
 export function legalStatus(zones, loc) {
   if (!zones?.loaded) return { state: 'unchecked', text: 'Marine park zones not loaded yet — run the weekly data update (see README).' };
   const hits = zoneHitsFor(zones, loc);
   const sanct = hits.find(h => (h.prohibits || []).length || h.zone_type === 'sanctuary');
-  if (sanct) return { state: 'blocked', text: `Inside ${sanct.name} (${(sanct.zone_type || 'sanctuary').replace('_', ' ')} zone) — no fishing or collecting.` };
-  if (hits.length) return { state: 'ok', text: `Inside ${hits[0].name} (${(hits[0].zone_type || 'zone').replace(/_/g, ' ')}). Fishing allowed here under normal rules — check any special rules for this zone.` };
+  if (sanct) return { state: 'blocked', text: `Inside ${sanct.name} (${nice(sanct.zone_type || 'sanctuary')}) — no fishing, spearing or collecting.` };
+  const zoned = hits.find(h => h.zone_type && h.zone_type !== 'marine_park');
+  if (zoned) {
+    const sp = zoned.zone_type === 'special_purpose' ? ' Special purpose zones can have extra limits — check the park rules.' : '';
+    return { state: 'ok', text: `Inside ${zoned.name} (${nice(zoned.zone_type)} zone). Fishing allowed under normal rules.${sp}` };
+  }
+  if (hits.length) return { state: 'caution', text: `Inside ${hits[0].name}, but the exact zone here isn't mapped. Check the park's zoning map before fishing.` };
   return { state: 'ok', text: 'Not inside a mapped marine park sanctuary zone. Normal fishing rules apply.' };
 }

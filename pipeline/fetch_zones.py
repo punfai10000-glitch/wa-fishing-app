@@ -1,77 +1,97 @@
-"""Weekly: WA marine park zones (incl. sanctuary zones) for Perth→Esperance from the WA Government's
-public ArcGIS services (SLIP / Landgate). Writes data/zones/marine-parks.geojson for the app's legal check.
+"""Weekly: marine park zones (incl. sanctuary zones) for Perth -> Esperance.
 
-The script discovers layers whose names mention marine park zoning, queries them for the app's area
-and keeps polygons with their zone type. If nothing suitable is found it leaves the old file untouched.
+Source: Collaborative Australian Protected Areas Database (CAPAD), Marine Protected Areas layer,
+Australian Government DCCEEW, CC BY 4.0. It contains WA state marine parks (supplied by DBCA) with a
+ZONE_TYPE per polygon, plus Commonwealth marine parks.
+Writes data/zones/marine-parks.geojson for the app's legal check. Leaves the old file alone on failure.
 """
-import json, re, sys, urllib.parse, urllib.request
+import json, sys, time, urllib.parse, urllib.request
+from collections import Counter
 from datetime import datetime, timezone
 
-SERVICES = [
-    "https://services.slip.wa.gov.au/public/rest/services/Landgate_Public_Maps/Marine_Map_WA_3/MapServer",
-    "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Environment/MapServer",
-    "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Property_and_Planning/MapServer",
-]
-BBOX = "114.5,-35.6,123.5,-31.3"  # xmin,ymin,xmax,ymax (WGS84)
-NAME_OK = re.compile(r"marine.*(zone|zoning)|zon.*marine|sanctuary", re.I)
-UA = {"User-Agent": "wa-fishing-intelligence/0.4 (weekly marine zones)"}
+LAYER = "https://gis.environment.gov.au/gispubmap/rest/services/ogc_services/CAPAD/FeatureServer/1"
+BBOX = "114.5,-35.6,123.5,-31.3"  # xmin,ymin,xmax,ymax (WGS84) Perth -> Esperance
+UA = {"User-Agent": "wa-fishing-intelligence/0.6 (weekly marine zones; github.com)"}
+FIELDS = "NAME,TYPE,TYPE_ABBR,ZONE_TYPE,IUCN,STATE,AUTHORITY"
 
 
-def get(url):
-    with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=120) as r:
-        return json.load(r)
+def get(url, tries=3):
+    for i in range(tries):
+        try:
+            with urllib.request.urlopen(urllib.request.Request(url, headers=UA), timeout=180) as r:
+                return json.load(r)
+        except Exception as ex:
+            print("  retry", i + 1, ex)
+            time.sleep(10 * (i + 1))
+    raise SystemExit("CAPAD service unreachable")
 
 
-def zone_type(props):
-    text = " ".join(str(v) for v in props.values() if isinstance(v, str)).lower()
-    for t in ("sanctuary", "recreation", "special purpose", "general use", "marine nature reserve", "marine management area"):
-        if t in text:
-            return t.replace(" ", "_")
-    return None
-
-
-def query(layer_url):
+def fetch_all():
     feats, offset = [], 0
     while True:
-        q = urllib.parse.urlencode({"where": "1=1", "geometry": BBOX, "geometryType": "esriGeometryEnvelope", "inSR": 4326,
-                                    "spatialRel": "esriSpatialRelIntersects", "outFields": "*", "returnGeometry": "true",
-                                    "outSR": 4326, "maxAllowableOffset": 0.0003, "geometryPrecision": 5,
-                                    "resultOffset": offset, "resultRecordCount": 500, "f": "geojson"})
-        d = get(f"{layer_url}/query?{q}")
+        q = urllib.parse.urlencode({
+            "where": "1=1", "geometry": BBOX, "geometryType": "esriGeometryEnvelope", "inSR": 4326,
+            "spatialRel": "esriSpatialRelIntersects", "outFields": FIELDS, "returnGeometry": "true",
+            "outSR": 4326, "maxAllowableOffset": 0.0002, "geometryPrecision": 5,
+            "resultOffset": offset, "resultRecordCount": 1000, "f": "geojson"})
+        d = get(f"{LAYER}/query?{q}")
+        if "error" in d:
+            raise SystemExit(f"query error: {d['error']}")
         batch = d.get("features", [])
         feats += batch
-        if len(batch) < 500:
+        print(f"  got {len(batch)} (offset {offset})")
+        if len(batch) < 1000 and not d.get("exceededTransferLimit"):
             return feats
-        offset += 500
+        offset += len(batch)
+
+
+def classify(p):
+    """Return (zone_type, prohibits). Conservative: anything that says sanctuary / nature reserve blocks."""
+    zt = (p.get("ZONE_TYPE") or "").lower()
+    typ = (p.get("TYPE") or "").lower()
+    name = (p.get("NAME") or "").lower()
+    text = f"{zt} | {typ} | {name}"
+    if "sanctuary" in text or "national park zone" in text or "no take" in text or "no-take" in text:
+        return "sanctuary", ["shore", "spear"]
+    if "marine nature reserve" in text:
+        return "marine_nature_reserve", ["shore", "spear"]
+    if "special purpose" in zt:
+        return "special_purpose", []
+    if "recreation" in zt or "recreational use" in zt:
+        return "recreation", []
+    if "general use" in zt or "multiple use" in zt or "habitat protection" in zt:
+        return "general_use", []
+    if zt:
+        return zt.replace(" ", "_")[:40], []
+    return "marine_park", []   # whole-park outline, zone unknown at this point
 
 
 def main(out="data/zones/marine-parks.geojson"):
+    raw = fetch_all()
+    print("CAPAD polygons in area:", len(raw))
+    print("ZONE_TYPE values:", Counter((f.get("properties") or {}).get("ZONE_TYPE") for f in raw).most_common(30))
+    print("TYPE values:", Counter((f.get("properties") or {}).get("TYPE") for f in raw).most_common(15))
     found = []
-    for svc in SERVICES:
-        try:
-            layers = get(f"{svc}?f=json").get("layers", [])
-        except Exception as ex:
-            print("skip service", svc, ex); continue
-        for lyr in layers:
-            if NAME_OK.search(lyr.get("name", "")):
-                print("candidate", svc, lyr["id"], lyr["name"])
-                try:
-                    for f in query(f"{svc}/{lyr['id']}"):
-                        p = f.get("properties") or {}
-                        zt = zone_type(p) or ("sanctuary" if "sanctuary" in lyr["name"].lower() else None)
-                        name = next((p[k] for k in p if re.search(r"name", k, re.I) and isinstance(p[k], str) and p[k].strip()), lyr["name"])
-                        f["properties"] = {"name": name, "zone_type": zt, "layer": lyr["name"],
-                                           "prohibits": ["shore", "spear"] if zt in ("sanctuary", "marine_nature_reserve") else []}
-                        found.append(f)
-                except Exception as ex:
-                    print("query failed", lyr["name"], ex)
-    if not found:
-        print("No zone layers found — keeping existing file"); return
-    data = {"type": "FeatureCollection", "loaded": True, "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
-            "source": "WA Government (DBCA / Landgate) via SLIP public map services", "features": found}
+    for f in raw:
+        p = f.get("properties") or {}
+        if not f.get("geometry"):
+            continue
+        zt, prohibits = classify(p)
+        f["properties"] = {"name": p.get("NAME") or "Marine park", "zone_type": zt, "prohibits": prohibits,
+                           "park_type": p.get("TYPE"), "authority": p.get("AUTHORITY"), "state": p.get("STATE")}
+        found.append(f)
+    n_sanct = sum(1 for f in found if f["properties"]["prohibits"])
+    print("no-take polygons:", n_sanct, [f["properties"]["name"] for f in found if f["properties"]["prohibits"]][:40])
+    if len(found) < 5 or n_sanct == 0:
+        raise SystemExit("Too little zone data (or no sanctuary zones) - keeping existing file")
+    data = {"type": "FeatureCollection", "loaded": True,
+            "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+            "source": "CAPAD 2024 Marine Protected Areas (Australian Government DCCEEW, state data from DBCA), CC BY 4.0",
+            "note": "Rottnest Island Reserve sanctuary zones and Fish Habitat Protection Areas may not be included.",
+            "features": found}
     with open(out, "w") as fh:
         json.dump(data, fh, separators=(",", ":"))
-    print("wrote", len(found), "zone polygons; sanctuary:", sum(1 for f in found if f["properties"]["zone_type"] == "sanctuary"))
+    print("wrote", len(found), "zone polygons; no-take:", n_sanct)
 
 
 if __name__ == "__main__":
