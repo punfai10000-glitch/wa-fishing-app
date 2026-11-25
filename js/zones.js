@@ -41,6 +41,6 @@ export function legalStatus(zones, loc) {
     const sp = zoned.zone_type === 'special_purpose' ? ' Special purpose zones can have extra limits — check the park rules.' : '';
     return { state: 'ok', text: `Inside ${zoned.name} (${nice(zoned.zone_type)} zone). Fishing allowed under normal rules.${sp}` };
   }
-  if (hits.length) return { state: 'caution', text: `Inside ${hits[0].name}, but the exact zone here isn't mapped. Check the park's zoning map before fishing.` };
-  return { state: 'ok', text: 'Not inside a mapped marine park sanctuary zone. Normal fishing rules apply.' };
+  if (hits.length) return { state: 'caution', text: `Inside ${hits[0].name}. Sanctuary zones inside this park ${zones.sanctuaries_mapped ? 'may not all be' : 'are not yet'} mapped in the app — check the DBCA zoning map before fishing.` };
+  return { state: 'ok', text: 'Not inside a marine park. Normal fishing rules apply (check closures for your target species).' };
 }

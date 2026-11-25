@@ -4,7 +4,7 @@ Runs in GitHub Actions (never from users' phones) so phones never hit Overpass; 
 per week, well inside the Overpass usage policy. Output: data/amenities.geojson (ODbL).
 Usage: python pipeline/fetch_amenities.py
 """
-import json, sys
+import json, re, sys
 from datetime import datetime, timezone
 
 import os
@@ -30,6 +30,8 @@ out center tags;
 
 
 def kind(tags):
+    if tags.get("shop") and re.search(r"tackle|bait|fishing|\banglers?\b", tags.get("name", ""), re.I):
+        return "tackle"
     if tags.get("shop") in ("fishing", "bait", "tackle") or (tags.get("shop") and (tags.get("fishing") in ("yes", "tackle", "bait") or tags.get("sport") == "fishing")):
         return "tackle"
     if tags.get("amenity") == "parking":
@@ -47,7 +49,7 @@ def kind(tags):
 
 def fetch():
     if osm_local.available():
-        return {"elements": osm_local.elements(["nwr/shop=fishing,bait,tackle", "nwr/fishing", "nwr/sport=fishing",
+        return {"elements": osm_local.elements(["nwr/shop", "nwr/fishing", "nwr/sport=fishing",
                                                  "nwr/amenity=fuel,toilets,restaurant,fast_food,cafe,parking"])}
     return {"elements": overpass.run(query)}
 

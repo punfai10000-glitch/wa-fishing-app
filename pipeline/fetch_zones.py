@@ -76,7 +76,7 @@ def osm_sanctuaries():
                              geometry_types="polygon", split_parts=True)
     for el in els:
         name = el["tags"].get("name", "")
-        if not re.search(r"sanctuary", name, re.I) or not el.get("geometry"):
+        if not re.search(r"sanctuary", name, re.I) or re.search(r"bird|wildlife|fauna|flora", name, re.I) or not el.get("geometry"):
             continue
         ring = [[p["lon"], p["lat"]] for p in el["geometry"]]
         out.append({"type": "Feature", "geometry": {"type": "Polygon", "coordinates": [ring]},
@@ -84,6 +84,30 @@ def osm_sanctuaries():
                                    "source": "OpenStreetMap - check against the DBCA zoning map", "verified": False}})
     print("OSM sanctuary zones:", len(out), sorted({f["properties"]["name"] for f in out})[:30])
     return out
+
+
+def centroid(f):
+    ring = f["geometry"]["coordinates"][0]
+    return (sum(p[0] for p in ring) / len(ring), sum(p[1] for p in ring) / len(ring))
+
+
+def _in_ring(x, y, ring):
+    c = False
+    for i in range(len(ring)):
+        (xi, yi), (xj, yj) = ring[i][:2], ring[i - 1][:2]
+        if (yi > y) != (yj > y) and x < (xj - xi) * (y - yi) / ((yj - yi) or 1e-12) + xi:
+            c = not c
+    return c
+
+
+def inside_any(pt, parks):
+    x, y = pt
+    for f in parks:
+        g = f.get("geometry") or {}
+        polys = g.get("coordinates", []) if g.get("type") == "MultiPolygon" else [g.get("coordinates", [])]
+        if any(p and _in_ring(x, y, p[0]) for p in polys):
+            return True
+    return False
 
 
 def main(out="data/zones/marine-parks.geojson"):
@@ -102,16 +126,19 @@ def main(out="data/zones/marine-parks.geojson"):
         found.append(f)
     # CAPAD has only whole-park outlines for WA (no ZONE_TYPE, checked 25 Nov 2026). Add sanctuary zones that
     # volunteers have mapped in OpenStreetMap, clearly marked as needing a check against DBCA's zoning maps.
-    osm_sz = osm_sanctuaries()
+    parks = [f for f in found if f["properties"]["zone_type"] == "marine_park"]
+    osm_sz = [f for f in osm_sanctuaries() if inside_any(centroid(f), parks)]
+    print("OSM sanctuary zones inside marine parks:", len(osm_sz), [f["properties"]["name"] for f in osm_sz][:30])
     found += osm_sz
     n_sanct = sum(1 for f in found if f["properties"]["prohibits"])
     print("no-take polygons:", n_sanct, [f["properties"]["name"] for f in found if f["properties"]["prohibits"]][:40])
-    if len(found) < 5 or n_sanct == 0:
-        raise SystemExit("Too little zone data (or no sanctuary zones) - keeping existing file")
+    if len(found) < 5:
+        raise SystemExit("Too little zone data - keeping existing file")
     data = {"type": "FeatureCollection", "loaded": True,
             "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
             "source": "Park outlines: CAPAD 2024 (Australian Government DCCEEW, CC BY 4.0). Sanctuary zones: OpenStreetMap (ODbL) - not yet checked against DBCA zoning maps.",
             "note": "Rottnest Island Reserve sanctuary zones and Fish Habitat Protection Areas may not be included.",
+            "sanctuaries_mapped": n_sanct > 0,
             "features": found}
     with open(out, "w") as fh:
         json.dump(data, fh, separators=(",", ":"))
