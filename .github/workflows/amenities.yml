@@ -8,12 +8,14 @@ permissions:
 jobs:
   update:
     runs-on: ubuntu-latest
+    timeout-minutes: 90
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
       - run: python pipeline/fetch_amenities.py || echo "amenities failed"
       - run: python pipeline/fetch_osm_spots.py || echo "spots failed"
+      - run: python pipeline/fetch_coastline.py || echo "coastline failed"
       - run: python pipeline/fetch_zones.py || echo "zones failed"
       - run: python pipeline/fetch_community.py data/community.json || echo "community failed"
         env:
@@ -23,6 +25,8 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          for f in data/amenities.geojson data/osm-spots.geojson data/zones/marine-parks.geojson data/community.json; do [ -f "$f" ] && git add "$f"; done
-          git diff --cached --quiet || git commit -m "Weekly data update"
+          git add data
+          git diff --cached --quiet && exit 0
+          git commit -m "Weekly data update"
+          git pull --rebase -X theirs origin main
           git push
