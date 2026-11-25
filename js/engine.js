@@ -46,6 +46,7 @@ export function evaluate(loc, hours, activity, ctx = {}) {
   if (!hours || !hours.length) {
     return { applicable: true, noData: true, band: 'unknown', score: null, confidence: { level: 'low', reasons: ['No forecast data loaded'] } };
   }
+  if (loc.estuary) hours = hours.map(h => ({ ...h, wave_height: null, swell_height: null, wave_period: null, swell_period: null, wind_wave_height: null, sheltered: true }));
   const legalUnchecked = !ctx.zones?.loaded;
   if (activity === 'spear') addVisibilityContext(hours, loc);
   const sunCache = new Map();

@@ -4,8 +4,10 @@
 // sample point (same forecast cell). They're labelled "from OpenStreetMap — not yet checked".
 import { pointOf, tagsOf, spotType } from './osm.js';
 import { TYPE_LABELS } from './config.js';
+import { loadShore, riverWaterAt, hasRiverWater, estuaryNotes } from './shore.js';
 
 export async function loadOsmSpots(coastPoints) {
+  await loadShore();
   let d;
   try {
     const r = await fetch('data/osm-spots.geojson', { cache: 'no-cache' });
@@ -33,13 +35,20 @@ export async function loadOsmSpots(coastPoints) {
       const dkm = Math.hypot((x - pt[0]) * Math.cos(pt[1] * Math.PI / 180), y - pt[1]) * 111;
       if (!best || dkm < best.d) best = { d: dkm, p };
     }
-    if (!best || best.d > 6) continue;
+    if (!best || best.d > 40) continue;
+    // river/estuary spots (Swan, Peel, Leschenault, inlets...): on/near a mapped river water area, or before
+    // that data exists, jetties/fishing-tagged spots inland of the ocean coast
+    const water = riverWaterAt(pt[1], pt[0], 0.15);
+    const tagFishing = t.leisure === 'fishing' || t.fishing === 'yes';
+    const estuary = !!water || (best.d > 6 && !hasRiverWater() && (type === 'jetty' || tagFishing));
+    if (best.d > 6 && !estuary) continue;
     // drop near-duplicates: anything within 120 m, or the same type within 300 m
     if (out.some(o => { const d = Math.hypot((o.geometry.coordinates[0] - pt[0]) * 0.83, o.geometry.coordinates[1] - pt[1]) * 111; return d < 0.12 || (o.type === type && d < 0.3); })) continue;
     const tagged = t.leisure === 'fishing' || t.fishing === 'yes';
     out.push({
       id: `osm-${out.length}`,
-      name: t.name || `${TYPE_LABELS[type] ?? type} near ${best.p.near}`,
+      name: t.name || `${TYPE_LABELS[type] ?? type}${water?.name ? ` on the ${water.name}` : ` near ${best.p.near}`}`,
+      estuary, water_name: water?.name || null,
       region: best.p.region,
       type,
       activities: ['shore_reef', 'headland', 'rock_platform'].includes(type) ? ['shore', 'spear'] : ['shore'],
@@ -52,7 +61,8 @@ export async function loadOsmSpots(coastPoints) {
       exposure: best.p.exposure,
       facing: best.p.facing,
       terrain: { groyne: ['rock_wall'], jetty: ['jetty'], headland: ['rock_platform'], shore_reef: ['reef'], rock_platform: ['rock_platform'], beach: ['sand'] }[type] || [],
-      access: null, species_evidence: [], restrictions: [], sources: ['OpenStreetMap'], safety_notes: [],
+      access: null, species_evidence: [], restrictions: [], sources: ['OpenStreetMap'],
+      safety_notes: estuary ? estuaryNotes(pt[1], pt[0], water?.name) : [],
       last_verified: null, tags_fishing: tagged
     });
   }

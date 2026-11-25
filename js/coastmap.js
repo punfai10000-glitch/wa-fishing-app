@@ -8,7 +8,7 @@ import { nearestBuoy } from './buoys.js';
 import { loadPointConditions } from './data.js';
 import { legalStatus } from './zones.js';
 import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
-import { loadShore, shoreData, offshorePoint, nearestShore } from './shore.js';
+import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass } from './scoring/geo.js';
 import { esc, typeTag } from './ui.js';
@@ -248,20 +248,23 @@ async function onMapClick(latlng) {
   const p = sample?.p ?? null;
   const facing = sh && precise ? Math.round(sh.seaBearing) : p?.facing ?? Math.round(sh.seaBearing);
   const sea = sh ? offshorePoint(lat, lng, 1.0) : null;
-  const where = !sh || !shoreData()?.precise ? '' : sh.onLand
+  const river = riverWaterAt(lat, lng, 0.05);
+  const where = river ? `In ${river.name ? `the ${river.name}` : 'a river / estuary'}` : !sh || !shoreData()?.precise ? '' : sh.onLand
     ? `On land, about ${fmtDist(sh.km)} from the water`
     : `In the water, about ${fmtDist(sh.km)} from shore`;
   const loc = {
     id: `tap_${lat.toFixed(5)}_${lng.toFixed(5)}`,
-    name: `Point near ${p?.near ?? 'the coast'}`,
+    name: river?.name ? `Point on the ${river.name}` : `Point near ${p?.near ?? 'the coast'}`,
+    estuary: !!river, water_name: river?.name || null,
     near: p?.near, region: p?.region, bioregion: p?.bioregion,
     type: 'beach', activities: ['shore', 'spear'], confidence: 'potential', status: 'auto',
     virtual: true, tap: true, condFrom: p?.id,
     geometry: { type: 'Point', coordinates: [lng, lat] },
-    sea: sea ? [sea.lat, sea.lng] : p?.sea,
+    sea: river ? p?.sea : sea ? [sea.lat, sea.lng] : p?.sea,
     facing,
     exposure: { onshore_dirs: [-45, -22.5, 0, 22.5, 45].map(o => comp(facing + o)), sheltered_dirs: [-45, -22.5, 0, 22.5, 45].map(o => comp(facing + 180 + o)) },
-    terrain: [], access: null, species_evidence: [], restrictions: [], sources: ['tap'], safety_notes: []
+    terrain: [], access: null, species_evidence: [], restrictions: [], sources: ['tap'],
+    safety_notes: river ? estuaryNotes(lat, lng, river.name) : []
   };
   state.tapLoc = loc; state.tapCond = null;
 
@@ -299,14 +302,15 @@ function tapHTML(loc, where, sh, exact) {
   return `
     <strong>Exact point</strong> <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br>
     ${where ? `<span class="small">${esc(where)}</span><br>` : ''}
-    <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} · water faces ${degToCompass(loc.facing)}</span>
+    <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
     <div class="row" style="margin:8px 0;gap:6px"><div><div class="small muted">Shore</div>${pillFor(rs)}</div><div><div class="small muted">Spear</div>${pillFor(rp)}</div></div>
     ${[rs, rp].flatMap(r => r?.blocks ?? []).map(b => `<div class="small">✕ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
-    ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''} · Tide ${h.tide_rate == null ? '?' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
+    ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · ${loc.estuary ? 'Sheltered water (no ocean swell)' : `Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''}`} · Tide ${h.tide_rate == null ? '?' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
       <div class="small">Visibility: ${vis ? vis.label : 'unknown'} (estimate) · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>
-      <div class="small muted">${exact ? 'Forecast for this exact point (waves read ~1 km out to sea in front of it).' : 'Loading the forecast for this exact point… showing the nearest coast area for now.'}</div>` : '<div class="small muted">Loading forecast for this point…</div>'}
-    ${buoy ? `<div class="small" style="margin-top:4px"><strong>Measured:</strong> ${esc(buoy.b.site)} buoy ${buoy.d.toFixed(0)} km away — ${fmtHeight(buoy.b.hs)}${buoy.b.tp != null ? ` @ ${Math.round(buoy.b.tp)} s` : ''}, ${fmtAge(Date.parse(buoy.b.time))}</div>` : ''}
+      <div class="small muted">${exact ? (loc.estuary ? 'Wind forecast for this exact point; tide from the nearest ocean point.' : 'Forecast for this exact point (waves read ~1 km out to sea in front of it).') : 'Loading the forecast for this exact point… showing the nearest coast area for now.'}</div>` : '<div class="small muted">Loading forecast for this point…</div>'}
+    ${buoy && !loc.estuary ? `<div class="small" style="margin-top:4px"><strong>Measured:</strong> ${esc(buoy.b.site)} buoy ${buoy.d.toFixed(0)} km away — ${fmtHeight(buoy.b.hs)}${buoy.b.tp != null ? ` @ ${Math.round(buoy.b.tp)} s` : ''}, ${fmtAge(Date.parse(buoy.b.time))}</div>` : ''}
     <div class="small" style="margin-top:4px"><strong>Legal:</strong> ${esc(legal.text)}</div>
+    ${(loc.safety_notes || []).filter(n => !/^Spearfishing is banned/.test(n)).map(n => `<div class="small">⚠ ${esc(n)}</div>`).join('')}
     <div class="small" id="pop-nearby" style="margin-top:4px">Nearby: loading…</div>
     <p class="small muted" style="margin:6px 0 0">Not a checked fishing spot — check access, cliffs and private land before you go.</p>
     <p style="margin:6px 0 0"><a href="${gmaps}" target="_blank" rel="noopener">Directions here ↗</a> · <a href="#/live/${encodeURIComponent(loc.id)}">Live summary →</a></p>`;

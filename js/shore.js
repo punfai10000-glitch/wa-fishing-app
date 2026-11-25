@@ -24,8 +24,14 @@ export async function loadShore() {
           }
       }
     });
-    shore = { lines: d.lines, segs, grid, source: d.source, precise: d.precise === true };
-  } catch { shore = { lines: [], segs: [], grid: new Map(), source: null, precise: false }; }
+    const water = (d.water || []).map(w => {
+      const r = w.rings[0];
+      let x0 = 180, x1 = -180, y0 = 90, y1 = -90;
+      for (const [x, y] of r) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
+      return { ...w, bbox: [x0, y0, x1, y1] };
+    });
+    shore = { lines: d.lines, segs, grid, water, source: d.source, precise: d.precise === true };
+  } catch { shore = { lines: [], segs: [], grid: new Map(), water: [], source: null, precise: false }; }
   return shore;
 }
 export const shoreData = () => shore;
@@ -80,4 +86,48 @@ export function snapPinsToShore(locs) {
       loc.pinSnapped = true;
     }
   }
+}
+
+function inRing(x, y, ring) {
+  let c = false;
+  for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+    const [xi, yi] = ring[i], [xj, yj] = ring[j];
+    if (((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi)) c = !c;
+  }
+  return c;
+}
+
+/** River / estuary / inlet water area containing the point (within `padKm`), or null. */
+export function riverWaterAt(lat, lng, padKm = 0) {
+  if (!shore?.water?.length) return null;
+  const pad = padKm / 111;
+  for (const w of shore.water) {
+    const [x0, y0, x1, y1] = w.bbox;
+    if (lng < x0 - pad || lng > x1 + pad || lat < y0 - pad || lat > y1 + pad) continue;
+    if (inRing(lng, lat, w.rings[0])) return w;
+    if (padKm > 0) {   // near the edge (jetty pins sit on the bank)
+      const k = Math.cos(lat * Math.PI / 180), r = w.rings[0];
+      for (let i = 0; i < r.length - 1; i++) {
+        const [ax, ay] = r[i], [bx, by] = r[i + 1];
+        const vx = (bx - ax) * k, vy = by - ay, px = (lng - ax) * k, py = lat - ay;
+        const t = Math.max(0, Math.min(1, (px * vx + py * vy) / ((vx * vx + vy * vy) || 1e-18)));
+        if (Math.hypot(px - t * vx, py - t * vy) * 111 <= padKm) return w;
+      }
+    }
+  }
+  return null;
+}
+export const hasRiverWater = () => !!shore?.water?.length;
+
+// Rules that apply in rivers/estuaries (DPIRD). Shown on estuary spots and taps.
+export function estuaryNotes(lat, lng, name = '') {
+  const notes = ['Spearfishing is banned in all WA rivers, estuaries, creeks and inland waters.'];
+  const swan = /swan|canning/i.test(name) || (lat > -32.12 && lat < -31.75 && lng > 115.73 && lng < 116.05);
+  const mandurah = /peel|harvey|mandurah/i.test(name) || (lat > -32.85 && lat < -32.45 && lng > 115.65 && lng < 115.85);
+  if (swan || mandurah) notes.push('Wire trace (shark fishing gear) is banned in these waters.');
+  if (lat > -33.5 && lat < -31.6) {   // Swan River to Minninup Beach
+    const m = new Date().getMonth() + 1;
+    notes.push(`Crabbing in rivers and estuaries from the Swan River to Minninup Beach is closed 1 September – 30 November${m >= 9 && m <= 11 ? ' (closed right now)' : ''}.`);
+  }
+  return notes;
 }

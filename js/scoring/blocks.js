@@ -35,6 +35,9 @@ export function checkBlocks(loc, hour, activity, ctx = {}) {
     }
   }
 
+  // Legal: spearfishing is prohibited in all inland waters, creeks, estuaries and rivers (DPIRD)
+  if (loc.estuary && activity === 'spear') out.push({ kind: 'legal', reason: 'Spearfishing is banned in WA rivers, estuaries, creeks and inland waters.' });
+
   // Legal: active closures from rules
   const now = hour.t;
   for (const r of (ctx.rules || [])) {
