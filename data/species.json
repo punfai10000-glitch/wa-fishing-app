@@ -1,55 +1,957 @@
 {
-  "_note": "DRAFT. Identification hints are general field marks entered for the prototype and must be reviewed against an authoritative WA fish guide before launch. Regulations live in rules.json, never here.",
-  "id_questions": [
+ "_note": "DRAFT. Size and bag limits were extracted from DPIRD's Recreational fishing guide 2026 and the 'New statewide finfish size and bag limits from 1 June 2026' sheet on 25 Nov 2026 and must be spot-checked against rules.fish.wa.gov.au. Official rules always prevail. ID hints are general field marks pending review. Photos load from Wikipedia/Wikimedia Commons at runtime with a link to each image's author and licence.",
+ "id_questions": [
+  {
+   "id": "shape",
+   "text": "What shape is it?",
+   "options": [
     {
-      "id": "shape",
-      "text": "What shape is it?",
-      "options": [
-        { "id": "slender", "label": "Long and slender" },
-        { "id": "torpedo", "label": "Streamlined, torpedo-like" },
-        { "id": "deep_oval", "label": "Deep, oval body" },
-        { "id": "flat", "label": "Flattened, eyes on top" },
-        { "id": "squid", "label": "Squid or cuttlefish" }
-      ]
+     "id": "slender",
+     "label": "Long and slender"
     },
     {
-      "id": "marks",
-      "text": "Main colour or markings?",
-      "options": [
-        { "id": "plain_silver", "label": "Mostly plain silver" },
-        { "id": "spots", "label": "Spots or speckles" },
-        { "id": "stripes", "label": "Lines or stripes" },
-        { "id": "colourful", "label": "Pink, blue or green tones" },
-        { "id": "dark", "label": "Dark, bronze or brown" }
-      ]
+     "id": "torpedo",
+     "label": "Streamlined, torpedo-like"
     },
     {
-      "id": "feature",
-      "text": "Any stand-out feature?",
-      "options": [
-        { "id": "beak", "label": "Long beak-like lower jaw" },
-        { "id": "teeth", "label": "Sharp, obvious teeth" },
-        { "id": "gill_spot", "label": "Dark spot near gill cover" },
-        { "id": "big_head", "label": "Big head, large mouth" },
-        { "id": "squid_fins", "label": "Fin running the body length" },
-        { "id": "none", "label": "None / not sure" }
-      ]
+     "id": "deep_oval",
+     "label": "Deep, oval body"
+    },
+    {
+     "id": "flat",
+     "label": "Flattened, eyes on top"
+    },
+    {
+     "id": "squid",
+     "label": "Squid or cuttlefish"
+    },
+    {
+     "id": "ray",
+     "label": "Ray (flat disc, whip tail)"
+    },
+    {
+     "id": "seadragon",
+     "label": "Seahorse-like (seadragon)"
+    },
+    {
+     "id": "shark",
+     "label": "Shark"
     }
-  ],
-  "species": [
-    { "id": "australian_herring", "name": "Australian herring", "aka": ["tommy ruff"], "scientific": "Arripis georgianus", "activities": ["shore"], "traits": { "shape": ["slender", "torpedo"], "marks": ["plain_silver", "spots"], "feature": [] }, "id_tips": "Small silvery fish with a large eye; often faint golden-brown speckles along the back.", "rule_ids": [] },
-    { "id": "australian_salmon", "name": "Western Australian salmon", "aka": ["salmon"], "scientific": "Arripis truttaceus", "activities": ["shore", "spear"], "traits": { "shape": ["torpedo"], "marks": ["plain_silver", "spots"], "feature": [] }, "id_tips": "Large, powerful torpedo-shaped fish; greenish back. Easily confused with herring when small — compare size and eye.", "rule_ids": [] },
-    { "id": "tailor", "name": "Tailor", "aka": [], "scientific": "Pomatomus saltatrix", "activities": ["shore"], "traits": { "shape": ["torpedo", "slender"], "marks": ["plain_silver"], "feature": ["teeth"] }, "id_tips": "Blue-green back, silver sides, forked tail and sharp teeth — handle carefully.", "rule_ids": [] },
-    { "id": "king_george_whiting", "name": "King George whiting", "aka": [], "scientific": "Sillaginodes punctatus", "activities": ["shore", "spear"], "traits": { "shape": ["slender"], "marks": ["spots"], "feature": [] }, "id_tips": "Slender with a pointed snout; brown-bronze spots scattered on the back.", "rule_ids": [] },
-    { "id": "southern_garfish", "name": "Southern garfish", "aka": ["gardie"], "scientific": "Hyporhamphus melanochir", "activities": ["shore"], "traits": { "shape": ["slender"], "marks": ["plain_silver", "stripes"], "feature": ["beak"] }, "id_tips": "Very slender; lower jaw extends into a long beak; silver side stripe. Rules for this species changed recently — check DPIRD.", "rule_ids": [] },
-    { "id": "skipjack_trevally", "name": "Skipjack trevally", "aka": ["skippy", "silver trevally"], "scientific": "Pseudocaranx georgianus", "activities": ["shore", "spear"], "traits": { "shape": ["deep_oval"], "marks": ["plain_silver", "stripes"], "feature": ["gill_spot"] }, "id_tips": "Silver, fairly deep body, often a yellowish stripe along the side and a dark spot on the gill cover.", "rule_ids": [] },
-    { "id": "pink_snapper", "name": "Pink snapper", "aka": ["snapper"], "scientific": "Chrysophrys auratus", "activities": ["shore", "spear"], "traits": { "shape": ["deep_oval"], "marks": ["colourful", "spots"], "feature": ["big_head"] }, "id_tips": "Pink body with small blue spots; large adults develop a hump on the head. Demersal scalefish rules apply.", "rule_ids": ["rule-west-coast-demersal-landbased"] },
-    { "id": "wa_dhufish", "name": "WA dhufish", "aka": ["dhuie"], "scientific": "Glaucosoma hebraicum", "activities": ["shore", "spear"], "traits": { "shape": ["deep_oval"], "marks": ["plain_silver", "stripes"], "feature": ["big_head"] }, "id_tips": "Deep silver-grey body, large mouth, dark bar through the eye. Demersal scalefish rules apply.", "rule_ids": ["rule-west-coast-demersal-landbased"] },
-    { "id": "black_bream", "name": "Black bream", "aka": [], "scientific": "Acanthopagrus butcheri", "activities": ["shore"], "traits": { "shape": ["deep_oval"], "marks": ["dark"], "feature": [] }, "id_tips": "Deep bronze-to-dark body; mainly estuaries and rivers.", "rule_ids": [] },
-    { "id": "tarwhine", "name": "Tarwhine", "aka": [], "scientific": "Rhabdosargus sarba", "activities": ["shore"], "traits": { "shape": ["deep_oval"], "marks": ["plain_silver", "stripes"], "feature": [] }, "id_tips": "Silver with thin golden horizontal lines and yellowish lower fins.", "rule_ids": [] },
-    { "id": "flathead", "name": "Flathead (various)", "aka": [], "scientific": "Platycephalidae", "activities": ["shore", "spear"], "traits": { "shape": ["flat"], "marks": ["spots", "dark"], "feature": ["big_head"] }, "id_tips": "Flattened head and body, eyes on top, sharp spines on the gill cover — handle carefully.", "rule_ids": [] },
-    { "id": "mulloway", "name": "Mulloway", "aka": ["jewfish"], "scientific": "Argyrosomus japonicus", "activities": ["shore", "spear"], "traits": { "shape": ["torpedo"], "marks": ["plain_silver", "dark"], "feature": ["big_head"] }, "id_tips": "Large silvery-bronze fish with a big mouth and a lateral line that runs into the tail.", "rule_ids": [] },
-    { "id": "western_blue_groper", "name": "Western blue groper", "aka": ["groper"], "scientific": "Achoerodus gouldii", "activities": ["spear"], "traits": { "shape": ["deep_oval"], "marks": ["colourful", "dark"], "feature": ["big_head"] }, "id_tips": "Very large wrasse; big males are blue, smaller fish green-brown. Check current rules before taking.", "rule_ids": [] },
-    { "id": "southern_calamari", "name": "Southern calamari", "aka": ["squid"], "scientific": "Sepioteuthis australis", "activities": ["shore", "spear"], "traits": { "shape": ["squid"], "marks": [], "feature": ["squid_fins"] }, "id_tips": "Squid with a fin running most of the body length (cuttlefish have a hard internal shell).", "rule_ids": [] }
-  ]
+   ]
+  },
+  {
+   "id": "marks",
+   "text": "Main colour or markings?",
+   "options": [
+    {
+     "id": "plain_silver",
+     "label": "Mostly plain silver"
+    },
+    {
+     "id": "spots",
+     "label": "Spots or speckles"
+    },
+    {
+     "id": "stripes",
+     "label": "Lines or stripes"
+    },
+    {
+     "id": "colourful",
+     "label": "Pink, blue or green tones"
+    },
+    {
+     "id": "dark",
+     "label": "Dark, bronze or brown"
+    }
+   ]
+  },
+  {
+   "id": "feature",
+   "text": "Any stand-out feature?",
+   "options": [
+    {
+     "id": "beak",
+     "label": "Long beak-like lower jaw"
+    },
+    {
+     "id": "teeth",
+     "label": "Sharp, obvious teeth"
+    },
+    {
+     "id": "gill_spot",
+     "label": "Dark spot near gill cover"
+    },
+    {
+     "id": "big_head",
+     "label": "Big head, large mouth"
+    },
+    {
+     "id": "squid_fins",
+     "label": "Fin running the body length"
+    },
+    {
+     "id": "none",
+     "label": "None / not sure"
+    }
+   ]
+  }
+ ],
+ "species": [
+  {
+   "id": "australian_herring",
+   "name": "Australian herring",
+   "aka": [
+    "tommy ruff"
+   ],
+   "scientific": "Arripis georgianus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender",
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small silvery fish with a large eye; often faint golden-brown speckles along the back.",
+   "rule_ids": [],
+   "wiki": "Australian_herring",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 20,
+     "note": "Listed under 'all other finfish'"
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "australian_salmon",
+   "name": "Western Australian salmon",
+   "aka": [
+    "salmon"
+   ],
+   "scientific": "Arripis truttaceus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Large, powerful torpedo-shaped fish; greenish back. Easily confused with herring when small — compare size and eye.",
+   "rule_ids": [],
+   "wiki": "Arripis_truttaceus",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 4
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "tailor",
+   "name": "Tailor",
+   "aka": [],
+   "scientific": "Pomatomus saltatrix",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo",
+     "slender"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Blue-green back, silver sides, forked tail and sharp teeth — handle carefully.",
+   "rule_ids": [],
+   "wiki": "Bluefish",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Only 2 fish over 500 mm"
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "king_george_whiting",
+   "name": "King George whiting",
+   "aka": [],
+   "scientific": "Sillaginodes punctatus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Slender with a pointed snout; brown-bronze spots scattered on the back.",
+   "rule_ids": [],
+   "wiki": "King_George_whiting",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "280 mm",
+     "bag": 12
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "southern_garfish",
+   "name": "Southern garfish",
+   "aka": [
+    "gardie"
+   ],
+   "scientific": "Hyporhamphus melanochir",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "plain_silver",
+     "stripes"
+    ],
+    "feature": [
+     "beak"
+    ]
+   },
+   "id_tips": "Very slender; lower jaw extends into a long beak; silver side stripe. Rules for this species changed recently — check DPIRD.",
+   "rule_ids": [],
+   "wiki": "Hyporhamphus_melanochir",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "Listed as 'garfish' under 'all other finfish'"
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "skipjack_trevally",
+   "name": "Skipjack trevally",
+   "aka": [
+    "skippy",
+    "silver trevally"
+   ],
+   "scientific": "Pseudocaranx georgianus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "plain_silver",
+     "stripes"
+    ],
+    "feature": [
+     "gill_spot"
+    ]
+   },
+   "id_tips": "Silver, fairly deep body, often a yellowish stripe along the side and a dark spot on the gill cover.",
+   "rule_ids": [],
+   "wiki": "Pseudocaranx_georgianus",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Listed under trevally and queenfish"
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "pink_snapper",
+   "name": "Pink snapper",
+   "aka": [
+    "snapper"
+   ],
+   "scientific": "Chrysophrys auratus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Pink body with small blue spots; large adults develop a hump on the head. Demersal scalefish rules apply.",
+   "rule_ids": [
+    "rule-west-coast-demersal-landbased"
+   ],
+   "wiki": "Australasian_snapper",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "West Coast (Lancelin to Black Point, east of Augusta)",
+     "min_size": "500 mm",
+     "bag": 2,
+     "note": "Demersal: land-based mixed demersal bag of 2. Boat fishing for demersals is closed in the West Coast bioregion."
+    },
+    {
+     "where": "South Coast (Denmark, Albany, Esperance)",
+     "min_size": "450 mm",
+     "bag": 2,
+     "note": "Demersal: mixed demersal bag of 4."
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
+     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "wa_dhufish",
+   "name": "WA dhufish",
+   "aka": [
+    "dhuie"
+   ],
+   "scientific": "Glaucosoma hebraicum",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "plain_silver",
+     "stripes"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Deep silver-grey body, large mouth, dark bar through the eye. Demersal scalefish rules apply.",
+   "rule_ids": [
+    "rule-west-coast-demersal-landbased"
+   ],
+   "wiki": "West_Australian_dhufish",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "West Coast",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Within the land-based mixed demersal bag of 2. Land-based spearfishing for WA dhufish is not permitted."
+    },
+    {
+     "where": "South Coast",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "From 1 June 2026. Within the mixed demersal bag of 4."
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
+     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "spear_banned_landbased": true
+  },
+  {
+   "id": "black_bream",
+   "name": "Black bream",
+   "aka": [],
+   "scientific": "Acanthopagrus butcheri",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Deep bronze-to-dark body; mainly estuaries and rivers.",
+   "rule_ids": [],
+   "wiki": "Acanthopagrus_butcheri",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 6,
+     "note": "Only 2 over 400 mm in the Swan and Canning rivers"
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "tarwhine",
+   "name": "Tarwhine",
+   "aka": [],
+   "scientific": "Rhabdosargus sarba",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "plain_silver",
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Silver with thin golden horizontal lines and yellowish lower fins.",
+   "rule_ids": [],
+   "wiki": "Rhabdosargus_sarba",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 6,
+     "note": "Listed together with black bream — check whether the bag is combined"
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "flathead",
+   "name": "Flathead (various)",
+   "aka": [],
+   "scientific": "Platycephalidae",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "spots",
+     "dark"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Flattened head and body, eyes on top, sharp spines on the gill cover — handle carefully.",
+   "rule_ids": [],
+   "wiki": "Platycephalidae",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "mulloway",
+   "name": "Mulloway",
+   "aka": [
+    "jewfish"
+   ],
+   "scientific": "Argyrosomus japonicus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver",
+     "dark"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Large silvery-bronze fish with a big mouth and a lateral line that runs into the tail.",
+   "rule_ids": [],
+   "wiki": "Argyrosomus_japonicus",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "500 mm",
+     "bag": 2
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_blue_groper",
+   "name": "Western blue groper",
+   "aka": [
+    "groper"
+   ],
+   "scientific": "Achoerodus gouldii",
+   "activities": [
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful",
+     "dark"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Very large wrasse; big males are blue, smaller fish green-brown. Check current rules before taking.",
+   "rule_ids": [],
+   "wiki": "Achoerodus_gouldii",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "500 mm",
+     "bag": 1,
+     "note": "Demersal scalefish — counts toward the mixed demersal bag."
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
+     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "southern_calamari",
+   "name": "Southern calamari",
+   "aka": [
+    "squid"
+   ],
+   "scientific": "Sepioteuthis australis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "squid"
+    ],
+    "marks": [],
+    "feature": [
+     "squid_fins"
+    ]
+   },
+   "id_tips": "Squid with a fin running most of the body length (cuttlefish have a hard internal shell).",
+   "rule_ids": [],
+   "wiki": "Sepioteuthis_australis",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 15,
+     "note": "Combined limit for squid, cuttlefish and octopus"
+    }
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "black_stingray",
+   "name": "Black stingray",
+   "aka": [],
+   "scientific": "Bathytoshia lata",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "status": "protected",
+   "protection": "Recreationally protected in the West Coast and South Coast bioregions — you must not take it. Release immediately.",
+   "traits": {
+    "shape": [
+     "ray"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Large dark ray with a long whip tail and venomous spine. Keep clear of the tail.",
+   "wiki": "Bathytoshia_lata",
+   "limits": [],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — Protected species",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "rule_ids": []
+  },
+  {
+   "id": "smooth_stingray",
+   "name": "Smooth stingray",
+   "aka": [],
+   "scientific": "Bathytoshia brevicaudata",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "status": "protected",
+   "protection": "Recreationally protected in the West Coast and South Coast bioregions — you must not take it. Release immediately.",
+   "traits": {
+    "shape": [
+     "ray"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Very large grey-brown ray, often with small white spots near the head; venomous tail spine.",
+   "wiki": "Bathytoshia_brevicaudata",
+   "limits": [],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — Protected species",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "rule_ids": []
+  },
+  {
+   "id": "leafy_seadragon",
+   "name": "Leafy seadragon",
+   "aka": [],
+   "scientific": "Phycodurus eques",
+   "activities": [
+    "spear"
+   ],
+   "status": "protected",
+   "protection": "Totally protected — must not be taken or disturbed.",
+   "traits": {
+    "shape": [
+     "seadragon"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Seahorse relative covered in leaf-like flaps; drifts in weed.",
+   "wiki": "Leafy_seadragon",
+   "limits": [],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — Protected species",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "rule_ids": []
+  },
+  {
+   "id": "common_seadragon",
+   "name": "Common (weedy) seadragon",
+   "aka": [
+    "weedy seadragon"
+   ],
+   "scientific": "Phyllopteryx taeniolatus",
+   "activities": [
+    "spear"
+   ],
+   "status": "protected",
+   "protection": "Totally protected — must not be taken or disturbed.",
+   "traits": {
+    "shape": [
+     "seadragon"
+    ],
+    "marks": [
+     "colourful",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Slender seahorse relative, red-orange with yellow spots and small leafy appendages.",
+   "wiki": "Common_seadragon",
+   "limits": [],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — Protected species",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "rule_ids": []
+  },
+  {
+   "id": "grey_nurse_shark",
+   "name": "Grey nurse shark",
+   "aka": [],
+   "scientific": "Carcharias taurus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "status": "protected",
+   "protection": "Totally protected — release immediately.",
+   "traits": {
+    "shape": [
+     "shark"
+    ],
+    "marks": [
+     "plain_silver",
+     "spots"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Bulky grey shark with ragged visible teeth and two similar-sized dorsal fins.",
+   "wiki": "Sand_tiger_shark",
+   "limits": [],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — Protected species",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "rule_ids": []
+  },
+  {
+   "id": "white_shark",
+   "name": "White shark",
+   "aka": [
+    "great white"
+   ],
+   "scientific": "Carcharodon carcharias",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "status": "protected",
+   "protection": "Totally protected. Report sightings to Water Police (9442 8600) and check SharkSmart.",
+   "traits": {
+    "shape": [
+     "shark"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Large shark, grey above and white below with a sharp line between.",
+   "wiki": "Great_white_shark",
+   "limits": [],
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD — Protected species",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "rule_ids": []
+  },
+  {
+   "id": "blue_ringed_octopus",
+   "name": "Blue-ringed octopus",
+   "aka": [],
+   "scientific": "Hapalochlaena",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "status": "danger",
+   "protection": "Venomous — a bite can be fatal. Don't touch or pick up small octopuses in rock pools or shells. If bitten: call 000, start rescue breathing/CPR if breathing stops.",
+   "traits": {
+    "shape": [
+     "squid"
+    ],
+    "marks": [
+     "colourful",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small (palm-sized) octopus; blue rings glow when it's disturbed. Found in rock pools and under rocks around southern WA.",
+   "wiki": "Blue-ringed_octopus",
+   "limits": [],
+   "sources": [
+    {
+     "name": "Healthdirect — blue-ringed octopus",
+     "url": "https://www.healthdirect.gov.au/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "rule_ids": []
+  }
+ ]
 }

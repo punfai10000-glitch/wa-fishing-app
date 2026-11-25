@@ -1,15 +1,202 @@
 {
   "sources": [
-    { "id": "open-meteo-forecast", "name": "Open-Meteo Weather Forecast API", "type": "forecast", "licence": "CC BY 4.0 (free non-commercial tier)", "attribution": "Weather data by Open-Meteo.com", "url": "https://open-meteo.com/", "status": "connected" },
-    { "id": "open-meteo-marine", "name": "Open-Meteo Marine API", "type": "forecast / modelled", "licence": "CC BY 4.0 (free non-commercial tier)", "attribution": "Marine data by Open-Meteo.com", "url": "https://open-meteo.com/en/docs/marine-weather-api", "status": "connected" },
-    { "id": "esri-imagery", "name": "Esri World Imagery", "type": "base map", "licence": "Esri terms of use (free ArcGIS Location Platform tier)", "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community", "url": "https://location.arcgis.com/", "status": "needs API key" },
-    { "id": "osm", "name": "OpenStreetMap", "type": "base map / location reference", "licence": "ODbL", "attribution": "© OpenStreetMap contributors", "url": "https://www.openstreetmap.org/copyright", "status": "connected (fallback map)" },
-    { "id": "dot-buoys", "name": "WA Dept of Transport wave buoys (via AODN)", "type": "measured", "licence": "CC BY 4.0", "attribution": "Department of Transport WA; Australian Ocean Data Network", "url": "https://transport.wa.gov.au/imarine/wave-data-real-time.asp", "status": "not connected yet (needs data pipeline)" },
-    { "id": "dot-tides", "name": "WA Dept of Transport tide gauges", "type": "measured", "licence": "CC BY (per AODN record)", "attribution": "Department of Transport WA", "url": "https://transport.wa.gov.au/imarine/tide-data-real-time.asp", "status": "not connected yet (needs data pipeline)" },
-    { "id": "bom-warnings", "name": "Bureau of Meteorology warnings (anonymous FTP)", "type": "official warning", "licence": "© Bureau of Meteorology", "attribution": "© Bureau of Meteorology", "url": "https://www.bom.gov.au/catalogue/data-feeds.shtml", "status": "not connected yet (needs data pipeline)" },
-    { "id": "dbca-zones", "name": "DBCA Legislated Lands and Waters", "type": "authoritative boundaries", "licence": "CC BY-SA 4.0", "attribution": "Department of Biodiversity, Conservation and Attractions", "url": "https://catalogue.data.wa.gov.au/dataset/dbca-legislated-lands-and-waters", "status": "not loaded yet" },
-    { "id": "dpird-rules", "name": "DPIRD recreational fishing rules", "type": "regulation", "licence": "© State of Western Australia — restated with attribution", "attribution": "Department of Primary Industries and Regional Development", "url": "https://rules.fish.wa.gov.au", "status": "manual" },
-    { "id": "suncalc", "name": "SunCalc", "type": "calculated", "licence": "BSD-2-Clause", "attribution": "SunCalc by Vladimir Agafonkin", "url": "https://github.com/mourner/suncalc", "status": "built in" },
-    { "id": "src-own-knowledge", "name": "Curator knowledge (pilot, unverified)", "type": "curated", "licence": "Project data (ODbL)", "attribution": "WA Fishing Intelligence contributors", "url": "", "status": "pilot" }
+    {
+      "id": "open-meteo-forecast",
+      "name": "Open-Meteo Weather Forecast API",
+      "type": "forecast",
+      "licence": "CC BY 4.0 (free non-commercial tier)",
+      "attribution": "Weather data by Open-Meteo.com",
+      "url": "https://open-meteo.com/",
+      "status": "connected"
+    },
+    {
+      "id": "open-meteo-marine",
+      "name": "Open-Meteo Marine API",
+      "type": "forecast / modelled",
+      "licence": "CC BY 4.0 (free non-commercial tier)",
+      "attribution": "Marine data by Open-Meteo.com",
+      "url": "https://open-meteo.com/en/docs/marine-weather-api",
+      "status": "connected"
+    },
+    {
+      "id": "esri-imagery",
+      "name": "Esri World Imagery",
+      "type": "base map",
+      "licence": "Esri terms of use (free ArcGIS Location Platform tier)",
+      "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+      "url": "https://location.arcgis.com/",
+      "status": "needs API key"
+    },
+    {
+      "id": "eox",
+      "name": "EOxCloudless Sentinel-2 2024",
+      "type": "satellite base map",
+      "licence": "Free for non-commercial use with attribution",
+      "attribution": "EOxCloudless https://cloudless.eox.at by EOX IT Services GmbH (Contains modified Copernicus Sentinel data 2024)",
+      "url": "https://cloudless.eox.at/license-non-commercial",
+      "status": "connected"
+    },
+    {
+      "id": "gebco",
+      "name": "GEBCO bathymetry (WMS)",
+      "type": "modelled depth grid (~450 m)",
+      "licence": "Free with attribution",
+      "attribution": "GEBCO Compilation Group",
+      "url": "https://www.gebco.net/",
+      "status": "connected"
+    },
+    {
+      "id": "seamap",
+      "name": "Seamap Australia National Benthic Habitat Layer (WMS)",
+      "type": "mapped seabed habitat",
+      "licence": "Licence not stated on data.gov.au record \u2014 to confirm with Seamap Australia",
+      "attribution": "Seamap Australia, University of Tasmania",
+      "url": "https://seamapaustralia.org",
+      "status": "connected (licence to confirm)"
+    },
+    {
+      "id": "osm-amenities",
+      "name": "OpenStreetMap \u2014 tackle shops, servos, toilets (weekly extract)",
+      "type": "community data",
+      "licence": "ODbL",
+      "attribution": "\u00a9 OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/copyright",
+      "status": "weekly GitHub Action"
+    },
+    {
+      "id": "wikimedia",
+      "name": "Wikipedia / Wikimedia Commons species photos",
+      "type": "reference photos",
+      "licence": "Per image (shown on each photo's Commons page)",
+      "attribution": "Wikimedia Commons contributors",
+      "url": "https://commons.wikimedia.org",
+      "status": "connected"
+    },
+    {
+      "id": "visibility-estimate",
+      "name": "Underwater visibility estimate",
+      "type": "estimated",
+      "licence": "Project method",
+      "attribution": "Calculated from recent swell, onshore wind and rain",
+      "url": "",
+      "status": "estimate only \u2014 not measured"
+    },
+    {
+      "id": "osm",
+      "name": "OpenStreetMap",
+      "type": "base map / location reference",
+      "licence": "ODbL",
+      "attribution": "\u00a9 OpenStreetMap contributors",
+      "url": "https://www.openstreetmap.org/copyright",
+      "status": "connected (fallback map)"
+    },
+    {
+      "id": "dot-buoys",
+      "name": "WA Dept of Transport wave buoys (via AODN)",
+      "type": "measured",
+      "licence": "CC BY 4.0",
+      "attribution": "Department of Transport WA; Australian Ocean Data Network",
+      "url": "https://transport.wa.gov.au/imarine/wave-data-real-time.asp",
+      "status": "hourly via GitHub Action (live-data branch)"
+    },
+    {
+      "id": "dot-tides",
+      "name": "WA Dept of Transport tide gauges",
+      "type": "measured",
+      "licence": "CC BY (per AODN record)",
+      "attribution": "Department of Transport WA",
+      "url": "https://transport.wa.gov.au/imarine/tide-data-real-time.asp",
+      "status": "not connected yet (needs data pipeline)"
+    },
+    {
+      "id": "bom-warnings",
+      "name": "Bureau of Meteorology weather stations (IDW60920, anonymous FTP)",
+      "type": "measured",
+      "licence": "\u00a9 Bureau of Meteorology",
+      "attribution": "\u00a9 Bureau of Meteorology",
+      "url": "https://www.bom.gov.au/catalogue/data-feeds.shtml",
+      "status": "hourly via GitHub Action (live-data branch)"
+    },
+    {
+      "id": "dbca-zones",
+      "name": "DBCA Legislated Lands and Waters",
+      "type": "authoritative boundaries",
+      "licence": "CC BY-SA 4.0",
+      "attribution": "Department of Biodiversity, Conservation and Attractions",
+      "url": "https://catalogue.data.wa.gov.au/dataset/dbca-legislated-lands-and-waters",
+      "status": "weekly via GitHub Action (fetch_zones.py)"
+    },
+    {
+      "id": "dpird-rules",
+      "name": "DPIRD recreational fishing rules",
+      "type": "regulation",
+      "licence": "\u00a9 State of Western Australia \u2014 restated with attribution",
+      "attribution": "Department of Primary Industries and Regional Development",
+      "url": "https://rules.fish.wa.gov.au",
+      "status": "manual"
+    },
+    {
+      "id": "suncalc",
+      "name": "SunCalc",
+      "type": "calculated",
+      "licence": "BSD-2-Clause",
+      "attribution": "SunCalc by Vladimir Agafonkin",
+      "url": "https://github.com/mourner/suncalc",
+      "status": "built in"
+    },
+    {
+      "id": "src-own-knowledge",
+      "name": "Curator knowledge (pilot, unverified)",
+      "type": "curated",
+      "licence": "Project data (ODbL)",
+      "attribution": "WA Fishing Intelligence contributors",
+      "url": "",
+      "status": "pilot"
+    },
+    {
+      "id": "asid",
+      "name": "Australian Shark-Incident Database",
+      "type": "historical records",
+      "licence": "Non-commercial use with attribution",
+      "attribution": "Australian Shark-Incident Database, Taronga Conservation Society Australia (with Flinders University & NSW DPI)",
+      "url": "https://github.com/cjabradshaw/AustralianSharkIncidentDatabase",
+      "status": "bundled (records to 2022)"
+    },
+    {
+      "id": "inat",
+      "name": "iNaturalist (research-grade observations)",
+      "type": "community records",
+      "licence": "Per observation (mostly CC BY-NC)",
+      "attribution": "iNaturalist contributors",
+      "url": "https://www.inaturalist.org",
+      "status": "connected"
+    },
+    {
+      "id": "reddit",
+      "name": "Reddit public posts (titles & links only)",
+      "type": "community, unverified",
+      "licence": "Linked, not copied",
+      "attribution": "Reddit",
+      "url": "https://www.reddit.com",
+      "status": "weekly \u2014 needs Reddit app key"
+    },
+    {
+      "id": "natural-earth",
+      "name": "Natural Earth 10 m coastline",
+      "type": "map data",
+      "licence": "Public domain",
+      "attribution": "Natural Earth",
+      "url": "https://www.naturalearthdata.com",
+      "status": "bundled"
+    },
+    {
+      "id": "windy",
+      "name": "Windy.com animated map (embed)",
+      "type": "forecast animation",
+      "licence": "Free website embed with Windy logo",
+      "attribution": "Windy.com",
+      "url": "https://www.windy.com",
+      "status": "connected"
+    }
   ]
 }

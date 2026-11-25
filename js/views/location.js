@@ -1,10 +1,14 @@
-import { state, evalFor } from '../app.js';
+import { state, evalFor, getLoc } from '../app.js';
 import { REGIONS, TYPE_LABELS } from '../config.js';
 import { esc, pill, windowText, confText, typeTag } from '../ui.js';
 import { fmtWind, fmtHeight, fmtTemp, fmtHour, fmtDay, fmtDateTime, fmtAge } from '../units.js';
 import { degToCompass } from '../scoring/geo.js';
 import { band } from '../scoring/score.js';
 import * as store from '../storage.js';
+import { visibilityEstimate } from '../scoring/score.js';
+import { rememberLiveSpot, accessCard, fillAccessFor, measuredCard } from './live.js';
+import { legalStatus } from '../zones.js';
+import { communityCard, sightingsCard, fillSightings } from './community.js';
 
 const val = (v, f, type) => v == null ? `Unknown ${typeTag('unknown')}` : `${f(v)} ${typeTag(type)}`;
 
@@ -20,7 +24,7 @@ function scoreBox(title, ev) {
 
 export function renderLocation(view, rawId) {
   const id = decodeURIComponent(rawId || '');
-  const loc = state.data.locations.find(l => l.id === id);
+  const loc = getLoc(id);
   if (!loc) { view.innerHTML = '<div class="card">Spot not found. <a href="#/spots">Back to spots</a></div>'; return; }
   const shore = evalFor(loc, 'shore');
   const spear = evalFor(loc, 'spear');
@@ -28,6 +32,9 @@ export function renderLocation(view, rawId) {
   const h = primary.current?.hour ?? state.cond.byId[loc.id]?.[0] ?? {};
   const t = h.types || {};
   const fav = store.favourites().has(loc.id);
+  rememberLiveSpot(loc.id);
+  const spearH = spear.current?.hour;
+  const vis = spearH ? visibilityEstimate(spearH, loc) : null;
   const isRock = loc.type === 'rock_platform';
   const region = REGIONS[loc.region];
 
@@ -40,7 +47,7 @@ export function renderLocation(view, rawId) {
       <a class="btn ghost" href="#/${sessionStorage.getItem('lastTab') || 'spots'}" aria-label="Back">←</a>
       <div>
         <h1 style="margin:0">${esc(loc.name)}</h1>
-        <div class="muted small">${esc(region?.name ?? loc.region)} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)} · ${esc(loc.confidence)} location ${loc.status === 'demo' ? '<span class="tag demo">unverified details</span>' : ''}</div>
+        <div class="muted small">${esc(region?.name ?? loc.region)} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)} · ${esc(loc.confidence)} location ${loc.status === 'demo' ? '<span class="tag demo">unverified details</span>' : ''}${loc.osm ? '<span class="tag demo">from OpenStreetMap — not yet checked</span>' : ''}</div>
       </div>
       <span class="spacer"></span>
       <button class="icon-btn" id="fav" aria-pressed="${fav}" aria-label="${fav ? 'Remove from favourites' : 'Add to favourites'}">${fav ? '★' : '☆'}</button>
@@ -54,6 +61,7 @@ export function renderLocation(view, rawId) {
       <div class="scores">${scoreBox('Shore fishing', shore)}${scoreBox('Spearfishing', spear)}</div>
       ${primary.explanation ? `<p class="small" style="margin:10px 0 0">${esc(primary.explanation)}</p>` : ''}
       <p class="muted small" style="margin:8px 0 0">Scores rate environmental suitability, not the chance of catching fish.</p>
+      <p style="margin:8px 0 0"><a class="btn" href="#/live/${encodeURIComponent(loc.id)}">Open live summary</a></p>
     </div>
 
     <div class="card">
@@ -65,15 +73,15 @@ export function renderLocation(view, rawId) {
         <dt>Wind waves</dt><dd>${val(h.wind_wave_height, fmtHeight, t.wind_wave_height)}</dd>
         <dt>Tide</dt><dd>${h.tide_rate == null ? val(null) : `${h.tide_rate > 0.005 ? 'Rising' : h.tide_rate < -0.005 ? 'Falling' : 'Slack'} ${typeTag('modelled')}`}</dd>
         <dt>Sea temp</dt><dd>${val(h.sst, fmtTemp, t.sst)}</dd>
-        <dt>Visibility</dt><dd>Unknown ${typeTag('unknown')} <span class="muted small">no reliable source yet</span></dd>
-        <dt>Measured swell</dt><dd>Not connected yet ${typeTag('unknown')}</dd>
+        <dt>Visibility</dt><dd>${vis ? `${vis.label[0].toUpperCase() + vis.label.slice(1)} ${typeTag('estimated')} <span class="muted small">from recent swell, wind &amp; rain — not measured</span>` : `Unknown ${typeTag('unknown')}`}</dd>
       </dl>
       <p class="muted small" style="margin:8px 0 0">${state.cond.fetchedAt ? `Forecast updated ${fmtAge(state.cond.fetchedAt)} (${fmtDateTime(state.cond.fetchedAt)})` : 'No forecast loaded'}</p>
     </div>
 
+    ${measuredCard(loc)}
     <div class="card">
       <h2>Legal status</h2>
-      ${state.data.zones.loaded ? '' : '<div class="notice"><strong>Not yet checked.</strong> Marine park and sanctuary zone data isn\'t loaded in this version. Check <a href="https://exploreparks.dbca.wa.gov.au/wa-marine-parks" target="_blank" rel="noopener">Explore Parks WA</a> before fishing here.</div>'}
+      ${(() => { const ls = legalStatus(state.data.zones, loc); return `<div class="notice ${ls.state === 'blocked' ? 'danger' : ls.state === 'ok' ? 'info' : ''}"><strong>${ls.state === 'blocked' ? 'No fishing here.' : ls.state === 'ok' ? 'Zone check:' : 'Zone check pending.'}</strong> ${esc(ls.text)}</div>`; })()}
       ${rulesHere.map(r => `<p class="small"><strong>${esc(r.summary)}</strong><br><span class="muted">Source: <a href="${esc(r.source_url)}" target="_blank" rel="noopener">${esc(r.source_name)}</a> · checked ${esc(r.last_checked)}</span></p>`).join('')}
       <p class="small"><a href="https://rules.fish.wa.gov.au" target="_blank" rel="noopener">Check all official rules (DPIRD) →</a></p>
     </div>
@@ -83,12 +91,11 @@ export function renderLocation(view, rawId) {
     <details><summary>Next 24 hours</summary><div class="body tbl-scroll">${hourlyTable(shore, spear)}</div></details>
     <details><summary>7-day outlook</summary><div class="body tbl-scroll">${dailyTable(shore, spear)}</div></details>
     <details><summary>Why this score</summary><div class="body">${factorTable(primary)}</div></details>
-    <details><summary>Currents & sun</summary><div class="body">
+    <details><summary>Sun & moon</summary><div class="body">
       <dl class="kv">
-        <dt>Current</dt><dd>${h.current_velocity == null ? val(null) : `${(h.current_velocity / 3.6).toFixed(2)} m/s toward ${degToCompass(h.current_direction) ?? '?'} ${typeTag('modelled')}`}</dd>
         <dt>Sunrise</dt><dd>${sun(loc).rise}</dd><dt>Sunset</dt><dd>${sun(loc).set}</dd>
       </dl>
-      <p class="muted small">Currents come from a coarse ocean model (~8 km) and are shown for information only — they are not used in scores.</p>
+
     </div></details>
     <details><summary>Access & terrain</summary><div class="body">
       <dl class="kv">
@@ -97,19 +104,24 @@ export function renderLocation(view, rawId) {
         <dt>Walk</dt><dd>${loc.access?.walk_minutes != null ? `~${loc.access.walk_minutes} min` : 'Unknown'}</dd>
         <dt>Terrain</dt><dd>${esc((loc.terrain || []).join(', ').replaceAll('_', ' ') || 'Unknown')}</dd>
         <dt>Exposed to</dt><dd>${esc((loc.exposure?.onshore_dirs || []).join(', ') || 'Unknown')}</dd>
-        <dt>Pin</dt><dd>${loc.pin_precision === 'exact' ? 'Exact' : 'Approximate area'}</dd>
+        <dt>Pin</dt><dd>${loc.geometry.coordinates[1].toFixed(5)}, ${loc.geometry.coordinates[0].toFixed(5)} ${loc.last_verified ? `(checked ${esc(loc.last_verified)})` : '(not yet checked on site)'}</dd>
       </dl>
     </div></details>
-    <details><summary>Species</summary><div class="body">
-      ${speciesHere.length ? speciesHere.map(s => `<p>${esc(s.name)}</p>`).join('') : '<p class="muted small">No species evidence recorded for this spot yet.</p>'}
+    ${accessCard(loc)}
+    <details open id="sightings"><summary>What's being caught or seen here</summary><div class="body">${sightingsCard()}</div></details>
+    ${communityCard(loc)}
+    <details><summary>Species notes</summary><div class="body">
+      ${speciesHere.length ? speciesHere.map(s => `<p><a href="#/fish/${esc(s.id)}">${esc(s.name)}</a></p>`).join('') : '<p class="muted small">No species evidence recorded for this spot yet. Browse the <a href="#/fish">Fish library</a>.</p>'}
     </div></details>
     <details><summary>Data sources</summary><div class="body small">
-      <p>Wind, waves, swell: Open-Meteo forecast models ${typeTag('forecast')}. Tide trend and sea temperature: Open-Meteo modelled ${typeTag('modelled')}.</p>
+      <p>Wind, waves, swell: Open-Meteo forecast models ${typeTag('forecast')}. Tide trend and sea temperature: Open-Meteo modelled ${typeTag('modelled')}. Visibility: our estimate from recent swell, wind and rain ${typeTag('estimated')}.</p>
       <p>Location details: ${esc((loc.sources || []).join(', '))}. Last verified: ${esc(loc.last_verified ?? 'not yet verified')}.</p>
       <p><a href="#/more">All sources & licences →</a></p>
     </div></details>
   </div>`;
 
+  fillSightings(view.querySelector('#sightings .body'), loc);
+  fillAccessFor(view, loc);
   view.querySelector('#fav').addEventListener('click', e => {
     const on = store.toggleFavourite(loc.id);
     e.currentTarget.setAttribute('aria-pressed', String(on));

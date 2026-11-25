@@ -13,7 +13,10 @@ export const CONFIG = {
   OPEN_METEO_FORECAST: 'https://api.open-meteo.com/v1/forecast',
   OPEN_METEO_MARINE: 'https://marine-api.open-meteo.com/v1/marine',
 
-  MAP_START: { lat: -33.6, lng: 117.2, zoom: 6 }
+  MAP_START: { lat: -33.6, lng: 117.2, zoom: 6 },
+
+  // owner/repo — used to read measured buoy data from the repo's live-data branch
+  GITHUB_REPO: 'punfai10000-glitch/wa-fishing-app'
 };
 
 export const REGIONS = {

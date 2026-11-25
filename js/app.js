@@ -6,13 +6,23 @@ import { esc } from './ui.js';
 import { initMap, refreshMap, showMap } from './map.js';
 import { renderSpots } from './views/spots.js';
 import { renderLocation } from './views/location.js';
-import { renderRules } from './views/rules.js';
-import { renderFishId } from './views/fishid.js';
+import { renderFish } from './views/fish.js';
+import { renderLive } from './views/live.js';
 import { renderMore } from './views/more.js';
+import { loadCoastPoints, loadCoastConditions } from './coast.js';
+import { loadBuoys, loadBomObs } from './buoys.js';
+import { zoneHitsFor } from './zones.js';
+import { loadOsmSpots } from './osmspots.js';
+import { setCoastPoints } from './amenities.js';
 
 export const state = {
   data: null,
   cond: { byId: {}, fetchedAt: null, stale: true, errors: [] },
+  coast: { points: [], byId: {}, fetchedAt: null, errors: [] },
+  buoys: null,
+  bom: null,
+  osmSpots: [],
+  showOsm: store.get('showOsm', true),
   activity: store.get('activity', 'shore'),
   species: '',
   region: '',
@@ -23,12 +33,18 @@ export const state = {
 
 const sunFn = (d, lat, lng) => window.SunCalc.getTimes(d, lat, lng);
 
+export function getLoc(id) {
+  return state.data.locations.find(l => l.id === id) || state.osmSpots.find(p => p.id === id) || state.coast.points.find(p => p.id === id) || null;
+}
+
 export function evalFor(loc, activity = state.activity) {
-  const key = `${loc.id}|${activity}|${state.species}|${state.cond.fetchedAt}`;
+  const src = loc.virtual || loc.condFrom ? state.coast : state.cond;
+  const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}`;
   if (!state.evalCache.has(key)) {
-    state.evalCache.set(key, evaluate(loc, state.cond.byId[loc.id], activity, {
+    state.evalCache.set(key, evaluate(loc, src.byId[loc.condFrom || loc.id], activity, {
       thresholds: state.data.thresholds, rules: state.data.rules, zones: state.data.zones,
-      staleSources: state.cond.stale ? 1 : 0, sunFn, species: state.species || null
+      staleSources: state.cond.stale ? 1 : 0, sunFn, species: state.species || null,
+      zoneHits: l => zoneHitsFor(state.data.zones, l)
     }));
   }
   return state.evalCache.get(key);
@@ -36,7 +52,8 @@ export function evalFor(loc, activity = state.activity) {
 
 export function visibleLocations() {
   const favs = store.favourites();
-  return state.data.locations.filter(l =>
+  const all = state.showOsm ? [...state.data.locations, ...state.osmSpots] : state.data.locations;
+  return all.filter(l =>
     (!state.region || l.region === state.region) &&
     (!state.favOnly || favs.has(l.id)) &&
     (!state.species || (l.species_evidence || []).some(e => e.species === state.species))
@@ -80,8 +97,10 @@ document.getElementById('banners').addEventListener('click', e => {
 const ROUTES = {
   map: () => null,
   spots: renderSpots,
-  fishid: renderFishId,
-  rules: renderRules,
+  live: renderLive,
+  fish: renderFish,
+  fishid: (v) => renderFish(v, 'id'),
+  rules: (v) => renderFish(v, 'rules'),
   more: renderMore,
   loc: renderLocation
 };
@@ -89,7 +108,7 @@ const ROUTES = {
 function route() {
   const [, name = 'map', arg] = (location.hash || '#/map').split('/');
   const view = document.getElementById('view');
-  const tab = name === 'loc' ? (sessionStorage.getItem('lastTab') || 'spots') : name;
+  const tab = name === 'loc' ? (sessionStorage.getItem('lastTab') || 'spots') : ({ fishid: 'fish', rules: 'fish' }[name] || name);
   if (name !== 'loc') try { sessionStorage.setItem('lastTab', name); } catch { /* ignore */ }
   document.querySelectorAll('#tabbar a').forEach(a => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
 
@@ -102,8 +121,8 @@ function route() {
   view.hidden = false;
   if (!state.data) { view.innerHTML = '<p class="muted">Loading…</p>'; return; }
   view.innerHTML = '';
-  ROUTES[name](view, arg);
   view.scrollTop = 0;
+  ROUTES[name](view, arg);
 }
 
 export function rerender() {
@@ -115,8 +134,14 @@ export function rerender() {
 }
 
 async function refreshConditions(force = false) {
-  state.cond = await loadConditions(state.data.locations, { force });
+  state.cond = await loadConditions(state.data.locations, { force, coastPoints: state.coast.points });
   state.loading = false;
+  rerender();
+  // Coastline + measured buoys load after the main spots so the app is usable sooner
+  const [coast, buoys, bom] = await Promise.all([loadCoastConditions(force), loadBuoys(force), loadBomObs(force)]);
+  state.coast = { points: state.coast.points, ...coast };
+  state.buoys = buoys;
+  state.bom = bom;
   rerender();
 }
 
@@ -129,6 +154,9 @@ async function boot() {
   document.querySelectorAll('[data-activity-toggle] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.activity === state.activity)));
   try {
     state.data = await loadStatic();
+    state.coast.points = await loadCoastPoints();
+    setCoastPoints(state.coast.points);
+    state.osmSpots = await loadOsmSpots(state.coast.points);
   } catch (e) {
     document.getElementById('banners').innerHTML = `<div class="banner danger">Could not load app data: ${esc(e.message)}</div>`;
     return;

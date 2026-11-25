@@ -4,6 +4,7 @@ import { checkBlocks } from './scoring/blocks.js';
 import { computeConfidence } from './scoring/confidence.js';
 import { bestWindow } from './scoring/window.js';
 import { dayKey } from './units.js';
+import { exposureOf } from './scoring/geo.js';
 
 const HOUR = 3600 * 1000;
 
@@ -13,6 +14,27 @@ function sunFor(loc, t, sunFn) {
   // Use local (Perth) noon of that day so results don't depend on the device's time zone.
   const times = sunFn(new Date(`${dayKey(t)}T12:00:00+08:00`), lat, lng);
   return { sunrise: +times.sunrise, sunset: +times.sunset };
+}
+
+
+// Prior-hours context for the visibility estimate (swell over last 24 h, rain over 48 h, onshore wind 12 h).
+function addVisibilityContext(hours, loc) {
+  if (hours.__visFor === loc.id) return;
+  hours.forEach((h, i) => {
+    const prior = (n) => hours.slice(Math.max(0, i - n), i + 1);
+    const w24 = prior(24).map(x => x.wave_height ?? x.swell_height).filter(v => v != null);
+    const dirs = prior(24).map(x => x.wave_direction ?? x.swell_direction).filter(v => v != null);
+    const onshore = dirs.filter(d => exposureOf(d, loc.exposure) === 'onshore').length;
+    const rain = prior(48).map(x => x.precipitation).filter(v => v != null);
+    const wind12 = prior(12).filter(x => x.wind_speed != null && exposureOf(x.wind_direction, loc.exposure) === 'onshore').map(x => x.wind_speed);
+    h.vis_ctx = {
+      maxWave24: w24.length >= 6 ? Math.max(...w24) : null,
+      onshoreShare: dirs.length ? onshore / dirs.length : 0,
+      rain48: rain.length >= 12 ? rain.reduce((a, b) => a + b, 0) : null,
+      onshoreWind12: wind12.length ? wind12.reduce((a, b) => a + b, 0) / wind12.length : 0
+    };
+  });
+  hours.__visFor = loc.id;
 }
 
 /**
@@ -25,10 +47,13 @@ export function evaluate(loc, hours, activity, ctx = {}) {
     return { applicable: true, noData: true, band: 'unknown', score: null, confidence: { level: 'low', reasons: ['No forecast data loaded'] } };
   }
   const legalUnchecked = !ctx.zones?.loaded;
+  if (activity === 'spear') addVisibilityContext(hours, loc);
   const sunCache = new Map();
   const hourly = hours.map(h => {
     const dk = dayKey(h.t);
     if (!sunCache.has(dk)) sunCache.set(dk, sunFor(loc, h.t, ctx.sunFn));
+    const sun = sunCache.get(dk);
+    if (sun) h.light = (Math.abs(h.t + 1800e3 - sun.sunrise) <= 5400e3 || Math.abs(h.t + 1800e3 - sun.sunset) <= 5400e3) ? 'twilight' : (h.t > sun.sunrise && h.t < sun.sunset ? 'day' : 'night');
     const result = scoreHour(loc, h, activity, { species: ctx.species });
     const blocks = checkBlocks(loc, h, activity, { thresholds: ctx.thresholds, rules: ctx.rules, sun: sunCache.get(dk), zoneHits: ctx.zoneHits?.(loc) ?? [] });
     return { t: h.t, hour: h, result, score: result.score, blocks, blocked: blocks.length > 0 };

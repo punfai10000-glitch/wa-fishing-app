@@ -11,7 +11,7 @@ const loc = { id: 'x', type: 'beach', activities: ['shore', 'spear'], status: 'a
   exposure: { onshore_dirs: ['W', 'SW'], sheltered_dirs: ['E'] }, terrain: ['sand', 'reef'], access: { vehicle: '2wd', walk_minutes: 5, parking: true }, species_evidence: [] };
 const rock = { ...loc, type: 'rock_platform' };
 const T = Date.parse('2026-11-25T08:00:00+08:00');
-const calm = { t: T, wind_speed: 8, wind_direction: 90, wind_gust: 12, wave_height: 0.6, wave_direction: 250, wave_period: 9, tide_rate: 0.04, sst: 20, weather_code: 1, types: {} };
+const calm = { t: T, wind_speed: 8, wind_direction: 90, wind_gust: 12, wave_height: 0.6, wave_direction: 250, wave_period: 9, tide_rate: 0.04, sst: 20, weather_code: 1, light: 'twilight', types: {} };
 const thresholds = JSON.parse((await import('node:fs')).readFileSync(new URL('../data/thresholds.json', import.meta.url))).thresholds;
 
 test('exposure classification', () => {
@@ -74,4 +74,25 @@ test('normalise keeps nulls as unknown and derives modelled tide', () => {
   assert.equal(h[1].types.tide_rate, 'modelled');
   assert.ok(Math.abs(h[1].tide_rate - 0.15) < 1e-9);
   assert.equal(h[0].types.sst, 'unknown');
+});
+
+import { visibilityEstimate } from '../js/scoring/score.js';
+test('visibility estimate: calm and dry beats big swell and rain, and is labelled an estimate', () => {
+  const calmCtx = { ...calm, vis_ctx: { maxWave24: 0.5, onshoreShare: 1, rain48: 0, onshoreWind12: 5 } };
+  const rough = { ...calm, wind_wave_height: 1, vis_ctx: { maxWave24: 2.2, onshoreShare: 1, rain48: 12, onshoreWind12: 30 } };
+  const a = visibilityEstimate(calmCtx, loc), b = visibilityEstimate(rough, loc);
+  assert.ok(a.score > 70 && b.score < 45, `${a.score} ${b.score}`);
+  const r = scoreHour(loc, calmCtx, 'spear');
+  const f = r.factors.find(x => x.id === 'visibility');
+  assert.equal(f.type, 'estimated');
+  assert.equal(computeConfidence(r, 'spear', loc).level, 'medium');
+});
+
+test('rough onshore conditions score Poor (calibration)', () => {
+  const rough = { ...calm, wind_speed: 32, wind_direction: 260, wind_gust: 45, wave_height: 2.6, wave_direction: 260, light: 'day' };
+  const r = scoreHour(loc, rough, 'shore');
+  assert.ok(r.score < 40, `score ${r.score}`);
+  const mid = { ...calm, wind_speed: 20, wind_direction: 260, wave_height: 1.6, wave_direction: 260, light: 'day' };
+  const m = scoreHour(loc, mid, 'shore');
+  assert.ok(m.score >= 40 && m.score < 70, `mid ${m.score}`);
 });

@@ -44,16 +44,16 @@ export function renderFishId(view) {
       <h2>Possible matches</h2>
       ${results.length ? results.map(({ s, pct }) => `
         <div style="margin-bottom:14px">
-          <div class="row"><strong>${esc(s.name)}</strong><span class="spacer"></span><span class="small">${pct}% match</span></div>
+          <div class="row"><strong>${esc(s.name)}</strong>${s.status === 'protected' ? ' <span class="pill poor">Protected</span>' : ''}<span class="spacer"></span><span class="small">${pct}% match</span></div>
           <div class="muted small"><i>${esc(s.scientific)}</i></div>
           <div class="match" aria-hidden="true"><span style="width:${pct}%"></span></div>
           <p class="small" style="margin:6px 0">${esc(s.id_tips)}</p>
-          <a class="small" href="#/rules/${esc(s.id)}">Rules for ${esc(s.name)} →</a>
+          <a class="small" href="#/fish/${esc(s.id)}">Limits &amp; photo for ${esc(s.name)} →</a>
         </div>`).join('') : '<p class="muted">Answer the questions above to see a shortlist.</p>'}
       ${results.length ? '<button class="btn ghost" id="reset">Start again</button>' : ''}
     </div>
 
-    <div class="notice"><strong>This is a guide, not a confirmed ID.</strong> Only ${species.length} common species are included so far, and some look very similar. Compare your fish carefully with the official DPIRD fish guides. If you're not sure what it is, or whether it's legal size, release it.</div>
+    <div class="notice"><strong>This is a guide, not a confirmed ID.</strong> Only ${species.length} species are included so far, and some look very similar. Compare your fish carefully with the official DPIRD fish guides. If you're not sure what it is, or whether it's legal size, release it.</div>
     <p class="muted small">Automatic photo recognition is on the future list — no free, accurate model for WA species exists yet.</p>
   </div>`;
 

@@ -25,15 +25,16 @@ export function renderSpots(view) {
         <label class="sr" for="f-species">Target species</label>
         <select id="f-species"><option value="">Any species</option>${speciesOpts.map(s => `<option value="${s.id}" ${state.species === s.id ? 'selected' : ''}>${esc(s.name)}</option>`).join('')}</select>
         <label class="check"><input type="checkbox" id="f-fav" ${state.favOnly ? 'checked' : ''}> Favourites only</label>
+        <label class="check"><input type="checkbox" id="f-osm" ${state.showOsm ? 'checked' : ''}> Include ${state.osmSpots.length} OpenStreetMap spots</label>
       </div>
       ${state.species ? '<p class="notice info small">Species filter shows only spots with recorded evidence for that species. Species-specific scoring is coming in a later version.</p>' : ''}
       <div id="list">
-        ${locs.length ? locs.map(({ l, ev }) => `
+        ${locs.length ? locs.slice(0, 60).map(({ l, ev }) => `
           <a class="card spot" href="#/loc/${encodeURIComponent(l.id)}">
             <div class="row">
               <div>
                 <h3>${esc(l.name)} ${favs.has(l.id) ? '<span aria-label="favourite">★</span>' : ''}</h3>
-                <div class="muted small">${esc(REGIONS[l.region]?.name ?? l.region)} · ${esc(TYPE_LABELS[l.type] ?? l.type)}${l.status === 'demo' ? ' · <span class="tag demo">unverified</span>' : ''}</div>
+                <div class="muted small">${esc(REGIONS[l.region]?.name ?? l.region)} · ${esc(TYPE_LABELS[l.type] ?? l.type)}${l.status === 'demo' ? ' · <span class="tag demo">unverified</span>' : ''}${l.osm ? ' · <span class="tag">OpenStreetMap</span>' : ''}</div>
               </div>
               <span class="spacer"></span>${pill(ev)}
             </div>
@@ -48,4 +49,5 @@ export function renderSpots(view) {
   view.querySelector('#f-region').addEventListener('change', e => { state.region = e.target.value; rerender(); });
   view.querySelector('#f-species').addEventListener('change', e => { state.species = e.target.value; rerender(); });
   view.querySelector('#f-fav').addEventListener('change', e => { state.favOnly = e.target.checked; rerender(); });
+  view.querySelector('#f-osm').addEventListener('change', e => { state.showOsm = e.target.checked; store.set('showOsm', e.target.checked); rerender(); });
 }

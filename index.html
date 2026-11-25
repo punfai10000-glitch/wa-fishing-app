@@ -28,21 +28,41 @@
           <button data-activity="spear" aria-pressed="false">Spear</button>
         </div>
       </div>
+      <div class="timebar-wrap"><div id="timebar" class="timebar"></div><div id="coast-status" class="small muted coast-status"></div></div>
+      <button id="windy-btn" class="fab fab-2" title="Animated wind &amp; waves (Windy)">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8h11a3 3 0 1 0-3-3M3 12h15a3 3 0 1 1-3 3M3 16h7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <span class="sr">Animated wind and waves</span>
+      </button>
+      <div id="windy-panel" class="windy-panel" hidden>
+        <div class="row" style="padding:8px;gap:6px">
+          <div class="seg" role="group" aria-label="Animated layer">
+            <button data-overlay="wind" aria-pressed="true">Wind</button>
+            <button data-overlay="waves" aria-pressed="false">Waves</button>
+            <button data-overlay="swell1" aria-pressed="false">Swell</button>
+          </div>
+          <span class="spacer"></span>
+          <button id="windy-close" class="btn ghost" aria-label="Close animated view">✕</button>
+        </div>
+        <iframe title="Animated wind and waves by Windy.com" src="about:blank" loading="lazy"></iframe>
+        <p class="small muted" style="margin:4px 8px">Animation by <a href="https://www.windy.com" target="_blank" rel="noopener">Windy.com</a> (ECMWF model). Forecast, not measured.</p>
+      </div>
       <button id="layers-btn" class="fab" aria-expanded="false" aria-controls="layers-panel" title="Map layers">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Zm-8 9 8 4 8-4M4 16l8 4 8-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
         <span class="sr">Layers</span>
       </button>
       <div id="layers-panel" class="panel" hidden></div>
       <div id="legend" class="legend" aria-label="Legend"></div>
+      <div id="habitat-legend" class="habitat-legend" hidden></div>
+      <div id="amenity-note" class="amenity-note" hidden></div>
     </section>
     <section id="view" tabindex="-1" hidden></section>
   </main>
 
   <nav id="tabbar" aria-label="Main">
     <a href="#/map" data-tab="map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Zm0 0v14m6-12v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Map</span></a>
+    <a href="#/live" data-tab="live"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3" fill="currentColor"/><path d="M5.6 5.6a9 9 0 0 0 0 12.8M18.4 5.6a9 9 0 0 1 0 12.8M8.5 8.5a5 5 0 0 0 0 7M15.5 8.5a5 5 0 0 1 0 7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Live</span></a>
     <a href="#/spots" data-tab="spots"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Spots</span></a>
-    <a href="#/fishid" data-tab="fishid"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3-5 9-6 13-3l5-3v12l-5-3c-4 3-10 2-13-3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/></svg><span>Fish ID</span></a>
-    <a href="#/rules" data-tab="rules"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z M9 10h6M9 14h6M9 18h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Rules</span></a>
+    <a href="#/fish" data-tab="fish"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3-5 9-6 13-3l5-3v12l-5-3c-4 3-10 2-13-3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/></svg><span>Fish</span></a>
     <a href="#/more" data-tab="more"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg><span>More</span></a>
   </nav>
 
@@ -53,7 +73,7 @@
       <li>Conditions change fast. Always check official warnings and look at the water yourself before fishing.</li>
       <li>Rock fishing and spearfishing are dangerous. Wear a lifejacket on rocks, never fish or dive alone.</li>
       <li>Official DPIRD fishing rules always prevail over anything shown here.</li>
-      <li>This is an early version: locations are still being verified and safety limits are drafts.</li>
+      <li>This is an early version: locations are still being verified and safety limits are drafts. Underwater visibility is an estimate, not a measurement.</li>
     </ul>
     <button id="ack-ok" class="btn primary">I understand</button>
   </dialog>

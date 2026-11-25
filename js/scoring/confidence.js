@@ -13,8 +13,13 @@ export function computeConfidence(result, activity, loc, { staleSources = 0, leg
     }
   }
   if (staleSources > 0) { level -= 1; reasons.push('Some data is out of date'); }
+  if (loc.virtual) { level = Math.min(level, 1); reasons.push('Automatic coast area — not a checked spot'); }
+  if (loc.osm) { level = Math.min(level, 1); reasons.push('Spot from OpenStreetMap — not yet checked'); }
   if (loc.status === 'demo' || isStale(loc)) { level = Math.min(level, 1); reasons.push(loc.status === 'demo' ? 'Location details not yet verified' : 'Location not re-checked in 12 months'); }
-  if (activity === 'spear') level = Math.min(level, 1); // capped while visibility is Unknown
+  if (activity === 'spear') { // visibility is at best an estimate, never measured
+    level = Math.min(level, 1);
+    if (!result.missing.includes('visibility')) reasons.push('Visibility is an estimate');
+  }
   if (legalUnchecked) reasons.push('Marine-zone check not available yet');
   return { level: LEVELS[Math.max(0, level)], reasons };
 }

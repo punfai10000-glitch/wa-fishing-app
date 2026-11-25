@@ -1,9 +1,11 @@
 // Environmental suitability scoring (spec: stage-6 §5). Pure functions — no DOM.
 import { exposureOf, degToCompass } from './geo.js';
 
+// v0.3: scores rate CONDITIONS only. Terrain and access are fixed per spot, so they are shown
+// separately instead of lifting every score (they made almost everything look 90+).
 export const WEIGHTS = {
-  shore: { wind: 25, waves: 25, tide: 15, season: 15, terrain: 10, access: 10 },
-  spear: { wind: 20, waves: 25, visibility: 20, tide: 10, season: 5, terrain: 10, access: 5, sst: 5 }
+  shore: { wind: 30, waves: 30, tide: 15, light: 15, season: 10 },
+  spear: { wind: 20, waves: 30, visibility: 25, tide: 10, sst: 10, season: 5 }
 };
 
 export const IMPORTANT = {
@@ -37,8 +39,8 @@ function windFactor(hour, loc, activity) {
   const exp = exposureOf(hour.wind_direction, loc.exposure);
   // comfortable speed (km/h) before penalties start, and speed where score hits 0
   const table = activity === 'spear'
-    ? { onshore: [8, 30], cross: [12, 35], sheltered: [18, 40], null: [10, 32] }
-    : { onshore: [12, 45], cross: [16, 50], sheltered: [22, 55], null: [14, 48] };
+    ? { onshore: [6, 25], cross: [10, 30], sheltered: [15, 35], null: [8, 28] }
+    : { onshore: [10, 35], cross: [14, 40], sheltered: [20, 50], null: [12, 40] };
   const [good, bad] = table[exp ?? 'null'];
   let score = lerpScore(s, good, bad);
   if (g != null && g > s * 1.6 && g > 30) score -= 10; // gusty
@@ -51,7 +53,7 @@ function wavesFactor(hour, loc, activity) {
   const ew = effectiveWave(hour, loc);
   if (!ew) return null;
   const rock = loc.type === 'rock_platform';
-  const [good, bad] = activity === 'spear' ? [0.5, 1.6] : rock ? [0.8, 2.2] : [1.2, 3.5];
+  const [good, bad] = activity === 'spear' ? [0.3, 1.3] : rock ? [0.5, 1.8] : [0.8, 3.0];
   const score = lerpScore(ew.height, good, bad);
   const dirTxt = degToCompass(ew.dir);
   return { score: clamp(score), detail: `${ew.raw.toFixed(1)} m${ew.period != null ? ` @ ${Math.round(ew.period)} s` : ''}${dirTxt ? ` from ${dirTxt}` : ''}${ew.exposure ? `, ${ew.exposure}` : ''}` };
@@ -65,6 +67,14 @@ function tideFactor(hour) {
   const score = a <= 0.01 ? 40 : a >= 0.05 ? 90 : 40 + (a - 0.01) / 0.04 * 50;
   const trend = r > 0.005 ? 'rising' : r < -0.005 ? 'falling' : 'slack';
   return { score: clamp(score), detail: `${trend} (${(r * 100).toFixed(1)} cm/h)` };
+}
+
+// Low light (around sunrise/sunset) is a widely used rule of thumb for feeding activity.
+function lightFactor(hour) {
+  if (!hour.light) return null;
+  const map = { twilight: [100, 'dawn/dusk'], night: [70, 'night'], day: [60, 'daytime'] };
+  const [score, label] = map[hour.light];
+  return { score, detail: label };
 }
 
 function seasonFactor(loc, month, species) {
@@ -96,6 +106,11 @@ function accessFactor(loc) {
   return { score: clamp(s), detail: `${a.vehicle?.toUpperCase() ?? '?'}${a.walk_minutes != null ? `, ~${a.walk_minutes} min walk` : ''}` };
 }
 
+function visFactor(hour, loc) {
+  const v = visibilityEstimate(hour, loc);
+  return v ? { score: v.score, detail: `${v.label} (estimate from swell, wind & rain — not measured)` } : null;
+}
+
 function sstFactor(hour) {
   const t = hour.sst;
   if (t == null) return null;
@@ -103,7 +118,23 @@ function sstFactor(hour) {
   return { score: s, detail: `${t.toFixed(1)} °C` };
 }
 
-const LABELS = { wind: 'Wind', waves: 'Waves & swell', tide: 'Tide', season: 'Season', terrain: 'Terrain', access: 'Access', sst: 'Sea temperature', visibility: 'Underwater visibility' };
+// Visibility ESTIMATE (not a measurement): clear water usually follows a run of small swell,
+// light or offshore wind and no rain. Inputs are prepared by engine.js (prior-hours context).
+export function visibilityEstimate(hour, loc) {
+  const c = hour.vis_ctx;
+  if (!c || c.maxWave24 == null) return null;
+  let s = 85;
+  const exposed = c.maxWave24 * (c.onshoreShare >= 0.5 ? 1 : 0.6);
+  if (exposed > 0.8) s -= Math.min(45, (exposed - 0.8) * 40);
+  if (hour.wind_wave_height != null && hour.wind_wave_height > 0.4) s -= Math.min(15, (hour.wind_wave_height - 0.4) * 30);
+  if (c.onshoreWind12 != null && c.onshoreWind12 > 18) s -= Math.min(15, (c.onshoreWind12 - 18));
+  if (c.rain48 != null && c.rain48 > 3) s -= Math.min(25, c.rain48 * (['estuary', 'bay'].includes(loc.type) ? 3 : 1.5));
+  s = clamp(s);
+  const label = s >= 70 ? 'likely clear' : s >= 45 ? 'likely average' : 'likely murky';
+  return { score: s, label };
+}
+
+const LABELS = { light: 'Light (sun)', wind: 'Wind', waves: 'Waves & swell', tide: 'Tide', season: 'Season', terrain: 'Terrain', access: 'Access', sst: 'Sea temperature', visibility: 'Underwater visibility' };
 
 // hour: normalised hourly record; types: { field: 'forecast'|'modelled'|... }
 export function scoreHour(loc, hour, activity, { species = null } = {}) {
@@ -112,20 +143,20 @@ export function scoreHour(loc, hour, activity, { species = null } = {}) {
     wind: windFactor(hour, loc, activity),
     waves: wavesFactor(hour, loc, activity),
     tide: tideFactor(hour),
-    season: seasonFactor(loc, month, species),
-    terrain: terrainFactor(loc, activity),
-    access: accessFactor(loc),
+    season: species ? seasonFactor(loc, month, species) : undefined,
+    light: activity === 'shore' ? lightFactor(hour) : undefined,
     sst: activity === 'spear' ? sstFactor(hour) : undefined,
-    visibility: activity === 'spear' ? null : undefined // no reliable source in v1.0
+    visibility: activity === 'spear' ? visFactor(hour, loc) : undefined
   };
   const types = hour.types || {};
-  const typeOf = { wind: types.wind_speed, waves: types.wave_height ?? types.swell_height, tide: types.tide_rate, sst: types.sst, season: 'curated', terrain: 'curated', access: 'curated', visibility: 'unknown' };
+  const typeOf = { light: 'calculated', wind: types.wind_speed, waves: types.wave_height ?? types.swell_height, tide: types.tide_rate, sst: types.sst, season: 'curated', terrain: 'curated', access: 'curated', visibility: 'estimated' };
 
   const weights = WEIGHTS[activity];
   const factors = [];
   const missing = [];
   let sum = 0, wsum = 0;
   for (const [id, w] of Object.entries(weights)) {
+    if (raw[id] === undefined) continue; // factor not used for this request (e.g. season without a target species)
     const f = raw[id];
     if (f == null) {
       missing.push(id);
@@ -140,6 +171,8 @@ export function scoreHour(loc, hour, activity, { species = null } = {}) {
   return { score, factors, missing };
 }
 
+export { terrainFactor, accessFactor };
+
 export function band(score) {
   if (score == null) return 'unknown';
   if (score >= 70) return 'good';
@@ -150,10 +183,11 @@ export function band(score) {
 export const BAND_LABEL = { good: 'Good', fair: 'Fair', poor: 'Poor', unknown: 'Unknown', blocked: 'Blocked' };
 
 export function explain(result, activity) {
-  const known = result.factors.filter(f => f.score != null && !['terrain', 'access'].includes(f.id));
+  const known = result.factors.filter(f => f.score != null && !['season'].includes(f.id));
   const pos = [...known].sort((a, b) => b.score - a.score).slice(0, 2).filter(f => f.score >= 60);
   const neg = [...known].sort((a, b) => a.score - b.score).slice(0, 2).filter(f => f.score < 60);
-  const tag = f => `${f.label.toLowerCase()} ${f.detail} (${f.type})`;
+  const plain = { modelled: 'forecast', calculated: 'sun times', estimated: 'estimate', curated: 'checked info' };
+  const tag = f => `${f.label.toLowerCase()} ${f.detail} (${plain[f.type] || f.type})`;
   const parts = [];
   if (pos.length) parts.push('Helping: ' + pos.map(tag).join('; '));
   if (neg.length) parts.push('Holding back: ' + neg.map(tag).join('; '));
