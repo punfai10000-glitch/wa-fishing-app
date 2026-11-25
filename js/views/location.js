@@ -16,7 +16,7 @@ function scoreBox(title, ev) {
   if (ev.applicable === false) return `<div class="scorebox"><div class="muted small">${title}</div><div class="muted">Not listed for this activity</div></div>`;
   return `<div class="scorebox">
     <div class="muted small">${title}</div>
-    <div style="margin:6px 0">${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked')}</div>
+    <div style="margin:6px 0">${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked' && (ev.blockKind || true))}</div>
     <div class="small">${esc(windowText(ev))}</div>
     <div>${confText(ev.confidence)}</div>
   </div>`;
@@ -55,7 +55,7 @@ export function renderLocation(view, rawId) {
 
     ${isRock ? '<div class="notice danger"><strong>Rock fishing danger.</strong> Waves can sweep people off rocks without warning. Wear a lifejacket, never fish alone, and never turn your back on the sea.</div>' : ''}
     ${(loc.safety_notes || []).map(n => `<div class="notice">${esc(n)}</div>`).join('')}
-    ${primary.currentBlocks?.length ? `<div class="notice danger"><strong>Blocked right now:</strong><ul>${primary.currentBlocks.map(b => `<li>${esc(b.reason)}</li>`).join('')}</ul></div>` : ''}
+    ${primary.currentBlocks?.length ? `<div class="notice danger"><strong>${{ legal: 'Not allowed right now:', safety: 'Not safe right now:', dark: 'Too dark right now:' }[primary.current?.blockKind] || 'Not available right now:'}</strong><ul>${primary.currentBlocks.map(b => `<li>${esc(b.reason)}</li>`).join('')}</ul></div>` : ''}
 
     <div class="card">
       <div class="scores">${scoreBox('Shore fishing', shore)}${scoreBox('Spearfishing', spear)}</div>

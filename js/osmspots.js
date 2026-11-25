@@ -6,6 +6,18 @@ import { pointOf, tagsOf, spotType } from './osm.js';
 import { TYPE_LABELS } from './config.js';
 import { loadShore, riverWaterAt, estuaryNotes, nearestShore, shoreData } from './shore.js';
 const shoreIsPrecise = () => !!shoreData()?.precise;
+const COMPASS = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+const comp = d => COMPASS[Math.round((((d % 360) + 360) % 360) / 22.5) % 16];
+function ownFacing(pt, p, estuary) {
+  if (estuary || !shoreIsPrecise()) return { exposure: p.exposure, facing: p.facing };
+  const n = nearestShore(pt[1], pt[0], 1);
+  if (!n) return { exposure: p.exposure, facing: p.facing };
+  // blend the local shore direction with the regional one (tiny rocks can point anywhere)
+  const a = n.seaBearing * Math.PI / 180, b = p.facing * Math.PI / 180;
+  const f = Math.round(((Math.atan2(Math.sin(a) * 0.6 + Math.sin(b) * 0.4, Math.cos(a) * 0.6 + Math.cos(b) * 0.4) * 180 / Math.PI) + 360) % 360);
+  const dirs = off => [-45, -22.5, 0, 22.5, 45].map(o => comp(f + off + o)).filter((v, i, x) => x.indexOf(v) === i);
+  return { facing: f, exposure: { onshore_dirs: dirs(0), sheltered_dirs: dirs(180) } };
+}
 
 export async function loadOsmSpots(coastPoints) {
   await loadShore();
@@ -65,8 +77,8 @@ export async function loadOsmSpots(coastPoints) {
       condFrom: best.p.id,
       geometry: { type: 'Point', coordinates: [+pt[0].toFixed(5), +pt[1].toFixed(5)] },
       sea: best.p.sea,
-      exposure: best.p.exposure,
-      facing: best.p.facing,
+      // each spot faces its own bit of shore (detailed coastline), so neighbouring spots score differently
+      ...ownFacing(pt, best.p, estuary),
       terrain: { groyne: ['rock_wall'], jetty: ['jetty'], headland: ['rock_platform'], shore_reef: ['reef'], rock_platform: ['rock_platform'], beach: ['sand'] }[type] || [],
       access: null, species_evidence: [], restrictions: [], sources: ['OpenStreetMap'],
       safety_notes: estuary ? estuaryNotes(pt[1], pt[0], water?.name) : [],

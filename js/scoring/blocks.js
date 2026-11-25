@@ -69,7 +69,7 @@ export function checkBlocks(loc, hour, activity, ctx = {}) {
   // Spearfishing only in daylight
   if (activity === 'spear' && ctx.sun && ctx.sun.sunrise && ctx.sun.sunset) {
     if (hour.t < ctx.sun.sunrise || hour.t >= ctx.sun.sunset) {
-      out.push({ kind: 'safety', reason: 'Spearfishing is only rated in daylight.' });
+      out.push({ kind: 'dark', reason: 'Too dark — spearfishing is only rated in daylight.' });
     }
   }
 

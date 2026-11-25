@@ -40,9 +40,17 @@ function addVisibilityContext(hours, loc) {
 /**
  * ctx: { thresholds, rules, zones, staleSources, sunFn, now, species }
  */
+// Why something is blocked, most serious first: 'legal' (not allowed), 'safety' (not safe), 'dark' (night, spear)
+export function blockKindOf(blocks) {
+  if (!blocks?.length) return null;
+  if (blocks.some(b => b.kind === 'legal')) return 'legal';
+  if (blocks.some(b => b.kind === 'safety')) return 'safety';
+  return 'dark';
+}
+
 export function evaluate(loc, hours, activity, ctx = {}) {
   const now = ctx.now ?? Date.now();
-  if (!loc.activities.includes(activity)) return { applicable: false };
+  if (!loc.activities.includes(activity)) return { applicable: false, activity };
   if (!hours || !hours.length) {
     return { applicable: true, noData: true, band: 'unknown', score: null, confidence: { level: 'low', reasons: ['No forecast data loaded'] } };
   }
@@ -57,7 +65,7 @@ export function evaluate(loc, hours, activity, ctx = {}) {
     if (sun) h.light = (Math.abs(h.t + 1800e3 - sun.sunrise) <= 5400e3 || Math.abs(h.t + 1800e3 - sun.sunset) <= 5400e3) ? 'twilight' : (h.t > sun.sunrise && h.t < sun.sunset ? 'day' : 'night');
     const result = scoreHour(loc, h, activity, { species: ctx.species });
     const blocks = checkBlocks(loc, h, activity, { thresholds: ctx.thresholds, rules: ctx.rules, sun: sunCache.get(dk), zoneHits: ctx.zoneHits?.(loc) ?? [] });
-    return { t: h.t, hour: h, result, score: result.score, blocks, blocked: blocks.length > 0 };
+    return { t: h.t, hour: h, result, score: result.score, blocks, blocked: blocks.length > 0, blockKind: blockKindOf(blocks) };
   });
 
   const window24 = hourly.filter(h => h.t >= now - HOUR && h.t < now + 24 * HOUR);
@@ -88,6 +96,7 @@ export function evaluate(loc, hours, activity, ctx = {}) {
     score: allBlocked ? null : best?.score ?? topHour?.score ?? null,
     band: headline,
     blocked: allBlocked,
+    blockKind: allBlocked ? blockKindOf(window24.flatMap(h => h.blocks)) : null,
     // Most informative reasons first: the generic night-time spear rule goes last.
     blockReasons: allBlocked ? [...new Set(window24.flatMap(h => h.blocks.map(b => b.reason)))]
       .sort((a, b) => /daylight/.test(a) - /daylight/.test(b)) : [],

@@ -1,7 +1,7 @@
 // Coastline conditions layer, animated wind/wave arrows, time slider with play,
 // tap-anywhere spot reports, measured buoy markers and the Windy animated view.
 import { state, evalFor } from './app.js';
-import { layerOn } from './map.js';
+import { layerOn, refreshMap } from './map.js';
 import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
@@ -11,18 +11,21 @@ import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
 import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass } from './scoring/geo.js';
-import { esc, typeTag, chanceIcon } from './ui.js';
+import { esc, typeTag, chanceIcon, blockPill } from './ui.js';
 import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge } from './units.js';
 
 let map, coastLayer, arrowLayer, buoyLayer, incidentLayer, bestLayer;
 let incidents = null;
 let shoreIdx = null;     // per shoreline vertex: index of nearest coast sample point (or -1)
-let offset = 0;          // hours from now shown on the coast
+let offset = 0;
+let userMovedTime = false;          // hours from now shown on the coast
 let playing = null;
 const HOUR = 3600e3;
-const COLORS = { good: '#009e73', fair: '#e69f00', poor: '#d55e00', blocked: '#6b7280', unknown: '#8a94a6' };
+const COLORS = { good: '#009e73', fair: '#e69f00', poor: '#d55e00', blocked: '#6b7280', 'blk-legal': '#a855f7', 'blk-safety': '#6b7280', 'blk-dark': '#334155', unknown: '#8a94a6' };
+const DASH = { 'blk-safety': '4 8', 'blk-dark': '2 6', blocked: '4 8' };
 
 export function selectedTime() {
+  autoDaylightForSpear();
   return Math.floor(Date.now() / HOUR) * HOUR + offset * HOUR;
 }
 
@@ -49,8 +52,30 @@ function hourAt(ev, t) {
   return ev?.hourly?.find(h => h.t === t) ?? null;
 }
 
+// Spearfishing is only rated in daylight. At night in Spear mode, jump the time slider to the next
+// daylight hour (unless the user has moved it) instead of showing the whole coast as "too dark".
+let autoJumped = false;
+function autoDaylightForSpear() {
+  const range = document.getElementById('tb-range');
+  if (state.activity !== 'spear') {
+    if (autoJumped && !userMovedTime) { offset = 0; if (range) range.value = 0; }
+    autoJumped = false; return;
+  }
+  if (userMovedTime || offset !== 0 || !window.SunCalc) return;
+  const now = Math.floor(Date.now() / HOUR) * HOUR;
+  const sc = d => window.SunCalc.getTimes(d, -31.95, 115.86);
+  const today = sc(new Date(now)), tomorrow = sc(new Date(now + 24 * HOUR));
+  const isDay = now + HOUR > today.sunrise.getTime() + HOUR && now < today.sunset.getTime() - HOUR;
+  if (isDay) return;
+  const nextRise = (now < today.sunrise.getTime() ? today.sunrise : tomorrow.sunrise).getTime();
+  offset = Math.min(48, Math.max(1, Math.ceil((nextRise - now) / HOUR) + 1));
+  if (range) range.value = offset;
+  autoJumped = true;
+}
+
 export function refreshCoastMap() {
   if (!map) return;
+  autoDaylightForSpear();
   const L = window.L;
   const on = layerOn();
   const t = selectedTime();
@@ -66,7 +91,7 @@ export function refreshCoastMap() {
   if (on.coast && pts.length) {
     const sh = shoreData();
     const rows = pts.map(p => hasData ? hourAt(evalFor(p), t) : null);
-    const bandOf = r => r?.blocked ? 'blocked' : r?.score != null ? band(r.score) : 'unknown';
+    const bandOf = r => r?.blocked ? `blk-${r.blockKind || 'safety'}` : r?.score != null ? band(r.score) : 'unknown';
     const weight = map.getZoom() >= 10 ? 8 : 5;
     if (sh?.lines.length && !sh.precise && map.getZoom() >= 12) {
       // rough bundled coastline is ~1 km out at this zoom: don't draw a misleading line (tap for details)
@@ -83,7 +108,7 @@ export function refreshCoastMap() {
           if (run.length > 1 && runBand) L_poly(run, runBand);
           run = [];
         };
-        const L_poly = (latlngs, b) => window.L.polyline(latlngs, { pane: 'coast', color: COLORS[b], weight, opacity: 0.9, lineCap: 'round', lineJoin: 'round', dashArray: b === 'blocked' ? '4 8' : null, interactive: false }).addTo(coastLayer);
+        const L_poly = (latlngs, b) => window.L.polyline(latlngs, { pane: 'coast', color: COLORS[b], weight, opacity: 0.9, lineCap: 'round', lineJoin: 'round', dashArray: DASH[b] || null, interactive: false }).addTo(coastLayer);
         L.forEach(([x, y], vi) => {
           const idx = shoreIdx[li][vi];
           const b = idx < 0 ? null : bandOf(rows[idx]);
@@ -100,10 +125,10 @@ export function refreshCoastMap() {
           const [x1, y1] = prev.geometry.coordinates, [x2, y2] = p.geometry.coordinates;
           const km = Math.hypot((x2 - x1) * Math.cos(y1 * Math.PI / 180), y2 - y1) * 111;
           if (km < 20) {
-            const blocked = row?.blocked || prevRow?.blocked;
+            const blk = row?.blocked ? row : prevRow?.blocked ? prevRow : null;
             const scores = [row?.score, prevRow?.score].filter(v => v != null);
-            const b = blocked ? 'blocked' : scores.length ? band(scores.reduce((a, c) => a + c, 0) / scores.length) : 'unknown';
-            L.polyline([[y1, x1], [y2, x2]], { pane: 'coast', color: COLORS[b], weight, opacity: 0.9, lineCap: 'round', dashArray: b === 'blocked' ? '4 8' : null, interactive: false }).addTo(coastLayer);
+            const b = blk ? `blk-${blk.blockKind || 'safety'}` : scores.length ? band(scores.reduce((a, c) => a + c, 0) / scores.length) : 'unknown';
+            L.polyline([[y1, x1], [y2, x2]], { pane: 'coast', color: COLORS[b], weight, opacity: 0.9, lineCap: 'round', dashArray: DASH[b] || null, interactive: false }).addTo(coastLayer);
           }
         }
         prev = p; prevRow = row;
@@ -297,14 +322,14 @@ function tapHTML(loc, where, sh, exact) {
   const moon = window.SunCalc.getMoonIllumination(new Date(t));
   const buoy = nearestBuoy(state.buoys, lat, lng);
   const legal = legalStatus(state.data.zones, loc);
-  const pillFor = r => !r ? '<span class="pill unknown">Unknown</span>' : r.blocked ? '<span class="pill blocked">✕ Blocked</span>' : `<span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score ?? ''}</span>`;
+  const pillFor = r => !r ? '<span class="pill unknown">Unknown</span>' : r.blocked ? blockPill(r.blockKind) : `<span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score ?? ''}</span>`;
   const gmaps = `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(6)},${lng.toFixed(6)}`;
   return `
     <strong>Exact point</strong> <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br>
     ${where ? `<span class="small">${esc(where)}</span><br>` : ''}
     <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
     <div class="row" style="margin:8px 0;gap:6px"><div><div class="small muted">Shore</div>${pillFor(rs)}</div><div><div class="small muted">Spear</div>${pillFor(rp)}</div></div>
-    <div style="margin:-2px 0 6px">${(() => { const r = state.activity === 'spear' ? rp : rs; return r ? chanceIcon(r.score, state.activity, r.blocked) : ''; })()}</div>
+    <div style="margin:-2px 0 6px">${(() => { const r = state.activity === 'spear' ? rp : rs; return r ? chanceIcon(r.score, state.activity, r.blocked && r.blockKind) : ''; })()}</div>
     ${[rs, rp].flatMap(r => r?.blocks ?? []).map(b => `<div class="small">✕ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
     ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · ${loc.estuary ? 'Sheltered water (no ocean swell)' : `Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''}`} · Tide ${h.tide_rate == null ? '?' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
       <div class="small">Visibility: ${vis ? vis.label : 'unknown'} (estimate) · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>
@@ -338,19 +363,19 @@ function buildTimeBar() {
     <input id="tb-range" type="range" min="0" max="48" step="1" value="0" aria-label="Forecast time">
     <span id="tb-label" class="small"></span>`;
   const range = bar.querySelector('#tb-range');
-  range.addEventListener('input', () => { offset = +range.value; refreshCoastMap(); });
+  range.addEventListener('input', () => { offset = +range.value; userMovedTime = true; refreshMap(); });
   bar.querySelector('#tb-play').addEventListener('click', e => {
     if (playing) { clearInterval(playing); playing = null; e.currentTarget.textContent = '▶'; return; }
     e.currentTarget.textContent = '❚❚';
     playing = setInterval(() => {
-      offset = (offset + 1) % 49; range.value = offset; refreshCoastMap();
+      offset = (offset + 1) % 49; range.value = offset; userMovedTime = true; refreshMap();
     }, 800);
   });
 }
 
 function updateTimeLabel() {
   const el = document.getElementById('tb-label');
-  if (el) el.textContent = (offset === 0 ? 'Now' : fmtDateTime(selectedTime())) + (state.coast.fetchedAt ? '' : ' · loading coast…');
+  if (el) el.textContent = (autoJumped && offset ? '🌙 Dark now — spearfishing from ' : '') + (offset === 0 ? 'Now' : fmtDateTime(selectedTime())) + (state.coast.fetchedAt ? '' : ' · loading coast…');
 }
 
 // ---- Windy animated view (official embed, free with logo visible) -----------

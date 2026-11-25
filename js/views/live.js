@@ -5,7 +5,7 @@ import { moonName } from '../coastmap.js';
 import { legalStatus } from '../zones.js';
 import { communityCard, sightingsCard, fillSightings } from './community.js';
 import { REGIONS, TYPE_LABELS } from '../config.js';
-import { esc, pill, windowText, confText, typeTag, activityToggle, chanceIcon } from '../ui.js';
+import { esc, pill, windowText, confText, typeTag, activityToggle, chanceIcon, blockPill } from '../ui.js';
 import { fmtWind, fmtHeight, fmtTemp, fmtHour, fmtAge, fmtDateTime } from '../units.js';
 import { degToCompass } from '../scoring/geo.js';
 import { band, BAND_LABEL, visibilityEstimate } from '../scoring/score.js';
@@ -53,8 +53,8 @@ export function renderLive(view, rawId) {
       <div class="muted small">${loc.virtual ? `Automatic coast area · faces ${degToCompass(loc.facing)} · conditions only, not a checked spot` : `${esc(REGIONS[loc.region]?.name ?? '')} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)}`} ${loc.status === 'demo' ? '<span class="tag demo">unverified</span>' : ''}</div>
       <h1 style="margin:4px 0 10px">${esc(loc.name)}</h1>
       <div class="row wrap">
-        <div><div class="muted small">Right now</div>${ev.current ? (ev.current.blocked ? '<span class="pill blocked big">✕ Blocked</span>' : `<span class="pill ${band(ev.current.score)} big">${BAND_LABEL[band(ev.current.score)]} ${ev.current.score ?? ''}</span>`) : '<span class="pill unknown big">Unknown</span>'}</div>
-        <div><div class="muted small">Next 24 h</div>${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked')}<div class="small">${esc(windowText(ev))}</div></div>
+        <div><div class="muted small">Right now</div>${ev.current ? (ev.current.blocked ? blockPill(ev.current.blockKind, true) : `<span class="pill ${band(ev.current.score)} big">${BAND_LABEL[band(ev.current.score)]} ${ev.current.score ?? ''}</span>`) : '<span class="pill unknown big">Unknown</span>'}</div>
+        <div><div class="muted small">Next 24 h</div>${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked' && (ev.blockKind || true))}<div class="small">${esc(windowText(ev))}</div></div>
       </div>
       ${ev.currentBlocks?.length ? `<div class="notice danger small" style="margin-top:10px">${ev.currentBlocks.map(b => esc(b.reason)).join('<br>')}</div>` : ''}
       <div style="margin-top:8px">${confText(ev.confidence)}</div>
@@ -77,12 +77,12 @@ export function renderLive(view, rawId) {
       <div class="strip" role="list">
         ${next12.map(r => `<div class="slot" role="listitem">
           <div class="small muted">${fmtHour(r.t)}</div>
-          ${r.blocked ? '<span class="pill blocked">✕</span>' : `<span class="pill ${band(r.score)}">${r.score ?? '?'}</span>`}
+          ${r.blocked ? `<span class="pill blk-${r.blockKind || 'safety'}">${{ legal: '⛔', safety: '⚠', dark: '🌙' }[r.blockKind] || '✕'}</span>` : `<span class="pill ${band(r.score)}">${r.score ?? '?'}</span>`}
           <div class="small">${arrow(r.hour.wind_direction)} ${r.hour.wind_speed == null ? '?' : Math.round(r.hour.wind_speed)}</div>
           <div class="small muted">${r.hour.wave_height == null ? '?' : fmtHeight(r.hour.wave_height)}</div>
         </div>`).join('') || '<p class="muted">No forecast loaded.</p>'}
       </div>
-      <p class="small muted">Wind in ${fmtWind(0).split(' ')[1]}, arrow points the way the wind blows. ✕ = blocked.</p>
+      <p class="small muted">Wind in ${fmtWind(0).split(' ')[1]}, arrow points the way the wind blows. ⛔ = not allowed, ⚠ = not safe, 🌙 = too dark to spear.</p>
     </div>
 
     ${ev.explanation ? `<div class="card small">${esc(ev.explanation)}</div>` : ''}

@@ -3,12 +3,19 @@ import { fmtHour } from './units.js';
 
 export const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
 
+// Blocked is split into three plain-English states.
+export const BLOCK_LABEL = { legal: 'Not allowed', safety: 'Not safe', dark: 'Too dark' };
+export const BLOCK_ICON = { legal: '⛔', safety: '⚠', dark: '🌙' };
+export function blockPill(kind, big = false) {
+  const k = kind || 'safety';
+  return `<span class="pill blk-${k}${big ? ' big' : ''}">${BLOCK_ICON[k]} ${BLOCK_LABEL[k]}</span>`;
+}
 export function pill(ev) {
-  if (!ev || ev.applicable === false) return '<span class="pill unknown">Not rated</span>';
+  if (!ev || ev.applicable === false) return `<span class="pill unknown">${ev?.activity === 'spear' ? 'Not a spearfishing spot' : ev?.activity === 'shore' ? 'Not a shore-fishing spot' : 'Not rated'}</span>`;
   const b = ev.band;
-  const num = ev.score != null && b !== 'blocked' ? ` ${ev.score}` : '';
-  const icon = b === 'blocked' ? '✕ ' : '';
-  return `<span class="pill ${b}">${icon}${BAND_LABEL[b]}${num}</span>`;
+  if (b === 'blocked') return blockPill(ev.blockKind);
+  const num = ev.score != null ? ` ${ev.score}` : '';
+  return `<span class="pill ${b}">${BAND_LABEL[b]}${num}</span>`;
 }
 
 // Plain-English labels: measured = live reading; forecast = weather/ocean model forecast
@@ -25,7 +32,7 @@ export function confText(c) {
 export function windowText(ev) {
   if (!ev || ev.applicable === false) return '';
   if (ev.noData) return 'No forecast loaded';
-  if (ev.blocked) return 'Blocked for the next 24 h';
+  if (ev.blocked) return `${BLOCK_LABEL[ev.blockKind] || 'Not available'} for the next 24 h`;
   if (!ev.best) return 'No suitable window in the next 24 h';
   return `Best ${fmtHour(ev.best.start)}–${fmtHour(ev.best.end)}`;
 }
@@ -50,7 +57,7 @@ export const CHANCE_TIERS = [
 ];
 export function chanceTier(score) { return score == null ? null : CHANCE_TIERS.find(t => score >= t.min); }
 export function chanceIcon(score, activity = 'shore', blocked = false) {
-  if (blocked) return '<span class="chance blocked" title="Blocked">✕ <span class="small">Not allowed / not safe</span></span>';
+  if (blocked) { const k = typeof blocked === 'string' ? blocked : 'safety'; return `<span class="chance blocked blk-${k}">${BLOCK_ICON[k]} <span class="small">${BLOCK_LABEL[k]}</span></span>`; }
   const t = chanceTier(score);
   if (!t) return '';
   return `<span class="chance ${t.key}" title="${t.label}">${t.icon(activity === 'spear')}<span class="small">${t.label}</span></span>`;

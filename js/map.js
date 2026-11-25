@@ -1,11 +1,13 @@
 import { CONFIG, REGIONS, TYPE_LABELS } from './config.js';
 import { state, evalFor, visibleLocations } from './app.js';
 import * as store from './storage.js';
-import { esc, pill, windowText, confText, chanceIcon } from './ui.js';
+import { esc, pill, windowText, confText, chanceIcon, blockPill } from './ui.js';
+import { band, BAND_LABEL } from './scoring/score.js';
+import { fmtDateTime } from './units.js';
 import { fmtWind, fmtHeight, fmtTemp } from './units.js';
 import { degToCompass } from './scoring/geo.js';
 import { AMENITY_TYPES, loadAmenities } from './amenities.js';
-import { initCoastMap, refreshCoastMap } from './coastmap.js';
+import { initCoastMap, refreshCoastMap, selectedTime } from './coastmap.js';
 
 let map, markerLayer, zoneLayer, amenityLayer;
 export const FISH_SVG = '<svg viewBox="0 0 32 20" width="26" height="16"><path d="M2 10c5-7 14-8 20-3l7-5v16l-7-5c-6 5-15 4-20-3z" fill="#56b4e9" stroke="#fff" stroke-width="1.5"/><circle cx="8" cy="9" r="1.6" fill="#04121f"/></svg>';
@@ -119,6 +121,16 @@ export function showMap(show) {
 }
 
 
+function hourRow(ev) {
+  if (!ev?.hourly) return null;
+  const t = selectedTime();
+  return ev.hourly.find(h => h.t === t) ?? null;
+}
+function timeLabel() {
+  const t = selectedTime();
+  return t === Math.floor(Date.now() / 3600e3) * 3600e3 ? 'Now' : fmtDateTime(t);
+}
+
 function subLabel(loc, ev, on) {
   const h = ev?.current?.hour;
   if (!h) return '';
@@ -140,15 +152,17 @@ export function refreshMap() {
   const placed = [];
   const cand = visibleLocations()
     .filter(loc => !loc.osm || (zoom >= 12 && bounds.contains([loc.geometry.coordinates[1], loc.geometry.coordinates[0]])))
-    .map(loc => ({ loc, ev: evalFor(loc) }))
-    .sort((a, b) => (a.loc.osm ? 1 : 0) - (b.loc.osm ? 1 : 0) || (b.ev.score ?? -1) - (a.ev.score ?? -1));
-  for (const { loc, ev } of cand) {
+    .map(loc => { const ev = evalFor(loc); return { loc, ev, hr: hourRow(ev) }; })
+    .sort((a, b) => (a.loc.osm ? 1 : 0) - (b.loc.osm ? 1 : 0) || (b.hr?.score ?? -1) - (a.hr?.score ?? -1));
+  for (const { loc, ev, hr } of cand) {
+    if (ev.applicable === false) continue;   // e.g. beach spots in Spear mode: don't clutter the map
     const pt = map.latLngToContainerPoint([loc.geometry.coordinates[1], loc.geometry.coordinates[0]]);
     if (loc.osm && zoom < 16 && placed.some(q => Math.abs(q.x - pt.x) < 44 && Math.abs(q.y - pt.y) < 56)) continue;
     placed.push(pt);
     const [lng, lat] = loc.geometry.coordinates;
-    const cls = ev.applicable === false ? 'na' : ev.band;
-    const text = ev.applicable === false ? '–' : ev.band === 'blocked' ? '✕' : ev.score ?? '?';
+    // the pin shows the score at the hour on the time slider (so it changes as you scrub / press play)
+    const cls = ev.applicable === false ? 'na' : !hr ? 'unknown' : hr.blocked ? `blocked blk-${hr.blockKind || 'safety'}` : hr.score != null ? band(hr.score) : 'unknown';
+    const text = ev.applicable === false ? '–' : !hr ? '?' : hr.blocked ? ({ legal: '⛔', safety: '⚠', dark: '🌙' }[hr.blockKind] || '✕') : hr.score ?? '?';
     const icon = L.divIcon({
       className: loc.osm ? 'mk-wrap osm' : 'mk-wrap',
       html: `<div class="mk ${cls} conf-${ev.confidence?.level ?? 'low'}" aria-hidden="true">${text}</div>${subLabel(loc, ev, on)}`,
@@ -158,8 +172,10 @@ export function refreshMap() {
     m.bindPopup(() => `
       <strong>${esc(loc.name)}</strong><br>
       <span class="muted small">${esc(REGIONS[loc.region]?.name ?? loc.region)} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)}</span>
-      <div style="margin:8px 0">${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked')}</div>
-      <div class="small">${esc(windowText(ev))}</div>
+      ${ev.applicable === false ? `<div style="margin:8px 0">${pill(ev)}</div>` : `
+      <div class="small muted" style="margin-top:6px">${timeLabel()}</div>
+      <div style="margin:2px 0 6px">${hr ? (hr.blocked ? blockPill(hr.blockKind) : `<span class="pill ${band(hr.score)}">${BAND_LABEL[band(hr.score)]} ${hr.score ?? '?'}</span>`) : '<span class="pill unknown">Unknown</span>'} ${hr ? chanceIcon(hr.score, state.activity, hr.blocked && (hr.blockKind || true)) : ''}</div>
+      <div class="small">Next 24 h: ${pill(ev)} ${esc(windowText(ev))}</div>`}
       ${ev.applicable === false ? `<div class="small muted">Not listed for ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'}.</div>` : ''}
       ${ev.blocked ? `<div class="small">${esc(ev.blockReasons[0] ?? '')}</div>` : ''}
       <div>${confText(ev.confidence)}</div>
@@ -233,9 +249,9 @@ function buildLayerPanel() {
 
 function buildLegend() {
   document.getElementById('legend').innerHTML = [
-    ['good', 'Good'], ['fair', 'Fair'], ['poor', 'Poor'], ['blocked', 'Blocked ✕'], ['unknown', 'Unknown']
-  ].map(([c, t]) => `<span><i class="dot" style="background:var(--${c})"></i>${t}</span>`).join('') +
-    '<span>dashed = lower confidence</span>';
+    ['good', 'Good'], ['fair', 'Fair'], ['poor', 'Poor'], ['blk-legal', 'Not allowed'], ['blk-safety', 'Not safe'], ['unknown', 'Unknown']
+  ].map(([c, t]) => `<span><i class="dot ${c}"></i>${t}</span>`).join('') +
+    '<span>dashed pin = lower confidence</span>';
   const hl = document.getElementById('habitat-legend');
   hl.innerHTML = `<strong class="small">Seabed habitat</strong>
     <img alt="Habitat colour key from Seamap Australia" loading="lazy" src="https://geoserver.imas.utas.edu.au/geoserver/seamap/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&LAYER=seamap:SeamapAus_National_Benthic_Habitat_Layer">
