@@ -35,7 +35,7 @@ export function legalStatus(zones, loc) {
   if (!zones?.loaded) return { state: 'unchecked', text: 'Marine park zones not loaded yet — run the weekly data update (see README).' };
   const hits = zoneHitsFor(zones, loc);
   const sanct = hits.find(h => (h.prohibits || []).length || h.zone_type === 'sanctuary');
-  if (sanct) return { state: 'blocked', text: `Inside ${sanct.name} (${nice(sanct.zone_type || 'sanctuary')}) — no fishing, spearing or collecting.` };
+  if (sanct) return { state: 'blocked', text: `Inside ${sanct.name} (${nice(sanct.zone_type || 'sanctuary')}) — no fishing, spearing or collecting.${sanct.verified === false ? ' Zone boundary from OpenStreetMap — check the DBCA zoning map.' : ''}` };
   const zoned = hits.find(h => h.zone_type && h.zone_type !== 'marine_park');
   if (zoned) {
     const sp = zoned.zone_type === 'special_purpose' ? ' Special purpose zones can have extra limits — check the park rules.' : '';

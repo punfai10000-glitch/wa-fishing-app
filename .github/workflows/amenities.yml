@@ -13,6 +13,17 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
+      # One OpenStreetMap download from Geofabrik (free mirror), cut to Perth->Esperance and read locally.
+      # The public Overpass servers time out from GitHub, so they're only a fallback if this step fails.
+      - name: Download OpenStreetMap extract (Geofabrik)
+        continue-on-error: true
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
+          curl -sSfL --retry 3 -o au.osm.pbf https://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
+          osmium extract -b 114.5,-35.6,123.5,-31.3 au.osm.pbf -o sw.osm.pbf --overwrite
+          rm -f au.osm.pbf
+          ls -la sw.osm.pbf
+          echo "OSM_PBF=$PWD/sw.osm.pbf" >> "$GITHUB_ENV"
       - run: python pipeline/fetch_amenities.py || echo "amenities failed"
       - run: python pipeline/fetch_osm_spots.py || echo "spots failed"
       - run: python pipeline/fetch_coastline.py || echo "coastline failed"

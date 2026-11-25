@@ -9,7 +9,7 @@ Output: data/coastline.json  {land_side:"left", precise:true, lines:[...], water
 import json, os, sys
 from datetime import datetime, timezone
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import overpass
+import overpass, osm_local
 
 TOL = 0.00008  # ~8 m simplification
 
@@ -61,13 +61,21 @@ def ring_area_km2(r):
     return abs(a) / 2
 
 
+WATER_OK = ("river", "estuary", "lagoon", "tidal", "canal")
+
+
 def fetch_water():
     import time
     overpass._start = time.time()   # fresh time budget for the water areas
     out = []
-    for el in overpass.run(water_query):
+    if osm_local.available():
+        els = [e for e in osm_local.elements(["nwr/natural=water", "w/waterway=riverbank"], geometry_types="polygon", split_parts=True)
+               if e["tags"].get("water") in WATER_OK or e["tags"].get("tidal") == "yes" or e["tags"].get("waterway") == "riverbank"]
+    else:
+        els = overpass.run(water_query)
+    for el in els:
         t = el.get("tags", {})
-        if el["type"] == "way":
+        if el["type"] == "way" or el.get("geometry"):
             g = el.get("geometry") or []
             pieces = [[(round(p["lon"], 5), round(p["lat"], 5)) for p in g]]
         else:
@@ -109,14 +117,27 @@ def simplify(pts, tol):
     return [p for p, k in zip(pts, keep) if k]
 
 
+def ccw(pts):
+    a = sum((pts[i][0] * pts[i + 1][1] - pts[i + 1][0] * pts[i][1]) for i in range(len(pts) - 1))
+    return pts if a > 0 else pts[::-1]
+
+
 def main(out="data/coastline.json"):
-    els = overpass.run(query)
+    if osm_local.available():
+        els = osm_local.elements(["w/natural=coastline"], geometry_types="linestring", split_parts=True)
+    else:
+        els = overpass.run(query)
+        if overpass.FAILED:
+            raise SystemExit(f"{len(overpass.FAILED)} coastline tile(s) failed - keeping the existing coastline (a partial one would break the map)")
     lines, n = [], 0
     for el in els:
         g = el.get("geometry")
         if el.get("type") != "way" or not g or len(g) < 2:
             continue
-        pts = simplify([(round(p["lon"], 5), round(p["lat"], 5)) for p in g], TOL)
+        pts = [(round(p["lon"], 5), round(p["lat"], 5)) for p in g]
+        if el.get("center") and pts[0] == pts[-1] and len(pts) > 3:   # closed island ring from the extract: land on the left = anticlockwise
+            pts = ccw(pts)
+        pts = simplify(pts, TOL)
         lines.append([list(p) for p in pts])
         n += len(pts)
     print("coastline ways:", len(lines), "points:", n)

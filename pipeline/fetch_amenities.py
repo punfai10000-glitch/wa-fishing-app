@@ -9,7 +9,7 @@ from datetime import datetime, timezone
 
 import os
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-import overpass
+import overpass, osm_local
 
 
 def query(s, w, n, e):
@@ -46,6 +46,9 @@ def kind(tags):
 
 
 def fetch():
+    if osm_local.available():
+        return {"elements": osm_local.elements(["nwr/shop=fishing,bait,tackle", "nwr/fishing", "nwr/sport=fishing",
+                                                 "nwr/amenity=fuel,toilets,restaurant,fast_food,cafe,parking"])}
     return {"elements": overpass.run(query)}
 
 
@@ -81,6 +84,7 @@ def main():
             if t in tags:
                 props[t] = tags[t]
         feats.append({"type": "Feature", "geometry": {"type": "Point", "coordinates": [round(lon, 6), round(lat, 6)]}, "properties": props})
+    feats = overpass.keep_old_in_failed_tiles(feats, "data/amenities.geojson")
     if len(feats) < 20:
         raise SystemExit(f"Only {len(feats)} features returned — refusing to overwrite good data")
     out = {"type": "FeatureCollection", "generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),

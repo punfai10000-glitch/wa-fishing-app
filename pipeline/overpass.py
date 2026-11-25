@@ -10,6 +10,9 @@ import json, os, time, urllib.parse, urllib.request
 BUDGET = int(os.environ.get("OVERPASS_BUDGET", "900"))
 _start = time.time()
 
+FAILED = []   # tiles that could not be fetched in this run
+
+
 def _left():
     return BUDGET - (time.time() - _start)
 
@@ -62,6 +65,7 @@ def _tile(query_for_bbox, t, depth):
     for attempt in range(len(ENDPOINTS)):          # each mirror once
         if _left() < 60:
             print(f"  time budget used up - skipping tile {t}")
+            FAILED.append(t)
             return []
         url = ENDPOINTS[attempt % len(ENDPOINTS)]
         try:
@@ -81,4 +85,23 @@ def _tile(query_for_bbox, t, depth):
         quads = [(s, w, ms, mw), (s, mw, ms, e), (ms, w, n, mw), (ms, mw, n, e)]
         return run(query_for_bbox, quads, depth + 1)
     print(f"  GIVING UP on tile {t}: {last}")
+    FAILED.append(t)
     return []
+
+
+def keep_old_in_failed_tiles(new_features, path):
+    """Never let a partial download wipe good data: for tiles that failed this run, keep the previous
+    file's features that fall inside them."""
+    if not FAILED:
+        return new_features
+    import json
+    try:
+        old = json.load(open(path)).get("features", [])
+    except Exception:
+        return new_features
+    def inside(f):
+        x, y = f["geometry"]["coordinates"][:2]
+        return any(s <= y <= n and w <= x <= e for (s, w, n, e) in FAILED)
+    kept = [f for f in old if f.get("geometry", {}).get("type") == "Point" and inside(f)]
+    print(f"  {len(FAILED)} tile(s) failed - kept {len(kept)} previous features there")
+    return new_features + kept
