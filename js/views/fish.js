@@ -18,6 +18,7 @@ function subnav(active) {
 function statusBadge(s) {
   if (s.status === 'danger') return '<span class="pill blocked">☠ Dangerous — don\'t touch</span>';
   if (s.status === 'protected') return '<span class="pill poor">Protected — release</span>';
+  if (s.pest || s.category === 'pest') return '<span class="pill blocked">Pest — don\'t release</span>';
   return s.limits_verified === false
     ? '<span class="pill fair">Can keep — exact limit being added</span>'
     : '<span class="pill good">Keep within limits</span>';
