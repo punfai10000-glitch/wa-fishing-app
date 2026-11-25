@@ -7,8 +7,7 @@ const row = (sym, title, text) => `<div class="key-row"><div class="key-sym">${s
 export function renderKey(view) {
   view.innerHTML = `
   <div>
-    <p><a href="#/map">← Back to map</a></p>
-    <h1>Map key</h1>
+        <h1>Map key</h1>
     <p class="small muted">What every colour, pin and symbol on the map means. Turn layers on and off with the <strong>layers</strong> button (stacked squares, bottom right of the map).</p>
 
     <div class="card"><h2>Scores</h2>
@@ -67,6 +66,7 @@ export function renderKey(view) {
     </div>
 
     <div class="card"><h2>Facilities</h2>
+      <p class="small muted">Nothing is shown until you choose: tap the house button on the right of the map and tick what you want. Toilets, servos and 24/7 food are shown only within 10 km of the coast; zoom in to see them.</p>
       ${row('<div class="am am-tackle">B</div>', 'B', 'Tackle &amp; bait shop.')}
       ${row('<div class="am am-fuel">F</div>', 'F', 'Servo. Many sell bait, but the map data doesn\'t say which, so call ahead.')}
       ${row('<div class="am am-toilets">WC</div>', 'WC', 'Public toilet.')}

@@ -113,7 +113,7 @@ const ROUTES = {
 function route() {
   const [, name = 'map', arg] = (location.hash || '#/map').split('/');
   const view = document.getElementById('view');
-  const tab = name === 'loc' ? (sessionStorage.getItem('lastTab') || 'spots') : ({ fishid: 'fish', rules: 'fish', key: 'map' }[name] || name);
+  const tab = name === 'loc' ? (sessionStorage.getItem('lastTab') || 'spots') : ({ fishid: 'fish', rules: 'fish' }[name] || name);
   if (name !== 'loc') try { sessionStorage.setItem('lastTab', name); } catch { /* ignore */ }
   document.querySelectorAll('#tabbar a').forEach(a => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
 

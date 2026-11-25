@@ -8,6 +8,7 @@ import { fmtWind, fmtHeight, fmtTemp } from './units.js';
 import { degToCompass } from './scoring/geo.js';
 import { AMENITY_TYPES, loadAmenities } from './amenities.js';
 import { initCoastMap, refreshCoastMap, selectedTime } from './coastmap.js';
+import { loadShore, nearestShore } from './shore.js';
 
 let map, markerLayer, zoneLayer, amenityLayer;
 export const FISH_SVG = '<svg viewBox="0 0 32 20" width="26" height="16"><path d="M2 10c5-7 14-8 20-3l7-5v16l-7-5c-6 5-15 4-20-3z" fill="#56b4e9" stroke="#fff" stroke-width="1.5"/><circle cx="8" cy="9" r="1.6" fill="#04121f"/></svg>';
@@ -41,11 +42,12 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Places tagged open 24/7 on OpenStreetMap' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: 'Public car parks within ~2 km of the shore (OpenStreetMap)' }
 ];
-const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, windFlow: true, swellFlow: true, wind: false, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: true, fuel: true, toilets: true };
+const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, windFlow: true, swellFlow: true, wind: false, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
 export const layerOn = () => {
   const saved = store.get('layers', {});
   // v2: facilities (bait/tackle, servos, toilets) on by default — switch them on once for people with saved settings
-  if (!store.get('layersV2')) { store.set('layersV2', 1); Object.assign(saved, { tackle: true, fuel: true, toilets: true }); store.set('layers', saved); }
+  // v3: facilities are off until the user picks what they want (too many pins otherwise)
+  if (!store.get('layersV3')) { store.set('layersV3', 1); Object.assign(saved, { tackle: false, fuel: false, toilets: false, food24: false, parking: false }); store.set('layers', saved); }
   return { ...DEFAULTS, ...saved };
 };
 const setLayer = (k, v) => store.set('layers', { ...layerOn(), [k]: v });
@@ -96,6 +98,7 @@ export function initMap() {
 
   applyLayers();
   buildLayerPanel();
+  buildFacilitiesPicker();
   buildSearch();
   buildLegend();
   refreshMap();
@@ -193,6 +196,38 @@ export function refreshMap() {
   refreshCoastMap();
 }
 
+// Toilets, servos and 24/7 food only within 10 km of the sea (otherwise far too many inland pins).
+// Bait & tackle shops are kept wherever they are; car parks are already limited to ~2.5 km of the shore.
+let coastalCache = null;
+async function coastalAmenities() {
+  if (coastalCache) return coastalCache;
+  const [data] = await Promise.all([loadAmenities(), loadShore()]);
+  if (!data) return null;
+  const near = f => { const [lng, lat] = f.geometry.coordinates; const n = nearestShore(lat, lng, 10); return !!n && (n.km <= 10); };
+  coastalCache = { ...data, features: data.features.filter(f => f.properties.kind === 'tackle' || near(f)) };
+  return coastalCache;
+}
+
+function buildFacilitiesPicker() {
+  const btn = document.getElementById('fac-btn'), panel = document.getElementById('fac-panel');
+  if (!btn || !panel) return;
+  const draw = () => {
+    const on = layerOn();
+    const ids = ['tackle', 'fuel', 'toilets', 'food24', 'parking'];
+    panel.innerHTML = `<h3>Show on the map</h3>` + ids.map(id => `<label><input type="checkbox" data-fac="${id}" ${on[id] ? 'checked' : ''}>
+      <span class="am am-${id}" aria-hidden="true">${AMENITY_TYPES[id].short}</span>${esc(AMENITY_TYPES[id].label)}</label>`).join('') +
+      `<p class="small muted" style="margin:4px 0 0">Toilets, servos and food within 10 km of the coast. Zoom in to see them.</p>`;
+    btn.setAttribute('aria-pressed', ids.some(id => on[id]) ? 'true' : 'false');
+  };
+  btn.addEventListener('click', () => { const open = panel.hidden; panel.hidden = !open; btn.setAttribute('aria-expanded', String(open)); if (open) draw(); });
+  panel.addEventListener('change', e => {
+    const id = e.target.dataset.fac; if (!id) return;
+    store.set('layers', { ...layerOn(), [id]: e.target.checked });
+    draw(); renderAmenities();
+  });
+  draw();
+}
+
 async function renderAmenities() {
   if (!map) return;
   const L = window.L;
@@ -201,9 +236,9 @@ async function renderAmenities() {
   const wanted = Object.keys(AMENITY_TYPES).filter(k => on[k]);
   const note = document.getElementById('amenity-note');
   if (!wanted.length) { note.hidden = true; return; }
-  const data = await loadAmenities();
+  const data = await coastalAmenities();
   if (!data) { note.textContent = 'Bait shops, servos and toilets are still downloading (weekly update) — check back soon.'; note.hidden = false; return; }
-  if (map.getZoom() < 12) { note.textContent = 'Zoom in to see bait shops, servos and toilets.'; note.hidden = false; return; }
+  if (map.getZoom() < 11) { note.textContent = 'Zoom in to see bait shops, servos and toilets.'; note.hidden = false; return; }
   note.hidden = true;
   const b = map.getBounds().pad(0.2);
   for (const f of data.features) {
