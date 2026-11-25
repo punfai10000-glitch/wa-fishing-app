@@ -1,0 +1,15 @@
+{
+  "sources": [
+    { "id": "open-meteo-forecast", "name": "Open-Meteo Weather Forecast API", "type": "forecast", "licence": "CC BY 4.0 (free non-commercial tier)", "attribution": "Weather data by Open-Meteo.com", "url": "https://open-meteo.com/", "status": "connected" },
+    { "id": "open-meteo-marine", "name": "Open-Meteo Marine API", "type": "forecast / modelled", "licence": "CC BY 4.0 (free non-commercial tier)", "attribution": "Marine data by Open-Meteo.com", "url": "https://open-meteo.com/en/docs/marine-weather-api", "status": "connected" },
+    { "id": "esri-imagery", "name": "Esri World Imagery", "type": "base map", "licence": "Esri terms of use (free ArcGIS Location Platform tier)", "attribution": "Esri, Maxar, Earthstar Geographics, and the GIS User Community", "url": "https://location.arcgis.com/", "status": "needs API key" },
+    { "id": "osm", "name": "OpenStreetMap", "type": "base map / location reference", "licence": "ODbL", "attribution": "© OpenStreetMap contributors", "url": "https://www.openstreetmap.org/copyright", "status": "connected (fallback map)" },
+    { "id": "dot-buoys", "name": "WA Dept of Transport wave buoys (via AODN)", "type": "measured", "licence": "CC BY 4.0", "attribution": "Department of Transport WA; Australian Ocean Data Network", "url": "https://transport.wa.gov.au/imarine/wave-data-real-time.asp", "status": "not connected yet (needs data pipeline)" },
+    { "id": "dot-tides", "name": "WA Dept of Transport tide gauges", "type": "measured", "licence": "CC BY (per AODN record)", "attribution": "Department of Transport WA", "url": "https://transport.wa.gov.au/imarine/tide-data-real-time.asp", "status": "not connected yet (needs data pipeline)" },
+    { "id": "bom-warnings", "name": "Bureau of Meteorology warnings (anonymous FTP)", "type": "official warning", "licence": "© Bureau of Meteorology", "attribution": "© Bureau of Meteorology", "url": "https://www.bom.gov.au/catalogue/data-feeds.shtml", "status": "not connected yet (needs data pipeline)" },
+    { "id": "dbca-zones", "name": "DBCA Legislated Lands and Waters", "type": "authoritative boundaries", "licence": "CC BY-SA 4.0", "attribution": "Department of Biodiversity, Conservation and Attractions", "url": "https://catalogue.data.wa.gov.au/dataset/dbca-legislated-lands-and-waters", "status": "not loaded yet" },
+    { "id": "dpird-rules", "name": "DPIRD recreational fishing rules", "type": "regulation", "licence": "© State of Western Australia — restated with attribution", "attribution": "Department of Primary Industries and Regional Development", "url": "https://rules.fish.wa.gov.au", "status": "manual" },
+    { "id": "suncalc", "name": "SunCalc", "type": "calculated", "licence": "BSD-2-Clause", "attribution": "SunCalc by Vladimir Agafonkin", "url": "https://github.com/mourner/suncalc", "status": "built in" },
+    { "id": "src-own-knowledge", "name": "Curator knowledge (pilot, unverified)", "type": "curated", "licence": "Project data (ODbL)", "attribution": "WA Fishing Intelligence contributors", "url": "", "status": "pilot" }
+  ]
+}

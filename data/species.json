@@ -1,0 +1,55 @@
+{
+  "_note": "DRAFT. Identification hints are general field marks entered for the prototype and must be reviewed against an authoritative WA fish guide before launch. Regulations live in rules.json, never here.",
+  "id_questions": [
+    {
+      "id": "shape",
+      "text": "What shape is it?",
+      "options": [
+        { "id": "slender", "label": "Long and slender" },
+        { "id": "torpedo", "label": "Streamlined, torpedo-like" },
+        { "id": "deep_oval", "label": "Deep, oval body" },
+        { "id": "flat", "label": "Flattened, eyes on top" },
+        { "id": "squid", "label": "Squid or cuttlefish" }
+      ]
+    },
+    {
+      "id": "marks",
+      "text": "Main colour or markings?",
+      "options": [
+        { "id": "plain_silver", "label": "Mostly plain silver" },
+        { "id": "spots", "label": "Spots or speckles" },
+        { "id": "stripes", "label": "Lines or stripes" },
+        { "id": "colourful", "label": "Pink, blue or green tones" },
+        { "id": "dark", "label": "Dark, bronze or brown" }
+      ]
+    },
+    {
+      "id": "feature",
+      "text": "Any stand-out feature?",
+      "options": [
+        { "id": "beak", "label": "Long beak-like lower jaw" },
+        { "id": "teeth", "label": "Sharp, obvious teeth" },
+        { "id": "gill_spot", "label": "Dark spot near gill cover" },
+        { "id": "big_head", "label": "Big head, large mouth" },
+        { "id": "squid_fins", "label": "Fin running the body length" },
+        { "id": "none", "label": "None / not sure" }
+      ]
+    }
+  ],
+  "species": [
+    { "id": "australian_herring", "name": "Australian herring", "aka": ["tommy ruff"], "scientific": "Arripis georgianus", "activities": ["shore"], "traits": { "shape": ["slender", "torpedo"], "marks": ["plain_silver", "spots"], "feature": [] }, "id_tips": "Small silvery fish with a large eye; often faint golden-brown speckles along the back.", "rule_ids": [] },
+    { "id": "australian_salmon", "name": "Western Australian salmon", "aka": ["salmon"], "scientific": "Arripis truttaceus", "activities": ["shore", "spear"], "traits": { "shape": ["torpedo"], "marks": ["plain_silver", "spots"], "feature": [] }, "id_tips": "Large, powerful torpedo-shaped fish; greenish back. Easily confused with herring when small — compare size and eye.", "rule_ids": [] },
+    { "id": "tailor", "name": "Tailor", "aka": [], "scientific": "Pomatomus saltatrix", "activities": ["shore"], "traits": { "shape": ["torpedo", "slender"], "marks": ["plain_silver"], "feature": ["teeth"] }, "id_tips": "Blue-green back, silver sides, forked tail and sharp teeth — handle carefully.", "rule_ids": [] },
+    { "id": "king_george_whiting", "name": "King George whiting", "aka": [], "scientific": "Sillaginodes punctatus", "activities": ["shore", "spear"], "traits": { "shape": ["slender"], "marks": ["spots"], "feature": [] }, "id_tips": "Slender with a pointed snout; brown-bronze spots scattered on the back.", "rule_ids": [] },
+    { "id": "southern_garfish", "name": "Southern garfish", "aka": ["gardie"], "scientific": "Hyporhamphus melanochir", "activities": ["shore"], "traits": { "shape": ["slender"], "marks": ["plain_silver", "stripes"], "feature": ["beak"] }, "id_tips": "Very slender; lower jaw extends into a long beak; silver side stripe. Rules for this species changed recently — check DPIRD.", "rule_ids": [] },
+    { "id": "skipjack_trevally", "name": "Skipjack trevally", "aka": ["skippy", "silver trevally"], "scientific": "Pseudocaranx georgianus", "activities": ["shore", "spear"], "traits": { "shape": ["deep_oval"], "marks": ["plain_silver", "stripes"], "feature": ["gill_spot"] }, "id_tips": "Silver, fairly deep body, often a yellowish stripe along the side and a dark spot on the gill cover.", "rule_ids": [] },
+    { "id": "pink_snapper", "name": "Pink snapper", "aka": ["snapper"], "scientific": "Chrysophrys auratus", "activities": ["shore", "spear"], "traits": { "shape": ["deep_oval"], "marks": ["colourful", "spots"], "feature": ["big_head"] }, "id_tips": "Pink body with small blue spots; large adults develop a hump on the head. Demersal scalefish rules apply.", "rule_ids": ["rule-west-coast-demersal-landbased"] },
+    { "id": "wa_dhufish", "name": "WA dhufish", "aka": ["dhuie"], "scientific": "Glaucosoma hebraicum", "activities": ["shore", "spear"], "traits": { "shape": ["deep_oval"], "marks": ["plain_silver", "stripes"], "feature": ["big_head"] }, "id_tips": "Deep silver-grey body, large mouth, dark bar through the eye. Demersal scalefish rules apply.", "rule_ids": ["rule-west-coast-demersal-landbased"] },
+    { "id": "black_bream", "name": "Black bream", "aka": [], "scientific": "Acanthopagrus butcheri", "activities": ["shore"], "traits": { "shape": ["deep_oval"], "marks": ["dark"], "feature": [] }, "id_tips": "Deep bronze-to-dark body; mainly estuaries and rivers.", "rule_ids": [] },
+    { "id": "tarwhine", "name": "Tarwhine", "aka": [], "scientific": "Rhabdosargus sarba", "activities": ["shore"], "traits": { "shape": ["deep_oval"], "marks": ["plain_silver", "stripes"], "feature": [] }, "id_tips": "Silver with thin golden horizontal lines and yellowish lower fins.", "rule_ids": [] },
+    { "id": "flathead", "name": "Flathead (various)", "aka": [], "scientific": "Platycephalidae", "activities": ["shore", "spear"], "traits": { "shape": ["flat"], "marks": ["spots", "dark"], "feature": ["big_head"] }, "id_tips": "Flattened head and body, eyes on top, sharp spines on the gill cover — handle carefully.", "rule_ids": [] },
+    { "id": "mulloway", "name": "Mulloway", "aka": ["jewfish"], "scientific": "Argyrosomus japonicus", "activities": ["shore", "spear"], "traits": { "shape": ["torpedo"], "marks": ["plain_silver", "dark"], "feature": ["big_head"] }, "id_tips": "Large silvery-bronze fish with a big mouth and a lateral line that runs into the tail.", "rule_ids": [] },
+    { "id": "western_blue_groper", "name": "Western blue groper", "aka": ["groper"], "scientific": "Achoerodus gouldii", "activities": ["spear"], "traits": { "shape": ["deep_oval"], "marks": ["colourful", "dark"], "feature": ["big_head"] }, "id_tips": "Very large wrasse; big males are blue, smaller fish green-brown. Check current rules before taking.", "rule_ids": [] },
+    { "id": "southern_calamari", "name": "Southern calamari", "aka": ["squid"], "scientific": "Sepioteuthis australis", "activities": ["shore", "spear"], "traits": { "shape": ["squid"], "marks": [], "feature": ["squid_fins"] }, "id_tips": "Squid with a fin running most of the body length (cuttlefish have a hard internal shell).", "rule_ids": [] }
+  ]
+}

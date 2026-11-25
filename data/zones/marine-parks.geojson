@@ -1,0 +1,6 @@
+{
+  "type": "FeatureCollection",
+  "_note": "EMPTY until the DBCA Legislated Lands and Waters (CC BY-SA 4.0) and Australian Marine Parks (CC BY 4.0) zoning data is downloaded, simplified and added. While empty, the app shows legal status as 'Not yet checked' and does not claim any location is legal.",
+  "loaded": false,
+  "features": []
+}

@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b1220">
+  <meta name="description" content="Free fishing conditions, safety and rules for shore fishing and spearfishing from Perth to Esperance.">
+  <title>WA Fishing Intelligence</title>
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="js/vendor/leaflet.css">
+  <link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+  <a class="skip" href="#view">Skip to content</a>
+  <div id="banners" aria-live="polite"></div>
+
+  <main id="main">
+    <section id="map-wrap" aria-label="Map">
+      <div id="map"></div>
+      <div class="map-top">
+        <div class="search">
+          <input id="search" type="search" placeholder="Search places or spots" autocomplete="off" aria-label="Search places or fishing spots">
+          <ul id="search-results" role="listbox" hidden></ul>
+        </div>
+        <div class="seg" role="group" aria-label="Activity" data-activity-toggle>
+          <button data-activity="shore" aria-pressed="true">Shore</button>
+          <button data-activity="spear" aria-pressed="false">Spear</button>
+        </div>
+      </div>
+      <button id="layers-btn" class="fab" aria-expanded="false" aria-controls="layers-panel" title="Map layers">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Zm-8 9 8 4 8-4M4 16l8 4 8-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span class="sr">Layers</span>
+      </button>
+      <div id="layers-panel" class="panel" hidden></div>
+      <div id="legend" class="legend" aria-label="Legend"></div>
+    </section>
+    <section id="view" tabindex="-1" hidden></section>
+  </main>
+
+  <nav id="tabbar" aria-label="Main">
+    <a href="#/map" data-tab="map"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 4 3 6v14l6-2 6 2 6-2V4l-6 2-6-2Zm0 0v14m6-12v14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Map</span></a>
+    <a href="#/spots" data-tab="spots"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h10" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg><span>Spots</span></a>
+    <a href="#/fishid" data-tab="fishid"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 12c3-5 9-6 13-3l5-3v12l-5-3c-4 3-10 2-13-3Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><circle cx="8" cy="11" r="1.2" fill="currentColor"/></svg><span>Fish ID</span></a>
+    <a href="#/rules" data-tab="rules"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h9l3 3v15H6z M9 10h6M9 14h6M9 18h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg><span>Rules</span></a>
+    <a href="#/more" data-tab="more"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="5" cy="12" r="1.8" fill="currentColor"/><circle cx="12" cy="12" r="1.8" fill="currentColor"/><circle cx="19" cy="12" r="1.8" fill="currentColor"/></svg><span>More</span></a>
+  </nav>
+
+  <dialog id="ack" aria-labelledby="ack-title">
+    <h2 id="ack-title">Before you go fishing</h2>
+    <ul>
+      <li>Scores rate <strong>environmental conditions</strong> only. They are not a guarantee of fish or of safety.</li>
+      <li>Conditions change fast. Always check official warnings and look at the water yourself before fishing.</li>
+      <li>Rock fishing and spearfishing are dangerous. Wear a lifejacket on rocks, never fish or dive alone.</li>
+      <li>Official DPIRD fishing rules always prevail over anything shown here.</li>
+      <li>This is an early version: locations are still being verified and safety limits are drafts.</li>
+    </ul>
+    <button id="ack-ok" class="btn primary">I understand</button>
+  </dialog>
+
+  <script src="js/vendor/leaflet.js"></script>
+  <script src="js/vendor/suncalc.js"></script>
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

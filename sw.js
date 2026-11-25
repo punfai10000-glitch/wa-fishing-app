@@ -1,0 +1,35 @@
+// Offline support: cache the app shell; network-first for data and forecasts.
+// Map tiles are deliberately NOT cached (Esri terms prohibit offline tile export).
+const VERSION = 'wafi-v1';
+const SHELL = [
+  './', 'index.html', 'css/app.css', 'manifest.webmanifest', 'assets/icon.svg',
+  'js/app.js', 'js/config.js', 'js/data.js', 'js/engine.js', 'js/map.js', 'js/storage.js', 'js/ui.js', 'js/units.js',
+  'js/scoring/score.js', 'js/scoring/blocks.js', 'js/scoring/confidence.js', 'js/scoring/window.js', 'js/scoring/geo.js',
+  'js/views/spots.js', 'js/views/location.js', 'js/views/rules.js', 'js/views/fishid.js', 'js/views/more.js',
+  'js/vendor/leaflet.js', 'js/vendor/leaflet.css', 'js/vendor/suncalc.js',
+  'data/locations.json', 'data/species.json', 'data/rules.json', 'data/thresholds.json', 'data/sources.json', 'data/zones/marine-parks.geojson'
+];
+
+self.addEventListener('install', e => {
+  e.waitUntil(caches.open(VERSION).then(c => c.addAll(SHELL)).then(() => self.skipWaiting()));
+});
+
+self.addEventListener('activate', e => {
+  e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim()));
+});
+
+const isTile = url => /tile\.openstreetmap\.org|arcgis\.com|arcgisonline\.com/.test(url.hostname);
+const isNetworkFirst = url => url.pathname.includes('/data/') || /open-meteo\.com$/.test(url.hostname);
+
+self.addEventListener('fetch', e => {
+  const url = new URL(e.request.url);
+  if (e.request.method !== 'GET' || isTile(url)) return;
+  if (isNetworkFirst(url)) {
+    e.respondWith(fetch(e.request).then(res => {
+      if (res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(e.request, copy)); }
+      return res;
+    }).catch(() => caches.match(e.request)));
+    return;
+  }
+  e.respondWith(caches.match(e.request).then(hit => hit || fetch(e.request)));
+});

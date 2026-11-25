@@ -1,0 +1,24 @@
+{
+  "_note": "Restated in our own words from DPIRD material. Official rules always prevail. Only rules that have been checked against a cited DPIRD source may be added here.",
+  "official_links": [
+    { "label": "Search official WA fishing rules (DPIRD)", "url": "https://rules.fish.wa.gov.au" },
+    { "label": "Recreational fishing rules — DPIRD", "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/" },
+    { "label": "Bag and size limits — DPIRD", "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/recreational-bag-and-size-limits" },
+    { "label": "WA marine parks and zones — Explore Parks WA", "url": "https://exploreparks.dbca.wa.gov.au/wa-marine-parks" },
+    { "label": "SharkSmart WA", "url": "https://www.sharksmart.com.au/" }
+  ],
+  "rules": [
+    {
+      "id": "rule-west-coast-demersal-landbased",
+      "scope": "species",
+      "applies_to": { "group": "demersal_scalefish", "bioregion": "west_coast", "activity": ["shore", "spear"] },
+      "kind": "bag_limit",
+      "summary": "Land-based fishers in the West Coast bioregion: combined bag limit of 2 demersal scalefish. Boat-based demersal fishing in the West Coast region is closed (boat fishing is outside this app's scope). Check DPIRD for the full list of demersal species and size limits.",
+      "effective_from": "2026-06-01",
+      "source_name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
+      "source_url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf",
+      "last_checked": "2026-11-24",
+      "blocks": false
+    }
+  ]
+}

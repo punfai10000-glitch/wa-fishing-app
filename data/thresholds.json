@@ -1,0 +1,11 @@
+{
+  "_note": "SAFETY HARD-BLOCK THRESHOLDS. Every value is DRAFT — conservative placeholders for prototype testing only. They must be reviewed against authoritative safety guidance before public launch. The app shows a warning banner while any threshold is draft.",
+  "thresholds": [
+    { "id": "shore-wind-gust", "applies_to": { "activity": "shore", "types": "*" }, "metric": "wind_gust_kmh", "max": 60, "status": "draft", "rationale": "Very strong gusts make standing on exposed structures unsafe." },
+    { "id": "shore-swell-onshore", "applies_to": { "activity": "shore", "types": "*" }, "metric": "onshore_wave_m", "max": 3.5, "status": "draft", "rationale": "Large onshore waves at beaches, groynes and jetties." },
+    { "id": "rock-swell-onshore", "applies_to": { "activity": "shore", "types": ["rock_platform"] }, "metric": "onshore_wave_m", "max": 2.0, "status": "draft", "rationale": "Rock platforms: stricter limit — waves can sweep fishers off ledges." },
+    { "id": "rock-wind-gust", "applies_to": { "activity": "shore", "types": ["rock_platform"] }, "metric": "wind_gust_kmh", "max": 45, "status": "draft", "rationale": "Rock platforms: stricter gust limit." },
+    { "id": "spear-swell", "applies_to": { "activity": "spear", "types": "*" }, "metric": "onshore_wave_m", "max": 1.5, "status": "draft", "rationale": "Shore entries and exits become dangerous in swell." },
+    { "id": "spear-wind", "applies_to": { "activity": "spear", "types": "*" }, "metric": "wind_speed_kmh", "max": 30, "status": "draft", "rationale": "Strong wind creates chop and surface drift for divers." }
+  ]
+}

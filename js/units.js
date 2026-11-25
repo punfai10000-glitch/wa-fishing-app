@@ -1,0 +1,44 @@
+import * as store from './storage.js';
+
+const DEFAULTS = { wind: 'kmh', height: 'm', temp: 'c' };
+
+export function getUnits() { return { ...DEFAULTS, ...store.get('units', {}) }; }
+export function setUnits(u) { store.set('units', { ...getUnits(), ...u }); }
+
+export function fmtWind(kmh) {
+  if (kmh == null) return 'Unknown';
+  const u = getUnits().wind;
+  if (u === 'kn') return `${Math.round(kmh / 1.852)} kn`;
+  if (u === 'ms') return `${(kmh / 3.6).toFixed(1)} m/s`;
+  return `${Math.round(kmh)} km/h`;
+}
+
+export function fmtHeight(m, digits = 1) {
+  if (m == null) return 'Unknown';
+  return getUnits().height === 'ft' ? `${(m * 3.281).toFixed(digits)} ft` : `${m.toFixed(digits)} m`;
+}
+
+export function fmtTemp(c) {
+  if (c == null) return 'Unknown';
+  return getUnits().temp === 'f' ? `${Math.round(c * 9 / 5 + 32)} °F` : `${c.toFixed(1)} °C`;
+}
+
+const tf = new Intl.DateTimeFormat('en-AU', { hour: 'numeric', hour12: true, timeZone: 'Australia/Perth' });
+const df = new Intl.DateTimeFormat('en-AU', { weekday: 'short', day: 'numeric', month: 'short', timeZone: 'Australia/Perth' });
+const dtf = new Intl.DateTimeFormat('en-AU', { weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Australia/Perth' });
+
+export const fmtHour = t => tf.format(new Date(t)).replace(' ', '').toLowerCase();
+export const fmtDay = t => df.format(new Date(t));
+export const fmtDateTime = t => dtf.format(new Date(t));
+
+export function fmtAge(t, now = Date.now()) {
+  const m = Math.round((now - t) / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m} min ago`;
+  const h = Math.round(m / 60);
+  return h < 48 ? `${h} h ago` : `${Math.round(h / 24)} days ago`;
+}
+
+// Day key in Perth time, e.g. "2026-11-25"
+const keyFmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Perth' });
+export const dayKey = t => keyFmt.format(new Date(t));
