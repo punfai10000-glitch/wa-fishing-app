@@ -1,0 +1,28 @@
+name: Weekly data (shops, servos, toilets, community posts, marine zones)
+on:
+  schedule:
+    - cron: '23 3 * * 1'
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.12' }
+      - run: python pipeline/fetch_amenities.py || echo "amenities failed"
+      - run: python pipeline/fetch_osm_spots.py || echo "spots failed"
+      - run: python pipeline/fetch_zones.py || echo "zones failed"
+      - run: python pipeline/fetch_community.py data/community.json || echo "community failed"
+        env:
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for f in data/amenities.geojson data/osm-spots.geojson data/zones/marine-parks.geojson data/community.json; do [ -f "$f" ] && git add "$f"; done
+          git diff --cached --quiet || git commit -m "Weekly data update"
+          git push
