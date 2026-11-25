@@ -3712,7 +3712,8 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "licence": "No licence needed from the shore or a jetty. From a powered boat you need a Recreational Fishing from Boat Licence (RFBL)."
   },
   {
    "id": "western_rock_lobster",
@@ -3754,7 +3755,8 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "licence": "Recreational rock lobster licence required (from shore or boat)."
   },
   {
    "id": "southern_rock_lobster",
@@ -3794,7 +3796,8 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "licence": "Recreational rock lobster licence required (from shore or boat)."
   },
   {
    "id": "roes_abalone",
@@ -3839,7 +3842,8 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "licence": "Recreational abalone licence required."
   },
   {
    "id": "greenlip_abalone",
@@ -3878,7 +3882,8 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "licence": "Recreational abalone licence required."
   },
   {
    "id": "brownlip_abalone",
@@ -3917,7 +3922,8 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "licence": "Recreational abalone licence required."
   },
   {
    "id": "western_king_prawn",

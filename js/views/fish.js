@@ -39,14 +39,16 @@ function card(s, open) {
       <div class="fish-head">
         <div class="thumb" data-thumb aria-hidden="true"></div>
         <div><strong>${esc(s.name)}</strong>${s.aka?.length ? `<span class="muted small"> · ${esc(s.aka.join(', '))}</span>` : ''}<br>
-          <span class="muted small"><i>${esc(s.scientific)}</i></span><br>${statusBadge(s)}</div>
+          <span class="muted small"><i>${esc(s.scientific)}</i></span><br>${statusBadge(s)}${s.licence && /required/.test(s.licence) ? ' <span class="pill fair">🪪 Licence</span>' : ''}</div>
       </div>
     </summary>
     <div class="body">
       <div class="gallery" data-gallery><span class="muted small">Loading photos…</span></div>
       ${s.caution ? `<p class="notice small">⚠ ${esc(s.caution)}</p>` : ''}
+      ${s.licence ? `<p class="notice info small"><strong>🪪 Licence:</strong> ${esc(s.licence)}</p>` : ''}
       ${limitsTable(s)}
       <p class="small"><strong>How to tell:</strong> ${esc(s.id_tips)}</p>
+      <p class="small muted">From the shore you don't need a licence for most fish. Fishing from a powered boat (or using one to reach a spot) needs a Recreational Fishing from Boat Licence (RFBL).</p>
       <p class="small muted">Source: ${(s.sources || []).map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(' · ')} · checked ${esc(s.last_checked ?? '—')}.
 </p>
     </div>

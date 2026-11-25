@@ -41,8 +41,13 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Places tagged open 24/7 on OpenStreetMap' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: 'Public car parks within ~2 km of the shore (OpenStreetMap)' }
 ];
-const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, windFlow: true, swellFlow: true, wind: false, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
-export const layerOn = () => ({ ...DEFAULTS, ...store.get('layers', {}) });
+const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, windFlow: true, swellFlow: true, wind: false, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: true, fuel: true, toilets: true };
+export const layerOn = () => {
+  const saved = store.get('layers', {});
+  // v2: facilities (bait/tackle, servos, toilets) on by default — switch them on once for people with saved settings
+  if (!store.get('layersV2')) { store.set('layersV2', 1); Object.assign(saved, { tackle: true, fuel: true, toilets: true }); store.set('layers', saved); }
+  return { ...DEFAULTS, ...saved };
+};
 const setLayer = (k, v) => store.set('layers', { ...layerOn(), [k]: v });
 
 export function getMap() { return map; }
@@ -197,8 +202,8 @@ async function renderAmenities() {
   const note = document.getElementById('amenity-note');
   if (!wanted.length) { note.hidden = true; return; }
   const data = await loadAmenities();
-  if (!data) { note.textContent = 'Shop, servo and toilet data hasn\'t been downloaded yet — see the README (Update facilities).'; note.hidden = false; return; }
-  if (map.getZoom() < 10) { note.textContent = 'Zoom in to see shops, servos and toilets.'; note.hidden = false; return; }
+  if (!data) { note.textContent = 'Bait shops, servos and toilets are still downloading (weekly update) — check back soon.'; note.hidden = false; return; }
+  if (map.getZoom() < 12) { note.textContent = 'Zoom in to see bait shops, servos and toilets.'; note.hidden = false; return; }
   note.hidden = true;
   const b = map.getBounds().pad(0.2);
   for (const f of data.features) {
