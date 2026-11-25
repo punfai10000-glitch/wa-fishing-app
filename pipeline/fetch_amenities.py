@@ -30,7 +30,7 @@ out center tags;
 
 
 def kind(tags):
-    if tags.get("shop") and re.search(r"tackle|bait|fishing|\banglers?\b", tags.get("name", ""), re.I):
+    if tags.get("shop") and re.search(r"tackle|bait|fishing|\banglers?\b|\bBCF\b", tags.get("name", ""), re.I):
         return "tackle"
     if tags.get("shop") in ("fishing", "bait", "tackle") or (tags.get("shop") and (tags.get("fishing") in ("yes", "tackle", "bait") or tags.get("sport") == "fishing")):
         return "tackle"
