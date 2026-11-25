@@ -1,5 +1,5 @@
 {
- "_note": "Size and bag limits for the original species were extracted from DPIRD's Recreational fishing guide 2026 and the 'New statewide finfish size and bag limits from 1 June 2026' sheet. Species marked limits_verified=false show DPIRD group-level limits only (e.g. 16 nearshore fish per day in total); their species-specific size/bag values are being added from the guide. Official rules always prevail.",
+ "_note": "Size and bag limits from DPIRD's Recreational fishing guide 2026 (June 2026 Edition 2) bag & size limit tables, checked 25 Nov 2026. Species not named in the guide's tables fall under 'all other finfish' (30 per day in total, no minimum size). Official rules always prevail.",
  "id_questions": [
   {
    "id": "shape",
@@ -127,16 +127,17 @@
      "where": "All bioregions",
      "min_size": "No minimum",
      "bag": 20,
-     "note": "Listed under 'all other finfish'"
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "australian_salmon",
@@ -167,16 +168,18 @@
     {
      "where": "All bioregions",
      "min_size": "300 mm",
-     "bag": 4
+     "bag": 4,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "tailor",
@@ -207,16 +210,17 @@
      "where": "All bioregions",
      "min_size": "300 mm",
      "bag": 8,
-     "note": "Only 2 fish over 500 mm"
+     "note": "Nearshore/estuarine: max 16 per day in total. Only 2 fish over 500 mm."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "king_george_whiting",
@@ -244,16 +248,18 @@
     {
      "where": "All bioregions",
      "min_size": "280 mm",
-     "bag": 12
+     "bag": 12,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "southern_garfish",
@@ -286,16 +292,17 @@
      "where": "All bioregions",
      "min_size": "No minimum",
      "bag": 30,
-     "note": "Listed as 'garfish' under 'all other finfish'"
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "skipjack_trevally",
@@ -330,16 +337,17 @@
      "where": "All bioregions",
      "min_size": "250 mm",
      "bag": 8,
-     "note": "Listed under trevally and queenfish"
+     "note": "Nearshore/estuarine: max 16 per day in total. Listed as silver trevally (skipjack/skippy)."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "pink_snapper",
@@ -372,29 +380,26 @@
    "status": "limits",
    "limits": [
     {
-     "where": "West Coast (Lancelin to Black Point, east of Augusta)",
-     "min_size": "500 mm",
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "500 mm (Lancelin to Black Point)",
      "bag": 2,
-     "note": "Demersal: land-based mixed demersal bag of 2. Boat fishing for demersals is closed in the West Coast bioregion."
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Cockburn & Warnbro Sounds: closed to pink snapper 1 Aug – 31 Jan."
     },
     {
-     "where": "South Coast (Denmark, Albany, Esperance)",
+     "where": "South Coast (Denmark–Esperance)",
      "min_size": "450 mm",
      "bag": 2,
-     "note": "Demersal: mixed demersal bag of 4."
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
-    },
-    {
-     "name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
-     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "wa_dhufish",
@@ -427,30 +432,27 @@
    "status": "limits",
    "limits": [
     {
-     "where": "West Coast",
+     "where": "West Coast (Perth–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
-     "note": "Within the land-based mixed demersal bag of 2. Land-based spearfishing for WA dhufish is not permitted."
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Spearfishing for WA dhufish is not permitted."
     },
     {
-     "where": "South Coast",
+     "where": "South Coast (Denmark–Esperance)",
      "min_size": "No minimum",
      "bag": 1,
-     "note": "From 1 June 2026. Within the mixed demersal bag of 4."
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
-    },
-    {
-     "name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
-     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
     }
    ],
    "last_checked": "2026-11-25",
-   "spear_banned_landbased": true
+   "spear_banned_landbased": true,
+   "limits_verified": true
   },
   {
    "id": "black_bream",
@@ -478,16 +480,17 @@
      "where": "All bioregions",
      "min_size": "250 mm",
      "bag": 6,
-     "note": "Only 2 over 400 mm in the Swan and Canning rivers"
+     "note": "Nearshore/estuarine: max 16 per day in total. Only 2 black bream over 400 mm in the Swan and Canning rivers."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "tarwhine",
@@ -516,16 +519,17 @@
      "where": "All bioregions",
      "min_size": "250 mm",
      "bag": 6,
-     "note": "Listed together with black bream — check whether the bag is combined"
+     "note": "Nearshore/estuarine: max 16 per day in total. The bag of 6 applies to each species in the bream group."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "flathead",
@@ -556,16 +560,18 @@
     {
      "where": "All bioregions",
      "min_size": "300 mm",
-     "bag": 8
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Limit applies to each flathead species."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "mulloway",
@@ -598,16 +604,18 @@
     {
      "where": "All bioregions",
      "min_size": "500 mm",
-     "bag": 2
+     "bag": 2,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "western_blue_groper",
@@ -637,23 +645,26 @@
    "status": "limits",
    "limits": [
     {
-     "where": "All bioregions",
+     "where": "West Coast (Perth–Augusta)",
      "min_size": "500 mm",
      "bag": 1,
-     "note": "Demersal scalefish — counts toward the mixed demersal bag."
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "500 mm",
+     "bag": 1,
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
-    },
-    {
-     "name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
-     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "southern_calamari",
@@ -684,16 +695,17 @@
      "where": "All bioregions",
      "min_size": "No minimum",
      "bag": 15,
-     "note": "Combined limit for squid, cuttlefish and octopus"
+     "note": "Squid, cuttlefish and octopus combined: 15 per day (boat limit 30 with 2+ licensed fishers)."
     }
    ],
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "limits_verified": true
   },
   {
    "id": "black_stingray",
@@ -705,7 +717,7 @@
     "spear"
    ],
    "status": "protected",
-   "protection": "Recreationally protected in the West Coast and South Coast bioregions — you must not take it. Release immediately.",
+   "protection": "Protected from recreational fishing in the West Coast and South Coast bioregions — release immediately.",
    "traits": {
     "shape": [
      "ray"
@@ -729,7 +741,8 @@
     }
    ],
    "last_checked": "2026-11-25",
-   "rule_ids": []
+   "rule_ids": [],
+   "limits_verified": true
   },
   {
    "id": "smooth_stingray",
@@ -741,7 +754,7 @@
     "spear"
    ],
    "status": "protected",
-   "protection": "Recreationally protected in the West Coast and South Coast bioregions — you must not take it. Release immediately.",
+   "protection": "Protected from recreational fishing in the West Coast and South Coast bioregions — release immediately.",
    "traits": {
     "shape": [
      "ray"
@@ -766,7 +779,8 @@
     }
    ],
    "last_checked": "2026-11-25",
-   "rule_ids": []
+   "rule_ids": [],
+   "limits_verified": true
   },
   {
    "id": "leafy_seadragon",
@@ -801,7 +815,8 @@
     }
    ],
    "last_checked": "2026-11-25",
-   "rule_ids": []
+   "rule_ids": [],
+   "limits_verified": true
   },
   {
    "id": "common_seadragon",
@@ -839,7 +854,8 @@
     }
    ],
    "last_checked": "2026-11-25",
-   "rule_ids": []
+   "rule_ids": [],
+   "limits_verified": true
   },
   {
    "id": "grey_nurse_shark",
@@ -878,7 +894,8 @@
     }
    ],
    "last_checked": "2026-11-25",
-   "rule_ids": []
+   "rule_ids": [],
+   "limits_verified": true
   },
   {
    "id": "white_shark",
@@ -918,7 +935,8 @@
     }
    ],
    "last_checked": "2026-11-25",
-   "rule_ids": []
+   "rule_ids": [],
+   "limits_verified": true
   },
   {
    "id": "blue_ringed_octopus",
@@ -951,7 +969,8 @@
     }
    ],
    "last_checked": "2026-11-25",
-   "rule_ids": []
+   "rule_ids": [],
+   "limits_verified": true
   },
   {
    "id": "southern_school_whiting",
@@ -981,15 +1000,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1020,15 +1039,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1061,15 +1080,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1100,15 +1119,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1143,15 +1162,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1185,15 +1204,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1226,15 +1245,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1270,15 +1289,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "430 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. A hand spear (gidgie) may be used to take estuary cobbler in estuaries."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1313,15 +1332,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1357,15 +1376,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1398,15 +1417,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1437,15 +1456,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1478,16 +1497,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1517,16 +1536,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1561,13 +1580,14 @@
     {
      "where": "All bioregions",
      "min_size": "No minimum",
-     "bag": "Part of 9 litres of baitfish per day in total"
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1599,13 +1619,13 @@
     {
      "where": "All bioregions",
      "min_size": "No minimum",
-     "bag": "Part of 9 litres of baitfish per day in total"
+     "bag": "9 litres (all baitfish combined)"
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1641,13 +1661,13 @@
     {
      "where": "All bioregions",
      "min_size": "No minimum",
-     "bag": "Part of 9 litres of baitfish per day in total"
+     "bag": "9 litres (all baitfish combined)"
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1679,13 +1699,13 @@
     {
      "where": "All bioregions",
      "min_size": "No minimum",
-     "bag": "Part of 9 litres of baitfish per day in total"
+     "bag": "9 litres (all baitfish combined)"
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1718,16 +1738,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1762,16 +1782,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1804,16 +1824,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1847,16 +1867,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1890,23 +1910,21 @@
    "limits": [
     {
      "where": "West Coast (Perth–Augusta)",
-     "min_size": "Being verified",
-     "bag": "Land-based: part of 2 demersal fish per day in total"
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
      "where": "South Coast (Denmark–Esperance)",
-     "min_size": "Being verified",
-     "bag": "2 per day (tuskfish incl. baldchin) from 1 June 2026"
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD statewide finfish size & bag limits from 1 June 2026",
-     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
-    },
-    {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1941,19 +1959,21 @@
    "limits": [
     {
      "where": "West Coast (Perth–Augusta)",
-     "min_size": "Species limit being verified",
-     "bag": "Land-based: 2 demersal fish per day in total (boat-based closed)"
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
     },
     {
      "where": "South Coast (Denmark–Esperance)",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 4 demersal fish per day in total (from 1 June 2026)"
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -1989,19 +2009,21 @@
    "limits": [
     {
      "where": "West Coast (Perth–Augusta)",
-     "min_size": "Species limit being verified",
-     "bag": "Land-based: 2 demersal fish per day in total (boat-based closed)"
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
     },
     {
      "where": "South Coast (Denmark–Esperance)",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 4 demersal fish per day in total (from 1 June 2026)"
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2035,20 +2057,22 @@
    "limits": [
     {
      "where": "West Coast (Perth–Augusta)",
-     "min_size": "350 mm (statewide)",
-     "bag": "Land-based: part of 2 demersal fish per day in total"
+     "min_size": "350 mm",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
      "where": "South Coast (Denmark–Esperance)",
      "min_size": "350 mm",
-     "bag": "4 per day (South Coast: separate from the mixed demersal limit)"
+     "bag": 4,
+     "note": "South Coast: 4 bight redfish, PLUS the mixed demersal bag of 4 other demersal fish."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD statewide finfish size & bag limits from 1 June 2026",
-     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
    "last_checked": "2026-11-25"
@@ -2080,19 +2104,21 @@
     {
      "where": "West Coast (Perth–Augusta)",
      "min_size": "No minimum",
-     "bag": "Land-based: part of 2 demersal fish per day in total"
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
      "where": "South Coast (Denmark–Esperance)",
      "min_size": "No minimum",
-     "bag": "4 per day (South Coast: separate from the mixed demersal limit)"
+     "bag": 4,
+     "note": "South Coast: 4 swallowtail, PLUS the mixed demersal bag of 4 other demersal fish."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD statewide finfish size & bag limits from 1 June 2026",
-     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
    "last_checked": "2026-11-25"
@@ -2125,20 +2151,22 @@
    "limits": [
     {
      "where": "West Coast (Perth–Augusta)",
-     "min_size": "400 mm (statewide)",
-     "bag": "Land-based: part of 2 demersal fish per day in total"
+     "min_size": "400 mm",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
      "where": "South Coast (Denmark–Esperance)",
      "min_size": "400 mm",
-     "bag": "Part of 4 demersal fish per day in total"
+     "bag": 4,
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD statewide finfish size & bag limits from 1 June 2026",
-     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
    "last_checked": "2026-11-25"
@@ -2171,19 +2199,21 @@
    "limits": [
     {
      "where": "West Coast (Perth–Augusta)",
-     "min_size": "Species limit being verified",
-     "bag": "Land-based: 2 demersal fish per day in total (boat-based closed)"
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
      "where": "South Coast (Denmark–Esperance)",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 4 demersal fish per day in total (from 1 June 2026)"
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2214,16 +2244,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2255,16 +2285,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2295,16 +2325,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2335,16 +2365,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Wrasse: limit applies to each species."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2376,16 +2406,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2417,16 +2447,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2460,16 +2490,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2500,16 +2530,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2540,16 +2570,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2581,16 +2611,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2621,16 +2651,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2663,16 +2693,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2703,16 +2733,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2743,16 +2773,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2783,16 +2813,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2824,16 +2854,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2864,16 +2894,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2905,16 +2935,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2945,16 +2975,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -2985,16 +3015,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3027,16 +3057,22 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Boarfish may be taken during the West Coast demersal closure."
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: South Coast total 4 per day."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3069,14 +3105,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 3 large pelagic fish per day in total"
+     "min_size": "600 mm",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3110,14 +3147,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 3 large pelagic fish per day in total"
+     "min_size": "600 mm",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3150,16 +3188,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3191,14 +3229,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3230,14 +3269,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3270,14 +3310,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "Max 700 mm interdorsal",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area. Whaler sharks: maximum 700 mm interdorsal length (front of first dorsal fin to the back of the second) in the West and South Coast. Wire trace is banned within 800 m of Perth metro beaches and in the Swan-Canning and Mandurah estuaries."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3310,14 +3351,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "Max 700 mm interdorsal",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area. Whaler sharks: maximum 700 mm interdorsal length (front of first dorsal fin to the back of the second) in the West and South Coast. Wire trace is banned within 800 m of Perth metro beaches and in the Swan-Canning and Mandurah estuaries."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3349,14 +3391,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3389,14 +3432,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3431,14 +3475,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3470,14 +3515,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3512,13 +3558,14 @@
     {
      "where": "All bioregions",
      "min_size": "No minimum",
-     "bag": "15 squid, cuttlefish and octopus per day in total (boat limit 30)"
+     "bag": 15,
+     "note": "Squid, cuttlefish and octopus combined: 15 per day (boat limit 30 with 2+ licensed fishers)."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3553,13 +3600,14 @@
     {
      "where": "All bioregions",
      "min_size": "No minimum",
-     "bag": "15 squid, cuttlefish and octopus per day in total (boat limit 30)"
+     "bag": 15,
+     "note": "Squid, cuttlefish and octopus combined: 15 per day (boat limit 30 with 2+ licensed fishers)."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3593,13 +3641,14 @@
     {
      "where": "All bioregions",
      "min_size": "No minimum",
-     "bag": "15 squid, cuttlefish and octopus per day in total (boat limit 30)"
+     "bag": 15,
+     "note": "Squid, cuttlefish and octopus combined: 15 per day (boat limit 30 with 2+ licensed fishers)."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3632,16 +3681,34 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "All waters",
+     "where": "West Coast",
      "min_size": "127 mm carapace width",
-     "bag": "20 per day (boat limit 40 with 2+ licensed fishers)",
-     "note": "Lower limits apply in some areas such as the West Coast and Swan/Canning"
+     "bag": 10,
+     "note": "Boat limit 20 (2+ licensed fishers). Closed 1 Sep – 30 Nov from the Swan River to Minninup Beach. Berried (egg-carrying) crabs are protected."
+    },
+    {
+     "where": "Swan & Canning rivers, Cockburn Sound",
+     "min_size": "127 mm",
+     "bag": 5,
+     "note": "Boat limit 20 (4+ licensed fishers). Remove top shell, guts and gills before cooking (algal toxin risk)."
+    },
+    {
+     "where": "Geographe Bay",
+     "min_size": "127 mm",
+     "bag": "10 (no more than 5 female)",
+     "note": "Boat limit 20 (no more than 10 female)."
+    },
+    {
+     "where": "Other areas (incl. South Coast)",
+     "min_size": "127 mm",
+     "bag": 20,
+     "note": "Boat limit 40 (2+ licensed fishers)."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3674,16 +3741,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "All waters",
+     "where": "All bioregions",
      "min_size": "76 mm carapace",
-     "bag": "8 per day (boat limit 24 with 3+ licensed fishers)",
-     "note": "Licence required"
+     "bag": 8,
+     "note": "Licence required. Boat limit 24 (3+ licensed fishers). Possession limit 24 per person."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3714,16 +3781,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "All waters",
+     "where": "All bioregions",
      "min_size": "98.5 mm carapace",
-     "bag": "8 per day (combined rock lobster)",
-     "note": "Licence required"
+     "bag": 8,
+     "note": "Licence required. Combined with other rock lobsters. Possession limit 24 per person."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3753,16 +3820,22 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "Open season only",
+     "where": "West Coast",
      "min_size": "60 mm",
-     "bag": "20 per day",
-     "note": "Licence and season days apply"
+     "bag": 15,
+     "note": "Licence and open season days only."
+    },
+    {
+     "where": "Other areas (incl. South Coast)",
+     "min_size": "60 mm",
+     "bag": 20,
+     "note": "Licence and open season only."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3792,16 +3865,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "Where open",
+     "where": "All bioregions",
      "min_size": "140 mm",
-     "bag": "5 per day (greenlip/brownlip combined)",
-     "note": "Licence and closures apply"
+     "bag": "5 (greenlip + brownlip combined)",
+     "note": "Licence required. Boat limit 10. Closed from Busselton Jetty to Shoal Cape."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3831,16 +3904,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "Where open",
+     "where": "All bioregions",
      "min_size": "140 mm",
-     "bag": "5 per day (greenlip/brownlip combined)",
-     "note": "Licence and closures apply"
+     "bag": "5 (greenlip + brownlip combined)",
+     "note": "Licence required. Boat limit 10."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -3870,15 +3943,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "All waters",
+     "where": "All bioregions",
      "min_size": "No minimum",
-     "bag": "9 litres per day (all prawns combined)"
+     "bag": "9 litres (all prawns combined)",
+     "note": "Prawn hand-trawl nets are banned in the Peel-Harvey, Leschenault and parts of the Swan River."
     }
    ],
    "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -4053,15 +4127,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Species limit being verified",
-     "bag": "Part of 16 nearshore/estuarine fish per day in total",
-     "note": "Species-specific bag may be lower"
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Trevally group: limit applies to each species."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -4095,16 +4169,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -4135,16 +4209,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -4176,16 +4250,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -4217,16 +4291,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -4259,16 +4333,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -4371,16 +4445,16 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "—",
-     "min_size": "Being verified",
-     "bag": "Being verified",
-     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not listed by name in the guide's tables, so it falls under 'all other finfish': part of 30 per day in total, no minimum size."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
@@ -4412,14 +4486,15 @@
    "limits": [
     {
      "where": "All bioregions",
-     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
-     "bag": "3 sharks and rays per day in total"
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (on top of the large pelagic limit). All rays and skates are protected in the Hamelin Bay Protection Area."
     }
    ],
-   "limits_verified": false,
+   "limits_verified": true,
    "sources": [
     {
-     "name": "DPIRD Recreational fishing guide 2026",
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],

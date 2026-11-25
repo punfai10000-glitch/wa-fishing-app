@@ -34,7 +34,7 @@ function limitsTable(s) {
 }
 
 function card(s, open) {
-  return `<details class="fish" id="sp-${esc(s.id)}" ${open ? 'open' : ''} data-wiki="${esc(s.wiki || '')}" data-sci="${esc(s.scientific || '')}">
+  return `<details class="fish" id="sp-${esc(s.id)}" ${open ? 'open' : ''} data-wiki="${esc(s.wiki || '')}" data-sci="${esc(s.scientific || '')}" data-name="${esc(s.name)}">
     <summary>
       <div class="fish-head">
         <div class="thumb" data-thumb aria-hidden="true"></div>
@@ -59,7 +59,7 @@ async function hydrateThumb(el) {
   const thumb = el.querySelector('[data-thumb]');
   const ph = await speciesPhoto(el.dataset.wiki);
   if (ph) { thumb.style.backgroundImage = `url("${ph.src}")`; return; }
-  const g = await speciesGallery(el.dataset.sci, 1);
+  const g = await speciesGallery(el.dataset.sci, 6, el.dataset.name);
   if (g[0]) thumb.style.backgroundImage = `url("${g[0].src}")`;
 }
 
@@ -68,7 +68,7 @@ async function hydrateGallery(el) {
   if (!box || box.dataset.done) return;
   box.dataset.done = '1';
   const name = el.querySelector('strong').textContent;
-  let photos = await speciesGallery(el.dataset.sci, 6);
+  let photos = await speciesGallery(el.dataset.sci, 6, el.dataset.name);
   if (!photos.length) {
     const ph = await speciesPhoto(el.dataset.wiki);
     if (ph) photos = [{ src: ph.src, attribution: 'Wikimedia Commons', license: 'see file page', page: ph.credit }];
@@ -91,7 +91,7 @@ export function renderFish(view, sub) {
 
   view.innerHTML = `${subnav('')}
     <h1>Fish library</h1>
-    <div class="notice small">${all.length} species. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Limits are from DPIRD's 2026 guide and the 1 June 2026 changes (checked 25 Nov 2026). Perth → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
+    <div class="notice small">${all.length} species. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Size and bag limits are from DPIRD's Recreational fishing guide 2026 (June 2026 edition), checked 25 Nov 2026. Perth → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
     <div class="filters">
       <input type="search" id="fq" placeholder="Search fish" value="${esc(query)}" aria-label="Search fish">
       <select id="ff" aria-label="Show">
