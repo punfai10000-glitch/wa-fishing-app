@@ -62,6 +62,8 @@ def ring_area_km2(r):
 
 
 def fetch_water():
+    import time
+    overpass._start = time.time()   # fresh time budget for the water areas
     out = []
     for el in overpass.run(water_query):
         t = el.get("tags", {})

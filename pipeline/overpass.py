@@ -4,7 +4,14 @@ Big Perth-to-Esperance queries time out (HTTP 504) when the public servers are b
 split the area into tiles, ask for one tile at a time, rotate between mirrors, and split a
 tile into four smaller ones if it still times out.
 """
-import json, time, urllib.parse, urllib.request
+import json, os, time, urllib.parse, urllib.request
+
+# Hard time budget per script run so a busy server can't hang the weekly job (seconds).
+BUDGET = int(os.environ.get("OVERPASS_BUDGET", "900"))
+_start = time.time()
+
+def _left():
+    return BUDGET - (time.time() - _start)
 
 ENDPOINTS = [
     "https://overpass-api.de/api/interpreter",
@@ -52,10 +59,13 @@ def run(query_for_bbox, tiles=TILES, depth=0):
 def _tile(query_for_bbox, t, depth):
     q = query_for_bbox(*t)
     last = None
-    for attempt in range(len(ENDPOINTS) * 2):
+    for attempt in range(len(ENDPOINTS)):          # each mirror once
+        if _left() < 60:
+            print(f"  time budget used up - skipping tile {t}")
+            return []
         url = ENDPOINTS[attempt % len(ENDPOINTS)]
         try:
-            data = _post(url, q, timeout=150)
+            data = _post(url, q, timeout=min(120, max(30, _left() - 30)))
             if data.get("remark", "").lower().startswith("runtime error"):
                 raise RuntimeError(data["remark"][:120])
             print(f"  tile {t} via {url.split('/')[2]}: {len(data.get('elements', []))} elements")
@@ -63,8 +73,8 @@ def _tile(query_for_bbox, t, depth):
         except Exception as ex:
             last = ex
             print(f"  tile {t} via {url.split('/')[2]} failed: {ex}")
-            time.sleep(10 + 5 * attempt)
-    if depth < 2:
+            time.sleep(5)
+    if depth < 1 and _left() > 300:
         s, w, n, e = t
         ms, mw = (s + n) / 2, (w + e) / 2
         print(f"  splitting tile {t}")

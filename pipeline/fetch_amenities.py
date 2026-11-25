@@ -17,7 +17,9 @@ def query(s, w, n, e):
     return f"""
 [out:json][timeout:120];
 (
-  nwr["shop"~"^(fishing|bait)$"]{b};
+  nwr["shop"~"^(fishing|bait|tackle)$"]{b};
+  nwr["shop"]["fishing"~"^(yes|tackle|bait)$"]{b};
+  nwr["shop"]["sport"="fishing"]{b};
   nwr["amenity"="fuel"]{b};
   nwr["amenity"="toilets"]{b};
   nwr["amenity"~"^(restaurant|fast_food|cafe)$"]["opening_hours"="24/7"]{b};
@@ -28,7 +30,7 @@ out center tags;
 
 
 def kind(tags):
-    if tags.get("shop") in ("fishing", "bait"):
+    if tags.get("shop") in ("fishing", "bait", "tackle") or (tags.get("shop") and (tags.get("fishing") in ("yes", "tackle", "bait") or tags.get("sport") == "fishing")):
         return "tackle"
     if tags.get("amenity") == "parking":
         return "parking"
