@@ -1,7 +1,7 @@
 // Coastline conditions layer, animated wind/wave arrows, time slider with play,
 // tap-anywhere spot reports, measured buoy markers and the Windy animated view.
 import { state, evalFor } from './app.js';
-import { layerOn, FISH_SVG, SPEAR_SVG } from './map.js';
+import { layerOn } from './map.js';
 import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
@@ -11,7 +11,7 @@ import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
 import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass } from './scoring/geo.js';
-import { esc, typeTag } from './ui.js';
+import { esc, typeTag, chanceIcon } from './ui.js';
 import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge } from './units.js';
 
 let map, coastLayer, arrowLayer, buoyLayer, incidentLayer, bestLayer;
@@ -159,7 +159,7 @@ export function refreshCoastMap() {
     }
     for (const { p, r } of picked) {
       L.marker([p.geometry.coordinates[1], p.geometry.coordinates[0]], { pane: 'arrows', interactive: false, keyboard: false,
-        icon: L.divIcon({ className: 'best-now', html: `${state.activity === 'spear' ? SPEAR_SVG : FISH_SVG}<div class="line"></div><span>Best ${state.activity === 'spear' ? 'spear' : 'fishing'} ${r.score}</span>`, iconSize: [90, 50], iconAnchor: [45, 58] }) }).addTo(bestLayer);
+        icon: L.divIcon({ className: 'best-pin', html: `<span>★ Best ${state.activity === 'spear' ? 'spear' : 'fishing'} ${r.score}</span>`, iconSize: [110, 20], iconAnchor: [55, 30] }) }).addTo(bestLayer);
     }
   }
 
@@ -167,7 +167,7 @@ export function refreshCoastMap() {
     for (const i of placedIncidents()) {
       const sym = i.outcome === 'fatal' ? '☠' : i.outcome === 'injured' ? '!' : '·';
       L.marker([i.plat, i.plon], { keyboard: true, title: `Shark incident ${i.year}`,
-        icon: L.divIcon({ className: 'mk-wrap', html: `<div class="incident ${esc(i.outcome)}" aria-hidden="true">${sym}</div>`, iconSize: [26, 26], iconAnchor: [13, 13] }) })
+        icon: L.divIcon({ className: 'mk-wrap', html: `<div class="incident ${esc(i.outcome)}" aria-hidden="true">${sym}</div>`, iconSize: [20, 20], iconAnchor: [10, 10] }) })
         .bindPopup(`<strong>Recorded shark incident</strong><br><span class="small">${esc(i.place)} · ${i.month ? ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][i.month - 1] + ' ' : ''}${i.year}</span><br>
           <span class="small">Outcome: <strong>${esc(i.outcome)}</strong>${i.shark ? ` · ${esc(i.shark)}` : ''}${i.activity ? ` · while ${esc(i.activity)}` : ''}</span><br>
           ${i.moved ? '<span class="small muted">Exact spot not recorded — shown just offshore from the reported place.</span><br>' : ''}
@@ -304,6 +304,7 @@ function tapHTML(loc, where, sh, exact) {
     ${where ? `<span class="small">${esc(where)}</span><br>` : ''}
     <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
     <div class="row" style="margin:8px 0;gap:6px"><div><div class="small muted">Shore</div>${pillFor(rs)}</div><div><div class="small muted">Spear</div>${pillFor(rp)}</div></div>
+    <div style="margin:-2px 0 6px">${(() => { const r = state.activity === 'spear' ? rp : rs; return r ? chanceIcon(r.score, state.activity, r.blocked) : ''; })()}</div>
     ${[rs, rp].flatMap(r => r?.blocks ?? []).map(b => `<div class="small">✕ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
     ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · ${loc.estuary ? 'Sheltered water (no ocean swell)' : `Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''}`} · Tide ${h.tide_rate == null ? '?' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
       <div class="small">Visibility: ${vis ? vis.label : 'unknown'} (estimate) · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>

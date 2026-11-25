@@ -4,7 +4,8 @@
 // sample point (same forecast cell). They're labelled "from OpenStreetMap — not yet checked".
 import { pointOf, tagsOf, spotType } from './osm.js';
 import { TYPE_LABELS } from './config.js';
-import { loadShore, riverWaterAt, hasRiverWater, estuaryNotes } from './shore.js';
+import { loadShore, riverWaterAt, estuaryNotes, nearestShore, shoreData } from './shore.js';
+const shoreIsPrecise = () => !!shoreData()?.precise;
 
 export async function loadOsmSpots(coastPoints) {
   await loadShore();
@@ -36,12 +37,18 @@ export async function loadOsmSpots(coastPoints) {
       if (!best || dkm < best.d) best = { d: dkm, p };
     }
     if (!best || best.d > 40) continue;
-    // river/estuary spots (Swan, Peel, Leschenault, inlets...): on/near a mapped river water area, or before
-    // that data exists, jetties/fishing-tagged spots inland of the ocean coast
+    // Keep a spot only if it's really on fishable salt water:
+    //  - in/next to a mapped tidal river or estuary (Swan, Canning, Peel, Leschenault, inlets) -> estuary spot
+    //  - otherwise right on the sea shore (incl. islands like Rottnest) -> ocean spot
+    // Lakes, dams and quarry ponds are dropped.
     const water = riverWaterAt(pt[1], pt[0], 0.15);
-    const tagFishing = t.leisure === 'fishing' || t.fishing === 'yes';
-    const estuary = !!water || (best.d > 6 && !hasRiverWater() && (type === 'jetty' || tagFishing));
-    if (best.d > 6 && !estuary) continue;
+    const estuary = !!water;
+    if (!estuary) {
+      if (shoreIsPrecise()) {
+        const n = nearestShore(pt[1], pt[0], 1);
+        if (!n || n.km > 0.35 || best.d > 25) continue;
+      } else if (best.d > 6) continue;
+    }
     // drop near-duplicates: anything within 120 m, or the same type within 300 m
     if (out.some(o => { const d = Math.hypot((o.geometry.coordinates[0] - pt[0]) * 0.83, o.geometry.coordinates[1] - pt[1]) * 111; return d < 0.12 || (o.type === type && d < 0.3); })) continue;
     const tagged = t.leisure === 'fishing' || t.fishing === 'yes';

@@ -1,8 +1,6 @@
 // Map key: every colour, marker and symbol on the map, drawn with the same styles the map uses.
-import { FISH_SVG, SPEAR_SVG } from '../map.js';
+import { chanceIcon } from '../ui.js';
 
-const fish = (w, cls = '') => `<span class="key-ico ${cls}">${FISH_SVG.replace('width="26" height="16"', `width="${w}" height="${Math.round(w * 0.62)}"`)}</span>`;
-const spear = w => `<span class="key-ico">${SPEAR_SVG.replace('width="26" height="16"', `width="${w}" height="${Math.round(w * 0.62)}"`)}</span>`;
 const line = (color, dashed) => `<svg width="44" height="12" aria-hidden="true"><line x1="3" y1="6" x2="41" y2="6" stroke="${color}" stroke-width="7" stroke-linecap="round" ${dashed ? 'stroke-dasharray="4 8"' : ''}/></svg>`;
 const row = (sym, title, text) => `<div class="key-row"><div class="key-sym">${sym}</div><div><strong>${title}</strong><div class="small muted">${text}</div></div></div>`;
 
@@ -31,10 +29,18 @@ export function renderKey(view) {
       ${row(`<div class="mk good" style="width:34px;height:34px">86</div>`, 'Spot pin with score', 'A fishing spot. The number is its score right now. Colour = Good / Fair / Poor.')}
       ${row(`<div class="mk good conf-medium" style="width:34px;height:34px">86</div>`, 'Dashed white border', 'Medium confidence: e.g. found on OpenStreetMap but not yet checked by us.')}
       ${row(`<div class="mk fair conf-low" style="width:34px;height:34px">70</div>`, 'Dashed yellow border', 'Low confidence: only a little data, so treat the score with care.')}
-      ${row(`${fish(14, 'dim')} ${fish(28)} ${fish(44, 'top')}`, 'Fish size = score (Shore mode)', 'Small faded fish = poor conditions. Big glowing fish = the best conditions.')}
-      ${row(`${spear(16)} ${spear(30)} ${spear(44)}`, 'Spear size = score (Spear mode)', 'Same idea for spearfishing.')}
-      ${row(`<span class="best-now" style="display:inline-grid">${FISH_SVG}<span>Best fishing 88</span></span>`, 'Best right now', 'The top 3 stretches of coast at the chosen time (at least 40 km apart).')}
+      ${row('<span class="best-pin"><span>★ Best fishing 88</span></span>', 'Best right now', 'The top 3 stretches of coast at the chosen time (at least 40 km apart).')}
       ${row('<div class="tap-dot" style="display:inline-block"></div>', 'Your tapped point', 'Where you tapped. The pop-up shows conditions, legal status, facilities and directions for that exact point.')}
+    </div>
+
+    <div class="card"><h2>Chance icons (when you open a spot)</h2>
+      <p class="small muted">The map stays clean — this icon appears in the pop-up when you tap a spot or anywhere on the coast. It's based on the score (conditions, not a fish count).</p>
+      ${row(chanceIcon(90), '80–100', 'Big fish: great conditions.')}
+      ${row(chanceIcon(70), '60–80', 'Medium fish: good conditions.')}
+      ${row(chanceIcon(50), '40–60', 'Small fish: so-so conditions.')}
+      ${row(chanceIcon(20), '0–40', 'Feather: very low chance — probably not worth the trip.')}
+      ${row(chanceIcon(90, 'spear'), 'Spear mode', 'Same sizes, with a spear through the fish.')}
+      ${row(chanceIcon(null, 'shore', true), 'Blocked', 'Not allowed or not safe right now.')}
     </div>
 
     <div class="card"><h2>Wind &amp; waves</h2>

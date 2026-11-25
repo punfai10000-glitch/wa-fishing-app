@@ -279,3 +279,12 @@ dialog li { margin-bottom: 8px; }
 .key-zone.sanct { background: rgba(225,87,89,.3); border: 2px solid #e15759; }
 .key-zone.other { background: rgba(78,121,167,.2); border: 2px solid #4e79a7; }
 .key-sym .best-now svg { width: 26px; height: 16px; }
+.chance { display: inline-flex; align-items: center; gap: 6px; vertical-align: middle; margin-left: 4px; }
+.chance svg { filter: drop-shadow(0 1px 2px rgba(0,0,0,.7)); }
+.chance.big svg { filter: drop-shadow(0 0 6px rgba(47,191,113,.9)); }
+.chance.blocked { color: #fca5a5; font-weight: 700; }
+.best-pin { background: none; border: 0; pointer-events: none; }
+.best-pin span { display: inline-block; font: 700 11px/1 system-ui, sans-serif; background: var(--good); color: #fff; padding: 3px 6px; border-radius: 10px; white-space: nowrap; box-shadow: 0 1px 4px rgba(0,0,0,.6); }
+/* calmer map: smaller incident markers */
+.incident { width: 20px !important; height: 20px !important; font-size: 12px !important; border-width: 1.5px !important; }
+.incident.uninjured { width: 14px !important; height: 14px !important; opacity: .8; }

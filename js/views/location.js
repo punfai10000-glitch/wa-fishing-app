@@ -1,6 +1,6 @@
 import { state, evalFor, getLoc } from '../app.js';
 import { REGIONS, TYPE_LABELS } from '../config.js';
-import { esc, pill, windowText, confText, typeTag } from '../ui.js';
+import { esc, pill, windowText, confText, typeTag, chanceIcon } from '../ui.js';
 import { fmtWind, fmtHeight, fmtTemp, fmtHour, fmtDay, fmtDateTime, fmtAge } from '../units.js';
 import { degToCompass } from '../scoring/geo.js';
 import { band } from '../scoring/score.js';
@@ -16,7 +16,7 @@ function scoreBox(title, ev) {
   if (ev.applicable === false) return `<div class="scorebox"><div class="muted small">${title}</div><div class="muted">Not listed for this activity</div></div>`;
   return `<div class="scorebox">
     <div class="muted small">${title}</div>
-    <div style="margin:6px 0">${pill(ev)}</div>
+    <div style="margin:6px 0">${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked')}</div>
     <div class="small">${esc(windowText(ev))}</div>
     <div>${confText(ev.confidence)}</div>
   </div>`;

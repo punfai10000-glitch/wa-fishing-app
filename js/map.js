@@ -1,7 +1,7 @@
 import { CONFIG, REGIONS, TYPE_LABELS } from './config.js';
 import { state, evalFor, visibleLocations } from './app.js';
 import * as store from './storage.js';
-import { esc, pill, windowText, confText } from './ui.js';
+import { esc, pill, windowText, confText, chanceIcon } from './ui.js';
 import { fmtWind, fmtHeight, fmtTemp } from './units.js';
 import { degToCompass } from './scoring/geo.js';
 import { AMENITY_TYPES, loadAmenities } from './amenities.js';
@@ -39,7 +39,7 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Places tagged open 24/7 on OpenStreetMap' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: 'Public car parks within ~2 km of the shore (OpenStreetMap)' }
 ];
-const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, windFlow: true, swellFlow: true, wind: true, waves: true, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
+const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, windFlow: true, swellFlow: true, wind: false, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
 export const layerOn = () => ({ ...DEFAULTS, ...store.get('layers', {}) });
 const setLayer = (k, v) => store.set('layers', { ...layerOn(), [k]: v });
 
@@ -93,7 +93,10 @@ export function initMap() {
   buildLegend();
   refreshMap();
   map.on('moveend', renderAmenities);
-  map.on('moveend', () => { if (state.osmSpots.length) refreshMap(); });
+  // Don't redraw pins while a spot pop-up is open (the pop-up's own auto-pan would close it); redraw on close.
+  const spotPopupOpen = () => !!map._popup && map.hasLayer(map._popup) && !!map._popup._source?.options?.alt;
+  map.on('moveend', () => { if (state.osmSpots.length && !spotPopupOpen()) refreshMap(); });
+  map.on('popupclose', e => { if (e.popup?._source?.options?.alt && state.osmSpots.length) setTimeout(refreshMap, 0); });
 }
 
 function applyLayers() {
@@ -115,15 +118,6 @@ export function showMap(show) {
   if (show && map) setTimeout(() => map.invalidateSize(), 0);
 }
 
-// Fish (shore) / spear icon sized by score: the better the conditions, the bigger the icon.
-export function spotIcon(ev, activity = state.activity) {
-  const svg = activity === 'spear' ? SPEAR_SVG : FISH_SVG;
-  const sc = ev?.applicable === false || ev?.band === 'blocked' ? null : ev?.score;
-  const w = sc == null ? 14 : Math.round(14 + Math.max(0, Math.min(1, (sc - 30) / 65)) * 30);   // 14-44 px
-  const h = Math.round(w * 0.62);
-  const cls = sc == null ? 'dim' : sc >= 80 ? 'top' : sc < 40 ? 'dim' : '';
-  return `<div class="spot-ico ${activity} ${cls}" style="left:${19 - w / 2}px;top:${-h - 2}px" aria-hidden="true">${svg.replace('width="26" height="16"', `width="${w}" height="${h}"`)}</div>`;
-}
 
 function subLabel(loc, ev, on) {
   const h = ev?.current?.hour;
@@ -137,6 +131,7 @@ export function refreshMap() {
   if (!map) return;
   const L = window.L;
   const on = layerOn();
+  const reopen = map._popup && map.hasLayer(map._popup) ? map._popup._source?.options?.locId : null;
   markerLayer.clearLayers();
   const zoom = map.getZoom();
   const bounds = map.getBounds().pad(0.2);
@@ -144,7 +139,7 @@ export function refreshMap() {
   // already placed (zoom in to see more). Bigger fish = better score, so the best ones win.
   const placed = [];
   const cand = visibleLocations()
-    .filter(loc => !loc.osm || (zoom >= 10 && bounds.contains([loc.geometry.coordinates[1], loc.geometry.coordinates[0]])))
+    .filter(loc => !loc.osm || (zoom >= 12 && bounds.contains([loc.geometry.coordinates[1], loc.geometry.coordinates[0]])))
     .map(loc => ({ loc, ev: evalFor(loc) }))
     .sort((a, b) => (a.loc.osm ? 1 : 0) - (b.loc.osm ? 1 : 0) || (b.ev.score ?? -1) - (a.ev.score ?? -1));
   for (const { loc, ev } of cand) {
@@ -156,19 +151,21 @@ export function refreshMap() {
     const text = ev.applicable === false ? '–' : ev.band === 'blocked' ? '✕' : ev.score ?? '?';
     const icon = L.divIcon({
       className: loc.osm ? 'mk-wrap osm' : 'mk-wrap',
-      html: `${spotIcon(ev)}<div class="mk ${cls} conf-${ev.confidence?.level ?? 'low'}" aria-hidden="true">${text}</div>${subLabel(loc, ev, on)}`,
+      html: `<div class="mk ${cls} conf-${ev.confidence?.level ?? 'low'}" aria-hidden="true">${text}</div>${subLabel(loc, ev, on)}`,
       iconSize: [38, 38], iconAnchor: [19, 19]
     });
-    const m = L.marker([lat, lng], { icon, title: `${loc.name}: ${ev.applicable === false ? 'not rated for this activity' : ev.band}`, alt: loc.name, keyboard: true, zIndexOffset: 1000 });
+    const m = L.marker([lat, lng], { locId: loc.id, icon, title: `${loc.name}: ${ev.applicable === false ? 'not rated for this activity' : ev.band}`, alt: loc.name, keyboard: true, zIndexOffset: 1000 });
     m.bindPopup(() => `
       <strong>${esc(loc.name)}</strong><br>
       <span class="muted small">${esc(REGIONS[loc.region]?.name ?? loc.region)} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)}</span>
-      <div style="margin:8px 0">${pill(ev)} <span class="small">${esc(windowText(ev))}</span></div>
+      <div style="margin:8px 0">${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked')}</div>
+      <div class="small">${esc(windowText(ev))}</div>
       ${ev.applicable === false ? `<div class="small muted">Not listed for ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'}.</div>` : ''}
       ${ev.blocked ? `<div class="small">${esc(ev.blockReasons[0] ?? '')}</div>` : ''}
       <div>${confText(ev.confidence)}</div>
       <p style="margin:8px 0 0"><a href="#/live/${encodeURIComponent(loc.id)}">Live summary →</a> &nbsp; <a href="#/loc/${encodeURIComponent(loc.id)}">Full details →</a></p>`);
     markerLayer.addLayer(m);
+    if (reopen && loc.id === reopen) setTimeout(() => m.openPopup(), 0);
   }
   zoneLayer.clearLayers();
   if (on.zones && state.data?.zones?.features?.length) zoneLayer.addData(state.data.zones);
