@@ -23,8 +23,10 @@ const BASES = [
 // ---- Overlays ---------------------------------------------------------------
 const LAYERS = [
   { group: 'Conditions', id: 'coast', label: 'Coastline colour', note: 'Conditions every ~8 km of coast at the chosen time. Tap the coast anywhere for details. Not a list of fishing spots.' },
-  { group: 'Conditions', id: 'wind', label: 'Wind arrows (animated)', note: 'Forecast — arrows drift the way the wind blows' },
-  { group: 'Conditions', id: 'waves', label: 'Wave & swell arrows (animated)', note: 'Forecast — offshore arrows show where waves travel' },
+  { group: 'Conditions', id: 'windFlow', label: 'Wind flow (animated)', note: 'Forecast — moving streaks follow the wind. White = light, blue = moderate, yellow = fresh, red = strong.' },
+  { group: 'Conditions', id: 'swellFlow', label: 'Swell lines (animated)', note: 'Forecast — blue wave lines roll toward the shore. Bigger/thicker = bigger swell, slower = longer period. Zoom in to see them.' },
+  { group: 'Conditions', id: 'wind', label: 'Wind speed labels', note: 'Forecast km/h with a direction arrow (zoom in)' },
+  { group: 'Conditions', id: 'waves', label: 'Wave height labels', note: 'Forecast metres with a direction arrow (zoom in)' },
   { group: 'Conditions', id: 'buoys', label: 'Measured wave buoys', note: 'Real readings from WA Dept of Transport buoys (30–60 m deep, not at the beach)' },
   { group: 'Conditions', id: 'sst', label: 'Sea temperature', note: 'Modelled, shown at each spot' },
   { group: 'Under the water', id: 'habitat', label: 'Seabed habitat', note: 'Reef, seagrass (weed) and sand where mapped — Seamap Australia. Coverage is patchy close to shore.' },
@@ -37,7 +39,7 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Places tagged open 24/7 on OpenStreetMap' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: 'Public car parks within ~2 km of the shore (OpenStreetMap)' }
 ];
-const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, wind: true, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
+const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, windFlow: true, swellFlow: true, wind: true, waves: true, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
 export const layerOn = () => ({ ...DEFAULTS, ...store.get('layers', {}) });
 const setLayer = (k, v) => store.set('layers', { ...layerOn(), [k]: v });
 

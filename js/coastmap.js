@@ -5,6 +5,7 @@ import { layerOn, FISH_SVG, SPEAR_SVG } from './map.js';
 import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
+import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass } from './scoring/geo.js';
 import { esc, typeTag } from './ui.js';
@@ -32,6 +33,7 @@ export function initCoastMap(m) {
   bestLayer = L.layerGroup().addTo(map);
   incidentLayer = L.layerGroup().addTo(map);
   fetch('data/incidents.json').then(r => r.json()).then(d => { incidents = d; refreshCoastMap(); }).catch(() => {});
+  initFlow(map);
   buildTimeBar();
   buildWindy();
   map.on('click', e => onMapClick(e.latlng));
@@ -75,7 +77,23 @@ export function refreshCoastMap() {
     }
   }
 
-  if ((on.wind || on.waves) && hasData && pts.length) {
+  // Animated wind particles + swell lines (canvas, see flow.js)
+  if (hasData && pts.length) {
+    const wind = [], swell = [];
+    for (const p of pts) {
+      const h = hourAt(evalFor(p), t)?.hour;
+      if (!h) continue;
+      const [lng, lat] = p.geometry.coordinates;
+      if (h.wind_speed != null && h.wind_direction != null) wind.push({ lat, lng, speed: h.wind_speed, from: h.wind_direction });
+      const sh = h.swell_height ?? h.wave_height, sd = h.swell_direction ?? h.wave_direction;
+      if (p.sea && sh != null && sd != null) swell.push({ lat: p.sea[0], lng: p.sea[1], height: sh, from: sd, period: h.swell_period ?? h.wave_period });
+    }
+    setFlowData(wind, swell, { wind: on.windFlow, swell: on.swellFlow });
+  } else setFlowData([], [], {});
+  const note = document.getElementById('flow-note');
+  if (note) note.hidden = !(flowPausedByDevice() && (on.windFlow || on.swellFlow));
+
+  if ((on.wind || on.waves) && hasData && pts.length && map.getZoom() >= 9) {
     const z = map.getZoom();
     const every = z >= 11 ? 1 : z >= 9 ? 2 : z >= 7 ? 4 : 7;
     const bounds = map.getBounds().pad(0.1);

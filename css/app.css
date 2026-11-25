@@ -254,3 +254,8 @@ dialog li { margin-bottom: 8px; }
 
 .mk-wrap.osm .mk { width: 30px; height: 30px; font-size: 11px; border-width: 2px; }
 .mk-wrap.osm .spot-ico { transform: scale(.8); }
+
+/* v0.6: animated wind particles + swell lines (js/flow.js) */
+.flow-canvas { position: absolute; left: 0; top: 0; pointer-events: none; }
+.best-now svg { width: 34px; height: 34px; }
+.best-now span { font-size: 12px; padding: 3px 7px; }
