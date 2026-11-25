@@ -43,6 +43,20 @@ function buildUrl(base, vars, locations, coastPoints = null) {
 
 const asArray = x => Array.isArray(x) ? x : [x];
 
+/** Forecast for ONE exact point (map taps). Weather at the point itself, marine at loc.sea. Not cached. */
+export async function loadPointConditions(loc) {
+  const errors = [];
+  const [f, m] = await Promise.allSettled([
+    json(buildUrl(CONFIG.OPEN_METEO_FORECAST, FORECAST_VARS, [loc])),
+    json(buildUrl(CONFIG.OPEN_METEO_MARINE, MARINE_VARS, [loc], []))
+  ]);
+  if (f.status !== 'fulfilled') errors.push('Weather forecast unavailable');
+  if (m.status !== 'fulfilled') errors.push('Marine forecast unavailable');
+  if (f.status !== 'fulfilled' && m.status !== 'fulfilled') return null;
+  return finish({ fetchedAt: Date.now(), forecast: f.status === 'fulfilled' ? asArray(f.value) : null,
+    marine: m.status === 'fulfilled' ? asArray(m.value) : null }, [loc], errors);
+}
+
 /**
  * Returns { byId: {locId: hours[]}, fetchedAt, stale, errors[] }
  * Uses cache when fresh; falls back to cache (marked stale) when offline.

@@ -76,7 +76,12 @@ export function initMap() {
   });
 
   map.attributionControl.addAttribution('Forecasts: <a href="https://open-meteo.com/">Open-Meteo</a>');
-  zoneLayer = L.geoJSON(null, { style: { color: '#e15759', weight: 2, fillOpacity: 0.15 } }).addTo(map);
+  zoneLayer = L.geoJSON(null, { style: f => {
+    const p = f.properties || {};
+    if ((p.prohibits || []).length || p.zone_type === 'sanctuary') return { color: '#e15759', weight: 2, fillOpacity: 0.25 };
+    if (p.zone_type === 'marine_park') return { color: '#4e79a7', weight: 1, fillOpacity: 0, dashArray: '6 6' };
+    return { color: '#4e79a7', weight: 1.5, fillOpacity: 0.1 };
+  } }).addTo(map);
   amenityLayer = L.layerGroup().addTo(map);
   initCoastMap(map);
   window.__wafiMap = map; // handy for debugging in the browser console
@@ -110,6 +115,16 @@ export function showMap(show) {
   if (show && map) setTimeout(() => map.invalidateSize(), 0);
 }
 
+// Fish (shore) / spear icon sized by score: the better the conditions, the bigger the icon.
+export function spotIcon(ev, activity = state.activity) {
+  const svg = activity === 'spear' ? SPEAR_SVG : FISH_SVG;
+  const sc = ev?.applicable === false || ev?.band === 'blocked' ? null : ev?.score;
+  const w = sc == null ? 14 : Math.round(14 + Math.max(0, Math.min(1, (sc - 30) / 65)) * 30);   // 14-44 px
+  const h = Math.round(w * 0.62);
+  const cls = sc == null ? 'dim' : sc >= 80 ? 'top' : sc < 40 ? 'dim' : '';
+  return `<div class="spot-ico ${activity} ${cls}" style="left:${19 - w / 2}px;top:${-h - 2}px" aria-hidden="true">${svg.replace('width="26" height="16"', `width="${w}" height="${h}"`)}</div>`;
+}
+
 function subLabel(loc, ev, on) {
   const h = ev?.current?.hour;
   if (!h) return '';
@@ -125,15 +140,23 @@ export function refreshMap() {
   markerLayer.clearLayers();
   const zoom = map.getZoom();
   const bounds = map.getBounds().pad(0.2);
-  for (const loc of visibleLocations()) {
-    if (loc.osm && (zoom < 10 || !bounds.contains([loc.geometry.coordinates[1], loc.geometry.coordinates[0]]))) continue;
-    const ev = evalFor(loc);
+  // Declutter: checked spots first, then the best-scoring OSM spots; skip a pin that would overlap one
+  // already placed (zoom in to see more). Bigger fish = better score, so the best ones win.
+  const placed = [];
+  const cand = visibleLocations()
+    .filter(loc => !loc.osm || (zoom >= 10 && bounds.contains([loc.geometry.coordinates[1], loc.geometry.coordinates[0]])))
+    .map(loc => ({ loc, ev: evalFor(loc) }))
+    .sort((a, b) => (a.loc.osm ? 1 : 0) - (b.loc.osm ? 1 : 0) || (b.ev.score ?? -1) - (a.ev.score ?? -1));
+  for (const { loc, ev } of cand) {
+    const pt = map.latLngToContainerPoint([loc.geometry.coordinates[1], loc.geometry.coordinates[0]]);
+    if (loc.osm && zoom < 16 && placed.some(q => Math.abs(q.x - pt.x) < 44 && Math.abs(q.y - pt.y) < 56)) continue;
+    placed.push(pt);
     const [lng, lat] = loc.geometry.coordinates;
     const cls = ev.applicable === false ? 'na' : ev.band;
     const text = ev.applicable === false ? '–' : ev.band === 'blocked' ? '✕' : ev.score ?? '?';
     const icon = L.divIcon({
       className: loc.osm ? 'mk-wrap osm' : 'mk-wrap',
-      html: `<div class="spot-ico ${state.activity}" aria-hidden="true">${state.activity === 'spear' ? SPEAR_SVG : FISH_SVG}</div><div class="mk ${cls} conf-${ev.confidence?.level ?? 'low'}" aria-hidden="true">${text}</div>${subLabel(loc, ev, on)}`,
+      html: `${spotIcon(ev)}<div class="mk ${cls} conf-${ev.confidence?.level ?? 'low'}" aria-hidden="true">${text}</div>${subLabel(loc, ev, on)}`,
       iconSize: [38, 38], iconAnchor: [19, 19]
     });
     const m = L.marker([lat, lng], { icon, title: `${loc.name}: ${ev.applicable === false ? 'not rated for this activity' : ev.band}`, alt: loc.name, keyboard: true, zIndexOffset: 1000 });

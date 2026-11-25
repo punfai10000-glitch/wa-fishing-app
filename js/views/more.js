@@ -13,6 +13,12 @@ export function renderMore(view) {
     <h1>Settings & info</h1>
 
     <div class="card">
+      <h2>Map key</h2>
+      <p class="small">What every colour, pin and symbol on the map means.</p>
+      <a class="btn" href="#/key">Open map key</a>
+    </div>
+
+    <div class="card">
       <h2>Units</h2>
       <div class="filters">
         <label>Wind<br><select data-unit="wind">${opt('kmh', u.wind, 'km/h')}${opt('kn', u.wind, 'knots')}${opt('ms', u.wind, 'm/s')}</select></label>

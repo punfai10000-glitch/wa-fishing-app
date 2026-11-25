@@ -1,10 +1,12 @@
 import { loadStatic, loadConditions } from './data.js';
+import { loadShore, snapPinsToShore } from './shore.js';
 import { evaluate } from './engine.js';
 import * as store from './storage.js';
 import { fmtAge } from './units.js';
 import { esc } from './ui.js';
 import { initMap, refreshMap, showMap } from './map.js';
 import { renderSpots } from './views/spots.js';
+import { renderKey } from './views/key.js';
 import { renderLocation } from './views/location.js';
 import { renderFish } from './views/fish.js';
 import { renderLive } from './views/live.js';
@@ -22,6 +24,7 @@ export const state = {
   buoys: null,
   bom: null,
   osmSpots: [],
+  tapLoc: null, tapCond: null,
   showOsm: store.get('showOsm', true),
   activity: store.get('activity', 'shore'),
   species: '',
@@ -34,11 +37,12 @@ export const state = {
 const sunFn = (d, lat, lng) => window.SunCalc.getTimes(d, lat, lng);
 
 export function getLoc(id) {
+  if (state.tapLoc && state.tapLoc.id === id) return state.tapLoc;
   return state.data.locations.find(l => l.id === id) || state.osmSpots.find(p => p.id === id) || state.coast.points.find(p => p.id === id) || null;
 }
 
 export function evalFor(loc, activity = state.activity) {
-  const src = loc.virtual || loc.condFrom ? state.coast : state.cond;
+  const src = loc.tap && state.tapCond ? state.tapCond : loc.virtual || loc.condFrom ? state.coast : state.cond;
   const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}`;
   if (!state.evalCache.has(key)) {
     state.evalCache.set(key, evaluate(loc, src.byId[loc.condFrom || loc.id], activity, {
@@ -102,13 +106,14 @@ const ROUTES = {
   fishid: (v) => renderFish(v, 'id'),
   rules: (v) => renderFish(v, 'rules'),
   more: renderMore,
+  key: renderKey,
   loc: renderLocation
 };
 
 function route() {
   const [, name = 'map', arg] = (location.hash || '#/map').split('/');
   const view = document.getElementById('view');
-  const tab = name === 'loc' ? (sessionStorage.getItem('lastTab') || 'spots') : ({ fishid: 'fish', rules: 'fish' }[name] || name);
+  const tab = name === 'loc' ? (sessionStorage.getItem('lastTab') || 'spots') : ({ fishid: 'fish', rules: 'fish', key: 'map' }[name] || name);
   if (name !== 'loc') try { sessionStorage.setItem('lastTab', name); } catch { /* ignore */ }
   document.querySelectorAll('#tabbar a').forEach(a => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
 
@@ -157,6 +162,8 @@ async function boot() {
     state.coast.points = await loadCoastPoints();
     setCoastPoints(state.coast.points);
     state.osmSpots = await loadOsmSpots(state.coast.points);
+    await loadShore();
+    snapPinsToShore([...state.data.locations, ...state.osmSpots]);
   } catch (e) {
     document.getElementById('banners').innerHTML = `<div class="banner danger">Could not load app data: ${esc(e.message)}</div>`;
     return;
