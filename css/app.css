@@ -288,3 +288,8 @@ dialog li { margin-bottom: 8px; }
 /* calmer map: smaller incident markers */
 .incident { width: 20px !important; height: 20px !important; font-size: 12px !important; border-width: 1.5px !important; }
 .incident.uninjured { width: 14px !important; height: 14px !important; opacity: .8; }
+.gallery { margin: 0 0 10px; }
+.gal-strip { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; padding-bottom: 4px; }
+.gal-item { flex: 0 0 82%; margin: 0; scroll-snap-align: start; }
+.gal-item img { width: 100%; height: 200px; object-fit: cover; border-radius: 10px; background: #000; }
+.gal-item figcaption { margin-top: 3px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }

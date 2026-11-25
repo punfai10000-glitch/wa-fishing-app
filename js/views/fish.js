@@ -1,7 +1,7 @@
 // Fish tab: Library (photos, keep/protected, size & bag limits), ID helper, Rules.
 import { state } from '../app.js';
 import { esc } from '../ui.js';
-import { speciesPhoto } from '../wiki.js';
+import { speciesPhoto, speciesGallery } from '../wiki.js';
 import { renderFishId } from './fishid.js';
 import { renderRules } from './rules.js';
 
@@ -17,21 +17,24 @@ function subnav(active) {
 
 function statusBadge(s) {
   if (s.status === 'danger') return '<span class="pill blocked">☠ Dangerous — don\'t touch</span>';
-  return s.status === 'protected'
-    ? '<span class="pill poor">Protected — release</span>'
+  if (s.status === 'protected') return '<span class="pill poor">Protected — release</span>';
+  return s.limits_verified === false
+    ? '<span class="pill fair">Can keep — exact limit being added</span>'
     : '<span class="pill good">Keep within limits</span>';
 }
 
 function limitsTable(s) {
   if (s.status === 'protected' || s.status === 'danger') return `<p class="notice danger small">${esc(s.protection)}</p>`;
   if (!s.limits?.length) return '<p class="small muted">Limits not entered — check the official rules.</p>';
-  return `<table class="small"><thead><tr><th>Where</th><th>Min size</th><th>Daily bag</th></tr></thead><tbody>
+  const pending = s.limits_verified === false
+    ? `<p class="notice small">This fish's own size and bag limit is still being added. Until then the group limit below applies — and the species limit can be stricter.</p>` : '';
+  return `${pending}<table class="small"><thead><tr><th>Where</th><th>Min size</th><th>Daily bag</th></tr></thead><tbody>
     ${s.limits.map(l => `<tr><td>${esc(l.where)}${l.note ? `<br><span class="muted">${esc(l.note)}</span>` : ''}</td><td>${esc(l.min_size)}</td><td>${esc(l.bag)}</td></tr>`).join('')}
   </tbody></table>`;
 }
 
 function card(s, open) {
-  return `<details class="fish" id="sp-${esc(s.id)}" ${open ? 'open' : ''} data-wiki="${esc(s.wiki || '')}">
+  return `<details class="fish" id="sp-${esc(s.id)}" ${open ? 'open' : ''} data-wiki="${esc(s.wiki || '')}" data-sci="${esc(s.scientific || '')}">
     <summary>
       <div class="fish-head">
         <div class="thumb" data-thumb aria-hidden="true"></div>
@@ -40,7 +43,8 @@ function card(s, open) {
       </div>
     </summary>
     <div class="body">
-      <figure class="photo" data-photo><span class="muted small">Loading photo…</span></figure>
+      <div class="gallery" data-gallery><span class="muted small">Loading photos…</span></div>
+      ${s.caution ? `<p class="notice small">⚠ ${esc(s.caution)}</p>` : ''}
       ${limitsTable(s)}
       <p class="small"><strong>How to tell:</strong> ${esc(s.id_tips)}</p>
       <p class="small muted">Source: ${(s.sources || []).map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(' · ')} · checked ${esc(s.last_checked ?? '—')}.
@@ -49,17 +53,30 @@ function card(s, open) {
   </details>`;
 }
 
-async function hydratePhoto(el, withBig) {
-  const ph = await speciesPhoto(el.dataset.wiki);
+async function hydrateThumb(el) {
+  if (el.dataset.thumbDone) return;
+  el.dataset.thumbDone = '1';
   const thumb = el.querySelector('[data-thumb]');
-  const fig = el.querySelector('[data-photo]');
-  if (!ph) {
-    if (fig) fig.innerHTML = '<span class="muted small">No photo available.</span>';
-    return;
+  const ph = await speciesPhoto(el.dataset.wiki);
+  if (ph) { thumb.style.backgroundImage = `url("${ph.src}")`; return; }
+  const g = await speciesGallery(el.dataset.sci, 1);
+  if (g[0]) thumb.style.backgroundImage = `url("${g[0].src}")`;
+}
+
+async function hydrateGallery(el) {
+  const box = el.querySelector('[data-gallery]');
+  if (!box || box.dataset.done) return;
+  box.dataset.done = '1';
+  const name = el.querySelector('strong').textContent;
+  let photos = await speciesGallery(el.dataset.sci, 6);
+  if (!photos.length) {
+    const ph = await speciesPhoto(el.dataset.wiki);
+    if (ph) photos = [{ src: ph.src, attribution: 'Wikimedia Commons', license: 'see file page', page: ph.credit }];
   }
-  thumb.style.backgroundImage = `url("${ph.src}")`;
-  if (withBig && fig) fig.innerHTML = `<img src="${esc(ph.src)}" alt="Photo of ${esc(el.querySelector('strong').textContent)}" loading="lazy">
-    <figcaption class="small muted">Photo: Wikimedia Commons — <a href="${esc(ph.credit)}" target="_blank" rel="noopener">author &amp; licence</a>. Colours vary with size, age and how long it's been out of the water.</figcaption>`;
+  if (!photos.length) { box.innerHTML = '<span class="muted small">No photos available yet.</span>'; return; }
+  box.innerHTML = `<div class="gal-strip">${photos.map((p, i) => `<figure class="gal-item"><img src="${esc(p.src)}" alt="${esc(name)} photo ${i + 1}" loading="lazy">
+      <figcaption class="small muted"><a href="${esc(p.page)}" target="_blank" rel="noopener">${esc(p.attribution)}</a> · ${esc(p.license)}</figcaption></figure>`).join('')}</div>
+    <p class="small muted" style="margin:4px 0 0">${photos.length} photo${photos.length > 1 ? 's' : ''} — swipe sideways. Colours change with size, age and time out of the water.${photos[0].taxon ? ` More on <a href="${esc(photos[0].taxon)}" target="_blank" rel="noopener">iNaturalist</a>.` : ''}</p>`;
 }
 
 export function renderFish(view, sub) {
@@ -67,28 +84,32 @@ export function renderFish(view, sub) {
   if (sub === 'rules') { view.innerHTML = subnav('rules') + '<div id="fish-body"></div>'; renderRules(view.querySelector('#fish-body')); return; }
 
   const focus = sub && sub !== '' ? decodeURIComponent(sub) : null;
-  const all = state.data.species.species;
+  const all = [...state.data.species.species].sort((a, b) => a.name.localeCompare(b.name));
   const list = all.filter(s =>
-    (filter === 'all' || (filter === 'protected' ? s.status !== 'limits' : s.status === 'limits')) &&
+    (filter === 'all' || (filter === 'protected' ? s.status !== 'limits' : filter === 'spear' ? s.activities?.includes('spear') : s.status === 'limits')) &&
     (!query || [s.name, s.scientific, ...(s.aka || [])].join(' ').toLowerCase().includes(query.toLowerCase())));
 
   view.innerHTML = `${subnav('')}
     <h1>Fish library</h1>
-    <div class="notice small">Limits are from DPIRD's 2026 guide and the 1 June 2026 changes (checked 25 Nov 2026). Perth → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
+    <div class="notice small">${all.length} species. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Limits are from DPIRD's 2026 guide and the 1 June 2026 changes (checked 25 Nov 2026). Perth → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
     <div class="filters">
       <input type="search" id="fq" placeholder="Search fish" value="${esc(query)}" aria-label="Search fish">
       <select id="ff" aria-label="Show">
         <option value="all" ${filter === 'all' ? 'selected' : ''}>All (${all.length})</option>
         <option value="keep" ${filter === 'keep' ? 'selected' : ''}>Can keep within limits</option>
         <option value="protected" ${filter === 'protected' ? 'selected' : ''}>Protected or dangerous</option>
+        <option value="spear" ${filter === 'spear' ? 'selected' : ''}>Seen when spearfishing / diving</option>
       </select>
     </div>
     <div id="fish-list">${list.map(s => card(s, s.id === focus)).join('') || '<p class="muted">No fish match.</p>'}</div>
     <p class="muted small">Not sure what you caught? Try the <a href="#/fish/id">ID helper</a>. If you can't identify it, release it.</p>`;
 
+  // load thumbnails only as cards scroll into view (100+ species)
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { io.unobserve(e.target); hydrateThumb(e.target); } }), { rootMargin: '200px' }) : null;
   view.querySelectorAll('details.fish').forEach(el => {
-    hydratePhoto(el, el.open);
-    el.addEventListener('toggle', () => { if (el.open) hydratePhoto(el, true); });
+    if (io) io.observe(el); else hydrateThumb(el);
+    if (el.open) hydrateGallery(el);
+    el.addEventListener('toggle', () => { if (el.open) hydrateGallery(el); });
   });
   if (focus) view.querySelector(`#sp-${CSS.escape(focus)}`)?.scrollIntoView();
   const fq = view.querySelector('#fq');

@@ -19,7 +19,7 @@ function checker(species) {
       answer = `<div class="notice danger"><strong>No — ${esc(sp.name)} ${sp.status === 'danger' ? 'is dangerous' : 'is protected'}.</strong> ${esc(sp.protection)}</div>`;
     } else {
       const lim = (sp.limits || []).filter(l => /all/i.test(l.where) || l.where.toLowerCase().includes(bioName.toLowerCase()));
-      answer = lim.length ? `<div class="notice info"><strong>Yes, within limits</strong> at ${esc(pl.label)} (${bioName} bioregion):
+      answer = lim.length ? `<div class="notice info"><strong>${sp.limits_verified === false ? 'Probably yes — but this fish\'s own limit is still being added.' : 'Yes, within limits'}</strong> at ${esc(pl.label)} (${bioName} bioregion)${sp.limits_verified === false ? '. The group limit below applies; the species limit can be stricter' : ''}:
         <ul>${lim.map(l => `<li>Minimum size: <strong>${esc(l.min_size)}</strong> · Daily bag: <strong>${esc(l.bag)}</strong>${l.note ? `<br><span class="small">${esc(l.note)}</span>` : ''}</li>`).join('')}</ul>
         ${sp.spear_banned_landbased && pl.bio === 'west_coast' ? '<strong>Not by spear from land</strong> — land-based spearfishing for WA dhufish is not permitted.<br>' : ''}
         <span class="small">Also check: marine park sanctuary zones (no fishing) and any temporary closures.</span></div>`

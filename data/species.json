@@ -1,5 +1,5 @@
 {
- "_note": "DRAFT. Size and bag limits were extracted from DPIRD's Recreational fishing guide 2026 and the 'New statewide finfish size and bag limits from 1 June 2026' sheet on 25 Nov 2026 and must be spot-checked against rules.fish.wa.gov.au. Official rules always prevail. ID hints are general field marks pending review. Photos load from Wikipedia/Wikimedia Commons at runtime with a link to each image's author and licence.",
+ "_note": "Size and bag limits for the original species were extracted from DPIRD's Recreational fishing guide 2026 and the 'New statewide finfish size and bag limits from 1 June 2026' sheet. Species marked limits_verified=false show DPIRD group-level limits only (e.g. 16 nearshore fish per day in total); their species-specific size/bag values are being added from the guide. Official rules always prevail.",
  "id_questions": [
   {
    "id": "shape",
@@ -952,6 +952,3479 @@
    ],
    "last_checked": "2026-11-25",
    "rule_ids": []
+  },
+  {
+   "id": "southern_school_whiting",
+   "name": "Southern school whiting",
+   "aka": [
+    "school whiting"
+   ],
+   "scientific": "Sillago bassensis",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "plain_silver",
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Slim silver whiting with faint orange-brown lines; no large spots (KG whiting has them).",
+   "rule_ids": [],
+   "wiki": "Sillago_bassensis",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "yellowfin_whiting",
+   "name": "Yellowfin whiting",
+   "aka": [],
+   "scientific": "Sillago schomburgkii",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Sandy-silver whiting with yellow tinge on the fins; common on Perth beaches and estuary flats in summer.",
+   "rule_ids": [],
+   "wiki": "Sillago_schomburgkii",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "trumpeter_whiting",
+   "name": "Trumpeter whiting",
+   "aka": [
+    "winter whiting"
+   ],
+   "scientific": "Sillago maculata",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small whiting with irregular dark blotches along the back; estuaries and sheltered bays.",
+   "rule_ids": [],
+   "wiki": "Sillago_maculata",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_school_whiting",
+   "name": "Western school whiting",
+   "aka": [],
+   "scientific": "Sillago vittata",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Whiting with dark bars/stripes along the upper sides; shallow sandy beaches.",
+   "rule_ids": [],
+   "wiki": "Sillago_vittata",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "silver_trevally",
+   "name": "Silver trevally",
+   "aka": [],
+   "scientific": "Pseudocaranx dentex",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "plain_silver",
+     "stripes"
+    ],
+    "feature": [
+     "gill_spot"
+    ]
+   },
+   "id_tips": "Silver trevally with a yellow stripe along the side and a small black spot on the gill cover; bigger and deeper-bodied than skipjack.",
+   "rule_ids": [],
+   "wiki": "Pseudocaranx_dentex",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "sea_mullet",
+   "name": "Sea mullet",
+   "aka": [
+    "mullet"
+   ],
+   "scientific": "Mugil cephalus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver",
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Thick-bodied mullet with faint dark lines along the sides, blunt head and small mouth; estuaries and beaches.",
+   "rule_ids": [],
+   "wiki": "Mugil_cephalus",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "yellow_eye_mullet",
+   "name": "Yellow-eye mullet",
+   "aka": [
+    "pilch"
+   ],
+   "scientific": "Aldrichetta forsteri",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Slim mullet with a bright yellow eye; schools in estuaries and along beaches.",
+   "rule_ids": [],
+   "wiki": "Aldrichetta_forsteri",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "estuary_cobbler",
+   "name": "Estuary cobbler",
+   "aka": [
+    "cobbler",
+    "estuary catfish"
+   ],
+   "scientific": "Cnidoglanis macrocephalus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Eel-tailed catfish with barbels around the mouth. VENOMOUS spines on the back and side fins — handle with pliers and a cloth.",
+   "rule_ids": [],
+   "wiki": "Cnidoglanis_macrocephalus",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Venomous fin spines — painful sting. Edible, but handle with care."
+  },
+  {
+   "id": "bar_tailed_flathead",
+   "name": "Bar-tailed flathead",
+   "aka": [],
+   "scientific": "Platycephalus endrachtensis",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "spots",
+     "dark"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Flathead with dark bars on the tail fin; estuaries such as the Swan and Peel. Sharp head spines.",
+   "rule_ids": [],
+   "wiki": "Platycephalus_endrachtensis",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Sharp spines on the gill cover."
+  },
+  {
+   "id": "southern_bluespotted_flathead",
+   "name": "Southern blue-spotted flathead",
+   "aka": [
+    "blue-spot flathead"
+   ],
+   "scientific": "Platycephalus speculator",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Flathead with small blue spots and a yellow/white tail with a dark blotch; sandy bays and estuaries.",
+   "rule_ids": [],
+   "wiki": "Platycephalus_speculator",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Sharp spines on the gill cover."
+  },
+  {
+   "id": "greenback_flounder",
+   "name": "Greenback flounder",
+   "aka": [],
+   "scientific": "Rhombosolea tapirina",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Oval flounder, eyes on the right side, dark green-brown top and white underside; estuaries and sandy bays.",
+   "rule_ids": [],
+   "wiki": "Rhombosolea_tapirina",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "small_toothed_flounder",
+   "name": "Small-toothed flounder",
+   "aka": [],
+   "scientific": "Pseudorhombus jenynsii",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Flounder with eyes on the left side and ringed dark spots; sandy shallows.",
+   "rule_ids": [],
+   "wiki": "Pseudorhombus_jenynsii",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_striped_trumpeter",
+   "name": "Western striped grunter",
+   "aka": [
+    "striped trumpeter",
+    "western striped trumpeter"
+   ],
+   "scientific": "Pelates octolineatus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small silver fish with several dark horizontal stripes; grunts when caught. Very common around Perth jetties.",
+   "rule_ids": [],
+   "wiki": "Pelates_octolineatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "silver_biddy",
+   "name": "Silver biddy",
+   "aka": [],
+   "scientific": "Gerres subfasciatus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small, deep, shiny silver fish with a mouth that extends forward like a tube; sandy shallows and estuaries.",
+   "rule_ids": [],
+   "wiki": "Gerres_subfasciatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "yellowtail_scad",
+   "name": "Yellowtail scad",
+   "aka": [
+    "yakka",
+    "scaly mackerel (wrong name)"
+   ],
+   "scientific": "Trachurus novaezelandiae",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small silver fish with a yellow tail and bony scutes along the rear lateral line; schools around jetties — great bait.",
+   "rule_ids": [],
+   "wiki": "Trachurus_novaezelandiae",
+   "status": "limits",
+   "category": "bait",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 9 litres of baitfish per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "australian_anchovy",
+   "name": "Australian anchovy",
+   "aka": [],
+   "scientific": "Engraulis australis",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Tiny slim baitfish with a big mouth extending behind the eye; schools in bays and estuaries.",
+   "rule_ids": [],
+   "wiki": "Engraulis_australis",
+   "status": "limits",
+   "category": "bait",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 9 litres of baitfish per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "pilchard",
+   "name": "Australian pilchard",
+   "aka": [
+    "mulie",
+    "sardine"
+   ],
+   "scientific": "Sardinops sagax",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Silver baitfish with a row of dark spots along the upper side; the classic frozen bait.",
+   "rule_ids": [],
+   "wiki": "Sardinops_sagax",
+   "status": "limits",
+   "category": "bait",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 9 litres of baitfish per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "scaly_mackerel",
+   "name": "Scaly mackerel",
+   "aka": [],
+   "scientific": "Sardinella lemuru",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Silver baitfish with a yellowish line and large loose scales; jetties in summer.",
+   "rule_ids": [],
+   "wiki": "Sardinella_lemuru",
+   "status": "limits",
+   "category": "bait",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 9 litres of baitfish per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "blue_mackerel",
+   "name": "Blue mackerel",
+   "aka": [
+    "slimy mackerel"
+   ],
+   "scientific": "Scomber australasicus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "colourful",
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small mackerel with wavy dark lines on a green-blue back and silver belly; finlets in front of the tail.",
+   "rule_ids": [],
+   "wiki": "Scomber_australasicus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "snook",
+   "name": "Snook",
+   "aka": [
+    "short-finned seapike"
+   ],
+   "scientific": "Sphyraena novaehollandiae",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": [
+     "teeth",
+     "beak"
+    ]
+   },
+   "id_tips": "Long, slim barracuda-like fish with a pointed head and sharp teeth; weed beds and estuary mouths.",
+   "rule_ids": [],
+   "wiki": "Sphyraena_novaehollandiae",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "long_finned_pike",
+   "name": "Long-finned pike",
+   "aka": [],
+   "scientific": "Dinolestes lewini",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Slim fish with a long second dorsal fin and a yellow tail; reefs and jetties at dusk.",
+   "rule_ids": [],
+   "wiki": "Dinolestes_lewini",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "goatfish",
+   "name": "Bluespotted goatfish",
+   "aka": [
+    "red mullet"
+   ],
+   "scientific": "Upeneichthys vlamingii",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "colourful",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Reddish fish with blue spots and two whisker-like barbels under the chin used to dig in sand.",
+   "rule_ids": [],
+   "wiki": "Upeneichthys_vlamingii",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "baldchin_groper",
+   "name": "Baldchin groper",
+   "aka": [],
+   "scientific": "Choerodon rubescens",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Large tuskfish with big tusk-like teeth and a white chin patch; reefs north of Perth mainly.",
+   "rule_ids": [],
+   "wiki": "Choerodon_rubescens",
+   "status": "limits",
+   "category": "demersal",
+   "limits": [
+    {
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "Being verified",
+     "bag": "Land-based: part of 2 demersal fish per day in total"
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "Being verified",
+     "bag": "2 per day (tuskfish incl. baldchin) from 1 June 2026"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD statewide finfish size & bag limits from 1 June 2026",
+     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+    },
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "breaksea_cod",
+   "name": "Breaksea cod",
+   "aka": [],
+   "scientific": "Epinephelides armatus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "dark",
+     "stripes"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Small rock cod, brown with pale horizontal stripes and yellow fins; inshore reefs.",
+   "rule_ids": [],
+   "wiki": "Epinephelides_armatus",
+   "status": "limits",
+   "category": "demersal",
+   "limits": [
+    {
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "Species limit being verified",
+     "bag": "Land-based: 2 demersal fish per day in total (boat-based closed)"
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 4 demersal fish per day in total (from 1 June 2026)"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "harlequin_fish",
+   "name": "Harlequin fish",
+   "aka": [],
+   "scientific": "Othos dentex",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful",
+     "spots"
+    ],
+    "feature": [
+     "big_head",
+     "teeth"
+    ]
+   },
+   "id_tips": "Striking orange-yellow fish with blue spots and big canine teeth; caves on southern reefs.",
+   "rule_ids": [],
+   "wiki": "Othos_dentex",
+   "status": "limits",
+   "category": "demersal",
+   "limits": [
+    {
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "Species limit being verified",
+     "bag": "Land-based: 2 demersal fish per day in total (boat-based closed)"
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 4 demersal fish per day in total (from 1 June 2026)"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "bight_redfish",
+   "name": "Bight redfish",
+   "aka": [
+    "nannygai"
+   ],
+   "scientific": "Centroberyx gerrardi",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Bright red fish with large eyes and a white line along the side; deeper southern reefs.",
+   "rule_ids": [],
+   "wiki": "Centroberyx_gerrardi",
+   "status": "limits",
+   "category": "demersal",
+   "limits": [
+    {
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "350 mm (statewide)",
+     "bag": "Land-based: part of 2 demersal fish per day in total"
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "350 mm",
+     "bag": "4 per day (South Coast: separate from the mixed demersal limit)"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD statewide finfish size & bag limits from 1 June 2026",
+     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "swallowtail",
+   "name": "Swallowtail",
+   "aka": [],
+   "scientific": "Centroberyx lineatus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Red-orange fish with a deeply forked tail and big eyes; schools over reef.",
+   "rule_ids": [],
+   "wiki": "Centroberyx_lineatus",
+   "status": "limits",
+   "category": "demersal",
+   "limits": [
+    {
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "No minimum",
+     "bag": "Land-based: part of 2 demersal fish per day in total"
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "No minimum",
+     "bag": "4 per day (South Coast: separate from the mixed demersal limit)"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD statewide finfish size & bag limits from 1 June 2026",
+     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "queen_snapper",
+   "name": "Queen snapper",
+   "aka": [
+    "blue morwong"
+   ],
+   "scientific": "Nemadactylus valenciennesi",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Blue morwong: blue-grey body with yellow lines on the head and a long ray on the pectoral fin.",
+   "rule_ids": [],
+   "wiki": "Nemadactylus_valenciennesi",
+   "status": "limits",
+   "category": "demersal",
+   "limits": [
+    {
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "400 mm (statewide)",
+     "bag": "Land-based: part of 2 demersal fish per day in total"
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "400 mm",
+     "bag": "Part of 4 demersal fish per day in total"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD statewide finfish size & bag limits from 1 June 2026",
+     "url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_foxfish",
+   "name": "Western foxfish",
+   "aka": [],
+   "scientific": "Bodianus frenchii",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Red-orange wrasse with yellow patches and white spots near the tail; caves and ledges.",
+   "rule_ids": [],
+   "wiki": "Bodianus_frenchii",
+   "status": "limits",
+   "category": "demersal",
+   "limits": [
+    {
+     "where": "West Coast (Perth–Augusta)",
+     "min_size": "Species limit being verified",
+     "bag": "Land-based: 2 demersal fish per day in total (boat-based closed)"
+    },
+    {
+     "where": "South Coast (Denmark–Esperance)",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 4 demersal fish per day in total (from 1 June 2026)"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "red_lipped_morwong",
+   "name": "Red-lipped morwong",
+   "aka": [],
+   "scientific": "Goniistius rubrolabiatus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Pale morwong with dark diagonal bands and bright red lips; shallow reefs.",
+   "rule_ids": [],
+   "wiki": "Goniistius_rubrolabiatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "magpie_perch",
+   "name": "Magpie perch",
+   "aka": [],
+   "scientific": "Pseudogoniistius nigripes",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes",
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Black-and-white banded morwong with a black tail; inshore reefs, often seen by divers.",
+   "rule_ids": [],
+   "wiki": "Pseudogoniistius_nigripes",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "dusky_morwong",
+   "name": "Dusky morwong",
+   "aka": [],
+   "scientific": "Dactylophora nigricans",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Long brown morwong with thick lips; weedy reefs, often curious toward divers.",
+   "rule_ids": [],
+   "wiki": "Dactylophora_nigricans",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_king_wrasse",
+   "name": "Western king wrasse",
+   "aka": [],
+   "scientific": "Coris auricularis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Very common reef wrasse; females pale with a dark stripe, males colourful with a red band. Often a bait-stealer.",
+   "rule_ids": [],
+   "wiki": "Coris_auricularis",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "brownspotted_wrasse",
+   "name": "Brown-spotted wrasse",
+   "aka": [],
+   "scientific": "Notolabrus parilus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "spots",
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Wrasse with brown spots in rows along the sides; inshore reefs and jetties.",
+   "rule_ids": [],
+   "wiki": "Notolabrus_parilus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "southern_maori_wrasse",
+   "name": "Southern maori wrasse",
+   "aka": [],
+   "scientific": "Ophthalmolepis lineolata",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "stripes",
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Wrasse with a dark band along the side and blue lines on the head; reefs.",
+   "rule_ids": [],
+   "wiki": "Ophthalmolepis_lineolata",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "sergeant_baker",
+   "name": "Sergeant baker",
+   "aka": [],
+   "scientific": "Aulopus purpurissatus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "colourful",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Red-and-white mottled fish with a tall first dorsal fin; sits on reef.",
+   "rule_ids": [],
+   "wiki": "Aulopus_purpurissatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "sea_sweep",
+   "name": "Sea sweep",
+   "aka": [],
+   "scientific": "Scorpis aequipinnis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Grey, deep-bodied fish with a small mouth; schools around rocky headlands.",
+   "rule_ids": [],
+   "wiki": "Scorpis_aequipinnis",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "banded_sweep",
+   "name": "Banded sweep",
+   "aka": [],
+   "scientific": "Scorpis georgiana",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Silver-grey sweep with dark vertical bands; common on southern reefs.",
+   "rule_ids": [],
+   "wiki": "Scorpis_georgiana",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "silver_drummer",
+   "name": "Silver drummer",
+   "aka": [],
+   "scientific": "Kyphosus sydneyanus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "dark",
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Large grey-silver weed-eating fish with a small mouth; strong fighter off rocks.",
+   "rule_ids": [],
+   "wiki": "Kyphosus_sydneyanus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_buffalo_bream",
+   "name": "Western buffalo bream",
+   "aka": [],
+   "scientific": "Kyphosus cornelii",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Bronze-brown drummer with a small mouth; shallow reefs and surge zones.",
+   "rule_ids": [],
+   "wiki": "Kyphosus_cornelii",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "black_drummer",
+   "name": "Western rock blackfish",
+   "aka": [
+    "black drummer"
+   ],
+   "scientific": "Girella tephraeops",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Dark grey-black blackfish with a small mouth; rocky surge zones.",
+   "rule_ids": [],
+   "wiki": "Girella_tephraeops",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "zebrafish",
+   "name": "Zebrafish",
+   "aka": [],
+   "scientific": "Girella zebra",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Grey-white fish with dark vertical bars and a small mouth; rocky shores.",
+   "rule_ids": [],
+   "wiki": "Girella_zebra",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "moonlighter",
+   "name": "Moonlighter",
+   "aka": [],
+   "scientific": "Tilodon sexfasciatus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Deep, flat white fish with black bands; reefs. Usually released.",
+   "rule_ids": [],
+   "wiki": "Tilodon_sexfasciatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "old_wife",
+   "name": "Old wife",
+   "aka": [],
+   "scientific": "Enoplosus armatus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small fish with tall fins and bold black-and-white bands. Mildly venomous spines.",
+   "rule_ids": [],
+   "wiki": "Enoplosus_armatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Mildly venomous dorsal spines."
+  },
+  {
+   "id": "western_butterfish",
+   "name": "Western butterfish",
+   "aka": [],
+   "scientific": "Pentapodus vitta",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "stripes",
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small slim fish with blue-and-yellow stripes; seagrass and jetties.",
+   "rule_ids": [],
+   "wiki": "Pentapodus_vitta",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "horseshoe_leatherjacket",
+   "name": "Horseshoe leatherjacket",
+   "aka": [],
+   "scientific": "Meuschenia hippocrepis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Colourful leatherjacket with a horseshoe-shaped mark on the side; reefs. Sharp single dorsal spine.",
+   "rule_ids": [],
+   "wiki": "Meuschenia_hippocrepis",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "six_spine_leatherjacket",
+   "name": "Six-spine leatherjacket",
+   "aka": [],
+   "scientific": "Meuschenia freycineti",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful",
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Leatherjacket with blue lines on the face and a few small spines near the tail.",
+   "rule_ids": [],
+   "wiki": "Meuschenia_freycineti",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "rough_leatherjacket",
+   "name": "Rough leatherjacket",
+   "aka": [],
+   "scientific": "Scobinichthys granulatus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Brownish leatherjacket with very rough skin; seagrass and jetties.",
+   "rule_ids": [],
+   "wiki": "Scobinichthys_granulatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "velvet_leatherjacket",
+   "name": "Velvet leatherjacket",
+   "aka": [],
+   "scientific": "Meuschenia scaber",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Grey-brown leatherjacket with velvety skin and yellow-edged fins.",
+   "rule_ids": [],
+   "wiki": "Meuschenia_scaber",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "longsnout_boarfish",
+   "name": "Longsnout boarfish",
+   "aka": [],
+   "scientific": "Pentaceropsis recurvirostris",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": [
+     "beak"
+    ]
+   },
+   "id_tips": "Tall, flat fish with a long snout and bold diagonal stripes; often seen by divers. Usually released.",
+   "rule_ids": [],
+   "wiki": "Pentaceropsis_recurvirostris",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "samsonfish",
+   "name": "Samsonfish",
+   "aka": [],
+   "scientific": "Seriola hippos",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "plain_silver",
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Powerful amberjack with dark vertical bands when young and reddish teeth patches; reefs and wrecks.",
+   "rule_ids": [],
+   "wiki": "Seriola_hippos",
+   "status": "limits",
+   "category": "pelagic",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 3 large pelagic fish per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "yellowtail_kingfish",
+   "name": "Yellowtail kingfish",
+   "aka": [
+    "kingie"
+   ],
+   "scientific": "Seriola lalandi",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Sleek blue-green back, silver belly, yellow tail and a yellow stripe along the side.",
+   "rule_ids": [],
+   "wiki": "Seriola_lalandi",
+   "status": "limits",
+   "category": "pelagic",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 3 large pelagic fish per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "australian_bonito",
+   "name": "Australian bonito",
+   "aka": [],
+   "scientific": "Sarda australis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "torpedo"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Small tuna with dark lines running along the back and obvious teeth.",
+   "rule_ids": [],
+   "wiki": "Sarda_australis",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "gummy_shark",
+   "name": "Gummy shark",
+   "aka": [],
+   "scientific": "Mustelus antarcticus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "shark"
+    ],
+    "marks": [
+     "spots",
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Slender grey shark with small white spots and flat, plate-like teeth (no sharp teeth).",
+   "rule_ids": [],
+   "wiki": "Mustelus_antarcticus",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "whiskery_shark",
+   "name": "Whiskery shark",
+   "aka": [],
+   "scientific": "Furgaleus macki",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "shark"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Grey-brown shark with dark blotches and small barbels (whiskers) at the nostrils.",
+   "rule_ids": [],
+   "wiki": "Furgaleus_macki",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "bronze_whaler",
+   "name": "Bronze whaler",
+   "aka": [],
+   "scientific": "Carcharhinus brachyurus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "shark"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Bronze-grey whaler shark. Wire trace is banned in Perth waters and the Swan-Canning and Mandurah estuaries.",
+   "rule_ids": [],
+   "wiki": "Carcharhinus_brachyurus",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "dusky_whaler",
+   "name": "Dusky whaler",
+   "aka": [],
+   "scientific": "Carcharhinus obscurus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "shark"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Grey whaler shark with a low ridge between the dorsal fins.",
+   "rule_ids": [],
+   "wiki": "Carcharhinus_obscurus",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "port_jackson_shark",
+   "name": "Port Jackson shark",
+   "aka": [],
+   "scientific": "Heterodontus portusjacksoni",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "shark"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Blunt-headed shark with a harness-like dark pattern and a spine in front of each dorsal fin.",
+   "rule_ids": [],
+   "wiki": "Heterodontus_portusjacksoni",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "spotted_wobbegong",
+   "name": "Spotted wobbegong",
+   "aka": [],
+   "scientific": "Orectolobus maculatus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "shark",
+     "flat"
+    ],
+    "marks": [
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Flattened carpet shark with pale ring-like spots and skin flaps around the mouth. Bites if disturbed — don't touch.",
+   "rule_ids": [],
+   "wiki": "Orectolobus_maculatus",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Will bite if touched or stepped on."
+  },
+  {
+   "id": "fiddler_ray",
+   "name": "Southern fiddler ray",
+   "aka": [
+    "banjo shark",
+    "shovelnose"
+   ],
+   "scientific": "Trygonorrhina dumerilii",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "ray"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Guitarfish shape with a blue-grey band pattern on the back; sandy shallows and jetties.",
+   "rule_ids": [],
+   "wiki": "Trygonorrhina_dumerilii",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "southern_eagle_ray",
+   "name": "Southern eagle ray",
+   "aka": [],
+   "scientific": "Myliobatis tenuicaudatus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "ray"
+    ],
+    "marks": [
+     "spots",
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Diamond-shaped ray with a raised head and blue-ish spots. Venomous tail spine.",
+   "rule_ids": [],
+   "wiki": "Myliobatis_tenuicaudatus",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Venomous barb on the tail."
+  },
+  {
+   "id": "gould_squid",
+   "name": "Gould's squid",
+   "aka": [
+    "arrow squid"
+   ],
+   "scientific": "Nototodarus gouldi",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "squid"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Arrow squid with a long slim body and a short arrow-shaped fin at the tail end (calamari's fins run the full length).",
+   "rule_ids": [],
+   "wiki": "Nototodarus_gouldi",
+   "status": "limits",
+   "category": "cephalopod",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "15 squid, cuttlefish and octopus per day in total (boat limit 30)"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "giant_cuttlefish",
+   "name": "Giant cuttlefish",
+   "aka": [],
+   "scientific": "Sepia apama",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "squid"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": [
+     "squid_fins"
+    ]
+   },
+   "id_tips": "Broad cuttlefish with a hard internal cuttlebone and a frilly fin all round the body.",
+   "rule_ids": [],
+   "wiki": "Sepia_apama",
+   "status": "limits",
+   "category": "cephalopod",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "15 squid, cuttlefish and octopus per day in total (boat limit 30)"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "wa_octopus",
+   "name": "WA octopus",
+   "aka": [],
+   "scientific": "Octopus djinda",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "squid"
+    ],
+    "marks": [
+     "dark",
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Common Perth octopus; changes colour fast. Do not confuse with the blue-ringed octopus (small, bright blue rings).",
+   "rule_ids": [],
+   "wiki": "Octopus_djinda",
+   "status": "limits",
+   "category": "cephalopod",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "15 squid, cuttlefish and octopus per day in total (boat limit 30)"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "blue_swimmer_crab",
+   "name": "Blue swimmer crab",
+   "aka": [
+    "blue manna",
+    "blue swimmer"
+   ],
+   "scientific": "Portunus armatus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Blue-and-white mottled crab (males bluer) with paddle-shaped back legs. Crabbing in rivers and estuaries from the Swan River to Minninup Beach is closed 1 Sep – 30 Nov.",
+   "rule_ids": [],
+   "wiki": "Portunus_armatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "All waters",
+     "min_size": "127 mm carapace width",
+     "bag": "20 per day (boat limit 40 with 2+ licensed fishers)",
+     "note": "Lower limits apply in some areas such as the West Coast and Swan/Canning"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_rock_lobster",
+   "name": "Western rock lobster",
+   "aka": [
+    "cray"
+   ],
+   "scientific": "Panulirus cygnus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Spiny red-brown crayfish with long antennae. Licence needed; females carrying eggs (tarry) must be released.",
+   "rule_ids": [],
+   "wiki": "Panulirus_cygnus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "All waters",
+     "min_size": "76 mm carapace",
+     "bag": "8 per day (boat limit 24 with 3+ licensed fishers)",
+     "note": "Licence required"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "southern_rock_lobster",
+   "name": "Southern rock lobster",
+   "aka": [],
+   "scientific": "Jasus edwardsii",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Deep red crayfish of the south coast with a smoother shell than the western rock lobster.",
+   "rule_ids": [],
+   "wiki": "Jasus_edwardsii",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "All waters",
+     "min_size": "98.5 mm carapace",
+     "bag": "8 per day (combined rock lobster)",
+     "note": "Licence required"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "roes_abalone",
+   "name": "Roe's abalone",
+   "aka": [],
+   "scientific": "Haliotis roei",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small abalone on wave-washed rock platforms. Perth season opens only on set days — check before you go.",
+   "rule_ids": [],
+   "wiki": "Haliotis_roei",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "Open season only",
+     "min_size": "60 mm",
+     "bag": "20 per day",
+     "note": "Licence and season days apply"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "greenlip_abalone",
+   "name": "Greenlip abalone",
+   "aka": [],
+   "scientific": "Haliotis laevigata",
+   "activities": [
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Large abalone with a smooth shell and green-edged foot; deeper south coast reefs.",
+   "rule_ids": [],
+   "wiki": "Haliotis_laevigata",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "Where open",
+     "min_size": "140 mm",
+     "bag": "5 per day (greenlip/brownlip combined)",
+     "note": "Licence and closures apply"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "brownlip_abalone",
+   "name": "Brownlip abalone",
+   "aka": [],
+   "scientific": "Haliotis conicopora",
+   "activities": [
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Large abalone with a brown-edged foot; southern reefs.",
+   "rule_ids": [],
+   "wiki": "Haliotis_conicopora",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "Where open",
+     "min_size": "140 mm",
+     "bag": "5 per day (greenlip/brownlip combined)",
+     "note": "Licence and closures apply"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_king_prawn",
+   "name": "Western king prawn",
+   "aka": [],
+   "scientific": "Penaeus latisulcatus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Large prawn with blue-tipped legs; scooped at night in estuaries such as the Swan and Peel.",
+   "rule_ids": [],
+   "wiki": "Penaeus_latisulcatus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "All waters",
+     "min_size": "No minimum",
+     "bag": "9 litres per day (all prawns combined)"
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "fortescue",
+   "name": "Fortescue",
+   "aka": [],
+   "scientific": "Centropogon latifrons",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Small mottled brown scorpionfish found around jetties and weed. VERY painful venomous spines — never handle with bare hands.",
+   "rule_ids": [],
+   "wiki": "Centropogon_latifrons",
+   "status": "danger",
+   "category": "unconfirmed",
+   "limits": [],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "protection": "Venomous spines cause severe pain. Cut the line or use pliers. First aid: immerse the sting in hot water (as hot as can be tolerated) and seek medical help if pain is severe."
+  },
+  {
+   "id": "gurnard_perch",
+   "name": "Gurnard perch",
+   "aka": [],
+   "scientific": "Neosebastes pandus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Red-orange scorpionfish with a big spiny head. Venomous spines.",
+   "rule_ids": [],
+   "wiki": "Neosebastes_pandus",
+   "status": "danger",
+   "category": "unconfirmed",
+   "limits": [],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "protection": "Venomous spines. Handle with pliers; hot-water first aid for stings."
+  },
+  {
+   "id": "common_blowfish",
+   "name": "Common blowfish",
+   "aka": [
+    "blowie",
+    "toadfish"
+   ],
+   "scientific": "Torquigener pleurogramma",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "spots",
+     "stripes"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Small puffer that swarms jetties and bites through line. POISONOUS — never eat. Do not leave on jetties (dogs die from eating them).",
+   "rule_ids": [],
+   "wiki": "Torquigener_pleurogramma",
+   "status": "danger",
+   "category": "unconfirmed",
+   "limits": [],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "protection": "Poisonous to eat (tetrodotoxin). Return to the water or bin it — don't leave it on the jetty."
+  },
+  {
+   "id": "striped_catfish",
+   "name": "Striped catfish",
+   "aka": [],
+   "scientific": "Plotosus lineatus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Eel-tailed catfish with white stripes; juveniles form balls. Highly venomous spines.",
+   "rule_ids": [],
+   "wiki": "Plotosus_lineatus",
+   "status": "danger",
+   "category": "unconfirmed",
+   "limits": [],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "protection": "Highly venomous spines — do not handle. Hot-water first aid and seek medical help."
+  },
+  {
+   "id": "sand_trevally",
+   "name": "Sand trevally",
+   "aka": [],
+   "scientific": "Pseudocaranx wrighti",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "plain_silver"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small silver trevally of sandy beaches and bays; smaller and rounder-headed than silver trevally.",
+   "rule_ids": [],
+   "wiki": "Pseudocaranx_wrighti",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Species limit being verified",
+     "bag": "Part of 16 nearshore/estuarine fish per day in total",
+     "note": "Species-specific bag may be lower"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "herring_cale",
+   "name": "Herring cale",
+   "aka": [],
+   "scientific": "Olisthops cyanomelas",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "dark",
+     "colourful"
+    ],
+    "feature": [
+     "beak"
+    ]
+   },
+   "id_tips": "Long weed-eating fish with a beak-like mouth; males dark blue-black, females brown. Reefs and weed beds.",
+   "rule_ids": [],
+   "wiki": "Olisthops_cyanomelas",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "rough_bullseye",
+   "name": "Rough bullseye",
+   "aka": [],
+   "scientific": "Pempheris klunzingeri",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small copper-coloured fish with very big eyes, schooling under jetties and in caves.",
+   "rule_ids": [],
+   "wiki": "Pempheris_klunzingeri",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "mosaic_leatherjacket",
+   "name": "Mosaic leatherjacket",
+   "aka": [],
+   "scientific": "Eubalichthys mosaicus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful",
+     "stripes"
+    ],
+    "feature": []
+   },
+   "id_tips": "Large leatherjacket with a maze of blue and orange lines; southern reefs.",
+   "rule_ids": [],
+   "wiki": "Eubalichthys_mosaicus",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "western_smooth_boxfish",
+   "name": "Western smooth boxfish",
+   "aka": [],
+   "scientific": "Anoplocapros amygdaloides",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "colourful",
+     "spots"
+    ],
+    "feature": []
+   },
+   "id_tips": "Box-shaped fish with a hard shell; releases a toxin when stressed. Release it.",
+   "rule_ids": [],
+   "wiki": "Anoplocapros_amygdaloides",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Can release a toxin into the water when stressed - don't keep in a bucket with other fish."
+  },
+  {
+   "id": "shaws_cowfish",
+   "name": "Shaw's cowfish",
+   "aka": [],
+   "scientific": "Aracana aurita",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "stripes",
+     "colourful"
+    ],
+    "feature": []
+   },
+   "id_tips": "Box-shaped fish with spines on the shell and bright stripes (males blue/orange). Release it.",
+   "rule_ids": [],
+   "wiki": "Aracana_aurita",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "globefish",
+   "name": "Globefish",
+   "aka": [],
+   "scientific": "Diodon nicthemerus",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "deep_oval"
+    ],
+    "marks": [
+     "spots"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Porcupinefish covered in spines; inflates when caught. POISONOUS - never eat; strong beak bites.",
+   "rule_ids": [],
+   "wiki": "Diodon_nicthemerus",
+   "status": "danger",
+   "category": "unconfirmed",
+   "limits": [],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "protection": "Poisonous to eat. Spines and beak can injure - cut the line and release."
+  },
+  {
+   "id": "smooth_toadfish",
+   "name": "Smooth toadfish",
+   "aka": [],
+   "scientific": "Tetractenos glaber",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "spots"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Smooth-skinned puffer with dark spots on the back; estuaries. POISONOUS - never eat.",
+   "rule_ids": [],
+   "wiki": "Tetractenos_glaber",
+   "status": "danger",
+   "category": "unconfirmed",
+   "limits": [],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "protection": "Poisonous to eat (tetrodotoxin). Release it."
+  },
+  {
+   "id": "southern_conger",
+   "name": "Southern conger eel",
+   "aka": [],
+   "scientific": "Conger verreauxi",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "slender"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": [
+     "teeth"
+    ]
+   },
+   "id_tips": "Large grey-black eel of rocky reefs and jetties. Strong bite - use pliers.",
+   "rule_ids": [],
+   "wiki": "Conger_verreauxi",
+   "status": "limits",
+   "category": "unconfirmed",
+   "limits": [
+    {
+     "where": "—",
+     "min_size": "Being verified",
+     "bag": "Being verified",
+     "note": "This species' DPIRD category hasn't been confirmed in the app yet"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Strong bite."
+  },
+  {
+   "id": "western_shovelnose_stingaree",
+   "name": "Western shovelnose stingaree",
+   "aka": [],
+   "scientific": "Trygonoptera mucosa",
+   "activities": [
+    "shore"
+   ],
+   "traits": {
+    "shape": [
+     "ray"
+    ],
+    "marks": [
+     "dark"
+    ],
+    "feature": []
+   },
+   "id_tips": "Small round brown stingaree with a short tail; shallow sand and seagrass. Venomous tail spine.",
+   "rule_ids": [],
+   "wiki": "Trygonoptera_mucosa",
+   "status": "limits",
+   "category": "shark_ray",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "Whaler sharks: max 700 mm interdorsal length (West & South Coast)",
+     "bag": "3 sharks and rays per day in total"
+    }
+   ],
+   "limits_verified": false,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    }
+   ],
+   "last_checked": "2026-11-25",
+   "caution": "Venomous barb on the tail - shuffle your feet when wading."
   }
  ]
 }
