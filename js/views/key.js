@@ -1,5 +1,5 @@
 // Map key: every colour, marker and symbol on the map, drawn with the same styles the map uses.
-import { chanceIcon } from '../ui.js';
+import { chanceIcon, blockPill } from '../ui.js';
 
 const line = (color, dashed) => `<svg width="44" height="12" aria-hidden="true"><line x1="3" y1="6" x2="41" y2="6" stroke="${color}" stroke-width="7" stroke-linecap="round" ${dashed ? 'stroke-dasharray="4 8"' : ''}/></svg>`;
 const row = (sym, title, text) => `<div class="key-row"><div class="key-sym">${sym}</div><div><strong>${title}</strong><div class="small muted">${text}</div></div></div>`;
@@ -16,17 +16,20 @@ export function renderKey(view) {
       ${row('<span class="pill good">Good 70+</span>', 'Good', 'Conditions suit this activity.')}
       ${row('<span class="pill fair">Fair 40–69</span>', 'Fair', 'Fishable, but something isn\'t ideal (e.g. some wind or swell).')}
       ${row('<span class="pill poor">Poor &lt;40</span>', 'Poor', 'Rough, windy or otherwise unpleasant.')}
-      ${row('<span class="pill blocked">✕ Blocked</span>', 'Blocked', 'Not allowed or not safe: sanctuary zone, swell or wind over the safety limit, storm warning, or spearfishing at night.')}
+      ${row(blockPill('legal'), 'Not allowed', 'Against the rules here: a sanctuary zone, spearfishing in a river or estuary, or a closed season.')}
+      ${row(blockPill('safety'), 'Not safe', 'Wind or swell over the safety limit for this kind of spot, or a thunderstorm forecast.')}
+      ${row(blockPill('dark'), 'Too dark', 'Spearfishing is only rated in daylight. At night, Spear mode jumps the time slider to the next morning.')}
       ${row('<span class="pill unknown">?</span>', 'Unknown', 'Forecast not loaded yet.')}
     </div>
 
     <div class="card"><h2>Coastline colour</h2>
       ${row(line('#009e73'), 'Green / orange / red line along the shore', 'Conditions along the coast at the chosen time, every ~8 km. Tap anywhere for a report on that exact point.')}
-      ${row(line('#6b7280', true), 'Grey dashed line', 'Blocked stretch (see above).')}
+      ${row(line('#a855f7'), 'Purple line', 'Not allowed along this stretch (e.g. sanctuary zone).')}
+      ${row(line('#6b7280', true), 'Grey dashed line', 'Not safe right now (too windy or rough).')}
     </div>
 
     <div class="card"><h2>Fishing spots</h2>
-      ${row(`<div class="mk good" style="width:34px;height:34px">86</div>`, 'Spot pin with score', 'A fishing spot. The number is its score right now. Colour = Good / Fair / Poor.')}
+      ${row(`<div class="mk good" style="width:34px;height:34px">86</div>`, 'Spot pin with score', 'A fishing spot. The number is its score at the time on the slider — it changes as you drag the slider or press ▶. ⛔ / ⚠ / 🌙 = not allowed / not safe / too dark.')}
       ${row(`<div class="mk good conf-medium" style="width:34px;height:34px">86</div>`, 'Dashed white border', 'Medium confidence: e.g. found on OpenStreetMap but not yet checked by us.')}
       ${row(`<div class="mk fair conf-low" style="width:34px;height:34px">70</div>`, 'Dashed yellow border', 'Low confidence: only a little data, so treat the score with care.')}
       ${row('<span class="best-pin"><span>★ Best fishing 88</span></span>', 'Best right now', 'The top 3 stretches of coast at the chosen time (at least 40 km apart).')}
@@ -40,7 +43,8 @@ export function renderKey(view) {
       ${row(chanceIcon(50), '40–60', 'Small fish: so-so conditions.')}
       ${row(chanceIcon(20), '0–40', 'Feather: very low chance — probably not worth the trip.')}
       ${row(chanceIcon(90, 'spear'), 'Spear mode', 'Same sizes, with a spear through the fish.')}
-      ${row(chanceIcon(null, 'shore', true), 'Blocked', 'Not allowed or not safe right now.')}
+      ${row(chanceIcon(null, 'shore', 'legal'), 'Not allowed', 'Against the rules at this spot.')}
+      ${row(chanceIcon(null, 'shore', 'safety'), 'Not safe', 'Too rough or stormy right now.')}
     </div>
 
     <div class="card"><h2>Wind &amp; waves</h2>
