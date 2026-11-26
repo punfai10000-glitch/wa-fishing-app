@@ -13,7 +13,7 @@ import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
 import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes, placeIncident } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass } from './scoring/geo.js';
-import { esc, typeTag, chanceIcon, blockPill } from './ui.js';
+import { esc, typeTag, chanceIcon, blockPill, currentLine } from './ui.js';
 import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge , freshness, waveWords } from './units.js';
 
 let map, coastLayer, arrowLayer, buoyLayer, incidentLayer, bestLayer;
@@ -140,7 +140,7 @@ export function refreshCoastMap() {
 
   // Animated wind particles + swell lines (canvas, see flow.js)
   if (hasData && pts.length) {
-    const wind = [], swell = [];
+    const wind = [], swell = [], currents = [];
     for (const p of pts) {
       const h = hourAt(evalFor(p), t)?.hour;
       if (!h) continue;
@@ -148,11 +148,14 @@ export function refreshCoastMap() {
       if (h.wind_speed != null && h.wind_direction != null) wind.push({ lat, lng, speed: h.wind_speed, from: h.wind_direction });
       const sh = h.swell_height ?? h.wave_height, sd = h.swell_direction ?? h.wave_direction;
       if (p.sea && sh != null && sd != null) swell.push({ lat: p.sea[0], lng: p.sea[1], height: sh, from: sd, period: h.swell_period ?? h.wave_period });
+      if (p.sea && h.current_speed != null && h.current_direction != null) currents.push({ lat: p.sea[0], lng: p.sea[1], speed: h.current_speed, to: h.current_direction });
     }
-    setFlowData(wind, swell, { wind: on.windFlow, swell: on.swellFlow });
+    // currents only over water: use the coastline to test each grid cell
+    const seaTest = (la, ln) => { const n = nearestShore(la, ln, 30); return !!n && !n.onLand && !riverWaterAt(la, ln, 0); };
+    setFlowData(wind, swell, { wind: on.windFlow, swell: on.swellFlow, current: on.currentFlow, currents, seaTest });
   } else setFlowData([], [], {});
   const note = document.getElementById('flow-note');
-  if (note) note.hidden = !(flowPausedByDevice() && (on.windFlow || on.swellFlow));
+  if (note) note.hidden = !(flowPausedByDevice() && (on.windFlow || on.swellFlow || on.currentFlow));
 
   if ((on.wind || on.waves) && hasData && pts.length && map.getZoom() >= 9) {
     const z = map.getZoom();
@@ -176,8 +179,12 @@ export function refreshCoastMap() {
 
   // Best stretches right now: animated fish (shore) or spear (spear) on the top 3 coast points
   if (on.coast && hasData && pts.length) {
+    const act = state.activity;
     const ranked = pts.map(p => ({ p, r: hourAt(evalFor(p), t) }))
       .filter(x => x.r && !x.r.blocked && x.r.score != null && x.r.score >= 70)
+      // only where this activity is actually allowed (no spearfishing in estuaries, sanctuaries, Rottnest…)
+      .filter(x => !(act === 'spear' && (x.p.estuary || riverWaterAt(x.p.geometry.coordinates[1], x.p.geometry.coordinates[0], 0.3)))
+        && legalStatus(state.data.zones, x.p, act, { t }).state !== 'blocked')
       .sort((a, b) => b.r.score - a.r.score);
     const picked = [];
     const px = x => map.latLngToContainerPoint([x.p.geometry.coordinates[1], x.p.geometry.coordinates[0]]);
@@ -190,8 +197,9 @@ export function refreshCoastMap() {
     for (const { p, r } of picked) {
       // tapping the label opens the SAME stretch and score it shows (it used to fall through to the map
       // and report a different point)
-      L.marker([p.geometry.coordinates[1], p.geometry.coordinates[0]], { keyboard: true, zIndexOffset: 1500, title: 'Best stretch of coast right now',
-        icon: L.divIcon({ className: 'best-pin', html: `<span>★ Best stretch ${r.score}</span>`, iconSize: [120, 28], iconAnchor: [60, 34] }) })
+      const lbl = act === 'spear' ? 'Best for spearfishing' : 'Best for fishing';
+      L.marker([p.geometry.coordinates[1], p.geometry.coordinates[0]], { keyboard: true, zIndexOffset: 1500, title: `${lbl} at the chosen time`,
+        icon: L.divIcon({ className: 'best-pin', html: `<span>★ ${lbl} ${r.score}</span>`, iconSize: [150, 28], iconAnchor: [75, 34] }) })
         .on('click', () => openBestSheet(p, r)).addTo(bestLayer);
     }
   }
@@ -233,13 +241,13 @@ function openBestSheet(p, r) {
   const near = [...state.data.locations, ...(state.osmSpots || [])].filter(l => l.activities?.includes(act) && km(l) <= 6)
     .map(l => ({ l, d: km(l), h: hourAt(evalFor(l), t) })).filter(x => x.h).sort((a, b) => (b.h.blocked ? -1 : b.h.score ?? -1) - (a.h.blocked ? -1 : a.h.score ?? -1)).slice(0, 6);
   const body = openSheet(`
-    <p class="small" style="margin-top:0">This is the best-scoring <strong>stretch of coast</strong> (about 8 km${p.near ? ` near ${esc(p.near)}` : ''}) for ${act === 'spear' ? 'spearfishing' : 'shore fishing'} at ${t === Math.floor(Date.now() / HOUR) * HOUR ? 'this hour' : esc(fmtDateTime(t))}. The score rates the conditions along the whole stretch — pick an actual spot below.</p>
+    <p class="small" style="margin-top:0">This is the best-scoring <strong>stretch of coast</strong> (about 8 km${p.near ? ` near ${esc(p.near)}` : ''}) for ${act === 'spear' ? 'spearfishing' : 'shore fishing'} at ${t === Math.floor(Date.now() / HOUR) * HOUR ? 'this hour' : esc(fmtDateTime(t))}. The score rates the conditions along the whole stretch, and only stretches where ${act === 'spear' ? 'spearfishing' : 'fishing'} is allowed are picked — choose an actual spot below and check its rules.</p>
     <div class="row" style="gap:8px;align-items:center;margin:6px 0"><span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score}</span>${chanceIcon(r.score, act, false)}</div>
     <h3 class="sheet-h3">Spots along this stretch</h3>
     ${near.length ? `<ul class="plain">${near.map(({ l, d, h }) => `<li><button class="linklike" data-loc="${esc(l.id)}">${esc(l.name)}</button> <span class="small muted">${d.toFixed(1)} km</span> ${h.blocked ? blockPill(h.blockKind) : `<span class="pill ${band(h.score)}">${h.score}</span>`}</li>`).join('')}</ul>`
       : '<p class="small muted">No mapped spots on this stretch — tap the coast to check an exact point.</p>'}
     <p class="small muted">Spot scores can differ from the stretch score: each spot's own exposure to wind and swell is taken into account.</p>`,
-    { title: `★ Best stretch right now · ${r.score}`, state: 'half' });
+    { title: `★ Best for ${act === 'spear' ? 'spearfishing' : 'fishing'} · ${r.score}`, state: 'half' });
   body.onclick = e => {
     const b = e.target.closest('[data-loc]'); if (!b) return;
     const l = [...state.data.locations, ...(state.osmSpots || [])].find(x => x.id === b.dataset.loc);
@@ -398,7 +406,7 @@ function tapHTML(loc, where, sh, exact) {
   const vis = rp?.hour ? visibilityEstimate(rp.hour, loc) : null;
   const moon = window.SunCalc.getMoonIllumination(new Date(t));
   const buoy = nearestBuoy(state.buoys, lat, lng);
-  const legal = legalStatus(state.data.zones, loc, state.activity);
+  const legal = legalStatus(state.data.zones, loc, state.activity, { t });
   const pillFor = r => !r ? '<span class="pill unknown">Unknown</span>' : r.blocked ? blockPill(r.blockKind) : `<span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score ?? ''}</span>`;
   const gmaps = `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(6)},${lng.toFixed(6)}`;
   return `
@@ -408,12 +416,13 @@ function tapHTML(loc, where, sh, exact) {
     <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
     <div class="row" style="margin:8px 0;gap:6px"><div><div class="small muted">Shore</div>${pillFor(rs)}</div><div><div class="small muted">Spear</div>${pillFor(rp)}</div></div>
     <div style="margin:-2px 0 6px">${(() => { const r = state.activity === 'spear' ? rp : rs; return r ? chanceIcon(r.score, state.activity, r.blocked && r.blockKind) : ''; })()}</div>
-    ${[rs, rp].flatMap(r => r?.blocks ?? []).map(b => `<div class="small">✕ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
+    <div style="margin:4px 0">${legalHTML(legal)}</div>
+    ${[rs, rp].flatMap(r => r?.blocks ?? []).filter(b => b.kind !== 'legal').map(b => `<div class="small warn-text">⚠ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
     ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · ${loc.estuary ? 'Sheltered water (no ocean swell)' : `Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''}`} · Tide ${h.tide_rate == null ? '?' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
+      ${!loc.estuary ? currentLine(h) : ''}
       <div class="small">Visibility: ${vis ? vis.label : 'unknown'} (estimate) · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>
       <div class="small muted">${exact ? (loc.estuary ? 'Wind forecast for this exact point; tide from the nearest ocean point.' : 'Forecast for this exact point (waves read ~1 km out to sea in front of it).') : 'Loading the forecast for this exact point… showing the nearest coast area for now.'}</div>` : '<div class="small muted">Loading forecast for this point…</div>'}
     ${buoy && !loc.estuary ? `<div class="small" style="margin-top:4px"><strong>Measured:</strong> ${esc(buoy.b.site)} buoy ${buoy.d.toFixed(0)} km away — ${fmtHeight(buoy.b.hs)}${buoy.b.tp != null ? ` @ ${Math.round(buoy.b.tp)} s` : ''}, ${fmtAge(Date.parse(buoy.b.time))}</div>` : ''}
-    <div style="margin-top:4px">${legalHTML(legal)}</div>
     ${(loc.safety_notes || []).filter(n => !/^Spearfishing is banned/.test(n)).map(n => `<div class="small">⚠ ${esc(n)}</div>`).join('')}
     <div class="small" id="pop-nearby" style="margin-top:4px">Nearby: loading…</div>
     <h3 class="sheet-h3">Nearest fishing spots</h3>${spotsListHTML(spotsNear(lat, lng, 15, 4))}

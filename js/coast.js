@@ -5,7 +5,7 @@ import { CONFIG, REGIONS } from './config.js';
 import { normalise } from './data.js';
 
 const FORECAST_VARS = ['wind_speed_10m', 'wind_direction_10m', 'wind_gusts_10m', 'precipitation', 'weather_code'];
-const MARINE_VARS = ['wave_height', 'wave_direction', 'wave_period', 'swell_wave_height', 'swell_wave_direction', 'swell_wave_period', 'wind_wave_height', 'sea_surface_temperature', 'sea_level_height_msl'];
+const MARINE_VARS = ['wave_height', 'wave_direction', 'wave_period', 'swell_wave_height', 'swell_wave_direction', 'swell_wave_period', 'wind_wave_height', 'sea_surface_temperature', 'sea_level_height_msl', 'ocean_current_velocity', 'ocean_current_direction'];
 const CHUNK = 60;
 
 let points = null;

@@ -17,6 +17,7 @@ function metricValue(metric, hour, loc) {
       return h == null ? null : h;
     }
     // 1 when the wave forecast is missing for an ocean spot (unknown = unsafe on rocks / for diving)
+    case 'current_kmh': return hour.current_speed ?? null;
     case 'wave_missing':
       return loc.estuary || hour.sheltered ? null : ((hour.wave_height ?? hour.swell_height) == null ? 1 : 0);
     default: return null;
@@ -37,9 +38,11 @@ export function checkBlocks(loc, hour, activity, ctx = {}) {
   const out = [];
 
   // Legal: sanctuary/prohibited zones (only when zone data is loaded)
-  for (const z of (ctx.zoneHits || [])) {
-    if (z.prohibits?.includes(activity) || z.zone_type === 'sanctuary') {
-      out.push({ kind: 'legal', reason: `Inside ${z.name} — ${activity === 'spear' ? 'spearfishing' : 'fishing'} not permitted.` });
+  const hits = ctx.zoneHits || [];
+  const permitted = hits.some(z => (z.permits || []).includes(activity));
+  for (const z of hits) {
+    if (z.zone_type === 'sanctuary' || (z.prohibits?.includes(activity) && !permitted)) {
+      out.push({ kind: 'legal', reason: `${z.name} — ${z.note || (activity === 'spear' ? 'spearfishing' : 'fishing') + ' not permitted.'}` });
     }
   }
 

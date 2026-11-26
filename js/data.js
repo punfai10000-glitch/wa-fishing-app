@@ -25,7 +25,7 @@ export async function loadStatic() {
 }
 
 const FORECAST_VARS = ['wind_speed_10m', 'wind_direction_10m', 'wind_gusts_10m', 'precipitation', 'weather_code', 'cloud_cover', 'pressure_msl'];
-const MARINE_VARS = ['wave_height', 'wave_direction', 'wave_period', 'swell_wave_height', 'swell_wave_direction', 'swell_wave_period', 'wind_wave_height', 'sea_surface_temperature', 'sea_level_height_msl'];
+const MARINE_VARS = ['wave_height', 'wave_direction', 'wave_period', 'swell_wave_height', 'swell_wave_direction', 'swell_wave_period', 'wind_wave_height', 'sea_surface_temperature', 'sea_level_height_msl', 'ocean_current_velocity', 'ocean_current_direction'];
 
 // Marine models have no data on land cells, and shore pins sit right on the coastline.
 // So waves/tide/sea temp are read ~3 km offshore, in front of the spot (fixes "Unknown" waves & tide).
@@ -125,7 +125,7 @@ export function normalise(fc, mr) {
   };
   add(fc, [['wind_speed_10m', 'wind_speed'], ['wind_direction_10m', 'wind_direction'], ['wind_gusts_10m', 'wind_gust'], ['precipitation', 'precipitation'], ['weather_code', 'weather_code'], ['cloud_cover', 'cloud_cover'], ['pressure_msl', 'pressure']], 'forecast');
   add(mr, [['wave_height', 'wave_height'], ['wave_direction', 'wave_direction'], ['wave_period', 'wave_period'], ['swell_wave_height', 'swell_height'], ['swell_wave_direction', 'swell_direction'], ['swell_wave_period', 'swell_period'], ['wind_wave_height', 'wind_wave_height']], 'forecast');
-  add(mr, [['sea_surface_temperature', 'sst'], ['sea_level_height_msl', 'sea_level']], 'modelled');
+  add(mr, [['sea_surface_temperature', 'sst'], ['sea_level_height_msl', 'sea_level'], ['ocean_current_velocity', 'current_speed'], ['ocean_current_direction', 'current_direction']], 'modelled');
 
   const hours = [...map.values()].sort((a, b) => a.t - b.t);
   // Tide trend from modelled sea level (centred difference, m/h)

@@ -5,10 +5,12 @@
 // bigger/faster for bigger/longer swell. Everything here is FORECAST data, not measured.
 
 let map, canvas, ctx, canvas2, ctx2, raf = null;
-let windSamples = [], swellSamples = [];
-let show = { wind: true, swell: true };
+let windSamples = [], swellSamples = [], currentSamples = [];
+let show = { wind: true, swell: true, current: false };
 let grid = null;                // screen-space wind vectors every CELL px
 let particles = [];
+let cgrid = null, cparticles = [];   // ocean currents (sea cells only)
+let seaTest = null;                  // (lat,lng) => true when the point is water (from the coastline data)
 let lastFrame = 0;
 const CELL = 20;
 const MAX_KM = 70;              // don't draw wind further than this from any forecast point
@@ -34,15 +36,18 @@ export function initFlow(m) {
   rebuild();
 }
 
-/** wind: [{lat,lng,speed(km/h),from(deg)}], swell: [{lat,lng,height(m),from(deg),period(s),shoreLat,shoreLng}] */
+/** wind: [{lat,lng,speed(km/h),from(deg)}], swell: [{lat,lng,height(m),from(deg),period(s)}],
+ *  opts.currents: [{lat,lng,speed(km/h),to(deg)}], opts.seaTest(lat,lng) -> bool */
 export function setFlowData(wind, swell, opts) {
   windSamples = wind || [];
   swellSamples = swell || [];
-  show = { wind: !!opts?.wind, swell: !!opts?.swell };
+  currentSamples = opts?.currents || [];
+  seaTest = opts?.seaTest || null;
+  show = { wind: !!opts?.wind, swell: !!opts?.swell, current: !!opts?.current };
   if (!map) return;
   buildGrid(); seed();
   stop(); clear();
-  if (show.wind || show.swell) start();
+  if (show.wind || show.swell || show.current) start();
 }
 
 export const flowPausedByDevice = () => reduced();
@@ -61,32 +66,44 @@ function clear() {
   ctx2 && ctx2.clearRect(0, 0, canvas2.width, canvas2.height);
 }
 
-// ---- wind field -----------------------------------------------------------
-function buildGrid() {
-  grid = null;
-  if (!map || !windSamples.length) return;
+// ---- wind + current fields ----------------------------------------------------
+// samples: [{lat,lng,u,v}] (km/h, u east, v north). Inverse-distance blend onto a screen grid.
+function makeGrid(samples, maxKm, maskFn) {
+  if (!map || !samples.length) return null;
   const s = map.getSize();
   const cols = Math.ceil(s.x / CELL) + 1, rows = Math.ceil(s.y / CELL) + 1;
-  const pts = windSamples.map(w => {
-    const to = (w.from + 180) * Math.PI / 180;
-    return { lat: w.lat, lng: w.lng, u: w.speed * Math.sin(to), v: w.speed * Math.cos(to) };
-  });
   const g = new Array(cols * rows);
   for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
     const ll = map.containerPointToLatLng([c * CELL, r * CELL]);
     const k = Math.cos(ll.lat * Math.PI / 180);
     let su = 0, sv = 0, sw = 0, dmin = 1e9;
-    for (const p of pts) {
+    for (const p of samples) {
       const d = Math.hypot((p.lng - ll.lng) * k, p.lat - ll.lat) * 111;
       if (d < dmin) dmin = d;
-      if (d > MAX_KM * 1.5) continue;
+      if (d > maxKm * 1.5) continue;
       const w = 1 / Math.max(1, d) ** 2;
       su += p.u * w; sv += p.v * w; sw += w;
     }
-    g[r * cols + c] = sw && dmin <= MAX_KM ? [su / sw, sv / sw] : null;
+    g[r * cols + c] = sw && dmin <= maxKm && (!maskFn || maskFn(ll.lat, ll.lng)) ? [su / sw, sv / sw] : null;
   }
-  grid = { cols, rows, g };
+  return { cols, rows, g };
 }
+function buildGrid() {
+  const vec = (lat, lng, spd, toDeg) => { const a = toDeg * Math.PI / 180; return { lat, lng, u: spd * Math.sin(a), v: spd * Math.cos(a) }; };
+  grid = show.wind || !show.current ? makeGrid(windSamples.map(w => vec(w.lat, w.lng, w.speed, w.from + 180)), MAX_KM) : null;
+  cgrid = show.current ? makeGrid(currentSamples.map(w => vec(w.lat, w.lng, w.speed, w.to)), 25, seaTest) : null;
+}
+function sample(G0, x, y) {
+  if (!G0) return null;
+  const c = Math.floor(x / CELL), r = Math.floor(y / CELL);
+  if (c < 0 || r < 0 || c >= G0.cols - 1 || r >= G0.rows - 1) return null;
+  const fx = x / CELL - c, fy = y / CELL - r, G = G0.g, n = G0.cols;
+  const a = G[r * n + c], b = G[r * n + c + 1], d = G[(r + 1) * n + c], e = G[(r + 1) * n + c + 1];
+  if (!a || !b || !d || !e) return null;           // edge of the field (coast / range limit): stop here
+  const lerp = (p, q, t) => p + (q - p) * t;
+  return [lerp(lerp(a[0], b[0], fx), lerp(d[0], e[0], fx), fy), lerp(lerp(a[1], b[1], fx), lerp(d[1], e[1], fx), fy)];
+}
+const currentAt = (x, y) => sample(cgrid, x, y);
 function windAt(x, y) {
   if (!grid) return null;
   const c = Math.floor(x / CELL), r = Math.floor(y / CELL);
@@ -99,11 +116,11 @@ function windAt(x, y) {
 }
 
 function seed() {
-  particles = [];
-  if (!map || !grid) return;
+  particles = []; cparticles = [];
+  if (!map) return;
   const s = map.getSize();
-  const n = Math.min(2500, Math.round(s.x * s.y / 1500));
-  for (let i = 0; i < n; i++) particles.push(newParticle(s));
+  if (grid) { const n = Math.min(2500, Math.round(s.x * s.y / 1500)); for (let i = 0; i < n; i++) particles.push(newParticle(s)); }
+  if (cgrid) { const n = Math.min(1100, Math.round(s.x * s.y / 2200)); for (let i = 0; i < n; i++) cparticles.push(newParticle(s)); }
 }
 function newParticle(s) {
   return { x: Math.random() * s.x, y: Math.random() * s.y, age: Math.floor(Math.random() * 80), max: 50 + Math.random() * 50 };
@@ -130,6 +147,7 @@ function frame(ts) {
   ctx.fillRect(0, 0, s.x, s.y);
   ctx.restore();
   if (show.wind) drawWind(s);
+  if (show.current) drawCurrent(s);
   ctx2.clearRect(0, 0, s.x, s.y);
   if (show.swell) drawSwell(ts);
 }
@@ -151,6 +169,28 @@ function drawWind(s) {
     ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); ctx.stroke();
     p.x = nx; p.y = ny;
   }
+}
+// Currents are slow (0-3 km/h) so they move ~14x faster on screen than wind would; colour = how hard to swim against
+function drawCurrent(s) {
+  const k = speedPx() * 12;
+  ctx.lineWidth = 1.8;
+  ctx.lineCap = 'round';
+  for (const p of cparticles) {
+    const w = currentAt(p.x, p.y);
+    if (!w || ++p.age > p.max) { Object.assign(p, newParticle(s), { age: 0 }); continue; }
+    const spd = Math.hypot(w[0], w[1]);
+    const m = spd < 0.7 && spd > 0 ? 0.7 / spd : 1;      // slow water still shows as short, gentle streaks
+    const nx = p.x + w[0] * k * m, ny = p.y - w[1] * k * m;
+    ctx.strokeStyle = currentColor(spd);
+    ctx.beginPath(); ctx.moveTo(p.x, p.y); ctx.lineTo(nx, ny); ctx.stroke();
+    p.x = nx; p.y = ny;
+  }
+}
+export function currentColor(kmh) {
+  if (kmh < 1) return 'rgba(150,255,220,0.75)';
+  if (kmh < 2) return 'rgba(255,230,100,0.9)';
+  if (kmh < 3) return 'rgba(255,150,60,0.95)';
+  return 'rgba(255,70,90,1)';
 }
 function windColor(kmh) {
   if (kmh < 10) return 'rgba(255,255,255,0.55)';
@@ -208,6 +248,17 @@ function drawStatic() {
       ctx.strokeStyle = windColor(Math.hypot(w0[0], w0[1]));
       ctx.beginPath(); ctx.moveTo(x, y);
       for (let j = 0; j < 12; j++) { const w = windAt(x, y); if (!w) break; x += w[0] * 0.25; y -= w[1] * 0.25; ctx.lineTo(x, y); }
+      ctx.stroke();
+    }
+  }
+  if (show.current && cgrid) {
+    ctx.lineWidth = 2;
+    for (let i = 0; i < 300; i++) {
+      let x = Math.random() * s.x, y = Math.random() * s.y;
+      const w0 = currentAt(x, y); if (!w0) continue;
+      ctx.strokeStyle = currentColor(Math.hypot(w0[0], w0[1]));
+      ctx.beginPath(); ctx.moveTo(x, y);
+      for (let j = 0; j < 12; j++) { const w = currentAt(x, y); if (!w) break; x += w[0] * 3; y -= w[1] * 3; ctx.lineTo(x, y); }
       ctx.stroke();
     }
   }

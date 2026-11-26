@@ -55,3 +55,13 @@ export function waveWords(h) {
   if (h == null || !Number.isFinite(h)) return '';
   return h < 0.4 ? 'small — about knee-high' : h < 0.8 ? 'about waist-high' : h < 1.3 ? 'about chest-high' : h < 1.9 ? 'about as tall as an adult' : h < 3 ? 'bigger than a person' : 'very big';
 }
+
+// Ocean current speed in plain words for a breath-hold diver (km/h). A fit diver with fins can hold roughly
+// 2-3 km/h for a short time; 1 knot = 1.85 km/h.
+export const CURRENT_BANDS = [
+  { max: 1, key: 'slow', label: 'Slow', note: 'easy to swim against' },
+  { max: 2, key: 'moderate', label: 'Moderate', note: 'you will drift — start up-current and stay near your way out' },
+  { max: 3, key: 'strong', label: 'Strong', note: 'hard to swim against — can carry a diver away from the exit' },
+  { max: Infinity, key: 'vstrong', label: 'Very strong', note: 'too strong to dive' }
+];
+export const currentWords = kmh => kmh == null ? null : CURRENT_BANDS.find(b => kmh < b.max);

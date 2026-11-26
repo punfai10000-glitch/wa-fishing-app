@@ -1,13 +1,13 @@
 // Water depth: detailed nearshore tiles from Transport WA surveys (LiDAR / multibeam, 5 m source grids,
 // pre-cut into z13 tiles by pipeline/fetch_depth.py), with Geoscience Australia's 250 m national grid as a
 // coarse fallback. Values are metres relative to the survey datum: negative = below (water), positive = above.
-const Z = 13;
+let Z = 13;   // finest tile zoom — read from data/depth/index.json (14 = ~8 m pixels)
 let index = null, indexP = null;
 const tileCache = new Map();   // "x/y" -> Promise<Float32Array|null>
 
 export function loadDepthIndex() {
   if (!indexP) indexP = fetch('data/depth/index.json').then(r => (r.ok ? r.json() : null)).catch(() => null)
-    .then(j => { index = j; if (j) { j.set = new Set(j.tiles); j.ov = Object.fromEntries(Object.entries(j.overviews || {}).map(([z, t]) => [z, new Set(t)])); } return j; });
+      .then(j => { index = j; if (j?.z) Z = j.z; if (j) { j.set = new Set(j.tiles); j.ov = Object.fromEntries(Object.entries(j.overviews || {}).map(([z, t]) => [z, new Set(t)])); } return j; });
   return indexP;
 }
 export const depthMeta = () => index;
@@ -59,7 +59,7 @@ export async function depthAt(lat, lng) {
       const q = a[Math.min(255, Math.max(0, py + dy)) * 256 + Math.min(255, Math.max(0, px + dx))];
       if (Number.isFinite(q)) { v = q; break; }
     }
-    if (Number.isFinite(v)) return { value: v, source: 'Transport WA survey (LiDAR / multibeam)', detail: 'averaged over ~15–20 m squares, so right at the shore it smooths out the first few metres', coarse: false };
+    if (Number.isFinite(v)) return { value: v, source: 'Transport WA survey (LiDAR / multibeam)', detail: `averaged over ~${Z >= 14 ? '8' : '16'} m squares, so right at the shore it smooths out the first few metres`, coarse: false };
   }
   // coarse fallback: Geoscience Australia national grid (250 m) — fine offshore, often wrong right at the shore
   try {
@@ -78,7 +78,9 @@ const fmtLen = m => { const a = Math.abs(m); return a < 1 ? `${Math.max(5, Math.
 /** seaLevel: forecast water level now (m above mean sea level), if known — adds the tide to the depth */
 export function depthText(d, seaLevel = null) {
   if (!d) return 'Depth: not available here.';
-  const v = d.value;                       // seabed height vs mean sea level (negative = under water)
+  const v = d.value;
+  // the 250 m national grid can't see shallow estuaries, inlets or the first few hundred metres off a beach
+  if (d.coarse && v > -0.5) return 'Depth: <strong>no detailed survey here</strong> — likely shallow. The national 250 m depth grid is too coarse for this spot (it reads it as land). Check with your own eyes. <span class="muted">(Not for navigation.)</span>';                       // seabed height vs mean sea level (negative = under water)
   const now = Number.isFinite(seaLevel) ? seaLevel - v : null;   // water depth at the forecast tide
   let main;
   if (v < -0.05) main = `about <strong>${fmtLen(v)} deep</strong> at mean sea level`;
@@ -108,7 +110,18 @@ export function makeDepthLayer(L) {
           const s = 2 ** (z - Z), px = Math.floor(coords.x / s), py = Math.floor(coords.y / s), ox = (coords.x % s) * 256 / s, oy = (coords.y % s) * 256 / s;
           jobs.push(depthTile(px, py).then(a => {
             if (!a) return;
-            for (let j = 0; j < 256; j++) for (let i = 0; i < 256; i++) paint(img.data, (j * 256 + i) * 4, a[Math.floor(oy + j / s) * 256 + Math.floor(ox + i / s)]);
+            // smooth (bilinear) when zoomed past the data so band edges follow the seabed instead of showing squares
+            for (let j = 0; j < 256; j++) {
+              const sy = Math.min(255, Math.max(0, oy + (j + 0.5) / s - 0.5)), y0 = Math.floor(sy), y1 = Math.min(255, y0 + 1), wy = sy - y0;
+              for (let i = 0; i < 256; i++) {
+                const sx = Math.min(255, Math.max(0, ox + (i + 0.5) / s - 0.5)), x0 = Math.floor(sx), x1 = Math.min(255, x0 + 1), wx = sx - x0;
+                const p00 = a[y0 * 256 + x0], p10 = a[y0 * 256 + x1], p01 = a[y1 * 256 + x0], p11 = a[y1 * 256 + x1];
+                const v = Number.isFinite(p00) && Number.isFinite(p10) && Number.isFinite(p01) && Number.isFinite(p11)
+                  ? (p00 * (1 - wx) + p10 * wx) * (1 - wy) + (p01 * (1 - wx) + p11 * wx) * wy
+                  : a[Math.round(sy) * 256 + Math.round(sx)];
+                paint(img.data, (j * 256 + i) * 4, v);
+              }
+            }
           }));
         } else if (index?.ov?.[z]) {   // pre-built overview tile: one small file
           jobs.push(depthTile(coords.x, coords.y, z).then(a => { if (a) for (let i = 0; i < 65536; i++) paint(img.data, i * 4, a[i]); }));

@@ -60,17 +60,21 @@ export function renderKey(view) {
       ${row(`<div class="mk good" style="width:34px;height:34px">86</div>`, 'Spot pin with score', 'A fishing spot. The number is its score at the time on the slider — it changes as you drag the slider or press ▶. ⛔ / ⚠ / 🌙 = not allowed / not safe / too dark.')}
       ${row(`<div class="mk good conf-medium" style="width:34px;height:34px">86</div>`, 'Dashed white border', 'Medium confidence: e.g. found on OpenStreetMap but not yet checked by us.')}
       ${row(`<div class="mk fair conf-low" style="width:34px;height:34px">70</div>`, 'Dashed yellow border', 'Low confidence: only a little data, so treat the score with care.')}
-      ${row('<span class="best-pin"><span>★ Best stretch 88</span></span>', 'Best stretch right now', 'The best-scoring ~8 km stretches of coast at the chosen time. Tap it to see the actual fishing spots along that stretch.')}
+      ${row('<span class="best-pin"><span>★ Best for fishing 88</span></span>', 'Best for fishing / Best for spearfishing', 'The best-scoring ~8 km stretches of coast at the time on the slider — only where that activity is allowed (no spearfishing labels in rivers, estuaries, sanctuaries or Rottnest). Tap it to see the actual spots along that stretch.')}
       ${row('<div class="tap-dot" style="display:inline-block"></div>', 'Where you tapped', 'Tap anywhere: the card shows the water depth, conditions, whether fishing is allowed, the nearest spots, toilets and servos, and directions.')}
       ${row('<span style="font-size:24px">📍</span>', 'A place you searched', 'Your campsite, town or beach. The card shows how far the sea is and the nearest fishing spots.')}
     </div>
 
-    <div class="card"><h2>Chance icons (when you open a spot)</h2>
-      <p class="small muted">The map stays clean — this icon appears in the pop-up when you tap a spot or anywhere on the coast. It's based on the score (conditions, not a fish count).</p>
+    <div class="card"><h2>Score now vs best time</h2>
+      <p class="small">When you open a spot, the top line is the score <strong>right now</strong> (or at the time on the slider): e.g. <span class="pill good">Good 84</span>. The line under it, ⏱ <strong>Best time in the next 24 h: tomorrow 4–6 am (about 88)</strong>, is a different, later time. The two numbers are never mixed: drag the time slider to that time to see its own score.</p>
+    </div>
+
+    <div class="card"><h2>Condition icons (when you open a spot)</h2>
+      <p class="small muted">The map stays clean — this icon appears in the pop-up when you tap a spot or anywhere on the coast. It's based on the conditions score, not on fish. Which fish are likely is the separate "Fish" line.</p>
       ${row(chanceIcon(90), '80–100', 'Big fish: great conditions.')}
       ${row(chanceIcon(70), '60–80', 'Medium fish: good conditions.')}
       ${row(chanceIcon(50), '40–60', 'Small fish: so-so conditions.')}
-      ${row(chanceIcon(20), '0–40', 'Feather: very low chance — probably not worth the trip.')}
+      ${row(chanceIcon(20), '0–40', 'Feather: poor conditions — probably not worth the trip.')}
       ${row(chanceIcon(90, 'spear'), 'Spear mode', 'Same sizes, with a spear through the fish.')}
       ${row(chanceIcon(null, 'shore', 'legal'), 'Not allowed', 'Against the rules at this spot.')}
       ${row(chanceIcon(null, 'shore', 'safety'), 'Not safe', 'Too rough or stormy right now.')}
@@ -84,6 +88,15 @@ export function renderKey(view) {
       ${row('<div class="buoy aging" style="width:36px;height:42px">1.7<small>m</small><em>2 h</em></div>', 'Orange buoy', 'Measured 1–3 hours ago — still a useful guide.')}
       ${row('<div class="buoy old" style="width:36px;height:42px">1.7<small>m</small><em>9 h</em></div>', 'Red dashed buoy', 'Old: measured more than 3 hours ago (here 9 hours). Conditions may have changed — use the forecast instead.')}
       ${row('<span class="small" style="padding:2px 4px;border-radius:4px;background:rgba(11,18,32,.8);color:#fff">➤ 18</span>', 'Small arrows with numbers (zoomed in)', 'White = wind speed in km/h, blue = wave height in metres. The arrow points the way the wind or waves are going.')}
+    </div>
+
+    <div class="card"><h2>Water movement (currents) — for divers</h2>
+      <p class="small">Coloured streaks moving over the sea show which way the water is flowing and how fast (forecast). They're on by default in <strong>Spear</strong>; switch them on or off in Layers. Think of the speed against how fast you can swim: a fit diver with fins can hold about 2–3 km/h for a short time.</p>
+      ${row('<span class="key-wind"><i style="background:rgba(150,255,220,.85)"></i></span>', 'Green — slow (under 1 km/h)', 'Easy to swim against. Good for diving.')}
+      ${row('<span class="key-wind"><i style="background:rgba(255,230,100,.95)"></i></span>', 'Yellow — moderate (1–2 km/h)', 'You will drift. Start your dive up-current, so the water carries you back towards your way out, and stay close to it.')}
+      ${row('<span class="key-wind"><i style="background:rgba(255,150,60,1)"></i></span>', 'Orange — strong (2–3 km/h)', 'Hard to swim against; it can carry you away from where you got in. Use a float and buddy, or pick a sheltered spot.')}
+      ${row('<span class="key-wind"><i style="background:rgba(255,70,90,1)"></i></span>', 'Red — very strong (3+ km/h)', 'Too strong to dive. The app marks spearfishing as Not safe.')}
+      <p class="small"><strong>Rip currents are not shown.</strong> The forecast grid is about 8 km wide, so it shows the drift offshore, not the small, fast rips near the beach or in gaps between reefs. Look for rips yourself: a darker, calmer-looking gap between breaking waves, rippled or foamy water, or sand and weed moving out to sea. If caught in one, don't fight it — float, raise an arm, or swim sideways out of it.</p>
     </div>
 
     <div class="card"><h2>Safety</h2>
@@ -123,11 +136,15 @@ export function renderKey(view) {
       <p class="small muted">Lines and shapes on top of the colours are other layers: red = no-fishing zone, orange dashed = special rules, blue dashed = marine park boundary.</p>
     </div>
 
-    <div class="card"><h2>Legal</h2>
-      ${row('<span class="key-zone sanct"></span>', 'Red area', 'No fishing: sanctuary zones (Marmion, Shoalwater, Ngari Capes, Rottnest), protected wrecks and other closed waters — from official DPIRD fishing orders.')}
-      ${row('<span class="key-zone restr"></span>', 'Orange dashed area', 'Special rules: e.g. surfing zones, Rottnest reserve (no spearfishing), Cottesloe Reef. Tap it and read the linked order.')}
-      ${row('<span class="key-zone park"></span>', 'Blue dashed outline', 'Marine park boundary. Outside red/orange areas normal rules apply.')}
-      <p class="small muted">Species and gear rules (e.g. blue swimmer crab closure 1 Sep–30 Nov Swan River–Minninup, wire trace bans) show in each spot's Rules check. The zone data updates weekly from DPIRD via Landgate.</p>
+    <div class="card"><h2>Rules on the map</h2>
+      <p class="small">Every area comes from the official DPIRD fishing orders. <strong>Tap inside any area</strong> and the card shows, line by line, what's allowed (✓) and what isn't (✗), with a link to the order. Zoom in to see each zone's name on the water.</p>
+      ${row('<span class="key-zone sanct"></span>', 'Red area — no fishing', 'Sanctuary zones (Marmion, Shoalwater, Ngari Capes, Rottnest), protected wrecks, Burswood Lake, Greens Pool, the old Esperance Tanker Jetty end. No line fishing, no spearfishing, no collecting.')}
+      ${row('<span class="key-zone restr"></span>', 'Orange dashed — special rules', 'Fishing is allowed but something is banned. Examples: Ngari Capes shore-based zones at Eagle Bay and Cosy Corner (no spearfishing), surfing zones (no lobster or octopus pots), Rottnest (no spearfishing anywhere), Cottesloe Reef (no shellfish), Shoalwater Bay (no spearfishing).')}
+      ${row('<span class="key-zone permit"></span>', 'Green dashed — spearfishing area', 'Marmion Marine Park: spearfishing is only allowed 1.8 km or more from the mainland shore (breath-hold, no scuba). Closer in — including from the beach — it\'s banned.')}
+      ${row('<span class="key-zone gear"></span>', 'Purple dotted — gear or species rules', 'For example no rock lobster pots, no wire trace, or a seasonal crab or snapper closure. The card says whether it is closed right now.')}
+      ${row('<span class="key-zone park"></span>', 'Blue dashed outline', 'Marine park edge.')}
+      ${row('<span style="font-size:20px">🔱</span>', 'Spearfishing in rivers and estuaries', 'Banned everywhere in WA (rivers, estuaries, creeks, inland waters) — the app never rates spearfishing there.')}
+      <p class="small muted">Bag and size limits, licences and statewide closures still apply everywhere. Signs on site and newer orders win — check the linked order or the Recfishwest app if unsure.</p>
     </div>
 
     <div class="card"><h2>Facilities</h2>

@@ -51,7 +51,7 @@ export function renderMore(view) {
         const who = t.applies_to.activity === 'spear' ? 'Spearfishing' : Array.isArray(t.applies_to.types) ? 'Rocks & headlands' : 'All shore spots';
         const unit = /kmh/.test(t.metric) ? ' km/h' : ' m';
         const what = t.metric === 'wave_missing' ? 'no wave forecast is available'
-          : `${{ wind_gust_kmh: 'gusts', wind_speed_kmh: 'wind', onshore_wave_m: 'waves reaching the spot', wave_m_any_dir: 'waves from any direction' }[t.metric] ?? t.metric} over ${t.max}${unit}${t.min_period_s ? ` with swell period ${t.min_period_s} s or longer` : ''}`;
+          : `${{ wind_gust_kmh: 'gusts', wind_speed_kmh: 'wind', onshore_wave_m: 'waves reaching the spot', wave_m_any_dir: 'waves from any direction', current_kmh: 'ocean current' }[t.metric] ?? t.metric} over ${t.max}${unit}${t.min_period_s ? ` with swell period ${t.min_period_s} s or longer` : ''}`;
         return `<tr><td>${who}</td><td>${esc(what)}<br><span class="muted">${esc(t.rationale)}</span></td></tr>`;
       }).join('')}
       </tbody></table>

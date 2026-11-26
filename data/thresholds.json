@@ -1,5 +1,5 @@
 {
- "_note": "SAFETY HARD-BLOCK THRESHOLDS (v2, 26 Nov 2026). Set from published BOM, WA Department of Transport and Recfishwest guidance, choosing the cautious end. NOT reviewed on site by a safety professional — users must always judge conditions themselves. Estuary spots ignore wave limits (no ocean waves).",
+ "_note": "SAFETY HARD-BLOCK THRESHOLDS (v3, 26 Nov 2026 — adds a spearfishing current limit). Set from published BOM, WA Department of Transport and Recfishwest guidance, choosing the cautious end. NOT reviewed on site by a safety professional — users must always judge conditions themselves. Estuary spots ignore wave limits (no ocean waves).",
  "sources": [
   {
    "name": "BOM — Rock fishing safety (5 weather checks)",
@@ -251,6 +251,21 @@
     "App rule: unknown is treated as unsafe for diving"
    ],
    "status": "researched"
+  },
+  {
+   "id": "spear-current",
+   "applies_to": {
+    "activity": "spear",
+    "types": "*"
+   },
+   "metric": "current_kmh",
+   "max": 3.0,
+   "rationale": "Very strong ocean current forecast — too strong for a breath-hold diver to swim against",
+   "basis": [
+    "A fit diver with fins can hold about 2–3 km/h (1–1.5 knots) for a short time; dive guidance treats currents over 1 knot as strong",
+    "Model: Météo-France currents via Open-Meteo, ~8 km grid — shows offshore drift, not rips or channels near the shore"
+   ],
+   "status": "estimate"
   }
  ]
 }
