@@ -50,7 +50,7 @@ def main():
             meta.append({"name": name, "source_url": url, "crs": arr_info["crs"], "range_m": arr_info["range"], "tags": arr_info["tags"]})
             w, s, e, n = transform_bounds(src.crs, "EPSG:4326", *src.bounds)
             if e < REGION[0] or w > REGION[2] or n < REGION[1] or s > REGION[3]:
-                print("   outside app region — skipped"); continue
+                meta.pop(); print("   outside app region — skipped"); continue
             x0, y0 = lonlat_to_tile(w, n, Z); x1, y1 = lonlat_to_tile(e, s, Z)
             for x in range(x0, x1 + 1):
                 for y in range(y0, y1 + 1):
