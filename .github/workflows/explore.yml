@@ -1,0 +1,21 @@
+name: explore
+on: workflow_dispatch
+jobs:
+  x:
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - run: |
+          mkdir out
+          curl -s -o out/marine.json "https://marine-api.open-meteo.com/v1/marine?latitude=-33.988,-33.915,-33.849,-33.897,-33.982,-33.994,-34.253,-34.438,-34.492,-34.576,-34.826,-35.023,-35.036,-35.085,-35.045,-35.049,-34.945,-34.904,-34.684,-34.405,-34.325,-33.903,-33.506,-33.555,-33.241,-33.016,-32.579,-32.754,-32.457,-32.129&longitude=122.052,121.761,121.317,120.838,120.346,119.874,119.530,119.419,119.067,118.757,118.423,118.124,117.945,117.661,117.233,116.783,116.406,116.238,115.850,115.475,115.044,114.934,115.038,115.432,115.677,115.641,115.603,115.688,115.713,115.705&hourly=wave_height,wave_direction,wave_period,swell_wave_height,swell_wave_direction,swell_wave_period,ocean_current_velocity,ocean_current_direction,sea_surface_temperature&forecast_days=4&timeformat=unixtime&timezone=Australia%2FPerth"
+          curl -s -o out/fc.json "https://api.open-meteo.com/v1/forecast?latitude=-34.000,-33.891,-33.824,-33.873,-33.956,-33.968,-34.233,-34.444,-34.466,-34.579,-34.819,-34.999,-35.054,-35.069,-35.018,-35.026,-34.926,-34.879,-34.666,-34.383,-34.307,-33.899,-33.530,-33.572,-33.240,-33.014,-32.593,-32.752,-32.461,-32.126&longitude=122.081,121.776,121.306,120.823,120.357,119.868,119.507,119.387,119.073,118.724,118.392,118.140,117.921,117.634,117.234,116.799,116.382,116.251,115.875,115.494,115.068,114.966,115.024,115.457,115.709,115.673,115.631,115.719,115.745,115.737&hourly=wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code&forecast_days=4&timeformat=unixtime&timezone=Australia%2FPerth&wind_speed_unit=kmh"
+          ls -la out
+          for u in "https://geoserver.imas.utas.edu.au/geoserver/seamap/wms?SERVICE=WMS&VERSION=1.1.1&REQUEST=GetMap&FORMAT=image/png&TRANSPARENT=true&LAYERS=seamap:SeamapAus_National_Benthic_Habitat_Layer&STYLES=&SRS=EPSG:3857&WIDTH=256&HEIGHT=256&BBOX=12836528,-3981250,12846312,-3971466" \
+                   "https://geoserver.imas.utas.edu.au/geoserver/gwc/service/wmts?REQUEST=GetCapabilities" \
+                   "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/g/14/9876/13900.jpg"; do
+            curl -s -o /dev/null -w "%{http_code} %{size_download}B %{time_total}s  $u\n" "$u"; done
+          curl -s "https://geoserver.imas.utas.edu.au/geoserver/gwc/service/wmts?REQUEST=GetCapabilities" | grep -o "<ows:Identifier>[^<]*Benthic[^<]*</ows:Identifier>\|TileMatrixSet>[^<]*<" | sort | uniq | head -20
+          curl -s "https://geoserver.imas.utas.edu.au/geoserver/seamap/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=seamap:SeamapAus_National_Benthic_Habitat_Layer&maxFeatures=1&outputFormat=application/json" | head -c 1500; echo
+          curl -s -o /dev/null -w "wfs count bbox %{http_code} %{size_download}B %{time_total}s\n" "https://geoserver.imas.utas.edu.au/geoserver/seamap/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=seamap:SeamapAus_National_Benthic_Habitat_Layer&outputFormat=application/json&bbox=115.0,-33.7,115.5,-33.5,EPSG:4326&propertyName=SM_HAB_CLS"
+          cd out && git init -q && git checkout -q -b tmp-x && git add . && git -c user.name=bot -c user.email=bot@x commit -qm x
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" tmp-x
