@@ -336,6 +336,7 @@ function tapHTML(loc, where, sh, exact) {
   return `
     <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br>
     ${where ? `<span class="small">${esc(where)}</span><br>` : ''}
+    <div class="small" id="pop-depth">Depth: checking…</div>
     <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
     <div class="row" style="margin:8px 0;gap:6px"><div><div class="small muted">Shore</div>${pillFor(rs)}</div><div><div class="small muted">Spear</div>${pillFor(rp)}</div></div>
     <div style="margin:-2px 0 6px">${(() => { const r = state.activity === 'spear' ? rp : rs; return r ? chanceIcon(r.score, state.activity, r.blocked && r.blockKind) : ''; })()}</div>
@@ -346,7 +347,6 @@ function tapHTML(loc, where, sh, exact) {
     ${buoy && !loc.estuary ? `<div class="small" style="margin-top:4px"><strong>Measured:</strong> ${esc(buoy.b.site)} buoy ${buoy.d.toFixed(0)} km away — ${fmtHeight(buoy.b.hs)}${buoy.b.tp != null ? ` @ ${Math.round(buoy.b.tp)} s` : ''}, ${fmtAge(Date.parse(buoy.b.time))}</div>` : ''}
     <div style="margin-top:4px">${legalHTML(legal)}</div>
     ${(loc.safety_notes || []).filter(n => !/^Spearfishing is banned/.test(n)).map(n => `<div class="small">⚠ ${esc(n)}</div>`).join('')}
-    <div class="small" id="pop-depth" style="margin-top:4px">Depth: checking…</div>
     <div class="small" id="pop-nearby" style="margin-top:4px">Nearby: loading…</div>
     <p class="small muted" style="margin:6px 0 0">Not a checked fishing spot — check access, cliffs and private land before you go.</p>
     <p style="margin:6px 0 0"><a href="${gmaps}" target="_blank" rel="noopener">Directions here ↗</a> · <a href="#/live/${encodeURIComponent(loc.id)}">Live summary →</a></p>`;
