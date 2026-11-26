@@ -3,6 +3,7 @@ on: workflow_dispatch
 jobs:
   x:
     runs-on: ubuntu-latest
+    permissions: { contents: write }
     steps:
       - run: |
           mkdir out; B=https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Locate/MapServer/export
@@ -11,5 +12,6 @@ jobs:
           curl -s -o out/cott.jpg -w "%{http_code} %{time_total}s\n" "$B?bbox=12876600,-3762300,12877211,-3761689&bboxSR=3857&imageSR=3857&size=512,512&format=jpg&f=image"
           curl -s -o out/hope.jpg -w "%{http_code} %{time_total}s\n" "$B?bbox=13353000,-4021000,13354223,-4019777&bboxSR=3857&imageSR=3857&size=512,512&format=jpg&f=image"
           curl -sI "https://punfai10000-glitch.github.io/wa-fishing-app/sw.js" | head -3; curl -s "https://punfai10000-glitch.github.io/wa-fishing-app/sw.js" | head -3
-      - uses: actions/upload-artifact@v4
-        with: { name: tiles, path: out }
+      - run: |
+          cd out && git init -q && git checkout -q -b tmp-imagery && git add . && git -c user.name=bot -c user.email=bot@x commit -qm tiles
+          git push -f "https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}" tmp-imagery
