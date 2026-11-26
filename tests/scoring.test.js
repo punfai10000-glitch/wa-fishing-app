@@ -43,9 +43,11 @@ test('visibility is Unknown for spearfishing and caps confidence at medium', () 
 });
 
 test('strong onshore swell hard-blocks a rock platform before a beach', () => {
-  const big = { ...calm, wave_height: 2.6, wave_direction: 260 };
-  assert.equal(checkBlocks(loc, big, 'shore', { thresholds }).length, 0);
-  assert.ok(checkBlocks(rock, big, 'shore', { thresholds }).length > 0);
+  const big = { ...calm, wave_height: 2.2, wave_direction: 260 };   // under the 2.5 m beach limit, over the rock-platform limit
+  const hard = b => b.filter(x => x.kind !== 'caution');   // 'take care' warnings aren't blocks
+  assert.equal(hard(checkBlocks(loc, big, 'shore', { thresholds })).length, 0);
+  assert.ok(checkBlocks(loc, big, 'shore', { thresholds }).some(x => x.kind === 'caution'));
+  assert.ok(hard(checkBlocks(rock, big, 'shore', { thresholds })).length > 0);
 });
 
 test('thunderstorm blocks', () => {

@@ -1,42 +1,32 @@
 # WA Fishing Intelligence
 
-A free, non-commercial, mobile-first web app for **land-based shore fishing and shore-entry spearfishing from Perth to Esperance**. It ranks fishing spots by environmental suitability for the next 24 hours, with separate shore and spearfishing scores. Safety and legal hard blocks override every score.
+A free, non-commercial, mobile-first web app for **land-based shore fishing and shore-entry spearfishing from Geraldton to Esperance**. It ranks fishing spots by environmental suitability for the next 24 hours, with separate shore and spearfishing scores. Safety and legal hard blocks override every score.
 
 > Scores rate environmental conditions only. They are **not** a guarantee of fish or of safety. Official DPIRD rules always prevail.
 
-## Status: v0.5 prototype
+## Status: v0.16 (27 Nov 2026) — limited testing only
 
-Can't run GitHub Actions or want data now? See **MANUAL-DATA.md** for one-click downloads you can upload yourself.
+The table that used to be here was the v0.5 checklist (24–25 Nov) and is long out of date. Current state:
 
 | Area | State |
 |---|---|
-| Map, spots ranking, location detail, rules, Fish ID helper, settings | ✅ Built |
-| Forecast wind, waves, swell, modelled tide trend and sea temperature (Open-Meteo, loaded in the browser) | ✅ Built |
-| Separate shore/spear scores, hard blocks, confidence, best 24 h window, 7-day outlook | ✅ Built + unit tested |
-| Offline (last data cached on device) | ✅ Built |
-| **Live tab** for one chosen spot: score now, next 12 hours and nearby facilities | ✅ Built |
-| **Fish library**: photos (Wikipedia/Commons), keep vs protected, size and bag limits | ⚠️ Built. Limits were copied from DPIRD's 2026 guide and need spot-checking |
-| **Spearfishing map**: free Sentinel-2 satellite, seabed habitat (Seamap), general depth (GEBCO), visibility *estimate* | ✅ Built. Habitat coverage near shore is patchy, and the Seamap licence is still to be confirmed |
-| **Coastline colour**: conditions every ~8 km from Perth to Esperance; tap anywhere on the coast for a score, conditions, moon and nearby facilities | ✅ Built (Open-Meteo forecast, updated hourly) |
-| **Animated wind/wave arrows + 48 h time slider with play**, plus the Windy.com animated map (official embed) | ✅ Built |
-| **Measured wave buoys** (DoT via AODN), updated hourly | ⚠️ Built. Needs the "Live data" Action enabled; first run untested |
-| **"Can I keep it?" checker** (fish + place → size, bag, protected) | ✅ Built (uses the app's copy of DPIRD rules) |
-| **Waves/tide at spots**: read ~3 km offshore so the marine model has data (was showing Unknown) | ✅ Fixed in v0.4 |
-| **Live wind** from BOM weather stations + **live swell** from DoT buoys (hourly) | ⚠️ Built. Needs the Live data Action enabled |
-| **Legal check** against WA marine park zones (weekly download) | ⚠️ Built. Needs the Weekly data Action |
-| **Getting there**: drive/walk directions + nearest public car park | ✅ Built |
-| **What's caught/seen here**: iNaturalist records by month + Reddit discussion links | ✅ iNaturalist live. Reddit needs a free key |
-| **Rules inside the app** (licences, gear, spearfishing, possession, bioregions, crabs, lobster) | ✅ Built |
-| **Past shark incidents** map (Taronga ASID, to 2022) | ✅ Built |
-| **Tackle shops, servos, toilets, 24/7 food, car parks** | ⚠️ Needs the weekly GitHub Action to run once (see below) |
-| **Locations** | ⚠️ 10 pilot spots, all `status: "demo"`. Coordinates and exposure **must be verified** |
-| **Safety thresholds** | ⚠️ All `draft`. Must be reviewed before public launch |
-| **Marine park / sanctuary zones** | ❌ Not loaded. Legal status shows "Not yet checked" |
-| **Measured buoys, tide gauges, BOM warnings** | ❌ Need the hourly data pipeline (next stage) |
-| **Species rules** | ⚠️ Only one DPIRD rule entered. Every other species links to the official rules |
-| Satellite base map | ⚠️ Needs a free Esri key in `js/config.js`. Falls back to OpenStreetMap until then |
+| Map, spot cards (Good / OK / Take care / Not safe / Not allowed), 48 h time slider, Forecast page with place search | ✅ Working |
+| Coverage | ✅ Geraldton & Abrolhos → Esperance (extended 27 Nov; northern data fills in as the workflows re-run) |
+| Forecasts (Open-Meteo wind, waves, swell, currents, sea temp, tide) | ✅ Working. Tide timing corrected against the official AHO tables |
+| Measured data, hourly (DoT buoys, BOM stations, Hillarys/Esperance/Geraldton tide gauges, satellite water clarity) | ✅ Running. Clarity is 1–3 weeks old because NOAA's free feed lags |
+| Marine park zones and DPIRD fishing orders | ✅ Loaded weekly. South Coast parks traced from DBCA maps (±100 m near shore). ❌ Western Bight & Mirning zones not in the app |
+| Seabed habitat | ✅ Seamap + a dotted satellite estimate within 1 km of shore (~80% right for sand vs reef/weed) |
+| Depth | ✅ DoT surveys at z14 where surveyed; GEBCO elsewhere |
+| Satellite map | ✅ Sentinel-2 + Landgate aerial photos ("Satellite HD", from zoom 12). Esri key optional |
+| Fish library (331 species) + How-to guides | ⚠️ 101 species have no size/bag limit in the app yet (they link to rules.fish.wa.gov.au) |
+| Facilities, OSM spots, shoreline | ✅ Weekly from OpenStreetMap |
+| Diary, catch measuring, offline cache | ✅ Working (stored on the phone only) |
+| Unit tests (`npm test`) | ✅ 11 passing |
+| **Hand-checked spots** | ⚠️ The 10 starter spots are still `demo` — need checking on site |
+| **Safety thresholds** | ⚠️ Calibrated against forecasts, not yet against real trips — needs diary reality-checks |
+| Reddit links | ⚠️ Need a free Reddit key (optional) |
 
-**Do not promote the app publicly** while any location is `demo`, any threshold is `draft`, or zone data is missing.
+**Do not promote the app publicly** until the starter spots and safety limits have been checked against real conditions.
 
 ## Run locally
 No build step is needed:
@@ -78,8 +68,8 @@ The app never queries OpenStreetMap from people's phones, because that would bre
 
 OpenStreetMap doesn't record which servos sell bait, so the app says "bait not confirmed".
 
-## Optional: sharper satellite map
-The free Sentinel-2 map (10 m) works without any setup. For sharper imagery:
+## Optional: Esri imagery
+"Satellite HD" works with no setup: it adds Landgate's free WA aerial photos from zoom 12. If you prefer Esri imagery:
 1. Create a free ArcGIS Location Platform account at https://location.arcgis.com. Leave pay-as-you-go **off**, so you can never be billed.
 2. Create an API key with the basemap privilege, and **restrict its referrer** to `https://<user>.github.io/*`.
 3. Paste the key into `ESRI_API_KEY` in `js/config.js`. This key is a public, restricted key, not a secret.
