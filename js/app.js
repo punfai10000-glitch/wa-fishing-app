@@ -7,7 +7,7 @@ import { esc } from './ui.js';
 import { initMap, refreshMap, showMap } from './map.js';
 import { initSheet, closeSheet } from './sheet.js';
 import { renderLocation } from './views/location.js';
-import { loadCoastPoints, loadCoastConditions } from './coast.js';
+import { loadCoastPoints, loadCoastConditions, nearestCoastPoint } from './coast.js';
 import { loadBuoys, loadBomObs } from './buoys.js';
 import { loadTides, loadClarity, clarityAt } from './ocean.js';
 import { loadTargets } from './targets.js';
@@ -40,15 +40,21 @@ export function getLoc(id) {
 }
 
 export function evalFor(loc, activity = state.activity) {
-  const src = loc.tap && state.tapCond ? state.tapCond : loc.virtual || loc.condFrom ? state.coast : state.cond;
-  const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}`;
+  let src = loc.tap && state.tapCond ? state.tapCond : loc.virtual || loc.condFrom ? state.coast : state.cond;
+  let id = loc.condFrom || loc.id;
+  // a spot's own forecast didn't load (e.g. Open-Meteo limiting this device): use the nearest coast point's hourly file
+  if (src === state.cond && !state.cond.byId?.[loc.id]?.length && state.coast?.byId) {
+    const n = nearestCoastPoint(loc.geometry.coordinates[1], loc.geometry.coordinates[0], 15);
+    if (n && state.coast.byId[n.p.id]?.length) { src = state.coast; id = n.p.id; }
+  }
+  const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}|${id}`;
   if (!state.evalCache.has(key)) {
     // satellite water clarity for this spot (used by the spearfishing visibility estimate)
     if (state.clarity && loc._satFor !== state.clarity.date) {
       const [lng, lat] = loc.geometry.coordinates;
       loc.sat = loc.estuary ? null : clarityAt(state.clarity, loc.sea?.[0] ?? lat, loc.sea?.[1] ?? lng); loc._satFor = state.clarity.date;
     }
-    state.evalCache.set(key, evaluate(loc, src.byId[loc.condFrom || loc.id], activity, {
+    state.evalCache.set(key, evaluate(loc, src.byId[id], activity, {
       thresholds: state.data.thresholds, rules: state.data.rules, zones: state.data.zones,
       staleSources: state.cond.stale ? 1 : 0, sunFn, species: state.species || null,
       zoneHits: l => zoneHitsFor(state.data.zones, l)
@@ -93,7 +99,7 @@ function banners() {
   const d = state.data;
   if (!navigator.onLine) out.push(['warn', 'You are offline. Showing the last data saved on this device.']);
   if (state.cond.fetchedAt && state.cond.stale) out.push(['warn', `Forecast data is out of date (updated ${fmtAge(state.cond.fetchedAt)}). Scores have lower confidence.`]);
-  if (!state.loading && !state.cond.fetchedAt) out.push(['danger', 'Forecast data could not be loaded. Conditions and scores are Unknown.', null, 'retry']);
+  if (!state.loading && !state.cond.fetchedAt && !state.coast?.fetchedAt) out.push(['danger', 'Forecast data could not be loaded. Conditions and scores are Unknown.', null, 'retry']);
   if (state.cond.fetchedAt) for (const err of state.cond.errors || []) out.push(['warn', `${err}. Affected values show as Unknown.`]);
   if (d && d.locations.some(l => l.status === 'demo')) out.push(['info', 'Early preview: spot details are still being verified. Treat locations as approximate.', 'demo']);
   if (d && d.thresholds.some(t => t.status === 'draft')) out.push(['info', 'Safety limits are drafts pending review. Always judge conditions on site.', 'draft']);
