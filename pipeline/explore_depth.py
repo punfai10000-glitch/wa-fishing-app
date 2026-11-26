@@ -1,39 +1,27 @@
-"""One-off: which free depth services can tell the depth at a tapped point (and allow browser CORS)?"""
 import json, urllib.request, urllib.parse
-PTS = {"Cottesloe 100 m out": (-31.9957, 115.7495), "Cottesloe 1 km out": (-31.9957, 115.7380), "Busselton jetty middle": (-33.6370, 115.3420), "Cottesloe 300 m out": (-31.9955, 115.7480), "Busselton jetty end": (-33.6300, 115.3385), "Albany Middleton 500 m out": (-35.0150, 117.9300), "Rottnest Thomson Bay": (-31.9960, 115.5460), "Esperance 1 km out": (-33.8600, 121.9100), "On land (Perth CBD)": (-31.9523, 115.8613)}
+S = "https://public-services.slip.wa.gov.au/public/rest/services/Landgate_Public_Maps/WA_Bathymetry/MapServer"
 def get(u, **p):
     p.setdefault("f", "json")
-    req = urllib.request.Request(u + "?" + urllib.parse.urlencode(p), headers={"User-Agent": "wa-fishing-app", "Origin": "https://punfai10000-glitch.github.io"})
-    with urllib.request.urlopen(req, timeout=60) as r:
-        return json.load(r), r.headers.get("Access-Control-Allow-Origin")
-SERVICES = [
-  "https://public-services.slip.wa.gov.au/public/rest/services/Landgate_Public_Maps/WA_Bathymetry/MapServer",
-]
-for s in SERVICES:
+    with urllib.request.urlopen(urllib.request.Request(u + "?" + urllib.parse.urlencode(p), headers={"User-Agent": "wa-fishing-app"}), timeout=60) as r:
+        return json.load(r)
+for lid in (1, 0):
+    r = get(f"{S}/{lid}/query", where="1=1", geometry="114.5,-35.6,123.5,-31.3", geometryType="esriGeometryEnvelope", inSR=4326, outFields="*", returnGeometry="false", resultRecordCount=200)
+    feats = r.get("features", [])
+    print(f"layer {lid}: {len(feats)} features; fields: {[f['name'] for f in r.get('fields', [])]}")
+    for f in feats[:40]:
+        a = {k: v for k, v in f["attributes"].items() if v not in (None, "", " ")}
+        print("   ", json.dumps(a)[:420])
+# try a HEAD on any URL found
+import re
+urls = set()
+for lid in (1,):
+    r = get(f"{S}/{lid}/query", where="1=1", geometry="114.5,-35.6,123.5,-31.3", geometryType="esriGeometryEnvelope", inSR=4326, outFields="*", returnGeometry="false", resultRecordCount=200)
+    for f in r.get("features", []):
+        for v in f["attributes"].values():
+            if isinstance(v, str) and v.startswith("http"): urls.add(v)
+print("URLs:", len(urls)); 
+for u in list(urls)[:8]:
     try:
-        info, cors = get(s)
-        print("\n==", s, "| CORS:", cors)
-        for lid in (24, 32, 36):
-            li, _ = get(f"{s}/{lid}")
-            print("   layer", lid, {k: li.get(k) for k in ("name", "description", "drawingInfo", "copyrightText")} )
-        for name, (lat, lng) in PTS.items():
-            d = 0.01
-            res, _ = get(s + "/identify", geometry=f"{lng},{lat}", geometryType="esriGeometryPoint", sr=4326, layers="all", tolerance=1,
-                         mapExtent=f"{lng-d},{lat-d},{lng+d},{lat+d}", imageDisplay="400,400,96", returnGeometry="false")
-            for r in res.get("results", []):
-                if "Image" in (r.get("layerName") or "") or "Bathymetry_and" in (r.get("layerName") or ""):
-                    print("   ", name, "->", r.get("layerName"), json.dumps(r.get("attributes"))[:300])
-    except Exception as e:
-        print("\n==", s, "ERROR", e)
-# GA ImageServers (AusBathyTopo)
-try:
-    root, cors = get("https://services.ga.gov.au/gis/rest/services")
-    print("\nGA folders:", root.get("folders"))
-    for svc in root.get("services", []):
-        if "bathy" in svc["name"].lower() or "topo" in svc["name"].lower(): print("   GA svc", svc)
-    for f in root.get("folders", []):
-        if any(k in f.lower() for k in ("bathy", "marine", "seabed", "elev", "dem")):
-            d, _ = get(f"https://services.ga.gov.au/gis/rest/services/{f}")
-            for svc in d.get("services", []): print("   GA", f, svc)
-except Exception as e:
-    print("GA list error", e)
+        req = urllib.request.Request(u, method="HEAD", headers={"User-Agent": "wa-fishing-app"})
+        with urllib.request.urlopen(req, timeout=40) as rr: print("  OK", rr.status, rr.headers.get("Content-Length"), rr.headers.get("Content-Type"), u)
+    except Exception as e: print("  FAIL", e, u)
