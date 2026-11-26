@@ -65,8 +65,8 @@ def main():
         if not r: print(ds, "no usable data"); continue
         age = (datetime.now(timezone.utc) - datetime.fromisoformat(r["newest"].replace("Z", "+00:00"))).days
         print(ds, "median date", r["date"], "newest", r["newest"], "valid", r["valid"], "age days", age)
-        if age <= 4 and (not best or r["valid"] > best["valid"] * 0.7 and r["newest"] >= best["newest"]): best = r
-        if best and age <= 2: break
+        # the satellite services sometimes lag by a week or two: keep the freshest one up to 30 days old
+        if age <= 30 and (not best or r["newest"] > best["newest"]): best = r
     if not best: sys.exit(1)
     best["generated_at"] = int(time.time() * 1000)
     json.dump(best, open(f"{OUT}/clarity.json", "w"), separators=(",", ":"))
