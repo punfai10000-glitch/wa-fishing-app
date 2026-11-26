@@ -9,6 +9,7 @@ import { visibilityEstimate } from '../scoring/score.js';
 import { rememberLiveSpot, accessCard, fillAccessFor, measuredCard } from './live.js';
 import { legalStatus } from '../zones.js';
 import { fourChecks } from '../checks.js';
+import { likelyTargets, LEVEL_LABEL, targetsData } from '../targets.js';
 import { communityCard, sightingsCard, fillSightings } from './community.js';
 
 const val = (v, f, type) => v == null ? `Unknown ${typeTag('unknown')}` : `${f(v)} ${typeTag(type)}`;
@@ -79,7 +80,11 @@ export function renderLocation(view, rawId) {
       <p class="muted small" style="margin:8px 0 0">${state.cond.fetchedAt ? `Forecast updated ${fmtAge(state.cond.fetchedAt)} (${fmtDateTime(state.cond.fetchedAt)})` : 'No forecast loaded'}</p>
     </div>
 
-    ${(() => { const ev = evalFor(loc); return ev?.applicable === false ? '' : `<div class="card"><h2>Right now — four checks</h2>${fourChecks(loc, ev, ev.current, state.data.zones, state.activity)}</div>`; })()}
+    ${(() => { const ev = evalFor(loc); return ev?.applicable === false ? '' : `<div class="card"><h2>Right now — four checks</h2>${fourChecks(loc, ev, ev.current, state.data.zones, state.activity)}</div>
+      <div class="card"><h2>What might be biting</h2>
+        ${(() => { const tg = likelyTargets(loc, ev.current?.hour, state.activity, { max: 6 }); return tg.length ? `<table class="checks small">${tg.map(t => `<tr><th><a href="#/fish/${encodeURIComponent(t.id)}">${esc(t.name)}</a></th><td><b class="ck ${{ good: 'good', possible: 'fair', unlikely: 'unknown', closed: 'poor' }[t.level]}">${LEVEL_LABEL[t.level]}</b> ${esc(t.reasons.join(' · '))}${t.why ? `<br><span class="muted">${esc(t.why)}</span>` : ''}</td></tr>`).join('')}</table>` : '<p class="small muted">No common target species listed for this kind of spot.</p>'; })()}
+        <p class="small muted">Seasonal guide from general WA angling knowledge — season, habitat, time of day and sea state for this kind of spot. Not based on catch reports, so treat it as a starting point. Sources: ${(targetsData()?.sources || []).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name.split(' — ')[0])}</a>`).join(' · ')}</p>
+      </div>`; })()}
     ${measuredCard(loc)}
     <div class="card">
       <h2>Legal status</h2>

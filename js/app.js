@@ -13,6 +13,7 @@ import { renderLive } from './views/live.js';
 import { renderMore } from './views/more.js';
 import { loadCoastPoints, loadCoastConditions } from './coast.js';
 import { loadBuoys, loadBomObs } from './buoys.js';
+import { loadTargets } from './targets.js';
 import { zoneHitsFor } from './zones.js';
 import { loadOsmSpots } from './osmspots.js';
 import { setCoastPoints } from './amenities.js';
@@ -169,6 +170,7 @@ async function boot() {
   syncToggles();
   try {
     state.data = await loadStatic();
+    await loadTargets();
     state.coast.points = await loadCoastPoints();
     setCoastPoints(state.coast.points);
     state.osmSpots = await loadOsmSpots(state.coast.points);

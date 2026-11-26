@@ -56,7 +56,7 @@ export function evaluate(loc, hours, activity, ctx = {}) {
   }
   if (loc.estuary) hours = hours.map(h => ({ ...h, wave_height: null, swell_height: null, wave_period: null, swell_period: null, wind_wave_height: null, sheltered: true }));
   const legalUnchecked = !ctx.zones?.loaded;
-  if (activity === 'spear') addVisibilityContext(hours, loc);
+  addVisibilityContext(hours, loc);   // spear score + species targets (squid needs clear water)
   const sunCache = new Map();
   const hourly = hours.map(h => {
     const dk = dayKey(h.t);

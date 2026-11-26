@@ -2,6 +2,7 @@
 import { esc } from './ui.js';
 import { legalStatus } from './zones.js';
 import { band } from './scoring/score.js';
+import { likelyTargets, LEVEL_LABEL } from './targets.js';
 
 export function fourChecks(loc, ev, hr, zones, activity) {
   if (!ev || ev.applicable === false) return '';
@@ -11,8 +12,13 @@ export function fourChecks(loc, ev, hr, zones, activity) {
   rows.push(['Conditions', hr && !hr.blocked && sc != null ? `<b class="ck ${band(sc)}">${sc}/100</b> wind, waves, tide${activity === 'spear' ? ', visibility (estimate)' : ', light'}` :
     hr?.blocked ? '<b class="ck poor">Not rated</b> see safety / rules' : '<b class="ck unknown">Unknown</b> no forecast for this hour']);
   // 2. Fish activity — only from checked evidence, never guessed from weather
-  const n = (loc.species_evidence || []).length;
-  rows.push(['Fish', n ? `<b class="ck fair">${n} species recorded</b> here (checked info)` : '<b class="ck unknown">No evidence yet</b> conditions don\'t tell us if fish are there']);
+  const tg = likelyTargets(loc, hr?.hour, activity, { max: 3 }).filter(t => t.level !== 'unlikely');
+  const good = tg.filter(t => t.level === 'good');
+  const poss = tg.filter(t => t.level === 'possible'), closed = tg.filter(t => t.level === 'closed');
+  rows.push(['Fish', tg.length ? [good.length ? `<b class="ck good">Good chance</b> ${esc(good.map(t => t.name).join(', '))}` : '',
+      poss.length ? `<b class="ck fair">Possible</b> ${esc(poss.map(t => t.name).join(', '))}` : '',
+      closed.length ? `<b class="ck poor">Closed</b> ${esc(closed.map(t => t.name).join(', '))}` : ''].filter(Boolean).join('<br>') + ' <span class="muted">· seasonal guide</span>'
+    : '<b class="ck unknown">Nothing in season</b> for this kind of spot — seasonal guide']);
   // 3. Safety
   const sb = (hr?.blocks || []).find(b => b.kind === 'safety');
   rows.push(['Safety', sb ? `<b class="ck poor">Not safe</b> ${esc(sb.reason)}` :
@@ -28,5 +34,5 @@ export function fourChecks(loc, ev, hr, zones, activity) {
   const c = ev.confidence?.level;
   rows.push(['Data', `<b class="ck ${c === 'high' ? 'good' : c === 'medium' ? 'fair' : 'unknown'}">${{ high: 'High', medium: 'Moderate', low: 'Low' }[c] ?? 'Unknown'} confidence</b>`]);
   return `<table class="checks small">${rows.map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('')}</table>
-    <div class="small muted">Good conditions don't mean fish, safe access or permission to fish.</div>`;
+    <div class="small muted">Fish = season, habitat and time of day for this kind of spot — not catch reports. Good conditions don't mean safe access or permission to fish.</div>`;
 }

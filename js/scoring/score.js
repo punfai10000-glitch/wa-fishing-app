@@ -4,7 +4,8 @@ import { exposureOf, degToCompass } from './geo.js';
 // v0.3: scores rate CONDITIONS only. Terrain and access are fixed per spot, so they are shown
 // separately instead of lifting every score (they made almost everything look 90+).
 export const WEIGHTS = {
-  shore: { wind: 30, waves: 30, tide: 15, light: 15, season: 10 },
+  // tide weight lowered (15→10): Open-Meteo tides are an ~8 km model with limited coastal accuracy
+  shore: { wind: 30, waves: 30, tide: 10, light: 15, season: 10 },
   spear: { wind: 20, waves: 30, visibility: 25, tide: 10, sst: 10, season: 5 }
 };
 
@@ -66,7 +67,7 @@ function tideFactor(hour) {
   const a = Math.abs(r);
   const score = a <= 0.01 ? 40 : a >= 0.05 ? 90 : 40 + (a - 0.01) / 0.04 * 50;
   const trend = r > 0.005 ? 'rising' : r < -0.005 ? 'falling' : 'slack';
-  return { score: clamp(score), detail: `${trend} (${(r * 100).toFixed(1)} cm/h)` };
+  return { score: clamp(score), detail: `${trend} (${(r * 100).toFixed(1)} cm/h, ~8 km model — approximate near shore)` };
 }
 
 // Low light (around sunrise/sunset) is a widely used rule of thumb for feeding activity.

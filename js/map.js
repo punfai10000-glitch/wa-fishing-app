@@ -66,7 +66,7 @@ export function getMap() { return map; }
 export function initMap() {
   const L = window.L;
   // keep popups clear of the search bar/legend at the top and the time bar at the bottom
-  L.Popup.mergeOptions({ autoPanPaddingTopLeft: L.point(10, 150), autoPanPaddingBottomRight: L.point(70, 160), maxWidth: 300 });
+  L.Popup.mergeOptions({ autoPanPaddingTopLeft: L.point(10, 215), autoPanPaddingBottomRight: L.point(70, 160), maxWidth: 300 });
   map = L.map('map', { zoomControl: true, attributionControl: true })
     .setView([CONFIG.MAP_START.lat, CONFIG.MAP_START.lng], CONFIG.MAP_START.zoom);
 
