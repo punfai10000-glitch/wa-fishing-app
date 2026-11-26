@@ -590,3 +590,4 @@ details.guide summary { cursor:pointer; list-style:none; } details.guide summary
 
 .habitat-legend.clarity-legend { left: 10px; right: auto; top: 140px !important; max-width: 240px; }
 @media (max-width: 700px) { .habitat-legend.clarity-legend { top: 150px !important; max-width: 200px; font-size: .9em; } }
+.hab-dots { display:inline-block; width:14px; height:10px; vertical-align:middle; background: repeating-conic-gradient(#8c2814 0 25%, rgba(140,40,20,.35) 0 50%) 0 0/4px 4px; border-radius:2px; }

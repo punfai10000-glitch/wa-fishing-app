@@ -1,6 +1,6 @@
 // Offline support: cache the app shell; network-first for data and forecasts.
 // Map tiles are deliberately NOT cached (Esri terms prohibit offline tile export).
-const VERSION = 'wafi-v35';
+const VERSION = 'wafi-v36';
 // depth and seabed tiles never change between monthly data updates: serve them from the phone instantly
 const TILES = 'wafi-tiles-' + new Date().toISOString().slice(0, 7);
 const SHELL = [
@@ -28,7 +28,7 @@ const isNetworkFirst = url => url.pathname.includes('/data/') || /open-meteo\.co
 self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   if (e.request.method !== 'GET' || isTile(url)) return;
-  if (url.origin === location.origin && /\/data\/(depth|habitat)\/\d+\//.test(url.pathname)) {
+  if (url.origin === location.origin && /\/data\/(depth|habitat|habitat-est)\/\d+\//.test(url.pathname)) {
     e.respondWith(caches.open(TILES).then(c => c.match(e.request).then(hit => hit || fetch(e.request).then(res => { if (res.ok) c.put(e.request, res.clone()); return res; }))));
     return;
   }

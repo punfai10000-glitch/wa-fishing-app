@@ -137,22 +137,29 @@ export function initMap() {
   loadDepthIndex();
   // Seabed habitat: tiles pre-rendered from Seamap Australia (pipeline/fetch_habitat.py) and served from this site —
   // fast, and only tiles that actually contain mapped habitat are requested.
-  let habIdx = null;
-  const habReady = fetch('data/habitat/index.json').then(r => r.json()).then(j => { habIdx = new Set(Object.entries(j.tiles).flatMap(([z, v]) => v.map(k => `${z}/${k}`))); }).catch(() => { habIdx = new Set(); });
-  const Hab = L.TileLayer.extend({
-    createTile(c, done) {
-      const img = document.createElement('img');
-      img.alt = ''; img.setAttribute('role', 'presentation');
-      habReady.then(() => {
-        if (!habIdx.has(`${c.z}/${c.x}/${c.y}`)) { done(null, img); return; }
-        img.onload = () => done(null, img); img.onerror = () => done(null, img);
-        img.src = `data/habitat/${c.z}/${c.x}/${c.y}.png`;
-      });
-      return img;
-    }
-  });
-  overlays.habitat = new Hab('', { minNativeZoom: 8, maxNativeZoom: 13, minZoom: 7, maxZoom: 19, opacity: 0.7, pane: 'underwater', keepBuffer: 3,
+  // Both read an index.json so only tiles that exist are requested. The estimate layer (pipeline/fetch_nearshore_habitat.py)
+  // fills Seamap's gaps within ~1 km of the shore from the satellite photo, drawn dotted.
+  const idxLayer = (dir, opts) => {
+    let idx = null;
+    const ready = fetch(`${dir}/index.json`).then(r => r.json()).then(j => { idx = new Set(Object.entries(j.tiles).flatMap(([z, v]) => v.map(k => `${z}/${k}`))); }).catch(() => { idx = new Set(); });
+    const T = L.TileLayer.extend({
+      createTile(c, done) {
+        const img = document.createElement('img');
+        img.alt = ''; img.setAttribute('role', 'presentation');
+        ready.then(() => {
+          if (!idx.has(`${c.z}/${c.x}/${c.y}`)) { done(null, img); return; }
+          img.onload = () => done(null, img); img.onerror = () => done(null, img);
+          img.src = `${dir}/${c.z}/${c.x}/${c.y}.png`;
+        });
+        return img;
+      }
+    });
+    return new T('', opts);
+  };
+  overlays.habitat = idxLayer('data/habitat', { minNativeZoom: 8, maxNativeZoom: 13, minZoom: 7, maxZoom: 19, opacity: 0.7, pane: 'underwater', keepBuffer: 3,
     attribution: 'Habitat: <a href="https://seamapaustralia.org">Seamap Australia</a> (UTAS, CC BY 4.0)' });
+  overlays.habitatEst = idxLayer('data/habitat-est', { minNativeZoom: 13, maxNativeZoom: 14, minZoom: 12, maxZoom: 19, opacity: 0.85, pane: 'underwater', keepBuffer: 2,
+    attribution: 'Nearshore habitat estimate from <a href="https://cloudless.eox.at">EOxCloudless 2024</a> (CC BY-NC-SA)' });
 
   map.attributionControl.addAttribution('Forecasts: <a href="https://open-meteo.com/">Open-Meteo</a>');
   // Every official zone is drawn (tap inside one for its exact rules):
@@ -430,6 +437,7 @@ function applyLayers() {
   document.getElementById('map').classList.toggle('osm-dark', base === 'street');
   if (base === 'satellite' && on.aerial && !lite()) { if (!map.hasLayer(overlays.aerial)) overlays.aerial.addTo(map); } else map.removeLayer(overlays.aerial);
   syncClarity(on);
+  if (on.habitat) overlays.habitatEst.addTo(map); else map.removeLayer(overlays.habitatEst);
   for (const id of ['depth', 'habitat']) {
     if (on[id]) overlays[id].addTo(map); else map.removeLayer(overlays[id]);
   }
@@ -605,6 +613,7 @@ function buildLegend() {
   const hl = document.getElementById('habitat-legend');
   const k = [['#02DC00', 'Seagrass'], ['#2D9624', 'Seaweed / kelp'], ['#640000', 'Rocky reef'], ['#CC6600', 'Reef + sand'], ['#FFF9A5', 'Sand'], ['#1AA3FF', 'Mixed life'], ['#FF99E6', 'Sponges']];
   hl.innerHTML = `<strong class="small">Seabed habitat</strong><div class="hab-key">${k.map(([c, n]) => `<span><i style="background:${c}"></i>${n}</span>`).join('')}</div>
+    <span class="small"><i class="hab-dots"></i> Dotted = estimated from the satellite photo, within ~1 km of shore (zoom in). Sand vs reef/weed is usually right; seagrass vs reef less so.</span>
     <span class="small muted">No colour = not mapped (not "no reef"). <a href="#/key">All colours →</a></span>`;
 }
 
