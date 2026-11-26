@@ -4,12 +4,13 @@ import { esc } from '../ui.js';
 import { speciesPhoto, speciesGallery } from '../wiki.js';
 import { renderFishId } from './fishid.js';
 import { renderRules } from './rules.js';
+import { renderGuides } from './guides.js';
 
 let query = '';
 let filter = 'all';
 
 function subnav(active) {
-  const items = [['', 'Library'], ['id', 'ID helper'], ['rules', 'Rules']];
+  const items = [['', 'Library'], ['id', 'ID helper'], ['guides', 'How-to'], ['rules', 'Rules']];
   return `<div class="seg" role="tablist" aria-label="Fish sections" style="margin-bottom:12px">
     ${items.map(([k, l]) => `<a role="tab" class="seg-link" href="#/fish${k ? '/' + k : ''}" aria-selected="${active === k}">${l}</a>`).join('')}
   </div>`;
@@ -26,7 +27,7 @@ function statusBadge(s) {
 
 function limitsTable(s) {
   if (s.status === 'protected' || s.status === 'danger') return `<p class="notice danger small">${esc(s.protection)}</p>`;
-  if (!s.limits?.length) return '<p class="small muted">Limits not entered — check the official rules.</p>';
+  if (!s.limits?.length) return '<p class="small notice">This fish\'s size and bag limit isn\'t in the app yet — check <a href="https://rules.fish.wa.gov.au" target="_blank" rel="noopener">rules.fish.wa.gov.au</a> or the Recfishwest app before you keep one. If unsure, release it.</p>';
   const pending = s.limits_verified === false
     ? `<p class="notice small">This fish's own size and bag limit is still being added. Until then the group limit below applies — and the species limit can be stricter.</p>` : '';
   return `${pending}<table class="small"><thead><tr><th>Where</th><th>Min size</th><th>Daily bag</th></tr></thead><tbody>
@@ -48,7 +49,9 @@ function card(s, open) {
       ${s.caution ? `<p class="notice small">⚠ ${esc(s.caution)}</p>` : ''}
       ${s.licence ? `<p class="notice info small"><strong>🪪 Licence:</strong> ${esc(s.licence)}</p>` : ''}
       ${limitsTable(s)}
-      <p class="small"><strong>How to tell:</strong> ${esc(s.id_tips)}</p>
+      ${s.id_tips ? `<p class="small"><strong>How to tell:</strong> ${esc(s.id_tips)}</p>` : ''}
+      ${s.group ? `<p class="small muted">Group: ${esc(s.group)}${s.region === 'north' ? ' · mostly found north of Perth' : ''}</p>` : ''}
+      ${s.more?.length ? `<ul class="small fish-more">${s.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
       <p class="small muted">From the shore you don't need a licence for most fish. Fishing from a powered boat (or using one to reach a spot) needs a Recreational Fishing from Boat Licence (RFBL).</p>
       <p class="small muted">Source: ${(s.sources || []).map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(' · ')} · checked ${esc(s.last_checked ?? '—')}.
 </p>
@@ -84,21 +87,25 @@ async function hydrateGallery(el) {
 
 export function renderFish(view, sub) {
   if (sub === 'id') { view.innerHTML = subnav('id') + '<div id="fish-body"></div>'; renderFishId(view.querySelector('#fish-body')); return; }
+  if (sub === 'guides') { view.innerHTML = subnav('guides') + '<div id="fish-body"></div>'; renderGuides(view.querySelector('#fish-body')); return; }
   if (sub === 'rules') { view.innerHTML = subnav('rules') + '<div id="fish-body"></div>'; renderRules(view.querySelector('#fish-body')); return; }
 
   const focus = sub && sub !== '' ? decodeURIComponent(sub) : null;
   const all = [...state.data.species.species].sort((a, b) => a.name.localeCompare(b.name));
+  const local = all.filter(s => s.region !== 'north');
   const list = all.filter(s =>
-    (filter === 'all' || (filter === 'protected' ? s.status !== 'limits' : filter === 'spear' ? s.activities?.includes('spear') : s.status === 'limits')) &&
+    (query || filter === 'north' ? true : s.region !== 'north') &&
+    (filter === 'all' || filter === 'north' || (filter === 'protected' ? s.status !== 'limits' : filter === 'spear' ? s.activities?.includes('spear') : s.status === 'limits')) &&
     (!query || [s.name, s.scientific, ...(s.aka || [])].join(' ').toLowerCase().includes(query.toLowerCase())));
 
   view.innerHTML = `${subnav('')}
     <h1>Fish library</h1>
-    <div class="notice small">${all.length} species. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Size and bag limits are from DPIRD's Recreational fishing guide 2026 (June 2026 edition), checked 25 Nov 2026. Perth → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
+    <div class="notice small">${local.length} species you can meet from Perth to Esperance, plus ${all.length - local.length} mostly northern ones (pick "All of WA" or search). Extra names, groups and ID tips come from DPIRD's 2026 identification guides. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Size and bag limits are from DPIRD's Recreational fishing guide 2026 (June 2026 edition), checked 25 Nov 2026. Perth → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
     <div class="filters">
       <input type="search" id="fq" placeholder="Search fish" value="${esc(query)}" aria-label="Search fish">
       <select id="ff" aria-label="Show">
-        <option value="all" ${filter === 'all' ? 'selected' : ''}>All (${all.length})</option>
+        <option value="all" ${filter === 'all' ? 'selected' : ''}>Perth → Esperance (${local.length})</option>
+        <option value="north" ${filter === 'north' ? 'selected' : ''}>All of WA, incl. the north (${all.length})</option>
         <option value="keep" ${filter === 'keep' ? 'selected' : ''}>Can keep within limits</option>
         <option value="protected" ${filter === 'protected' ? 'selected' : ''}>Protected or dangerous</option>
         <option value="spear" ${filter === 'spear' ? 'selected' : ''}>Seen when spearfishing / diving</option>

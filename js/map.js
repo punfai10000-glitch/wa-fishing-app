@@ -124,6 +124,7 @@ export function initMap() {
 
   map.createPane('underwater'); map.getPane('underwater').style.zIndex = 350;
   map.createPane('depthPane'); map.getPane('depthPane').style.zIndex = 360;   // above seabed habitat
+  map.createPane('clarity'); map.getPane('clarity').style.zIndex = 370; map.getPane('clarity').style.pointerEvents = 'none';
   overlays.depth = L.tileLayer.wms('https://wms.gebco.net/mapserv?', {
     layers: 'GEBCO_LATEST', format: 'image/png', transparent: true, opacity: 0.55, pane: 'underwater', maxZoom: 10,
     attribution: 'Depth: <a href="https://www.gebco.net">GEBCO Compilation Group</a>'
@@ -434,6 +435,7 @@ function applyLayers() {
   }
   if (on.depth) overlays.depthDetail.addTo(map); else map.removeLayer(overlays.depthDetail);
   document.getElementById('habitat-legend').hidden = !on.habitat;
+  if (on.clarity && state.clarity && !lite()) clarityLegend(true);
   renderAmenities();
 }
 
@@ -586,6 +588,19 @@ function updateLegend(on) {
   document.getElementById('legend').innerHTML = parts.join('');
 }
 
+function clarityLegend(show) {
+  let el = document.getElementById('clarity-legend');
+  if (!el) { el = document.createElement('div'); el.id = 'clarity-legend'; el.className = 'habitat-legend clarity-legend'; document.getElementById('habitat-legend')?.after(el); }
+  el.hidden = !show;
+  if (!show || !state.clarity) return;
+  const d = new Date(state.clarity.date), age = Math.round((Date.now() - d) / 864e5);
+  const key = `${state.clarity.date}`;
+  if (el.dataset.k === key) return;
+  el.dataset.k = key;
+  el.innerHTML = `<strong class="small">Water clarity (satellite)</strong><div class="hab-key">${CLARITY_BANDS.map(b => `<span><i style="background:${b.color};opacity:${b.alpha}"></i>${b.label} · ${b.vis}</span>`).join('')}</div>
+    <span class="small muted">Each square ≈ 4 km, within ~12 km of the coast. Satellite pass ${d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })} (${age} day${age === 1 ? '' : 's'} old) — the water may have changed since. Blank = cloud or no data.</span>`;
+}
+
 function buildLegend() {
   const hl = document.getElementById('habitat-legend');
   const k = [['#02DC00', 'Seagrass'], ['#2D9624', 'Seaweed / kelp'], ['#640000', 'Rocky reef'], ['#CC6600', 'Reef + sand'], ['#FFF9A5', 'Sand'], ['#1AA3FF', 'Mixed life'], ['#FF99E6', 'Sponges']];
@@ -724,12 +739,14 @@ export function openGuide() {
 function syncClarity(on) {
   // satellite clarity picture (rebuilt when a new satellite day arrives)
   if (on.clarity && state.clarity && !lite()) {
-    if (clarityLayer?._date !== state.clarity.date) {
+    const ck = `${state.clarity.date}|${state.coast?.points?.length || 0}`;
+    if (clarityLayer?._key !== ck) {
       clarityLayer?.remove();
-      const im = clarityImage(state.clarity);
-      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 0.6, pane: 'underwater', className: 'clarity-img', attribution: 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
-      clarityLayer._date = state.clarity.date;
+      const im = clarityImage(state.clarity, state.coast?.points || []);
+      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 1, pane: 'clarity', className: 'clarity-img', attribution: 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
+      clarityLayer._key = ck;
     }
     if (!map.hasLayer(clarityLayer)) clarityLayer.addTo(map);
-  } else if (clarityLayer) map.removeLayer(clarityLayer);
+    clarityLegend(true);
+  } else { if (clarityLayer) map.removeLayer(clarityLayer); clarityLegend(false); }
 }

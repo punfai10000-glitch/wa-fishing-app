@@ -1,5 +1,5 @@
 {
- "_note": "Size and bag limits from DPIRD's Recreational fishing guide 2026 (June 2026 Edition 2) bag & size limit tables, checked 25 Nov 2026. Species not named in the guide's tables fall under 'all other finfish' (30 per day in total, no minimum size). Official rules always prevail.",
+ "_note": "Size and bag limits from DPIRD's Recreational fishing guide 2026 (June 2026 Edition 2) bag & size limit tables, checked 25 Nov 2026. Species not named in the guide's tables fall under 'all other finfish' (30 per day in total, no minimum size). Official rules always prevail. Extra ID names, groups, flathead and lobster/crab details from the DPIRD ID, protected species, flathead, rock lobster, crabbing and catch care guides (2025–26), paraphrased. Species marked \"limits not entered\" are in DPIRD's ID guide but their own limits aren't in the app yet.",
  "id_questions": [
   {
    "id": "shape",
@@ -101,7 +101,8 @@
    "id": "australian_herring",
    "name": "Australian herring",
    "aka": [
-    "tommy ruff"
+    "tommy ruff",
+    "herring"
    ],
    "scientific": "Arripis georgianus",
    "activities": [
@@ -134,10 +135,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "australian_salmon",
@@ -176,15 +182,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "tailor",
    "name": "Tailor",
-   "aka": [],
+   "aka": [
+    "chopper – small tailor"
+   ],
    "scientific": "Pomatomus saltatrix",
    "activities": [
     "shore"
@@ -217,10 +230,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "king_george_whiting",
@@ -256,16 +274,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "southern_garfish",
    "name": "Southern garfish",
    "aka": [
-    "gardie"
+    "gardie",
+    "southern sea garfish"
    ],
    "scientific": "Hyporhamphus melanochir",
    "activities": [
@@ -299,10 +323,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "skipjack_trevally",
@@ -353,7 +382,8 @@
    "id": "pink_snapper",
    "name": "Pink snapper",
    "aka": [
-    "snapper"
+    "snapper",
+    "pinkie"
    ],
    "scientific": "Chrysophrys auratus",
    "activities": [
@@ -396,10 +426,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "wa_dhufish",
@@ -448,11 +490,23 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
    "last_checked": "2026-11-25",
    "spear_banned_landbased": true,
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "black_bream",
@@ -487,15 +541,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "tarwhine",
    "name": "Tarwhine",
-   "aka": [],
+   "aka": [
+    "silver bream"
+   ],
    "scientific": "Rhabdosargus sarba",
    "activities": [
     "shore"
@@ -526,10 +587,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "flathead",
@@ -577,7 +643,10 @@
    "id": "mulloway",
    "name": "Mulloway",
    "aka": [
-    "jewfish"
+    "jewfish",
+    "river kingfish",
+    "silver jewfish",
+    "soapy"
    ],
    "scientific": "Argyrosomus japonicus",
    "activities": [
@@ -612,10 +681,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "western_blue_groper",
@@ -661,10 +735,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "southern_calamari",
@@ -702,10 +788,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Molluscs"
   },
   {
    "id": "black_stingray",
@@ -738,6 +829,10 @@
     {
      "name": "DPIRD — Protected species",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
@@ -776,6 +871,10 @@
     {
      "name": "DPIRD — Protected species",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
@@ -812,6 +911,10 @@
     {
      "name": "DPIRD — Protected species",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
@@ -851,6 +954,10 @@
     {
      "name": "DPIRD — Protected species",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
@@ -891,11 +998,20 @@
     {
      "name": "DPIRD — Protected species",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
    "rule_ids": [],
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Sharks & rays"
   },
   {
    "id": "white_shark",
@@ -932,11 +1048,20 @@
     {
      "name": "DPIRD — Protected species",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
    "rule_ids": [],
-   "limits_verified": true
+   "limits_verified": true,
+   "group": "Sharks & rays"
   },
   {
    "id": "blue_ringed_octopus",
@@ -976,7 +1101,8 @@
    "id": "southern_school_whiting",
    "name": "Southern school whiting",
    "aka": [
-    "school whiting"
+    "school whiting",
+    "sand whiting"
    ],
    "scientific": "Sillago bassensis",
    "activities": [
@@ -1010,14 +1136,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "yellowfin_whiting",
    "name": "Yellowfin whiting",
-   "aka": [],
+   "aka": [
+    "sand whiting",
+    "silver whiting"
+   ],
    "scientific": "Sillago schomburgkii",
    "activities": [
     "shore"
@@ -1049,9 +1183,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "trumpeter_whiting",
@@ -1097,7 +1236,10 @@
   {
    "id": "western_school_whiting",
    "name": "Western school whiting",
-   "aka": [],
+   "aka": [
+    "sand whiting",
+    "school whiting"
+   ],
    "scientific": "Sillago vittata",
    "activities": [
     "shore"
@@ -1129,9 +1271,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "silver_trevally",
@@ -1214,15 +1361,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "yellow_eye_mullet",
    "name": "Yellow-eye mullet",
    "aka": [
-    "pilch"
+    "pilch",
+    "yellow-eyed mullet"
    ],
    "scientific": "Aldrichetta forsteri",
    "activities": [
@@ -1255,9 +1408,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "estuary_cobbler",
@@ -1299,16 +1457,25 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "caution": "Venomous fin spines — painful sting. Edible, but handle with care."
+   "caution": "Venomous fin spines — painful sting. Edible, but handle with care.",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "bar_tailed_flathead",
-   "name": "Bar-tailed flathead",
-   "aka": [],
-   "scientific": "Platycephalus endrachtensis",
+   "name": "Yellowtail flathead",
+   "aka": [
+    "bartail flathead",
+    "bar-tailed flathead",
+    "bartailed flathead"
+   ],
+   "scientific": "Platycephalus westraliae",
    "activities": [
     "shore"
    ],
@@ -1324,9 +1491,9 @@
      "big_head"
     ]
    },
-   "id_tips": "Flathead with dark bars on the tail fin; estuaries such as the Swan and Peel. Sharp head spines.",
+   "id_tips": "The Swan–Canning \"bartail\": whitish tail with a bright yellow stripe along the top edge and 3–4 dark horizontal bars below it. Grows to about 76 cm. Sharp gill-cover spines.",
    "rule_ids": [],
-   "wiki": "Platycephalus_endrachtensis",
+   "wiki": "Platycephalus_westraliae",
    "status": "limits",
    "category": "nearshore",
    "limits": [
@@ -1342,16 +1509,27 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "caution": "Sharp spines on the gill cover."
+   "caution": "Sharp spines on the gill cover.",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "southern_bluespotted_flathead",
    "name": "Southern blue-spotted flathead",
    "aka": [
-    "blue-spot flathead"
+    "blue-spot flathead",
+    "bluespotted flathead",
+    "southern flathead"
    ],
    "scientific": "Platycephalus speculator",
    "activities": [
@@ -1368,7 +1546,7 @@
      "big_head"
     ]
    },
-   "id_tips": "Flathead with small blue spots and a yellow/white tail with a dark blotch; sandy bays and estuaries.",
+   "id_tips": "A few blue spots on the back; the tail's rear edge has 3–5 big round black spots ringed in white, with dusky blotches on the upper tail. Up to ~90 cm.",
    "rule_ids": [],
    "wiki": "Platycephalus_speculator",
    "status": "limits",
@@ -1386,10 +1564,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "caution": "Sharp spines on the gill cover."
+   "caution": "Sharp spines on the gill cover.",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ],
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "greenback_flounder",
@@ -1466,16 +1656,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "western_striped_trumpeter",
    "name": "Western striped grunter",
    "aka": [
     "striped trumpeter",
-    "western striped trumpeter"
+    "western striped trumpeter",
+    "trumpeter"
    ],
    "scientific": "Pelates octolineatus",
    "activities": [
@@ -1508,9 +1704,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "silver_biddy",
@@ -1556,7 +1757,9 @@
    "name": "Yellowtail scad",
    "aka": [
     "yakka",
-    "scaly mackerel (wrong name)"
+    "scaly mackerel (wrong name)",
+    "yellowtail",
+    "yellowtail horse mackerel"
    ],
    "scientific": "Trachurus novaezelandiae",
    "activities": [
@@ -1589,9 +1792,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "australian_anchovy",
@@ -1715,7 +1923,9 @@
    "id": "blue_mackerel",
    "name": "Blue mackerel",
    "aka": [
-    "slimy mackerel"
+    "slimy mackerel",
+    "slimey mackerel",
+    "common mackerel"
    ],
    "scientific": "Scomber australasicus",
    "activities": [
@@ -1749,9 +1959,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "snook",
@@ -1793,9 +2008,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "long_finned_pike",
@@ -1878,14 +2098,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "baldchin_groper",
    "name": "Baldchin groper",
-   "aka": [],
+   "aka": [
+    "baldie"
+   ],
    "scientific": "Choerodon rubescens",
    "activities": [
     "shore",
@@ -1926,14 +2153,28 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "breaksea_cod",
    "name": "Breaksea cod",
-   "aka": [],
+   "aka": [
+    "black arse cod"
+   ],
    "scientific": "Epinephelides armatus",
    "activities": [
     "shore",
@@ -1975,9 +2216,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "harlequin_fish",
@@ -2025,15 +2278,28 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "bight_redfish",
    "name": "Bight redfish",
    "aka": [
-    "nannygai"
+    "nannygai",
+    "red snapper"
    ],
    "scientific": "Centroberyx gerrardi",
    "activities": [
@@ -2073,9 +2339,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "swallowtail",
@@ -2119,9 +2397,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "queen_snapper",
@@ -2167,9 +2457,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "western_foxfish",
@@ -2215,9 +2517,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "red_lipped_morwong",
@@ -2376,14 +2690,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "brownspotted_wrasse",
    "name": "Brown-spotted wrasse",
-   "aka": [],
+   "aka": [
+    "orange spotted wrasse"
+   ],
    "scientific": "Notolabrus parilus",
    "activities": [
     "shore",
@@ -2417,15 +2738,20 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "southern_maori_wrasse",
    "name": "Southern maori wrasse",
    "aka": [],
-   "scientific": "Ophthalmolepis lineolata",
+   "scientific": "Ophthalmolepis lineolatus",
    "activities": [
     "shore",
     "spear"
@@ -2458,15 +2784,23 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine",
+   "more": [
+    "Scientific name updated to the one DPIRD uses in its 2026 ID guide."
+   ]
   },
   {
    "id": "sergeant_baker",
    "name": "Sergeant baker",
    "aka": [],
-   "scientific": "Aulopus purpurissatus",
+   "scientific": "Latropiscis purpurissatus",
    "activities": [
     "shore",
     "spear"
@@ -2501,9 +2835,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Scientific name updated to the one DPIRD uses in its 2026 ID guide.",
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "sea_sweep",
@@ -2541,9 +2888,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "banded_sweep",
@@ -2581,9 +2933,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "silver_drummer",
@@ -2832,7 +3189,10 @@
   {
    "id": "western_butterfish",
    "name": "Western butterfish",
-   "aka": [],
+   "aka": [
+    "butterfish",
+    "buttery"
+   ],
    "scientific": "Pentapodus vitta",
    "activities": [
     "shore"
@@ -2865,9 +3225,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "horseshoe_leatherjacket",
@@ -2905,14 +3270,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "six_spine_leatherjacket",
    "name": "Six-spine leatherjacket",
-   "aka": [],
+   "aka": [
+    "reef leatherjacket"
+   ],
    "scientific": "Meuschenia freycineti",
    "activities": [
     "shore",
@@ -2946,9 +3318,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "rough_leatherjacket",
@@ -3115,15 +3492,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "yellowtail_kingfish",
    "name": "Yellowtail kingfish",
    "aka": [
-    "kingie"
+    "kingie",
+    "kingfish"
    ],
    "scientific": "Seriola lalandi",
    "activities": [
@@ -3157,9 +3540,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "australian_bonito",
@@ -3206,7 +3594,9 @@
   {
    "id": "gummy_shark",
    "name": "Gummy shark",
-   "aka": [],
+   "aka": [
+    "southern gummy shark"
+   ],
    "scientific": "Mustelus antarcticus",
    "activities": [
     "shore"
@@ -3239,9 +3629,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Sharks & rays"
   },
   {
    "id": "whiskery_shark",
@@ -3279,9 +3674,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Sharks & rays"
   },
   {
    "id": "bronze_whaler",
@@ -3320,9 +3720,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Sharks & rays",
+   "caution": "West and South Coast: whalers longer than 700 mm interdorsal (front of the 1st dorsal fin to the front of the 2nd) are protected — measure before you keep one.",
+   "more": [
+    "Telling them apart: bronze whalers have narrow, hook-shaped upper teeth and NO ridge of skin between the two dorsal fins; dusky whalers have broad, angular upper teeth and DO have that ridge."
+   ]
   },
   {
    "id": "dusky_whaler",
@@ -3361,9 +3774,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Sharks & rays",
+   "caution": "West and South Coast: whalers longer than 700 mm interdorsal (front of the 1st dorsal fin to the front of the 2nd) are protected — measure before you keep one.",
+   "more": [
+    "Telling them apart: bronze whalers have narrow, hook-shaped upper teeth and NO ridge of skin between the two dorsal fins; dusky whalers have broad, angular upper teeth and DO have that ridge."
+   ]
   },
   {
    "id": "port_jackson_shark",
@@ -3401,9 +3827,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Sharks & rays"
   },
   {
    "id": "spotted_wobbegong",
@@ -3485,9 +3916,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-25",
+   "group": "Sharks & rays"
   },
   {
    "id": "southern_eagle_ray",
@@ -3659,7 +4095,8 @@
    "name": "Blue swimmer crab",
    "aka": [
     "blue manna",
-    "blue swimmer"
+    "blue swimmer",
+    "blue crab"
    ],
    "scientific": "Portunus armatus",
    "activities": [
@@ -3710,10 +4147,26 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Crabbing for blue swimmer crabs (Nov 2025) and Crabbing code of conduct (Aug 2025)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
    "last_checked": "2026-11-25",
-   "licence": "No licence needed from the shore or a jetty. From a powered boat you need a Recreational Fishing from Boat Licence (RFBL)."
+   "licence": "No licence needed from the shore or a jetty. From a powered boat you need a Recreational Fishing from Boat Licence (RFBL).",
+   "group": "Crustaceans",
+   "more": [
+    "Measure from tip to tip of the side spikes across the widest part of the shell with a proper crab gauge (not a can or ruler). Measure and count each crab as soon as it's in your bag or bucket.",
+    "Males are bigger with rich blue legs and claws and a narrow, pointed flap underneath; females are mottled brown with a broad, rounded flap. Release egg-carrying (\"berried\") females gently and at once.",
+    "Legal gear: hand, rigid scoop net (max 375 mm across, 210 mm deep), drop nets (max 1.5 m, 10 per person or per boat) or a blunt wire hook. Rakes, landing nets, fishing nets and dip nets are illegal.",
+    "Swan & Canning rivers and Cockburn Sound: take off the top shell, guts (mustard) and gills before cooking or freezing — an algal toxin (Alexandrium) can build up in crabs and cooking doesn't destroy it.",
+    "Keep crabs whole until home unless you're eating them straight away. Don't high-grade (swap smaller crabs for bigger ones) — discarded crabs usually die."
+   ]
   },
   {
    "id": "western_rock_lobster",
@@ -3735,7 +4188,7 @@
     ],
     "feature": []
    },
-   "id_tips": "Spiny red-brown crayfish with long antennae. Licence needed; females carrying eggs (tarry) must be released.",
+   "id_tips": "Spiny red-brown crayfish with long antennae; a single white dot on the outside edge of each tail segment. Licence needed.",
    "rule_ids": [],
    "wiki": "Panulirus_cygnus",
    "status": "limits",
@@ -3753,10 +4206,29 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Rock lobster recreational fishing guide 2026 (July 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
    "last_checked": "2026-11-25",
-   "licence": "Recreational rock lobster licence required (from shore or boat)."
+   "licence": "Recreational rock lobster licence required (from shore or boat).",
+   "group": "Crustaceans",
+   "more": [
+    "Totally protected: any lobster carrying eggs (\"berried\"), and western rock lobsters with a tarspot (sperm packet under the body between the back legs) from Windy Harbour to North West Cape. Put them back before you pull the next pot or grab the next lobster.",
+    "Night ban south of North West Cape: no pot pulling or diving for lobster 7:30 pm–4:30 am (15 Oct–31 Mar) and 6 pm–6 am (1 Apr–14 Oct).",
+    "Divers: by hand, a hand-held snare or a blunt crook only — spears and nets are illegal for lobster. Measure in the water and release undersize ones before taking the next.",
+    "Measure the carapace with a gauge: western — from the ridge between the two front horns to the back of the shell; southern — from the notch between the antennae to the back of the shell, along the midline.",
+    "Clip or punch the tail fan of every lobster you keep within 5 minutes of landing it (remove at least the lower half of the middle flap, or a 10 mm hole).",
+    "Pots: max 2 per licence (6 per boat), 1 entrance, escape gaps (3 between North West Cape and Cape Leeuwin, 1 south and east of Cape Leeuwin), max 2 floats, weighted rope 1 Apr–31 Oct for whales. Never pull someone else's pot.",
+    "Release quickly over reef or weed where it was caught — lobsters left out of the water more than 5 minutes sink slowly and get eaten.",
+    "No lobster fishing in Rottnest's five conservation areas (Parker Point, Thomson Bay, Armstrong Bay, Green Island, West End) or in marine park sanctuary zones. Report tagged lobsters (tag number, size, sex, place, depth) to DPIRD."
+   ]
   },
   {
    "id": "southern_rock_lobster",
@@ -3776,7 +4248,7 @@
     ],
     "feature": []
    },
-   "id_tips": "Deep red crayfish of the south coast with a smoother shell than the western rock lobster.",
+   "id_tips": "Deep red south-coast crayfish with a single spine between and just in front of the eyes. Licence needed; 98.5 mm minimum.",
    "rule_ids": [],
    "wiki": "Jasus_edwardsii",
    "status": "limits",
@@ -3794,10 +4266,29 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Rock lobster recreational fishing guide 2026 (July 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
    "last_checked": "2026-11-25",
-   "licence": "Recreational rock lobster licence required (from shore or boat)."
+   "licence": "Recreational rock lobster licence required (from shore or boat).",
+   "group": "Crustaceans",
+   "more": [
+    "Totally protected: any lobster carrying eggs (\"berried\"), and western rock lobsters with a tarspot (sperm packet under the body between the back legs) from Windy Harbour to North West Cape. Put them back before you pull the next pot or grab the next lobster.",
+    "Night ban south of North West Cape: no pot pulling or diving for lobster 7:30 pm–4:30 am (15 Oct–31 Mar) and 6 pm–6 am (1 Apr–14 Oct).",
+    "Divers: by hand, a hand-held snare or a blunt crook only — spears and nets are illegal for lobster. Measure in the water and release undersize ones before taking the next.",
+    "Measure the carapace with a gauge: western — from the ridge between the two front horns to the back of the shell; southern — from the notch between the antennae to the back of the shell, along the midline.",
+    "Clip or punch the tail fan of every lobster you keep within 5 minutes of landing it (remove at least the lower half of the middle flap, or a 10 mm hole).",
+    "Pots: max 2 per licence (6 per boat), 1 entrance, escape gaps (3 between North West Cape and Cape Leeuwin, 1 south and east of Cape Leeuwin), max 2 floats, weighted rope 1 Apr–31 Oct for whales. Never pull someone else's pot.",
+    "Release quickly over reef or weed where it was caught — lobsters left out of the water more than 5 minutes sink slowly and get eaten.",
+    "No lobster fishing in Rottnest's five conservation areas (Parker Point, Thomson Bay, Armstrong Bay, Green Island, West End) or in marine park sanctuary zones. Report tagged lobsters (tag number, size, sex, place, depth) to DPIRD."
+   ]
   },
   {
    "id": "roes_abalone",
@@ -3840,10 +4331,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "licence": "Recreational abalone licence required."
+   "licence": "Recreational abalone licence required.",
+   "group": "Molluscs"
   },
   {
    "id": "greenlip_abalone",
@@ -3880,10 +4376,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "licence": "Recreational abalone licence required."
+   "licence": "Recreational abalone licence required.",
+   "group": "Molluscs"
   },
   {
    "id": "brownlip_abalone",
@@ -3920,10 +4421,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "licence": "Recreational abalone licence required."
+   "licence": "Recreational abalone licence required.",
+   "group": "Molluscs"
   },
   {
    "id": "western_king_prawn",
@@ -4031,17 +4537,30 @@
     {
      "name": "DPIRD Recreational fishing guide 2026",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
    "last_checked": "2026-11-25",
-   "protection": "Venomous spines. Handle with pliers; hot-water first aid for stings."
+   "protection": "Venomous spines. Handle with pliers; hot-water first aid for stings.",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "common_blowfish",
    "name": "Common blowfish",
    "aka": [
     "blowie",
-    "toadfish"
+    "toadfish",
+    "pufferfish"
    ],
    "scientific": "Torquigener pleurogramma",
    "activities": [
@@ -4070,10 +4589,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-25",
-   "protection": "Poisonous to eat (tetrodotoxin). Return to the water or bin it — don't leave it on the jetty."
+   "protection": "Poisonous to eat (tetrodotoxin). Return to the water or bin it — don't leave it on the jetty.",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "striped_catfish",
@@ -4928,9 +5452,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Offshore demersal (deeper than ~250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "bass_groper",
@@ -4975,9 +5511,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Offshore demersal (deeper than ~250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "blue_eye_trevalla",
@@ -5020,9 +5568,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Offshore demersal (deeper than ~250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "yelloweye_redfish",
@@ -5066,9 +5626,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
   },
   {
    "id": "amberjack",
@@ -5106,9 +5678,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "barracouta",
@@ -5186,9 +5763,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "yellowfin_tuna",
@@ -5225,14 +5807,21 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "skipjack_tuna",
    "name": "Skipjack tuna",
-   "aka": [],
+   "aka": [
+    "striped tuna"
+   ],
    "scientific": "Katsuwonus pelamis",
    "activities": [
     "shore"
@@ -5264,14 +5853,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "mackerel_tuna",
    "name": "Mackerel tuna",
-   "aka": [],
+   "aka": [
+    "jack mackerel",
+    "kawa Kawa"
+   ],
    "scientific": "Euthynnus affinis",
    "activities": [
     "shore"
@@ -5304,9 +5901,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "mahi_mahi",
@@ -5352,7 +5954,9 @@
   {
    "id": "spanish_mackerel",
    "name": "Spanish mackerel",
-   "aka": [],
+   "aka": [
+    "narrow-barred Spanish mackerel"
+   ],
    "scientific": "Scomberomorus commerson",
    "activities": [
     "shore",
@@ -5387,9 +5991,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "striped_marlin",
@@ -5428,14 +6037,23 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Pelagic (open water)"
   },
   {
    "id": "sandbar_shark",
    "name": "Sandbar shark",
-   "aka": [],
+   "aka": [
+    "thickskin shark",
+    "northern whaler",
+    "sand shark"
+   ],
    "scientific": "Carcharhinus plumbeus",
    "activities": [
     "shore"
@@ -5469,9 +6087,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Sharks & rays"
   },
   {
    "id": "bull_shark",
@@ -5510,9 +6133,18 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Sharks & rays"
   },
   {
    "id": "tiger_shark",
@@ -5551,9 +6183,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Sharks & rays"
   },
   {
    "id": "shortfin_mako",
@@ -5592,6 +6229,10 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-26"
@@ -5633,6 +6274,10 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-26"
@@ -5916,9 +6561,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Sharks & rays"
   },
   {
    "id": "elephantfish",
@@ -5996,9 +6646,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Sharks & rays"
   },
   {
    "id": "sparsely_spotted_stingaree",
@@ -6109,6 +6764,10 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-26",
@@ -6349,7 +7008,8 @@
    "id": "striped_barracuda",
    "name": "Striped barracuda",
    "aka": [
-    "striped seapike"
+    "striped seapike",
+    "pike"
    ],
    "scientific": "Sphyraena obtusata",
    "activities": [
@@ -6385,9 +7045,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "rock_flathead",
@@ -6410,7 +7075,7 @@
      "big_head"
     ]
    },
-   "id_tips": "Mottled flathead of weedy rock and seagrass areas on the south coast. Sharp head spines.",
+   "id_tips": "Dense dark spots on a yellow tail; the upper gill-cover spine is longer than the lower one. Up to ~81 cm.",
    "rule_ids": [],
    "wiki": "Platycephalus_laevigatus",
    "status": "limits",
@@ -6428,15 +7093,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ]
   },
   {
    "id": "long_spined_flathead",
-   "name": "Long-spined flathead",
+   "name": "Longspine flathead",
    "aka": [],
-   "scientific": "Platycephalus longispinis",
+   "scientific": "Platycephalus grandispinis",
    "activities": [
     "shore"
    ],
@@ -6451,9 +7123,9 @@
      "big_head"
     ]
    },
-   "id_tips": "Flathead with a very long lower spine on the gill cover; sandy bottoms.",
+   "id_tips": "Upper half of the tail yellow, lower half blackish without distinct blotches; the lower gill-cover spine is much longer than the upper. Small — up to about 38 cm.",
    "rule_ids": [],
-   "wiki": "Platycephalus_longispinis",
+   "wiki": "Platycephalus_grandispinis",
    "status": "limits",
    "category": "nearshore",
    "limits": [
@@ -6469,9 +7141,18 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "longsnout_flounder",
@@ -7305,9 +7986,14 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-26",
+   "group": "Nearshore & estuarine"
   },
   {
    "id": "common_bullseye",
@@ -7657,10 +8343,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-26",
-   "licence": "South-west freshwater angling licence required."
+   "licence": "South-west freshwater angling licence required.",
+   "group": "Freshwater"
   },
   {
    "id": "brown_trout",
@@ -7697,15 +8388,22 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-26",
-   "licence": "South-west freshwater angling licence required."
+   "licence": "South-west freshwater angling licence required.",
+   "group": "Freshwater"
   },
   {
    "id": "freshwater_cobbler",
    "name": "Freshwater cobbler",
-   "aka": [],
+   "aka": [
+    "freshwater catfish"
+   ],
    "scientific": "Tandanus bostocki",
    "activities": [
     "shore"
@@ -7739,11 +8437,16 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-26",
    "licence": "South-west freshwater angling licence required.",
-   "caution": "Venomous fin spines."
+   "caution": "Venomous fin spines.",
+   "group": "Freshwater"
   },
   {
    "id": "redfin_perch",
@@ -7780,10 +8483,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-26",
-   "pest": true
+   "pest": true,
+   "group": "Freshwater"
   },
   {
    "id": "common_carp",
@@ -7946,10 +8654,15 @@
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
    "last_checked": "2026-11-26",
-   "licence": "Recreational marron licence required."
+   "licence": "Recreational marron licence required.",
+   "group": "Freshwater"
   },
   {
    "id": "gilgie",
@@ -8790,6 +9503,4131 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
+   "last_checked": "2026-11-26"
+  },
+  {
+   "id": "northern_sand_flathead",
+   "name": "Northern sand flathead",
+   "aka": [
+    "sand flathead",
+    "flag tailed flathead"
+   ],
+   "scientific": "Platycephalus endrachtensis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Brown-spotted body and 4 or more dark horizontal bars on the tail. Up to ~62 cm. Mostly north of Perth — the Swan \"bartail\" is the yellowtail flathead.",
+   "rule_ids": [],
+   "wiki": "Platycephalus_endrachtensis",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "last_checked": "2026-11-26",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ],
+   "caution": "Sharp spines on the gill cover.",
+   "group": "Nearshore & estuarine"
+  },
+  {
+   "id": "bigtooth_flathead",
+   "name": "Bigtooth flathead",
+   "aka": [],
+   "scientific": "Platycephalus chauliodous",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Reddish-brown upper body and tail. Up to ~47 cm.",
+   "rule_ids": [],
+   "wiki": "Platycephalus_chauliodous",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "last_checked": "2026-11-26",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ],
+   "caution": "Sharp spines on the gill cover."
+  },
+  {
+   "id": "fringe_eye_flathead",
+   "name": "Fringe-eye flathead",
+   "aka": [],
+   "scientific": "Cymbacephalus nematophthalmus",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "7–8 dusky bands across the back, mottled fins and fleshy \"fringes\" over the eyes. Up to ~58 cm.",
+   "rule_ids": [],
+   "wiki": "Cymbacephalus_nematophthalmus",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "last_checked": "2026-11-26",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ],
+   "caution": "Sharp spines on the gill cover."
+  },
+  {
+   "id": "longhead_flathead",
+   "name": "Longhead flathead",
+   "aka": [],
+   "scientific": "Leviprora inops",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Noticeably long head and dark spots over the tail. Up to ~65 cm.",
+   "rule_ids": [],
+   "wiki": "Leviprora_inops",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    },
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "last_checked": "2026-11-26",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ],
+   "caution": "Sharp spines on the gill cover.",
+   "group": "Nearshore & estuarine"
+  },
+  {
+   "id": "western_australian_flathead",
+   "name": "Western Australian flathead",
+   "aka": [],
+   "scientific": "Platycephalus orbitalis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Blackish tail with a white rear edge and many short dark bars joining the dark centre. Up to ~61 cm.",
+   "rule_ids": [],
+   "wiki": "Platycephalus_orbitalis",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "last_checked": "2026-11-26",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ],
+   "caution": "Sharp spines on the gill cover."
+  },
+  {
+   "id": "southern_sand_flathead",
+   "name": "Southern sand flathead",
+   "aka": [],
+   "scientific": "Platycephalus bassensis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "Big blackish blotches on the lower tail, brownish ones on the upper; lower gill-cover spine much bigger than the upper. Up to ~55 cm.",
+   "rule_ids": [],
+   "wiki": "Platycephalus_bassensis",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "last_checked": "2026-11-26",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ],
+   "caution": "Sharp spines on the gill cover."
+  },
+  {
+   "id": "bartail_flathead_southern",
+   "name": "Bartail flathead (southern)",
+   "aka": [],
+   "scientific": "Platycephalus australis",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "traits": {
+    "shape": [
+     "flat"
+    ],
+    "marks": [
+     "dark",
+     "spots"
+    ],
+    "feature": [
+     "big_head"
+    ]
+   },
+   "id_tips": "2–3 horizontal black bars on the tail with a bright yellow stripe through the middle, and a large dark blotch inside the gill cover. Up to ~1 m. Not the same fish as the Swan River \"bartail\".",
+   "rule_ids": [],
+   "wiki": "Platycephalus_australis",
+   "status": "limits",
+   "category": "nearshore",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD Commonly caught flatheads of southern WA (Oct 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "last_checked": "2026-11-26",
+   "more": [
+    "Flatheads: the tail fin's colour and pattern is the quickest way to tell the species apart (DPIRD flathead guide)."
+   ],
+   "caution": "Sharp spines on the gill cover."
+  },
+  {
+   "id": "greybanded_grouper",
+   "name": "Greybanded grouper",
+   "scientific": "Hyporthodus griseofasciatus",
+   "aka": [],
+   "group": "Offshore demersal (deeper than ~250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Hyporthodus_griseofasciatus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "ruby_snapper",
+   "name": "Ruby snapper",
+   "scientific": "Etelis boweni",
+   "aka": [],
+   "group": "Offshore demersal (deeper than ~250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Etelis_boweni",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "flame_snapper",
+   "name": "Flame snapper",
+   "scientific": "Etelis coruscans",
+   "aka": [],
+   "group": "Offshore demersal (deeper than ~250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Etelis_coruscans",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "northern_pearl_perch",
+   "name": "Northern pearl perch",
+   "scientific": "Glaucosoma buergeri",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Glaucosoma_buergeri",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "sunburnt_pigfish",
+   "name": "Sunburnt pigfish",
+   "scientific": "Bodianus solatus",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Bodianus_solatus",
+   "region": "south",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "western_pigfish",
+   "name": "Western pigfish",
+   "scientific": "Bodianus vulpinus",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Bodianus_vulpinus",
+   "region": "south",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "blackspot_tuskfish",
+   "name": "Blackspot tuskfish",
+   "scientific": "Choerodon schoenleinii",
+   "aka": [
+    "bluebone"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Choerodon_schoenleinii",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "humphead_maori_wrasse",
+   "name": "Humphead Maori wrasse",
+   "scientific": "Cheilinus undulatus",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "protected",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Cheilinus_undulatus",
+   "region": "north",
+   "protection": "Totally protected in WA — release it immediately and carefully. Report it if it is hurt.",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "blue_tuskfish",
+   "name": "Blue tuskfish",
+   "scientific": "Choerodon cyanodus",
+   "aka": [
+    "bluebone"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Choerodon_cyanodus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "bluespotted_tuskfish",
+   "name": "Bluespotted tuskfish",
+   "scientific": "Choerodon cauteroma",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Choerodon_cauteroma",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "purple_tuskfish",
+   "name": "Purple tuskfish",
+   "scientific": "Choerodon cephalotes",
+   "aka": [
+    "grass tuskfish",
+    "bluebone"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Choerodon_cephalotes",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "rankin_cod",
+   "name": "Rankin cod",
+   "scientific": "Epinephelus rankini",
+   "aka": [
+    "whitespotted rockcod"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_rankini",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "yellowspotted_rockcod",
+   "name": "Yellowspotted rockcod",
+   "scientific": "Epinephelus areolatus",
+   "aka": [
+    "spotted cod",
+    "honeycomb cod"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_areolatus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "blackspotted_rockcod",
+   "name": "Blackspotted rockcod",
+   "scientific": "Epinephelus malabaricus",
+   "aka": [
+    "malabar cod",
+    "estuary cod",
+    "slimy cod"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_malabaricus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "goldspotted_rockcod",
+   "name": "Goldspotted rockcod",
+   "scientific": "Epinephelus coioides",
+   "aka": [
+    "estuary cod",
+    "slimy cod",
+    "greasy grouper"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_coioides",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "duskytail_grouper",
+   "name": "Duskytail grouper",
+   "scientific": "Epinephelus bleekeri",
+   "aka": [
+    "spotted trout",
+    "trout cod"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_bleekeri",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "frostback_rockcod",
+   "name": "Frostback rockcod",
+   "scientific": "Epinephelus bilobatus",
+   "aka": [
+    "spotted cod",
+    "honeycomb cod",
+    "frostback cod"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_bilobatus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "tomato_rockcod",
+   "name": "Tomato rockcod",
+   "scientific": "Cephalopholis sonnerati",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Cephalopholis_sonnerati",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "potato_rockcod",
+   "name": "Potato rockcod",
+   "scientific": "Epinephelus tukula",
+   "aka": [
+    "potato cod"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "protected",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_tukula",
+   "region": "north",
+   "protection": "Totally protected in WA — release it immediately and carefully. Report it if it is hurt.",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "queensland_groper",
+   "name": "Queensland groper",
+   "scientific": "Epinephelus lanceolatus",
+   "aka": [
+    "giant grouper",
+    "queensland grouper"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "protected",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_lanceolatus",
+   "region": "north",
+   "protection": "Totally protected in WA — release it immediately and carefully. Report it if it is hurt.",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "common_coral_trout",
+   "name": "Common coral trout",
+   "scientific": "Plectropomus leopardus",
+   "aka": [
+    "leopard coral trout"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Plectropomus_leopardus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "barcheek_coral_trout",
+   "name": "Barcheek coral trout",
+   "scientific": "Plectropomus maculatus",
+   "aka": [
+    "inshore coral trout"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Plectropomus_maculatus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "barramundi_cod",
+   "name": "Barramundi cod",
+   "scientific": "Chromileptes altivelis",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Chromileptes_altivelis",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "yellowedge_coronation_trout",
+   "name": "Yellowedge coronation trout",
+   "scientific": "Variola louti",
+   "aka": [
+    "coronation trout",
+    "lunartail trout"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Variola_louti",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "chinamanfish",
+   "name": "Chinamanfish",
+   "scientific": "Symphorus nematophorus",
+   "aka": [
+    "chinaman"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Symphorus_nematophorus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "red_emperor",
+   "name": "Red emperor",
+   "scientific": "Lutjanus sebae",
+   "aka": [
+    "reds"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_sebae",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "crimson_snapper",
+   "name": "Crimson snapper",
+   "scientific": "Lutjanus erythropterus",
+   "aka": [
+    "crimson seaperch",
+    "small mouth nannygai"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_erythropterus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "saddletail_snapper",
+   "name": "Saddletail snapper",
+   "scientific": "Lutjanus malabaricus",
+   "aka": [
+    "scarlet seaperch",
+    "large mouth nannygai"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_malabaricus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "darktail_snapper",
+   "name": "Darktail snapper",
+   "scientific": "Lutjanus lemniscatus",
+   "aka": [
+    "maroon seaperch",
+    "dark tailed seaperch"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_lemniscatus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "moses_snapper",
+   "name": "Moses' snapper",
+   "scientific": "Lutjanus russellii",
+   "aka": [
+    "moses' perch",
+    "fingermark bream"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_russellii",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "maori_snapper",
+   "name": "Maori snapper",
+   "scientific": "Lutjanus rivulatus",
+   "aka": [
+    "maori seaperch"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_rivulatus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "brownstripe_snapper",
+   "name": "Brownstripe snapper",
+   "scientific": "Lutjanus vitta",
+   "aka": [
+    "flagfish"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_vitta",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "grass_emperor",
+   "name": "Grass emperor",
+   "scientific": "Lethrinus laticaudis",
+   "aka": [
+    "black snapper",
+    "blue-lined emperor",
+    "grass snapper",
+    "tricky snapper"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lethrinus_laticaudis",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "bluespotted_emperor",
+   "name": "Bluespotted emperor",
+   "scientific": "Lethrinus punctulatus",
+   "aka": [
+    "lesser spangled emperor"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lethrinus_punctulatus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "longnose_emperor",
+   "name": "Longnose emperor",
+   "scientific": "Lethrinus olivaceus",
+   "aka": [
+    "long-nosed emperor"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lethrinus_olivaceus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "spangled_emperor",
+   "name": "Spangled emperor",
+   "scientific": "Lethrinus nebulosus",
+   "aka": [
+    "norwest snapper",
+    "spango"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lethrinus_nebulosus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "redthroat_emperor",
+   "name": "Redthroat emperor",
+   "scientific": "Lethrinus miniatus",
+   "aka": [
+    "sweetlip emperor"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lethrinus_miniatus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "yellowtail_emperor",
+   "name": "Yellowtail emperor",
+   "scientific": "Lethrinus atkinsoni",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lethrinus_atkinsoni",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "robinson_s_seabream",
+   "name": "Robinson's seabream",
+   "scientific": "Gymnocranius grandoculis",
+   "aka": [
+    "robinson's bream",
+    "robinson's perch"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Gymnocranius_grandoculis",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "redspot_emperor",
+   "name": "Redspot emperor",
+   "scientific": "Lethrinus lentjan",
+   "aka": [
+    "pink-eared emperor"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lethrinus_lentjan",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "sharptooth_snapper",
+   "name": "Sharptooth snapper",
+   "scientific": "Pristipomoides typus",
+   "aka": [
+    "sharptooth jobfish"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Pristipomoides_typus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "goldband_snapper",
+   "name": "Goldband snapper",
+   "scientific": "Pristipomoides multidens",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Pristipomoides_multidens",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "rosy_snapper",
+   "name": "Rosy snapper",
+   "scientific": "Pristipomoides filamentosus",
+   "aka": [
+    "rosy jobfish",
+    "crimson jobfish"
+   ],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Pristipomoides_filamentosus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "rosy_threadfin_bream",
+   "name": "Rosy threadfin bream",
+   "scientific": "Nemipterus furcosus",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Nemipterus_furcosus",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "frypan_bream",
+   "name": "Frypan bream",
+   "scientific": "Argyrops notialis",
+   "aka": [],
+   "group": "Inshore demersal (bottom fish, 20–250 m)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Catch care guide",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Argyrops_notialis",
+   "region": "north",
+   "more": [
+    "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
+   ]
+  },
+  {
+   "id": "western_trumpeter_whiting",
+   "name": "Western trumpeter whiting",
+   "scientific": "Sillago burrus",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Sillago_burrus",
+   "region": "north"
+  },
+  {
+   "id": "goldenline_whiting",
+   "name": "Goldenline whiting",
+   "scientific": "Sillago analis",
+   "aka": [
+    "golden-lined whiting"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Sillago_analis",
+   "region": "north"
+  },
+  {
+   "id": "three_by_two_garfish",
+   "name": "Three-by-two garfish",
+   "scientific": "Hemiramphus robustus",
+   "aka": [
+    "robust garfish",
+    "storm garfish"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Hemiramphus_robustus",
+   "region": "north"
+  },
+  {
+   "id": "leaping_bonito",
+   "name": "Leaping bonito",
+   "scientific": "Cybiosarda elegans",
+   "aka": [
+    "watsons bonito"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Cybiosarda_elegans",
+   "region": "south"
+  },
+  {
+   "id": "turrum",
+   "name": "Turrum",
+   "scientific": "Turrum fulvoguttatum",
+   "aka": [
+    "goldspotted trevally"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Turrum_fulvoguttatum",
+   "region": "north"
+  },
+  {
+   "id": "bludger_trevally",
+   "name": "Bludger trevally",
+   "scientific": "Turrum gymnostethus",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Turrum_gymnostethus",
+   "region": "north"
+  },
+  {
+   "id": "common_dart",
+   "name": "Common dart",
+   "scientific": "Trachinotus botla",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Trachinotus_botla",
+   "region": "north"
+  },
+  {
+   "id": "oriental_bonito",
+   "name": "Oriental bonito",
+   "scientific": "Sarda orientalis",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Sarda_orientalis",
+   "region": "north"
+  },
+  {
+   "id": "blacksaddle_goatfish",
+   "name": "Blacksaddle goatfish",
+   "scientific": "Parupeneus spilurus",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Parupeneus_spilurus",
+   "region": "north"
+  },
+  {
+   "id": "painted_sweetlips",
+   "name": "Painted sweetlips",
+   "scientific": "Diagramma pictum",
+   "aka": [
+    "slatey bream",
+    "sweetlip"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Diagramma_pictum",
+   "region": "north"
+  },
+  {
+   "id": "greenback_mullet",
+   "name": "Greenback mullet",
+   "scientific": "Liza subviridis",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Liza_subviridis",
+   "region": "north"
+  },
+  {
+   "id": "bluetail_mullet",
+   "name": "Bluetail mullet",
+   "scientific": "Valamugil buchanani",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Valamugil_buchanani",
+   "region": "north"
+  },
+  {
+   "id": "diamondscale_mullet",
+   "name": "Diamondscale mullet",
+   "scientific": "Liza vaigiensis",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Liza_vaigiensis",
+   "region": "north"
+  },
+  {
+   "id": "mangrove_jack",
+   "name": "Mangrove Jack",
+   "scientific": "Lutjanus argentimaculatus",
+   "aka": [
+    "jacks"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_argentimaculatus",
+   "region": "north"
+  },
+  {
+   "id": "golden_snapper",
+   "name": "Golden snapper",
+   "scientific": "Lutjanus johnii",
+   "aka": [
+    "fingermark seaperch",
+    "fingermark"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_johnii",
+   "region": "north"
+  },
+  {
+   "id": "stripey_snapper",
+   "name": "Stripey snapper",
+   "scientific": "Lutjanus carponotatus",
+   "aka": [
+    "spanish flag",
+    "stripey seaperch"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lutjanus_carponotatus",
+   "region": "north"
+  },
+  {
+   "id": "bluebarred_parrotfish",
+   "name": "Bluebarred parrotfish",
+   "scientific": "Scarus ghobban",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Scarus_ghobban",
+   "region": "north"
+  },
+  {
+   "id": "sea_trumpeter",
+   "name": "Sea trumpeter",
+   "scientific": "Pelsartia humeralis",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Pelsartia_humeralis",
+   "region": "south"
+  },
+  {
+   "id": "tripletail",
+   "name": "Tripletail",
+   "scientific": "Lobotes surinamensis",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lobotes_surinamensis",
+   "region": "north"
+  },
+  {
+   "id": "chinaman_rockcod",
+   "name": "Chinaman rockcod",
+   "scientific": "Epinephelus rivulatus",
+   "aka": [
+    "charlie court"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Epinephelus_rivulatus",
+   "region": "north"
+  },
+  {
+   "id": "barred_javelin",
+   "name": "Barred javelin",
+   "scientific": "Pomadasys kaakan",
+   "aka": [
+    "spotted javelinfish"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Pomadasys_kaakan",
+   "region": "north"
+  },
+  {
+   "id": "barramundi",
+   "name": "Barramundi",
+   "scientific": "Lates calcarifer",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lates_calcarifer",
+   "region": "north"
+  },
+  {
+   "id": "black_jewfish",
+   "name": "Black jewfish",
+   "scientific": "Protonibea diacanthus",
+   "aka": [
+    "northern mulloway"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Protonibea_diacanthus",
+   "region": "north"
+  },
+  {
+   "id": "blue_threadfin",
+   "name": "Blue threadfin",
+   "scientific": "Eleutheronema tetradactylum",
+   "aka": [
+    "bluenose threadfin salmon",
+    "blue salmon"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Eleutheronema_tetradactylum",
+   "region": "north"
+  },
+  {
+   "id": "king_threadfin",
+   "name": "King threadfin",
+   "scientific": "Polydactylus macrochir",
+   "aka": [
+    "giant threadfin salmon",
+    "giant threadfin"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Polydactylus_macrochir",
+   "region": "north"
+  },
+  {
+   "id": "giant_sea_catfish",
+   "name": "Giant sea catfish",
+   "scientific": "Netuma thalassina",
+   "aka": [
+    "giant salmon catfish"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Netuma_thalassina",
+   "region": "north"
+  },
+  {
+   "id": "blotched_javelin",
+   "name": "Blotched javelin",
+   "scientific": "Pomadasys maculatus",
+   "aka": [
+    "blotched javelinfish"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Pomadasys_maculatus",
+   "region": "north"
+  },
+  {
+   "id": "silver_toadfish",
+   "name": "Silver toadfish",
+   "scientific": "Lagocephalus sceleratus",
+   "aka": [
+    "north-West blowfish"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Lagocephalus_sceleratus",
+   "region": "north"
+  },
+  {
+   "id": "northwest_black_bream",
+   "name": "Northwest black bream",
+   "scientific": "Acanthopagrus palmaris",
+   "aka": [
+    "pikey bream"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Acanthopagrus_palmaris",
+   "region": "north"
+  },
+  {
+   "id": "western_yellowfin_bream",
+   "name": "Western yellowfin bream",
+   "scientific": "Acanthopagrus morrisoni",
+   "aka": [
+    "yellowfin bream"
+   ],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Acanthopagrus_morrisoni",
+   "region": "north"
+  },
+  {
+   "id": "largetooth_flounder",
+   "name": "Largetooth flounder",
+   "scientific": "Pseudorhombus arsius",
+   "aka": [],
+   "group": "Nearshore & estuarine",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Pseudorhombus_arsius",
+   "region": "north"
+  },
+  {
+   "id": "golden_trevally",
+   "name": "Golden trevally",
+   "scientific": "Gnathanodon speciosus",
+   "aka": [
+    "banded trevally"
+   ],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Gnathanodon_speciosus",
+   "region": "north"
+  },
+  {
+   "id": "giant_trevally",
+   "name": "Giant trevally",
+   "scientific": "Caranx ignobilis",
+   "aka": [
+    "GT"
+   ],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Caranx_ignobilis",
+   "region": "north"
+  },
+  {
+   "id": "cobia",
+   "name": "Cobia",
+   "scientific": "Rachycentron canadum",
+   "aka": [
+    "black kingfish"
+   ],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Rachycentron_canadum",
+   "region": "north"
+  },
+  {
+   "id": "great_barracuda",
+   "name": "Great barracuda",
+   "scientific": "Sphyraena barracuda",
+   "aka": [],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Sphyraena_barracuda",
+   "region": "north"
+  },
+  {
+   "id": "longtail_tuna",
+   "name": "Longtail tuna",
+   "scientific": "Thunnus tonggol",
+   "aka": [],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Thunnus_tonggol",
+   "region": "north"
+  },
+  {
+   "id": "dogtooth_tuna",
+   "name": "Dogtooth tuna",
+   "scientific": "Gymnosarda unicolor",
+   "aka": [
+    "doggie"
+   ],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Gymnosarda_unicolor",
+   "region": "north"
+  },
+  {
+   "id": "spotted_mackerel",
+   "name": "Spotted mackerel",
+   "scientific": "Scomberomorus munroi",
+   "aka": [
+    "australian spotted mackerel"
+   ],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Scomberomorus_munroi",
+   "region": "north"
+  },
+  {
+   "id": "school_mackerel",
+   "name": "School mackerel",
+   "scientific": "Scomberomorus queenslandicus",
+   "aka": [
+    "queensland school mackerel",
+    "doggie"
+   ],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Scomberomorus_queenslandicus",
+   "region": "north"
+  },
+  {
+   "id": "grey_mackerel",
+   "name": "Grey mackerel",
+   "scientific": "Scomberomorus semifasciatus",
+   "aka": [
+    "broad-barred Spanish mackerel",
+    "broad-banded mackerel"
+   ],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Scomberomorus_semifasciatus",
+   "region": "north"
+  },
+  {
+   "id": "shark_mackerel",
+   "name": "Shark mackerel",
+   "scientific": "Grammatorcynus bicarinatus",
+   "aka": [
+    "scaly mackerel",
+    "salmon mackerel"
+   ],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Grammatorcynus_bicarinatus",
+   "region": "north"
+  },
+  {
+   "id": "wahoo",
+   "name": "Wahoo",
+   "scientific": "Acanthocybium solandri",
+   "aka": [],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Acanthocybium_solandri",
+   "region": "north"
+  },
+  {
+   "id": "blue_marlin",
+   "name": "Blue marlin",
+   "scientific": "Makaira nigricans",
+   "aka": [],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Makaira_nigricans",
+   "region": "south"
+  },
+  {
+   "id": "black_marlin",
+   "name": "Black marlin",
+   "scientific": "Istiompax indica",
+   "aka": [],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Istiompax_indica",
+   "region": "north"
+  },
+  {
+   "id": "sailfish",
+   "name": "Sailfish",
+   "scientific": "Istiophorus platypterus",
+   "aka": [],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Istiophorus_platypterus",
+   "region": "north"
+  },
+  {
+   "id": "swordfish",
+   "name": "Swordfish",
+   "scientific": "Xiphias gladius",
+   "aka": [],
+   "group": "Pelagic (open water)",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Xiphias_gladius",
+   "region": "south"
+  },
+  {
+   "id": "whitetip_reef_shark",
+   "name": "Whitetip reef shark",
+   "scientific": "Triaenodon obesus",
+   "aka": [],
+   "group": "Sharks & rays",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Triaenodon_obesus",
+   "region": "north"
+  },
+  {
+   "id": "common_blacktip_shark",
+   "name": "Common blacktip shark",
+   "scientific": "Carcharhinus limbatus",
+   "aka": [],
+   "group": "Sharks & rays",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Carcharhinus_limbatus",
+   "region": "north"
+  },
+  {
+   "id": "western_spotted_gummy_shark",
+   "name": "Western spotted gummy shark",
+   "scientific": "Mustelus stevensi",
+   "aka": [],
+   "group": "Sharks & rays",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Mustelus_stevensi",
+   "region": "north"
+  },
+  {
+   "id": "painted_rock_lobster",
+   "name": "Painted rock lobster",
+   "scientific": "Panulirus versicolor",
+   "aka": [
+    "tropical rock lobster",
+    "green rock lobster"
+   ],
+   "group": "Crustaceans",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "76 mm carapace",
+     "bag": 4,
+     "note": "Part of the 8-a-day mixed rock lobster bag (max 4 tropical). Boat limit up to 24 lobsters (3+ licensed fishers). Possession limit 24."
+    }
+   ],
+   "limits_verified": true,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "Tropical spiny lobster of northern reefs; usually caught by diving. Same licence and berried-female rules as western rock lobster.",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Rock lobster recreational fishing guide 2026 (July 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Panulirus_versicolor",
+   "region": "north",
+   "licence": "Recreational rock lobster licence required (from shore, boat or diving)."
+  },
+  {
+   "id": "ornate_rock_lobster",
+   "name": "Ornate rock lobster",
+   "scientific": "Panulirus ornatus",
+   "aka": [
+    "tropical rock lobster"
+   ],
+   "group": "Crustaceans",
+   "status": "limits",
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "76 mm carapace",
+     "bag": 4,
+     "note": "Part of the 8-a-day mixed rock lobster bag (max 4 tropical). Boat limit up to 24 lobsters (3+ licensed fishers). Possession limit 24."
+    }
+   ],
+   "limits_verified": true,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "Tropical spiny lobster of northern reefs; usually caught by diving. Same licence and berried-female rules as western rock lobster.",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    },
+    {
+     "name": "DPIRD Rock lobster recreational fishing guide 2026 (July 2026)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Panulirus_ornatus",
+   "region": "north",
+   "licence": "Recreational rock lobster licence required (from shore, boat or diving)."
+  },
+  {
+   "id": "brown_mud_crab",
+   "name": "Brown mud crab",
+   "scientific": "Scylla olivacea",
+   "aka": [
+    "orange mud crab"
+   ],
+   "group": "Crustaceans",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Scylla_olivacea",
+   "region": "north"
+  },
+  {
+   "id": "green_mud_crab",
+   "name": "Green mud crab",
+   "scientific": "Scylla serrata",
+   "aka": [
+    "giant mud crab"
+   ],
+   "group": "Crustaceans",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Scylla_serrata",
+   "region": "north"
+  },
+  {
+   "id": "northern_calamari",
+   "name": "Northern calamari",
+   "scientific": "Sepioteuthis lessoniana",
+   "aka": [],
+   "group": "Molluscs",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "shore"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Sepioteuthis_lessoniana",
+   "region": "north"
+  },
+  {
+   "id": "silver_cobbler",
+   "name": "Silver cobbler",
+   "scientific": "Neoarius midgleyi",
+   "aka": [
+    "lake Argyle catfish",
+    "ord River catfish"
+   ],
+   "group": "Freshwater",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Neoarius_midgleyi",
+   "region": "north"
+  },
+  {
+   "id": "western_sooty_grunter",
+   "name": "Western sooty grunter",
+   "scientific": "Hephaestus jenkinsi",
+   "aka": [
+    "sooty grunter"
+   ],
+   "group": "Freshwater",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Hephaestus_jenkinsi",
+   "region": "north"
+  },
+  {
+   "id": "giant_freshwater_prawn_cherabin",
+   "name": "Giant freshwater prawn Cherabin",
+   "scientific": "Macrobrachium rosenbergii",
+   "aka": [],
+   "group": "Freshwater",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Macrobrachium_rosenbergii",
+   "region": "north"
+  },
+  {
+   "id": "redclaw",
+   "name": "Redclaw",
+   "scientific": "Cherax quadricarinatus",
+   "aka": [
+    "queensland red claw crayfish"
+   ],
+   "group": "Freshwater",
+   "status": "limits",
+   "limits": [],
+   "limits_verified": false,
+   "activities": [
+    "boat"
+   ],
+   "id_tips": "Declared pest — do not release it alive or move it between waters. Report it to DPIRD.",
+   "last_checked": "2026-11-26",
+   "sources": [
+    {
+     "name": "DPIRD Recreational fishing identification guide (2026)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Cherax_quadricarinatus",
+   "region": "north",
+   "pest": true,
+   "category": "pest"
+  },
+  {
+   "id": "speartooth_shark",
+   "name": "Speartooth shark",
+   "scientific": "Glyphis glyphis",
+   "aka": [],
+   "group": "Sharks & rays",
+   "status": "protected",
+   "protection": "Totally protected in WA — release it immediately and carefully.",
+   "limits": [],
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "id_tips": "",
+   "sources": [
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Glyphis_glyphis",
+   "region": "north",
+   "last_checked": "2026-11-26"
+  },
+  {
+   "id": "northern_river_shark",
+   "name": "Northern river shark",
+   "scientific": "Glyphis garricki",
+   "aka": [],
+   "group": "Sharks & rays",
+   "status": "protected",
+   "protection": "Totally protected in WA — release it immediately and carefully.",
+   "limits": [],
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "id_tips": "",
+   "sources": [
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Glyphis_garricki",
+   "region": "north",
+   "last_checked": "2026-11-26"
+  },
+  {
+   "id": "spinner_shark",
+   "name": "Spinner shark",
+   "scientific": "Carcharhinus brevipinna",
+   "aka": [],
+   "group": "Sharks & rays",
+   "status": "protected",
+   "protection": "Totally protected in WA — release it immediately and carefully.",
+   "limits": [],
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "id_tips": "",
+   "sources": [
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Carcharhinus_brevipinna",
+   "region": "north",
+   "last_checked": "2026-11-26"
+  },
+  {
+   "id": "blacktip_shark",
+   "name": "Blacktip shark",
+   "scientific": "Carcharhinus tilstoni",
+   "aka": [],
+   "group": "Sharks & rays",
+   "status": "protected",
+   "protection": "Totally protected in WA — release it immediately and carefully.",
+   "limits": [],
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "id_tips": "",
+   "sources": [
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "Carcharhinus_tilstoni",
+   "region": "north",
+   "last_checked": "2026-11-26"
+  },
+  {
+   "id": "seahorses",
+   "name": "Seahorses (all species)",
+   "scientific": "Hippocampus spp.",
+   "aka": [],
+   "group": "Protected fish",
+   "status": "protected",
+   "protection": "Totally protected in WA (Fish Resources Management Act). Release immediately; report injured animals to the Wildcare Helpline 08 9474 9055.",
+   "limits": [],
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "id_tips": "Every seahorse is protected. West Australian seahorse lives in Perth's jetties, seagrass and Swan River mouth. Don't take them, even for aquariums — release any caught on a line or in a net straight away.",
+   "more": [
+    "Species in this group (DPIRD guide): Common seahorse (Hippocampus kuda); Western spiny seahorse (Hippocampus angustus); Flat-face seahorse (Hippocampus planifrons); Zebra seahorse (Hippocampus zebra); False-eye seahorse (Hippocampus biocellatus); Knobby seahorse (Hippocampus tuberculatus); West Australian seahorse (Hippocampus subelongatus); Queensland seahorse (Hippocampus spinosissimus)"
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "",
+   "region": "south",
+   "last_checked": "2026-11-26"
+  },
+  {
+   "id": "pipefish",
+   "name": "Pipefish, pipehorses & ghostpipefish (all species)",
+   "scientific": "Syngnathidae",
+   "aka": [],
+   "group": "Protected fish",
+   "status": "protected",
+   "protection": "Totally protected in WA (Fish Resources Management Act). Release immediately; report injured animals to the Wildcare Helpline 08 9474 9055.",
+   "limits": [],
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "id_tips": "Thin, stiff, pencil-like relatives of seahorses, often in seagrass and on jetty pylons. All are protected — release them.",
+   "more": [
+    "Species in this group (DPIRD guide): Braun's pughead pipefish (Bulbonaricus brauni); Pacific shortbody pipefish (Choeroichthys brachysoma); Muiron pipefish (Choeroichthys latispinosus); Messmate pipefish (Corythoichthys intestinalis); Bluestripe pipefish (Doryrhamphus excisus); Mud pipefish (Halicampus grayi); Beady pipefish (Hippichthys penicillus); Ribboned pipehorse (Haliichthys taeniophorus); Cleaner pipefish (Doryrhamphus janssi); Ladder pipefish (Festucalex scalaris); Tiger pipefish (Filicampus tigris); Tasselled pipefish (Halicampus brocki); Brushtail pipefish (Leptoichthys fistularius); Sawtooth pipefish (Maroubra perserrata); Tidepool pipefish (Micrognathus micronotopterus); Double-end pipehorse (Syngnathoides biaculeatus); Robust ghostpipefish (Solenostomus cyanopterus); Gunther's pipehorse (Solegnathus lettiensis); Spotted pipefish (Stigmatopora argus); Widebody pipefish (Stigmatopora nigra); Bentstick pipefish (Trachyrhamphus bicoarctatus); Straightstick pipefish (Trachyrhamphus longirostris); Western pipehorse (Solegnathus sp. 2.)"
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "",
+   "region": "south",
+   "last_checked": "2026-11-26"
+  },
+  {
+   "id": "sawfishes",
+   "name": "Sawfishes (all species)",
+   "scientific": "Pristidae",
+   "aka": [],
+   "group": "Protected fish",
+   "status": "protected",
+   "protection": "Totally protected in WA (Fish Resources Management Act). Release immediately; report injured animals to the Wildcare Helpline 08 9474 9055.",
+   "limits": [],
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "id_tips": "Shark-like rays with a long toothed \"saw\". All are protected and mostly found in the north. Cut the line close to the hook rather than handling the saw.",
+   "more": [
+    "Species in this group (DPIRD guide): Green sawfish (Pristis zijsron); Narrow sawfish (Anoxypristis cuspidata); Dwarf sawfish (Pristis clavata); Freshwater sawfish (Pristis pristis)"
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "",
+   "region": "north",
+   "last_checked": "2026-11-26"
+  },
+  {
+   "id": "manta_devil_rays",
+   "name": "Manta and devil rays",
+   "scientific": "Mobula spp.",
+   "aka": [],
+   "group": "Protected fish",
+   "status": "protected",
+   "protection": "Totally protected in WA (Fish Resources Management Act). Release immediately; report injured animals to the Wildcare Helpline 08 9474 9055.",
+   "limits": [],
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "id_tips": "Huge flat rays that feed in open water. Protected — never gaff, spear or handle them.",
+   "more": [
+    "Species in this group (DPIRD guide): Giant manta ray (Mobula birostris); Japanese devilray (Mobula mobular); Pygmy devilray (Mobula eregoodoo); Reef manta ray (Mobula alfredi)"
+   ],
+   "sources": [
+    {
+     "name": "DPIRD Marine protected species identification guide (Feb 2025)",
+     "url": "https://library.dpird.wa.gov.au/fr_fop/"
+    }
+   ],
+   "rule_ids": [],
+   "traits": {
+    "shape": [],
+    "marks": [],
+    "feature": []
+   },
+   "wiki": "",
+   "region": "north",
    "last_checked": "2026-11-26"
   }
  ]

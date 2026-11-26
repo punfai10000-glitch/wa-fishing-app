@@ -45,11 +45,11 @@ export function tideCheckText(tc) {
 // ---- Satellite water clarity -------------------------------------------------------------------------------
 // Kd490 (light attenuation, 1/m): lower = clearer. Rough diver visibility bands for WA coastal water.
 export const CLARITY_BANDS = [
-  { max: 0.05, key: 'vclear', label: 'Very clear', vis: '15 m+', color: '#1f4fd1' },
-  { max: 0.08, key: 'clear', label: 'Clear', vis: '10–15 m', color: '#21a0e0' },
-  { max: 0.15, key: 'ok', label: 'OK', vis: '5–10 m', color: '#3cc48a' },
-  { max: 0.3, key: 'murky', label: 'Murky', vis: '2–5 m', color: '#d8b13a' },
-  { max: Infinity, key: 'vmurky', label: 'Very murky', vis: 'under 2 m', color: '#9a5b2e' }
+  { max: 0.05, key: 'vclear', label: 'Very clear', vis: '15 m+', color: '#2ee6ff', alpha: 0.55 },
+  { max: 0.08, key: 'clear', label: 'Clear', vis: '10–15 m', color: '#3df5a6', alpha: 0.6 },
+  { max: 0.15, key: 'ok', label: 'OK', vis: '5–10 m', color: '#f2f25a', alpha: 0.7 },
+  { max: 0.3, key: 'murky', label: 'Murky', vis: '2–5 m', color: '#ff9a3c', alpha: 0.8 },
+  { max: Infinity, key: 'vmurky', label: 'Very murky', vis: 'under 2 m', color: '#e0442e', alpha: 0.85 }
 ];
 export const clarityBand = kd => CLARITY_BANDS.find(b => kd < b.max);
 
@@ -72,17 +72,30 @@ export function clarityAt(c, lat, lng) {
 }
 
 // a picture of the grid for the map (one pixel per cell; the map scales it up smoothly)
-export function clarityImage(c) {
-  const cv = document.createElement('canvas'); cv.width = c.nx; cv.height = c.ny;
-  const ctx = cv.getContext('2d'), img = ctx.createImageData(c.nx, c.ny);
-  const rgb = h => [1, 3, 5].map(k => parseInt(h.slice(k, k + 2), 16));
+// Picture of the satellite cells near the coast only (offshore water isn't useful for shore fishing or diving and
+// just hides the map). Crisp squares, one colour per band — clear water is see-through, murky water stands out.
+export function clarityImage(c, coastPts = [], maxKm = 12) {
+  const S = 6;   // screen pixels per satellite cell in the picture (kept crisp)
+  const cv = document.createElement('canvas'); cv.width = c.nx * S; cv.height = c.ny * S;
+  const ctx = cv.getContext('2d');
+  const grid = new Map(), cell = 0.1, key = (x, y) => `${Math.floor(x / cell)},${Math.floor(y / cell)}`;
+  for (const p of coastPts) { const [x, y] = p.geometry ? p.geometry.coordinates : p; const k = key(x, y); (grid.get(k) || grid.set(k, []).get(k)).push([x, y]); }
+  const r = Math.ceil(maxKm / 111 / cell) + 1;
+  const nearCoast = (x, y) => {
+    if (!grid.size) return true;
+    const cx = Math.floor(x / cell), cy = Math.floor(y / cell), k = Math.cos(y * Math.PI / 180);
+    for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) for (const [px, py] of grid.get(`${cx + a},${cy + b}`) || [])
+      if (Math.hypot((px - x) * k, py - y) * 111 <= maxKm) return true;
+    return false;
+  };
   for (let i = 0; i < c.ny; i++) for (let j = 0; j < c.nx; j++) {
     const v = c.kd490[i * c.nx + j]; if (v == null) continue;
+    if (!nearCoast(c.lon0 + j * c.dlon, c.lat0 + i * c.dlat)) continue;
     const row = c.dlat > 0 ? c.ny - 1 - i : i;   // image rows run north -> south
-    const [r, g, b] = rgb(clarityBand(v).color), o = (row * c.nx + j) * 4;
-    img.data[o] = r; img.data[o + 1] = g; img.data[o + 2] = b; img.data[o + 3] = 200;
+    const band = clarityBand(v);
+    ctx.globalAlpha = band.alpha; ctx.fillStyle = band.color;
+    ctx.fillRect(j * S, row * S, S - 1, S - 1);   // 1px gap so neighbouring cells read as separate squares
   }
-  ctx.putImageData(img, 0, 0);
   const lats = [c.lat0, c.lat0 + c.dlat * (c.ny - 1)], lons = [c.lon0, c.lon0 + c.dlon * (c.nx - 1)];
   const hl = Math.abs(c.dlat) / 2, hw = Math.abs(c.dlon) / 2;
   return { url: cv.toDataURL(), bounds: [[Math.min(...lats) - hl, Math.min(...lons) - hw], [Math.max(...lats) + hl, Math.max(...lons) + hw]] };
