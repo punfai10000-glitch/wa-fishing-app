@@ -157,13 +157,21 @@ export function renderKey(view) {
 
     <div class="card"><h2>Rules on the map</h2>
       <p class="small">Every area comes from the official DPIRD fishing orders. <strong>Tap inside any area</strong> and the card shows, line by line, what's allowed (✓) and what isn't (✗), with a link to the order. Zoom in to see each zone's name on the water.</p>
-      ${row('<span class="key-zone sanct"></span>', 'Red area — no fishing', 'Sanctuary zones (Marmion, Shoalwater, Ngari Capes, Rottnest), protected wrecks, Burswood Lake, Greens Pool, the old Esperance Tanker Jetty end. No line fishing, no spearfishing, no collecting.')}
+      ${row('<span class="key-zone sanct"></span>', 'Red area — no fishing', 'Sanctuary zones (Marmion, Shoalwater, Ngari Capes, Rottnest, and the South Coast parks from Bremer Bay to Cape Arid), protected wrecks, Burswood Lake, Greens Pool, the old Esperance Tanker Jetty end. No line fishing, no spearfishing, no collecting. Red dashed = South Coast wildlife zones (Red Island, Cape Arid): no line or spear, hand collection only.')}
       ${row('<span class="key-zone restr"></span>', 'Orange dashed — special rules', 'Fishing is allowed but something is banned. Examples: Ngari Capes shore-based zones at Eagle Bay and Cosy Corner (no spearfishing), surfing zones (no lobster or octopus pots), Rottnest (no spearfishing anywhere), Cottesloe Reef (no shellfish), Shoalwater Bay (no spearfishing).')}
       ${row('<span class="key-zone permit"></span>', 'Green dashed — spearfishing area', 'Marmion Marine Park: spearfishing is only allowed 1.8 km or more from the mainland shore (breath-hold, no scuba). Closer in — including from the beach — it\'s banned.')}
+      ${row('<span class="key-zone spz"></span>', 'Purple dashed — special purpose zone', 'South Coast whale-calving bays (Doubtful Island Bay, Thomas River–Yokinup Bay) and Aboriginal cultural areas (e.g. Point Hood). Fishing and spearfishing are allowed under the normal rules — keep 100 m from whales and respect the site.')}
       ${row('<span class="key-zone gear"></span>', 'Purple dotted — gear or species rules', 'For example no rock lobster pots, no wire trace, or a seasonal crab or snapper closure. The card says whether it is closed right now.')}
       ${row('<span class="key-zone park"></span>', 'Blue dashed outline', 'Marine park edge.')}
       ${row('<span style="font-size:20px">🔱</span>', 'Spearfishing in rivers and estuaries', 'Banned everywhere in WA (rivers, estuaries, creeks, inland waters) — the app never rates spearfishing there.')}
+      <p class="small"><strong>South Coast lines are traced.</strong> Mamang Maambakoort and Wudjari zones (Bremer Bay → Cape Arid) aren't published as data, so the app traced them from the official DBCA zoning maps. Lines at the printed coordinates are exact; coast-side edges can be out by ~100 m, so the app warns you when a spot is within 250 m of a sanctuary.</p>
       <p class="small muted">Bag and size limits, licences and statewide closures still apply everywhere. Signs on site and newer orders win — check the linked order or the Recfishwest app if unsure.</p>
+    </div>
+
+    <div class="card"><h2>Keep your distance — seals and whales</h2>
+      <p class="small">WA law sets minimum distances (DBCA). Seals and sea lions also draw sharks — another reason to move away if one turns up while you're spearing.</p>
+      ${row('<span style="font-size:20px">🦭</span>', 'Seals & sea lions', '50 m when you are in the water · 100 m in a boat, kayak or other craft · on land at least 10 m (30 m recommended). Don\'t approach them in the water.')}
+      ${row('<span style="font-size:20px">🐋</span>', 'Whales', 'Swimmers: don\'t swim with, feed or touch whales; if one comes to you, try to keep 100 m away. Boats: 100 m minimum, slow down within 300 m. Drones: 60 m. Southern rights calve in South Coast bays from about June to October.')}
     </div>
 
     <div class="card"><h2>Facilities</h2>

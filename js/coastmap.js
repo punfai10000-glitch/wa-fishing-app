@@ -11,7 +11,7 @@ import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
 import { loadPointConditions } from './data.js';
-import { legalStatus, legalHTML } from './zones.js';
+import { legalStatus, legalHTML, bannedAt } from './zones.js';
 import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
 import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes, placeIncident } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
@@ -22,6 +22,7 @@ import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge , freshness, waveWords
 let map, coastLayer, arrowLayer, buoyLayer, incidentLayer, bestLayer;
 let incidents = null;
 let shoreIdx = null;     // per shoreline vertex: index of nearest coast sample point (or -1)
+let shoreLegal = null;   // per shoreline vertex: inside a zone where the current activity is banned
 let offset = 0;
 let userMovedTime = false;          // hours from now shown on the coast
 let playing = null;
@@ -55,7 +56,7 @@ export function initCoastMap(m) {
   incidentLayer = L.layerGroup().addTo(map);
   fetch('data/incidents.json').then(r => r.json()).then(d => { incidents = d; refreshCoastMap(); }).catch(() => {});
   initFlow(map);
-  loadShore().then(() => { shoreIdx = null; refreshCoastMap(); });
+  loadShore().then(() => { shoreIdx = null; shoreLegal = null; refreshCoastMap(); });
   buildTimeBar();
   buildWindy();
   map.on('click', e => onMapClick(e.latlng));
@@ -132,6 +133,13 @@ export function refreshCoastMap() {
         }));
         shoreIdx.key = key;
       }
+      // the shoreline inside a sanctuary / no-spearfishing zone is purple even if its nearest conditions point is outside it
+      const zs = state.data.zones, lkey = `${zs?.features?.length || 0}|${state.activity}|${sh.lines.length}`;
+      if (zs?.loaded && (!shoreLegal || shoreLegal.key !== lkey)) {
+        shoreLegal = sh.lines.map(L => L.map(([x, y]) => bannedAt(zs, [x, y], state.activity)));
+        shoreLegal.key = lkey;
+      }
+      const legalOK = shoreLegal && shoreLegal.key === lkey;
       sh.lines.forEach((L, li) => {
         let run = [], runBand = null;
         const flush = () => {
@@ -141,7 +149,8 @@ export function refreshCoastMap() {
         const L_poly = (latlngs, b) => window.L.polyline(latlngs, { pane: 'coast', color: COLORS[b], weight, opacity: 0.9, lineCap: 'round', lineJoin: 'round', dashArray: DASH[b] || null, interactive: false }).addTo(coastLayer);
         L.forEach(([x, y], vi) => {
           const idx = shoreIdx[li][vi];
-          const b = typeof idx === 'object' ? (hasData ? bandOf(hourAt(evalFor(idx), t)) : null) : idx < 0 ? null : bandOf(rows[idx]);
+          let b = typeof idx === 'object' ? (hasData ? bandOf(hourAt(evalFor(idx), t)) : null) : idx < 0 ? null : bandOf(rows[idx]);
+          if (b && legalOK && shoreLegal[li][vi]) b = 'blk-legal';
           if (b !== runBand) { const last = run[run.length - 1]; flush(); if (last && b) run.push(last); runBand = b; }
           if (b) run.push([y, x]);
         });

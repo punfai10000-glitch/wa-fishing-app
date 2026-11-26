@@ -42,7 +42,7 @@ const LAYERS = [
   { group: 'Background', id: 'aerial', label: 'Sharp aerial photos when zoomed in', note: 'WA Government (Landgate) aerial photos from zoom 15 — reefs, rocks and tracks in detail. Photos are at least about a year old. Turn off to save data.' },
   { group: 'Fishing', id: 'spots', label: 'Fishing spots & scores', note: 'Checked spots plus OpenStreetMap spots (zoom in for more)' },
   { group: 'Fishing', id: 'coast', label: 'Coast colour (conditions)', note: 'Conditions every ~8 km of coast at the chosen time — tap the coast for details' },
-  { group: 'Rules & hazards', id: 'zones', label: 'Marine parks, sanctuaries & closures', note: 'Red = no fishing, orange = special rules, green = spearfishing area, purple dotted = gear or species rules (official DPIRD orders). Tap inside any zone for exactly what is allowed.' },
+  { group: 'Rules & hazards', id: 'zones', label: 'Marine parks, sanctuaries & closures', note: 'Red = no fishing, orange = special rules, green = spearfishing area, purple dashed = special purpose zone (fishing allowed, extra care), purple dotted = gear or species rules (official DPIRD orders and DBCA zoning maps). Tap inside any zone for exactly what is allowed.' },
   { group: 'Rules & hazards', id: 'incidents', label: 'Past shark incidents', note: 'Australian Shark-Incident Database (Taronga). Skull = fatal, ! = injury, grey = no injury.' },
   { group: 'Marine conditions', id: 'buoys', label: 'Wave buoys (measured)', note: 'Transport WA buoys; green < 1 h old, orange 1–3 h, red older' },
   { group: 'Marine conditions', id: 'windFlow', label: 'Wind animation', note: 'Forecast — streaks follow the wind (white light → red strong)' },
@@ -161,6 +161,7 @@ export function initMap() {
     const p = f.properties || {};
     if (p.zone_type === 'sanctuary') return { color: '#e15759', weight: 2, fillOpacity: 0.25 };
     if (p.zone_type === 'restricted') return { color: '#f5a524', weight: 2, fillOpacity: 0.14, dashArray: '5 4' };
+    if (p.zone_type === 'special_purpose') return (p.prohibits || []).length ? { color: '#e15759', weight: 1.5, fillOpacity: 0.18, dashArray: '4 3' } : { color: '#a970ff', weight: 1.5, fillOpacity: 0.1, dashArray: '5 4' };
     if (p.zone_type === 'permit') return { color: '#30d158', weight: 1.5, fillOpacity: 0.06, dashArray: '8 5' };
     if (p.zone_type === 'gear' || p.zone_type === 'species') return { color: '#b37feb', weight: 1.2, fillOpacity: 0, dashArray: '2 5' };
     if (p.zone_type === 'general_use') return { color: '#4e79a7', weight: 1, fillOpacity: 0, dashArray: '6 6' };
@@ -511,9 +512,9 @@ export function refreshMap() {
       const vb = map.getBounds();
       for (const f of state.data.zones.features) {
         const p = f.properties || {};
-        if (!['sanctuary', 'restricted', 'permit'].includes(p.zone_type)) continue;
+        if (!['sanctuary', 'restricted', 'permit', 'special_purpose'].includes(p.zone_type)) continue;
         const c = labelPoint(f.geometry); if (!c || !vb.contains(c)) continue;
-        const ic = p.zone_type === 'sanctuary' ? '⛔' : p.zone_type === 'permit' ? '🔱✓' : '⚠';
+        const ic = p.zone_type === 'sanctuary' || (p.prohibits || []).length > 1 ? '⛔' : p.zone_type === 'permit' ? '🔱✓' : '⚠';
         const short = p.name.replace(/\s*\((Ngari Capes|Marmion|Shoalwater Islands) Marine Park\)/, '').replace(/\s*\(Rottnest Island\)/, '');
         L.marker(c, { interactive: false, keyboard: false, icon: L.divIcon({ className: `zone-label zl-${p.zone_type}`, html: `<span>${ic} ${esc(short)}</span>`, iconSize: [160, 20], iconAnchor: [80, 10] }) }).addTo(zoneLabels);
       }
