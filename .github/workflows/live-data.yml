@@ -18,6 +18,8 @@ jobs:
       - run: pip install netCDF4
       - run: python pipeline/fetch_buoys.py out || echo "buoys failed"
       - run: python pipeline/fetch_bom_obs.py out || echo "BOM failed"
+      - run: python pipeline/fetch_tides.py out || echo "tides failed"
+      - run: python pipeline/fetch_clarity.py out || echo "clarity failed"
       - run: ls -la out && test -n "$(ls out/*.json 2>/dev/null)"
       - name: Publish to live-data branch (single commit, no history growth)
         run: |
