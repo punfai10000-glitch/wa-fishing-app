@@ -1,0 +1,25 @@
+name: Depth tiles (monthly)
+on:
+  schedule: [{ cron: '23 18 3 * *' }]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  depth:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: pip install rasterio numpy pillow
+      - run: python pipeline/fetch_depth.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/depth
+          git diff --cached --quiet && exit 0
+          git commit -m "Depth tiles update"
+          git pull --rebase -X theirs origin main
+          git push
