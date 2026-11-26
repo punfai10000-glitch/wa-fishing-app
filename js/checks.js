@@ -12,7 +12,7 @@ export function fourChecks(loc, ev, hr, zones, activity) {
   rows.push(['Conditions', hr && !hr.blocked && sc != null ? `<b class="ck ${band(sc)}">${sc}/100</b> wind, waves, tide${activity === 'spear' ? ', visibility (estimate)' : ', light'}` :
     hr?.blocked ? '<b class="ck poor">Not rated</b> see safety / rules' : '<b class="ck unknown">Unknown</b> no forecast for this hour']);
   // 2. Fish activity — only from checked evidence, never guessed from weather
-  const tg = likelyTargets(loc, hr?.hour, activity, { max: 3 }).filter(t => t.level !== 'unlikely');
+  const tg = likelyTargets(loc, hr?.hour, activity, { max: 3, zones }).filter(t => t.level !== 'unlikely');
   const good = tg.filter(t => t.level === 'good');
   const poss = tg.filter(t => t.level === 'possible'), closed = tg.filter(t => t.level === 'closed');
   rows.push(['Fish', tg.length ? [good.length ? `<b class="ck good">Good chance</b> ${esc(good.map(t => t.name).join(', '))}` : '',

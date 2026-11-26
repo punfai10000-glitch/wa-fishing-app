@@ -1,6 +1,7 @@
 // Species targets V1 — "what might be biting here, now". Transparent rules, not catch data:
 // season × habitat × light × sea state (× water clarity for squid and spearing).
 import { effectiveWave, visibilityEstimate } from './scoring/score.js';
+import { zoneHitsFor } from './zones.js';
 
 let data = null;
 export async function loadTargets() {
@@ -31,7 +32,7 @@ function seaFactor(pref, wave) {
 }
 
 /** returns [{ id, name, level: 'good'|'possible'|'unlikely'|'closed', score, reasons[] }] best first */
-export function likelyTargets(loc, hour, activity, { max = 4 } = {}) {
+export function likelyTargets(loc, hour, activity, { max = 4, zones = null } = {}) {
   if (!data || !loc) return [];
   const area = areaOf(loc.region);
   if (!area) return [];
@@ -46,8 +47,10 @@ export function likelyTargets(loc, hour, activity, { max = 4 } = {}) {
     const hab = Math.max(0, ...habitats.map(h => sp.habitat[h] ?? 0));
     if (hab < 0.5) continue;
     const reasons = [];
-    if (sp.closed && sp.closed.months.includes(month) && sp.closed.regions.includes(loc.region)) {
-      out.push({ id: sp.id, name: sp.name, level: 'closed', score: -1, reasons: [sp.closed.text] }); continue;
+    // official species closures (DPIRD order areas) first, then the simple region rule as a fallback
+    const official = zones ? zoneHitsFor(zones, loc).find(h => h.species_id === sp.id && (!h.months?.length || h.months.includes(month))) : null;
+    if (official || (sp.closed && sp.closed.months.includes(month) && sp.closed.regions.includes(loc.region))) {
+      out.push({ id: sp.id, name: sp.name, level: 'closed', score: -1, reasons: [official ? `${official.name}: ${official.note}` : sp.closed.text] }); continue;
     }
     const present = sp.present_by_area?.[area] ?? sp.present ?? [];
     const peak = sp.peak_by_area?.[area] ?? sp.peak ?? [];

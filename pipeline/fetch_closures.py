@@ -10,7 +10,7 @@ BBOX = "114.5,-35.6,123.5,-31.3"
 OUT = "data/zones/closures.geojson"
 LAYERS = {130: "burswood", 133: "esperance_jetty", 134: "greens_pool", 140: "ngari", 141: "rottnest", 144: "marmion",
           148: "shoalwater", 149: "walpole", 152: "wreck", 153: "wreck", 155: "wreck", 156: "wreck", 157: "wreck", 158: "wreck",
-          244: "fhpa", 213: "lobster", 249: "wire", 210: "garfish", 204: "bsc", 131: "snapper", 206: "crab_geo", 207: "crab_peel"}
+          244: "fhpa", 213: "lobster", 249: "wire", 150: "heirisson", 204: "bsc", 131: "snapper", 206: "crab_geo", 207: "crab_peel"}
 BOTH = ["shore", "spear"]
 
 def get(url, **p):
@@ -49,8 +49,8 @@ def classify(kind, a):
         return z("restricted", "Rottnest Island Reserve (fishing rules area)", ["spear"], "Rottnest Island Reserve — spearfishing prohibited; other fishing restrictions apply in parts — read the order.")
     if kind == "wreck":
         return z("sanctuary", desc or name, BOTH, "Protected wreck — no fishing.")
-    if kind in ("burswood", "greens_pool"):
-        return z("sanctuary", "Burswood Lake" if kind == "burswood" else "Greens Pool (Denmark)", BOTH, "Fishing prohibited by order.")
+    if kind in ("burswood", "greens_pool", "heirisson"):
+        return z("sanctuary", {"burswood": "Burswood Lake", "greens_pool": "Greens Pool (Denmark)", "heirisson": "Heirisson Island (Swan River)"}[kind], BOTH, "Fishing prohibited by order.")
     if kind == "walpole":
         return z("restricted", "Walpole / Nornalup estuary", [], "Recreational fishing activity restrictions apply — read the order.")
     if kind == "esperance_jetty":
@@ -60,8 +60,6 @@ def classify(kind, a):
     if kind == "lobster":
         return z("species", f"{desc} — rock lobster closure", [], "No fishing for rock lobster here.")
     # Species closures: the app uses 'species_id' + 'months' (1-12; empty = all year) to mark target fish as closed
-    if kind == "garfish":
-        return {**z("species", "Southern garfish — no take in Perth metropolitan waters", [], "Southern garfish may not be taken in Perth metropolitan waters."), "species_id": "southern_garfish", "months": []}
     if kind == "bsc":
         return {**z("species", "Blue swimmer crab seasonal closure (Swan River to Minninup)", [], "No blue swimmer crabs 1 September – 30 November."), "species_id": "blue_swimmer_crab", "months": [9, 10, 11]}
     if kind == "snapper":
