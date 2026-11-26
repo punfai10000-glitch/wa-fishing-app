@@ -1,0 +1,24 @@
+name: Fishing closures (weekly)
+on:
+  schedule: [{ cron: '17 19 * * 2' }]
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  closures:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with: { python-version: '3.12' }
+      - run: python pipeline/fetch_closures.py
+      - name: Commit if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/zones
+          git diff --cached --quiet && exit 0
+          git commit -m "Weekly fishing closures update"
+          git pull --rebase -X theirs origin main
+          git push
