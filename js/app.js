@@ -7,6 +7,7 @@ import { esc } from './ui.js';
 import { initMap, refreshMap, showMap } from './map.js';
 import { initSheet, closeSheet } from './sheet.js';
 import { renderSpots } from './views/spots.js';
+import { renderMeasure } from './views/measure.js';
 import { renderKey } from './views/key.js';
 import { renderLocation } from './views/location.js';
 import { renderFish } from './views/fish.js';
@@ -56,11 +57,11 @@ export function evalFor(loc, activity = state.activity) {
   return state.evalCache.get(key);
 }
 
-export function visibleLocations() {
+export function visibleLocations({ ignoreRegion = false } = {}) {
   const favs = store.favourites();
   const all = state.showOsm ? [...state.data.locations, ...state.osmSpots] : state.data.locations;
   return all.filter(l =>
-    (!state.region || l.region === state.region) &&
+    (ignoreRegion || !state.region || l.region === state.region) &&
     (!state.favOnly || favs.has(l.id)) &&
     (!state.species || (l.species_evidence || []).some(e => e.species === state.species))
   );
@@ -122,6 +123,7 @@ const ROUTES = {
   fishid: (v) => renderFish(v, 'id'),
   rules: (v) => renderFish(v, 'rules'),
   more: renderMore,
+  measure: renderMeasure,
   key: renderKey,
   loc: renderLocation
 };
@@ -130,7 +132,7 @@ function route() {
   const [, name = 'map', arg] = (location.hash || '#/map').split('/');
   const view = document.getElementById('view');
   // 5 tabs: Map · Forecast (spots, live, spot pages) · Species (fish, ID, rules) · Learn (key) · My Fishing (more)
-  const tab = ({ loc: 'spots', live: 'spots', fishid: 'fish', rules: 'fish' }[name] || name);
+  const tab = ({ loc: 'spots', live: 'spots', fishid: 'fish', rules: 'fish', measure: 'more' }[name] || name);
   if (name !== 'loc') try { sessionStorage.setItem('lastTab', name); } catch { /* ignore */ }
   document.querySelectorAll('#tabbar a').forEach(a => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
 

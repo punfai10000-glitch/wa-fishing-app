@@ -7,7 +7,9 @@ import { fmtDateTime } from './units.js';
 import { fmtWind, fmtHeight, fmtTemp } from './units.js';
 import { degToCompass } from './scoring/geo.js';
 import { AMENITY_TYPES, loadAmenities } from './amenities.js';
-import { initCoastMap, refreshCoastMap, selectedTime } from './coastmap.js';
+import { initCoastMap, refreshCoastMap, selectedTime, setSelectedTime, waveColor, sstColor } from './coastmap.js';
+import { verdict, verdictHTML, hourStrip } from './verdict.js';
+import { plainify } from './plain.js';
 import { currentColor } from './flow.js';
 import { CURRENT_BANDS } from './units.js';
 import { loadShore, nearestShore } from './shore.js';
@@ -20,7 +22,7 @@ import { openWindy, placeReport } from './coastmap.js';
 import { makeDepthLayer, loadDepthIndex, depthAt, depthText, DEPTH_BANDS } from './depth.js';
 import { offshorePoint } from './shore.js';
 
-let map, markerLayer, zoneLayer, zoneLabels, amenityLayer;
+let map, markerLayer, zoneLayer, zoneLabels, amenityLayer, zonesDrawn = null, sheetRefresher = null;
 export const FISH_SVG = '<svg viewBox="0 0 32 20" width="26" height="16"><path d="M2 10c5-7 14-8 20-3l7-5v16l-7-5c-6 5-15 4-20-3z" fill="#56b4e9" stroke="#fff" stroke-width="1.5"/><circle cx="8" cy="9" r="1.6" fill="#04121f"/></svg>';
 export const SPEAR_SVG = '<svg viewBox="0 0 32 20" width="26" height="16"><path d="M1 10h24" stroke="#fff" stroke-width="2.2"/><path d="M25 5l6 5-6 5z" fill="#ffd166"/><path d="M3 6l4 4-4 4" stroke="#ffd166" stroke-width="1.6" fill="none"/></svg>';
 const baseLayers = {};
@@ -46,7 +48,7 @@ const LAYERS = [
   { group: 'Marine conditions', id: 'currentFlow', label: 'Water movement (currents)', note: 'Forecast — streaks follow the ocean current: green slow, yellow moderate, orange strong, red too strong to dive. On by default in Spear. Offshore drift only — rips near the beach are too small for any forecast.' },
   { group: 'Marine conditions', id: 'wind', label: 'Wind speed labels', note: 'Forecast km/h with direction (zoom in)' },
   { group: 'Marine conditions', id: 'waves', label: 'Wave height labels', note: 'Forecast metres with direction (zoom in)' },
-  { group: 'Marine conditions', id: 'sst', label: 'Sea temperature', note: 'Modelled, shown under each spot' },
+  { group: 'Marine conditions', id: 'sst', label: 'Sea temperature', note: 'Coloured dots with °C all along the coast (blue cold → red warm). Forecast model.' },
   { group: 'Under the water', id: 'habitat', label: 'Seabed habitat', note: 'Reef, seagrass and sand where mapped (Seamap Australia); patchy near shore' },
   { group: 'Under the water', id: 'depth', label: 'Water depth (colour bands)', note: 'Detailed near shore where Transport WA surveyed (zoom in); general depth when zoomed out. Tap the water for the depth in metres. Not for navigation.' },
   { group: 'Facilities', id: 'tackle', label: 'Tackle & bait shops', note: '' },
@@ -72,7 +74,7 @@ export const viewOn = () => lite() ? { ...viewOnFull(), windFlow: false, swellFl
 // currents: on in Spear unless the user switched them off (null = not chosen yet)
 const viewOnFull = () => { const on = layerOn(); return isWeatherView()
   ? { ...on, coast: false, zones: false, incidents: false, tackle: false, fuel: false, toilets: false, food24: false, parking: false,
-      windFlow: true, swellFlow: true, wind: true, waves: true, buoys: true, currentFlow: on.currentFlow === true }
+      windFlow: true, swellFlow: true, wind: true, waves: true, buoys: true, sst: true, currentFlow: on.currentFlow === true }
   : { ...on, currentFlow: on.currentFlow ?? state.activity === 'spear' }; };
 const setLayer = (k, v) => store.set('layers', { ...layerOn(), [k]: v });
 
@@ -85,7 +87,7 @@ export function initMap() {
   // Gestures: Leaflet handles pinch, drag and double-tap on the map itself; the overlays get
   // touch-action rules in CSS so a pinch on a button can't zoom the whole web page.
   map = L.map('map', {
-    zoomControl: false, attributionControl: true, minZoom: 5, maxZoom: 18, zoomSnap: 0.5, zoomDelta: 1,
+    zoomControl: false, attributionControl: true, preferCanvas: true, minZoom: 5, maxZoom: 18, zoomSnap: 0.5, zoomDelta: 1,
     bounceAtZoomLimits: false, tapTolerance: 15, wheelPxPerZoomLevel: 90,
     maxBounds: [[-40, 106], [-26, 130]], maxBoundsViscosity: 0.7
   });
@@ -129,10 +131,24 @@ export function initMap() {
   overlays.depthDetail.on('loading', () => { if (map.getZoom() >= 11) toast('Loading water depth…', 4000); });
   overlays.depthDetail.on('load', () => { const t = document.getElementById('toast'); if (t.textContent.startsWith('Loading water depth')) t.hidden = true; });
   loadDepthIndex();
-  overlays.habitat = L.tileLayer.wms('https://geoserver.imas.utas.edu.au/geoserver/seamap/wms', {
-    layers: 'seamap:SeamapAus_National_Benthic_Habitat_Layer', format: 'image/png', transparent: true, opacity: 0.7, pane: 'underwater',
-    attribution: 'Habitat: <a href="https://seamapaustralia.org">Seamap Australia</a> (UTAS)'
+  // Seabed habitat: tiles pre-rendered from Seamap Australia (pipeline/fetch_habitat.py) and served from this site —
+  // fast, and only tiles that actually contain mapped habitat are requested.
+  let habIdx = null;
+  const habReady = fetch('data/habitat/index.json').then(r => r.json()).then(j => { habIdx = new Set(Object.entries(j.tiles).flatMap(([z, v]) => v.map(k => `${z}/${k}`))); }).catch(() => { habIdx = new Set(); });
+  const Hab = L.TileLayer.extend({
+    createTile(c, done) {
+      const img = document.createElement('img');
+      img.alt = ''; img.setAttribute('role', 'presentation');
+      habReady.then(() => {
+        if (!habIdx.has(`${c.z}/${c.x}/${c.y}`)) { done(null, img); return; }
+        img.onload = () => done(null, img); img.onerror = () => done(null, img);
+        img.src = `data/habitat/${c.z}/${c.x}/${c.y}.png`;
+      });
+      return img;
+    }
   });
+  overlays.habitat = new Hab('', { minNativeZoom: 8, maxNativeZoom: 13, minZoom: 7, maxZoom: 19, opacity: 0.7, pane: 'underwater', keepBuffer: 3,
+    attribution: 'Habitat: <a href="https://seamapaustralia.org">Seamap Australia</a> (UTAS, CC BY 4.0)' });
 
   map.attributionControl.addAttribution('Forecasts: <a href="https://open-meteo.com/">Open-Meteo</a>');
   // Every official zone is drawn (tap inside one for its exact rules):
@@ -155,7 +171,7 @@ export function initMap() {
 
   applyLayers();
   buildControls();
-  buildSearch();
+  buildSearch(); buildHelp();
   buildSpeciesPicker();
   buildLegend();
   refreshMap();
@@ -325,55 +341,70 @@ async function hydrateThumbs(root) {
 // ---- Spot card (bottom sheet) ------------------------------------------------------
 export function openSpotSheet(loc) {
   state.selectedId = loc.id;
-  const ev = evalFor(loc), hr = hourRow(ev);
-  const ls = legalStatus(state.data.zones, loc, state.activity, { t: selectedTime() });
-  const tg = ls.state === 'blocked' ? [] : likelyTargets(loc, hr?.hour, state.activity, { max: 3, zones: state.data.zones }).filter(t => t.level === 'good' || t.level === 'possible');
   const fav = store.favourites().has(loc.id);
   const [lng, lat] = loc.geometry.coordinates;
+  // the parts that change with the time slider
+  const parts = () => {
+    const ev = evalFor(loc), hr = hourRow(ev), t = selectedTime();
+    const ls = legalStatus(state.data.zones, loc, state.activity, { t });
+    const tg = ls.state === 'blocked' ? [] : likelyTargets(loc, hr?.hour, state.activity, { max: 3, zones: state.data.zones }).filter(x => x.level === 'good' || x.level === 'possible');
+    const v = verdict(ev, hr, ls, state.activity, t);
+    const top = `
+      <div class="small muted">${esc(REGIONS[loc.region]?.name ?? loc.region ?? '')} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)} · ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'} · <strong>${timeLabel() === 'Now' ? 'now' : esc(timeLabel())}</strong></div>
+      ${verdictHTML(v)}
+      <div class="ticks">${tick(ls.state === 'blocked' ? 'no' : ls.state === 'caution' ? 'care' : 'yes', 'Allowed?', ls.state === 'blocked' ? 'No' : ls.state === 'caution' ? 'Yes, extra rules' : 'Yes')}
+        ${tick(!hr ? 'unknown' : hr.blockKind === 'safety' ? 'no' : hr.blockKind === 'dark' ? 'no' : hr.cautions?.length ? 'care' : 'yes', 'Safe?', !hr ? '?' : hr.blockKind === 'safety' ? 'No' : hr.blockKind === 'dark' ? 'Dark' : hr.cautions?.length ? 'Take care' : 'Within limits')}
+        ${tick(!hr || hr.blocked || hr.score == null ? 'unknown' : band(hr.score) === 'good' ? 'yes' : band(hr.score) === 'fair' ? 'care' : 'no', 'Conditions', !hr || hr.blocked || hr.score == null ? '—' : `${BAND_LABEL[band(hr.score)]} ${hr.score}`)}</div>
+      ${ev.applicable === false ? '' : hourStrip(ev, t)}
+      ${ev.applicable === false || ls.state === 'blocked' ? '' : `<div class="small">⏱ ${bestTimeText(ev, t)}</div>`}
+      ${tg.length ? `<div class="small">🎯 Fish likely around now: ${esc(tg.map(x => x.name).join(', '))}</div>` : ''}`;
+    const half = plainify(`${ev.applicable === false ? '' : fourChecks(loc, ev, hr, state.data.zones, state.activity)}
+      ${ls.zones?.length || ls.state !== 'ok' ? legalHTML(ls) : ''}`);
+    return { top: plainify(top), half, hr };
+  };
+  const p0 = parts();
   const html = `
-    <div class="spot-sum">
-      <div class="small muted">${esc(REGIONS[loc.region]?.name ?? loc.region ?? '')} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)} · ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'}</div>
-      <div class="row" style="gap:8px;margin:6px 0 2px;align-items:center;flex-wrap:wrap">
-        <span class="when-lbl">${timeLabel() === 'Now' ? 'Right now' : esc(timeLabel())}:</span>
-        ${ev.applicable === false ? pill(ev) : hr ? (hr.blocked ? blockPill(hr.blockKind) : `<span class="pill ${band(hr.score)}">${BAND_LABEL[band(hr.score)]} ${hr.score ?? '?'}</span>`) : '<span class="pill unknown">Unknown</span>'}
-        ${hr && !hr.blocked ? chanceIcon(hr.score, state.activity, false, false) : ''}
-      </div>
-      ${ev.applicable === false || (hr?.blocked && hr.blockKind === 'legal') ? '' : `<div class="small">⏱ ${bestTimeText(ev, selectedTime())}</div>`}
-      ${tg.length ? `<div class="small">🎯 ${esc(tg.map(t => t.name).join(', '))}</div>` : ''}
-      <div class="small allow-mini">${['shore', 'spear'].map(a => `<span class="${ls.allow?.[a] === false ? 'no' : 'yes'}">${a === 'spear' ? '🔱 Spearfishing' : '🎣 Line fishing'} ${ls.allow?.[a] === false ? '✗ not allowed' : '✓ allowed'}</span>`).join(' · ')}</div>
-      ${ls.state === 'blocked' ? `<div class="small warn-text">⛔ ${esc(ls.text)}</div>` : ls.state === 'caution' ? `<div class="small">⚠ ${esc(ls.text)}</div>` : ''}
-      ${hr?.blocked && hr.blockKind === 'safety' ? `<div class="small warn-text">⚠ ${esc(hr.blocks.find(b => b.kind === 'safety')?.reason ?? '')}</div>` : ''}
+    <div class="spot-sum"><div data-top>${p0.top}</div>
       <div class="row sheet-actions">
-        <button class="btn" data-act="more">View details</button>
+        <button class="btn" data-act="more">Why? More details</button>
         <a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" rel="noopener">Directions</a>
         <button class="btn ghost" data-act="fav" aria-pressed="${fav}">${fav ? '★ Saved' : '☆ Save'}</button>
+        <a class="btn ghost" href="#/measure">📏 Measure a catch</a>
       </div>
     </div>
-    <div class="spot-half">${ev.applicable === false ? '' : fourChecks(loc, ev, hr, state.data.zones, state.activity)}
-      ${ls.zones?.length || ls.state !== 'ok' ? legalHTML(ls) : ''}
+    <div class="spot-half"><h3 class="sheet-h3">The details</h3><div data-half>${p0.half}</div>
       <div class="small" id="spot-depth" style="margin-top:6px">Depth: checking…</div></div>
     <div class="spot-full" data-full></div>`;
   const body = openSheet(html, {
     title: loc.name, state: 'peek',
-    onClose: () => { state.selectedId = null; markSelected(); },
+    onClose: () => { state.selectedId = null; sheetRefresher = null; markSelected(); },
     onState: (st, b) => {
       const box = b.querySelector('[data-full]');
       if (st === 'full' && box && !box.dataset.done) { box.dataset.done = '1'; renderLocation(box, loc.id); }
     }
   });
+  sheetRefresher = () => {
+    const p = parts();
+    const a = body.querySelector('[data-top]'), b = body.querySelector('[data-half]');
+    if (a) a.innerHTML = p.top; if (b) b.innerHTML = p.half;
+  };
   body.onclick = e => {
+    const c = e.target.closest('[data-t]');
+    if (c) { setSelectedTime(+c.dataset.t); return; }
     const b = e.target.closest('button'); if (!b) return;
     if (b.dataset.act === 'more') setSheetState('full');
     if (b.dataset.act === 'fav') { const on = store.toggleFavourite(loc.id); b.textContent = on ? '★ Saved' : '☆ Save'; b.setAttribute('aria-pressed', String(on)); }
   };
   // depth ~60 m out from the spot (the pin itself sits on the shoreline)
   const off = loc.estuary ? { lat, lng } : (offshorePoint(lat, lng, 0.06) || { lat, lng });
-  depthAt(off.lat, off.lng).then(d => { const el = body.querySelector('#spot-depth'); if (el) el.innerHTML = depthText(d, hr?.hour?.sea_level).replace('Depth:', loc.estuary ? 'Depth here:' : 'Depth ~60 m out:'); });
+  depthAt(off.lat, off.lng).then(d => { const el = body.querySelector('#spot-depth'); if (el) el.innerHTML = depthText(d, p0.hr?.hour?.sea_level).replace('Depth:', loc.estuary ? 'Depth here:' : 'Depth ~60 m out:'); });
   markSelected();
   // keep the chosen spot visible above the sheet without changing the zoom
   const pt = map.latLngToContainerPoint([lat, lng]), h = map.getSize().y;
   if (pt.y > h * 0.62) map.panBy([0, pt.y - h * 0.4], { animate: true });
 }
+const tick = (cls, label, val) => `<div class="tick t-${cls}"><span>${label}</span><b>${cls === 'yes' ? '✓' : cls === 'no' ? '✗' : cls === 'care' ? '⚠' : '?'} ${esc(val)}</b></div>`;
+export function setSheetRefresher(fn) { sheetRefresher = fn; }
 function markSelected() {
   document.querySelectorAll('.leaflet-marker-pane .mk-wrap').forEach(w => w.classList.toggle('selected', w.dataset.loc === state.selectedId));
 }
@@ -451,7 +482,7 @@ export function refreshMap() {
     const text = ev.applicable === false ? '–' : !hr ? '?' : hr.blocked ? ({ legal: '⛔', safety: '⚠', dark: '🌙' }[hr.blockKind] || '✕') : hr.score ?? '?';
     const icon = L.divIcon({
       className: loc.osm ? 'mk-wrap osm' : 'mk-wrap',
-      html: `<div class="mk ${cls} conf-${ev.confidence?.level ?? 'low'}" aria-hidden="true">${text}</div>${subLabel(loc, ev, on)}`,
+      html: `<div class="mk ${cls}${hr && !hr.blocked && hr.cautions?.length ? ' care' : ''} conf-${ev.confidence?.level ?? 'low'}" aria-hidden="true">${text}</div>${subLabel(loc, ev, on)}`,
       iconSize: [38, 38], iconAnchor: [19, 19]
     });
     const m = L.marker([lat, lng], { locId: loc.id, icon, title: `${loc.name}: ${ev.applicable === false ? 'not rated for this activity' : ev.band}`, alt: loc.name, keyboard: true, zIndexOffset: 1000 });
@@ -459,9 +490,10 @@ export function refreshMap() {
     m.on('add', () => { const el = m.getElement(); if (el) { el.dataset.loc = loc.id; el.classList.toggle('selected', loc.id === state.selectedId); } });
     markerLayer.addLayer(m);
   }
-  zoneLayer.clearLayers(); zoneLabels.clearLayers();
-  if (on.zones && state.data?.zones?.features?.length) {
-    zoneLayer.addData(state.data.zones);
+  zoneLabels.clearLayers();
+  const zkey = on.zones && state.data?.zones?.features?.length ? state.data.zones : null;
+  if (zkey !== zonesDrawn) { zoneLayer.clearLayers(); if (zkey) zoneLayer.addData(zkey); zonesDrawn = zkey; }   // polygons only redrawn when they change
+  if (zkey) {
     // names on the water when zoomed in, so you can see exactly which zone you are looking at
     if (map.getZoom() >= 13) {
       const vb = map.getBounds();
@@ -476,6 +508,7 @@ export function refreshMap() {
     }
   }
   refreshCoastMap();
+  if (sheetRefresher && sheetState()) sheetRefresher();   // the open card follows the time slider / play
 }
 
 // Toilets, servos and 24/7 food only within 10 km of the sea (otherwise far too many inland pins).
@@ -530,6 +563,8 @@ function updateLegend(on) {
   if (on.zones) parts.push('<div class="lg-h">Rules (tap inside for the exact rules)</div><span><i class="key-zone sanct" style="width:16px;height:10px"></i> No fishing</span><span><i class="key-zone restr" style="width:16px;height:10px"></i> Special rules</span><span><i class="key-zone permit" style="width:16px;height:10px"></i> Spearfishing area</span><span><i class="key-zone gear" style="width:16px;height:10px"></i> Gear / species rules</span><span><i class="key-zone park" style="width:16px;height:10px"></i> Marine park edge</span>');
   if (on.buoys) parts.push('<div class="lg-h">Buoys (measured)</div><span style="color:#30d158">■ under 1 h old</span><span style="color:#f5a524">■ 1–3 h</span><span style="color:#e5484d">■ older — not current</span>');
   if (on.depth) parts.push('<div class="lg-h">Water depth</div>' + DEPTH_BANDS.map(([max, c], i) => `<span><i class="dot" style="background:rgb(${c.join(',')});border-radius:2px"></i>${i ? DEPTH_BANDS[i - 1][0] : 0}${max === Infinity ? '+' : '–' + max} m</span>`).join('') + '<span class="muted">zoom in for survey detail</span>');
+  if (on.waves) parts.push('<div class="lg-h">Wave height (arrows point where waves go)</div>' + [[0.3, 'under 0.5 m calm'], [0.7, '0.5–1 m small'], [1.2, '1–1.5 m moderate'], [2, '1.5–2.5 m big'], [3, '2.5 m+ very big']].map(([v, t]) => `<span><i class="dot" style="background:${waveColor(v)}"></i>${t}</span>`).join(''));
+  if (on.sst) parts.push('<div class="lg-h">Sea temperature</div>' + [14, 17, 19, 21, 24].map(v => `<span><i class="dot" style="background:${sstColor(v)}"></i>${v} °C</span>`).join(''));
   if (on.windFlow) parts.push('<div class="lg-h">Wind streaks</div><span>white light · blue moderate · yellow fresh · red strong</span>');
   if (on.currentFlow) parts.push('<div class="lg-h">Water movement (current)</div>' + CURRENT_BANDS.map(b => `<span><i class="dot" style="background:${currentColor(b.max === Infinity ? 9 : b.max - 0.5)}"></i>${b.label} ${b.max === Infinity ? '3+' : (b.max - 1) + '–' + b.max} km/h</span>`).join('') + '<span class="muted">offshore forecast — not rips</span>');
   if (state.targetSpecies) parts.push(`<div class="lg-h">Species filter</div><span>Only spots where it's likely now</span>`);
@@ -539,9 +574,15 @@ function updateLegend(on) {
 
 function buildLegend() {
   const hl = document.getElementById('habitat-legend');
-  hl.innerHTML = `<strong class="small">Seabed habitat</strong>
-    <img alt="Habitat colour key from Seamap Australia" loading="lazy" src="https://geoserver.imas.utas.edu.au/geoserver/seamap/wms?REQUEST=GetLegendGraphic&VERSION=1.0.0&FORMAT=image/png&LAYER=seamap:SeamapAus_National_Benthic_Habitat_Layer">
-    <span class="small muted">No colour = not mapped, not "no reef".</span>`;
+  const k = [['#02DC00', 'Seagrass'], ['#2D9624', 'Seaweed / kelp'], ['#640000', 'Rocky reef'], ['#CC6600', 'Reef + sand'], ['#FFF9A5', 'Sand'], ['#1AA3FF', 'Mixed life'], ['#FF99E6', 'Sponges']];
+  hl.innerHTML = `<strong class="small">Seabed habitat</strong><div class="hab-key">${k.map(([c, n]) => `<span><i style="background:${c}"></i>${n}</span>`).join('')}</div>
+    <span class="small muted">No colour = not mapped (not "no reef"). <a href="#/key">All colours →</a></span>`;
+}
+
+function buildHelp() {
+  document.getElementById('help-btn')?.addEventListener('click', openGuide);
+  let seen = null; try { seen = localStorage.getItem('wafi.guide'); } catch {}
+  if (!seen) setTimeout(() => { if (!sheetState() && (location.hash || '#/map').startsWith('#/map')) openGuide(); }, 2500);
 }
 
 function buildSearch() {
@@ -628,4 +669,40 @@ function labelPoint(g) {
   for (let k = 0; k + 1 < xs.length; k += 2) if (!best || xs[k + 1] - xs[k] > best[1] - best[0]) best = [xs[k], xs[k + 1]];
   if (best && !(cx > best[0] && cx < best[1]) && !xs.some((x, k) => k % 2 === 0 && cx > x && cx < xs[k + 1])) cx = (best[0] + best[1]) / 2;
   return [cy, cx];
+}
+
+// From other pages (Forecast list): go to the map, fly to the spot and open its card
+export function showSpotOnMap(id) {
+  const l = [...state.data.locations, ...(state.osmSpots || [])].find(x => x.id === id);
+  if (!l) return;
+  if (location.hash !== '#/map') location.hash = '#/map';
+  setTimeout(() => {
+    map.invalidateSize();
+    map.setView([l.geometry.coordinates[1], l.geometry.coordinates[0]], Math.max(map.getZoom(), 14), { animate: false });
+    openSpotSheet(l);
+  }, 120);
+}
+export function showPlaceOnMap(p) {
+  if (location.hash !== '#/map') location.hash = '#/map';
+  setTimeout(() => { map.invalidateSize(); map.setView([p.lat, p.lng], 13, { animate: false }); placeReport(p.lat, p.lng, p.name); }, 120);
+}
+
+// "How to use" — the whole workflow in 3 plain steps. Shown once on first visit, then from the ? button.
+export function openGuide() {
+  setSheetRefresher(null);
+  const b = openSheet(`
+    <ol class="guide">
+      <li><b>1 · Where?</b> Type your town, campsite or beach in the search box — or just move the map and tap the water or a numbered pin.
+        <span>Pick <b>Fishing</b> (rod and line from shore) or <b>Spear</b> (spearfishing) at the top first.</span></li>
+      <li><b>2 · When?</b> Drag the time bar at the bottom (or press ▶) — every pin and the open card change to that hour.
+        <span>In a spot card, the coloured bar shows the next 48 hours: green good · orange fair · striped take care · grey not safe · dark = night. Tap an hour to jump there.</span></li>
+      <li><b>3 · Go or not?</b> The top of every card gives one answer:
+        <span>✅ <b>Good time to go</b> · 👌 OK · ⚠ <b>Take care</b> (allowed, but close to a safety limit — experienced people only) · 🚫 <b>Not safe</b> (with the next safer time) · ⛔ <b>Not allowed</b> (no-fishing area or banned activity).</span>
+        <span>Underneath: <b>Allowed?</b> (official rules) · <b>Safe?</b> (waves, wind, current against safety limits) · <b>Conditions</b> (score 0–100 — how good the weather and water are, not a fish count).</span></li>
+    </ol>
+    <p class="small muted">Always look at the water yourself before you go in — forecasts can be wrong. Signs on site beat the app.</p>
+    <div class="row" style="gap:8px"><button class="btn" data-g="ok">Got it</button><a class="btn ghost" href="#/key">More help (Learn)</a></div>`,
+    { title: 'How to use — 3 steps', state: 'half' });
+  b.onclick = e => { if (e.target.closest('[data-g]')) closeSheet(); };
+  try { localStorage.setItem('wafi.guide', '1'); } catch {}
 }

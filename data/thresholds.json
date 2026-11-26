@@ -1,5 +1,5 @@
 {
- "_note": "SAFETY HARD-BLOCK THRESHOLDS (v3, 26 Nov 2026 — adds a spearfishing current limit). Set from published BOM, WA Department of Transport and Recfishwest guidance, choosing the cautious end. NOT reviewed on site by a safety professional — users must always judge conditions themselves. Estuary spots ignore wave limits (no ocean waves).",
+ "_note": "SAFETY THRESHOLDS (v4, 26 Nov 2026). 'max' = Not safe (hard block); 'caution' = Take care (allowed, near the limit). From BOM, WA Department of Transport and Recfishwest guidance and common dive practice, choosing the cautious end. Wave limits use the swell reaching the spot (direction and shelter considered); rock platforms keep an any-direction limit. NOT reviewed on site by a safety professional — always judge conditions yourself. Estuary spots ignore wave limits.",
  "sources": [
   {
    "name": "BOM — Rock fishing safety (5 weather checks)",
@@ -43,7 +43,8 @@
    "basis": [
     "BOM strong wind warning: 25–33 knots (45–60 km/h); gusts can be 40% stronger"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 50
   },
   {
    "id": "shore-wind-mean",
@@ -57,7 +58,8 @@
    "basis": [
     "BOM strong wind warning: 25–33 knots (45–60 km/h); gusts can be 40% stronger"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 35
   },
   {
    "id": "shore-wave-onshore",
@@ -72,7 +74,8 @@
     "BOM dangerous-surf thresholds (2007 study): onshore waves 3–4 m at 10 s+, or over 4 m",
     "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 1.8
   },
   {
    "id": "shore-wave-longperiod",
@@ -88,7 +91,8 @@
     "BOM dangerous-surf thresholds (2007 study): onshore waves 3–4 m at 10 s+, or over 4 m",
     "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 1.4
   },
   {
    "id": "rock-wave",
@@ -106,7 +110,8 @@
     "Experienced rock fishers (NSW): onshore swell over 1.4 m treated as dangerous on an exposed platform",
     "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 1.0
   },
   {
    "id": "rock-wave-longperiod",
@@ -125,7 +130,8 @@
     "Recfishwest safety ambassador Chris Dixon: no rock fishing facing the swell when period is over 16 s or rising",
     "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 0.7
   },
   {
    "id": "rock-period-16",
@@ -160,7 +166,8 @@
    "basis": [
     "BOM strong wind warning: 25–33 knots (45–60 km/h); gusts can be 40% stronger"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 38
   },
   {
    "id": "rock-no-wave-data",
@@ -186,12 +193,14 @@
     "types": "*"
    },
    "metric": "onshore_wave_m",
-   "max": 1.2,
+   "max": 1.5,
    "rationale": "Swell too big for safe shore entry and exit",
    "basis": [
-    "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
+    "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height",
+    "Measured against the swell actually reaching the spot (direction and shelter taken into account). 1.0–1.5 m = take care: experienced divers, calm entry and exit only"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 1.0
   },
   {
    "id": "spear-wave-longperiod",
@@ -199,15 +208,16 @@
     "activity": "spear",
     "types": "*"
    },
-   "metric": "wave_m_any_dir",
-   "max": 0.8,
+   "metric": "onshore_wave_m",
+   "max": 1.0,
    "min_period_s": 14,
-   "rationale": "Long-period swell (14 s+) — surge at entry/exit points and in caves",
+   "rationale": "Long-period swell (14 s+) reaching the spot — surge at entry/exit points and in caves",
    "basis": [
     "Recfishwest safety ambassador Chris Dixon: no rock fishing facing the swell when period is over 16 s or rising",
     "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 0.7
   },
   {
    "id": "spear-wind",
@@ -216,13 +226,14 @@
     "types": "*"
    },
    "metric": "wind_speed_kmh",
-   "max": 25,
-   "rationale": "Wind over 25 km/h — chop, drift and hard to see your float",
+   "max": 30,
+   "rationale": "Wind over 30 km/h — chop, drift and hard to see your float",
    "basis": [
     "BOM boating safety: winds over 15 knots (28 km/h) not suitable for small vessels",
     "WA DoT 'Weather or not': over 20 knots (37 km/h) unsafe for small craft; 3 m craft safe only to 8 knots"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 20
   },
   {
    "id": "spear-wind-gust",
@@ -231,12 +242,13 @@
     "types": "*"
    },
    "metric": "wind_gust_kmh",
-   "max": 40,
-   "rationale": "Gusts over 40 km/h",
+   "max": 50,
+   "rationale": "Gusts over 50 km/h",
    "basis": [
     "WA DoT 'Weather or not': over 20 knots (37 km/h) unsafe for small craft; 3 m craft safe only to 8 knots"
    ],
-   "status": "researched"
+   "status": "researched",
+   "caution": 40
   },
   {
    "id": "spear-no-wave-data",
@@ -265,7 +277,8 @@
     "A fit diver with fins can hold about 2–3 km/h (1–1.5 knots) for a short time; dive guidance treats currents over 1 knot as strong",
     "Model: Météo-France currents via Open-Meteo, ~8 km grid — shows offshore drift, not rips or channels near the shore"
    ],
-   "status": "estimate"
+   "status": "estimate",
+   "caution": 2.0
   }
  ]
 }

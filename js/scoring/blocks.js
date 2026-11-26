@@ -68,6 +68,12 @@ export function checkBlocks(loc, hour, activity, ctx = {}) {
     }
     if (loc.estuary && th.metric !== 'wind_gust_kmh' && th.metric !== 'wind_speed_kmh') continue;
     const v = metricValue(th.metric, hour, loc);
+    // near the limit: allowed, but "take care"
+    if (v != null && th.caution != null && v > th.caution && v <= th.max && th.metric !== 'wave_missing') {
+      const what = { onshore_wave_m: 'Swell reaching the spot', wave_m_any_dir: 'Waves', wind_speed_kmh: 'Wind', wind_gust_kmh: 'Gusts', current_kmh: 'Current' }[th.metric] || 'Conditions';
+      const unit = th.metric.endsWith('_m') ? 'm' : 'km/h';
+      out.push({ kind: 'caution', reason: `${what} ${v.toFixed(1)} ${unit}${th.min_period_s ? ` (long ${Math.round(hour.wave_period ?? hour.swell_period)} s swell)` : ''} — close to the ${th.max} ${unit} limit` });
+    }
     if (v != null && v > th.max) {
       if (th.metric === 'wave_missing') { out.push({ kind: 'safety', reason: `${th.rationale}.` }); continue; }
       const unit = th.metric.includes('_m') && !th.metric.includes('kmh') ? 'm' : 'km/h';

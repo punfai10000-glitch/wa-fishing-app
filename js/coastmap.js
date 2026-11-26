@@ -3,7 +3,9 @@
 import { openSheet } from './sheet.js';
 import { depthAt, depthText } from './depth.js';
 import { state, evalFor } from './app.js';
-import { viewOn as layerOn, refreshMap, openSpotSheet } from './map.js';
+import { viewOn as layerOn, refreshMap, openSpotSheet, setSheetRefresher } from './map.js';
+import { verdict, verdictHTML, hourStrip } from './verdict.js';
+import { plainify } from './plain.js';
 import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
@@ -25,6 +27,15 @@ let playing = null;
 const HOUR = 3600e3;
 const COLORS = { good: '#009e73', fair: '#e69f00', poor: '#d55e00', blocked: '#6b7280', 'blk-legal': '#a855f7', 'blk-safety': '#6b7280', 'blk-dark': '#334155', unknown: '#8a94a6' };
 const DASH = { 'blk-safety': '4 8', 'blk-dark': '2 6', blocked: '4 8' };
+
+// jump the time slider to an exact hour (e.g. tapping the hour strip in a card)
+export function setSelectedTime(t) {
+  const now = Math.floor(Date.now() / HOUR) * HOUR;
+  offset = Math.max(0, Math.min(48, Math.round((t - now) / HOUR)));
+  userMovedTime = true;
+  const r = document.getElementById('tb-range'); if (r) r.value = offset;
+  refreshMap();
+}
 
 export function selectedTime() {
   autoDaylightForSpear();
@@ -99,11 +110,27 @@ export function refreshCoastMap() {
       // rough bundled coastline is ~1 km out at this zoom: don't draw a misleading line (tap for details)
     } else if (sh?.lines.length) {
       // colour the REAL shoreline: each vertex takes the colour of its nearest conditions point (<= 6 km)
-      if (!shoreIdx) shoreIdx = sh.lines.map(L => L.map(([x, y]) => {
-        let bi = -1, bd = 6;
-        pts.forEach((p, i) => { const [px, py] = p.geometry.coordinates; const d = Math.hypot((px - x) * Math.cos(y * Math.PI / 180), py - y) * 111; if (d < bd) { bd = d; bi = i; } });
-        return bi;
-      }));
+      // rivers and estuaries (Swan, Peel, Walpole…) are far from the ocean points: their banks take the
+      // colour of the nearest fishing spot (<= 2.5 km) instead, so the river line shows too
+      const spots = [...state.data.locations, ...(state.osmSpots || [])].filter(l => l.activities?.includes(state.activity));
+      const key = `${spots.length}|${state.activity}`;
+      if (!shoreIdx || shoreIdx.key !== key) {
+        const grid = new Map(), cell = 0.05, put = (x, y, v) => { const k = `${Math.floor(x / cell)},${Math.floor(y / cell)}`; (grid.get(k) || grid.set(k, []).get(k)).push(v); };
+        pts.forEach((p, i) => put(...p.geometry.coordinates, { i }));
+        spots.forEach(l => put(...l.geometry.coordinates, { l }));
+        const near = (x, y, r) => { const cx = Math.floor(x / cell), cy = Math.floor(y / cell), out = []; for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) out.push(...(grid.get(`${cx + a},${cy + b}`) || [])); return out; };
+        shoreIdx = sh.lines.map(L => L.map(([x, y]) => {
+          const k = Math.cos(y * Math.PI / 180);
+          let bi = -1, bd = 6, bl = null, bld = 2.5;
+          for (const v of near(x, y, 2)) {
+            const [px, py] = v.i != null ? pts[v.i].geometry.coordinates : v.l.geometry.coordinates;
+            const d = Math.hypot((px - x) * k, py - y) * 111;
+            if (v.i != null) { if (d < bd) { bd = d; bi = v.i; } } else if (d < bld) { bld = d; bl = v.l; }
+          }
+          return bi >= 0 ? bi : bl ? bl : -1;
+        }));
+        shoreIdx.key = key;
+      }
       sh.lines.forEach((L, li) => {
         let run = [], runBand = null;
         const flush = () => {
@@ -113,7 +140,7 @@ export function refreshCoastMap() {
         const L_poly = (latlngs, b) => window.L.polyline(latlngs, { pane: 'coast', color: COLORS[b], weight, opacity: 0.9, lineCap: 'round', lineJoin: 'round', dashArray: DASH[b] || null, interactive: false }).addTo(coastLayer);
         L.forEach(([x, y], vi) => {
           const idx = shoreIdx[li][vi];
-          const b = idx < 0 ? null : bandOf(rows[idx]);
+          const b = typeof idx === 'object' ? (hasData ? bandOf(hourAt(evalFor(idx), t)) : null) : idx < 0 ? null : bandOf(rows[idx]);
           if (b !== runBand) { const last = run[run.length - 1]; flush(); if (last && b) run.push(last); runBand = b; }
           if (b) run.push([y, x]);
         });
@@ -157,7 +184,7 @@ export function refreshCoastMap() {
   const note = document.getElementById('flow-note');
   if (note) note.hidden = !(flowPausedByDevice() && (on.windFlow || on.swellFlow || on.currentFlow));
 
-  if ((on.wind || on.waves) && hasData && pts.length && map.getZoom() >= 9) {
+  if ((on.wind || on.waves) && hasData && pts.length && map.getZoom() >= 8) {
     const z = map.getZoom();
     const every = z >= 11 ? 1 : z >= 9 ? 2 : z >= 7 ? 4 : 7;
     const bounds = map.getBounds().pad(0.1);
@@ -172,8 +199,22 @@ export function refreshCoastMap() {
       }
       const wh = h.wave_height ?? h.swell_height, wd = h.wave_direction ?? h.swell_direction;
       if (on.waves && wh != null && wd != null && p.sea) {
-        arrowLayer.addLayer(arrowMarker([p.sea[0], p.sea[1]], (wd + 180) % 360, 'wave', Math.min(1.7, 0.7 + wh / 2.5), `${wh.toFixed(1)}`));
+        arrowLayer.addLayer(arrowMarker([p.sea[0], p.sea[1]], (wd + 180) % 360, 'wave', Math.min(1.7, 0.7 + wh / 2.5), `${wh.toFixed(1)} m`, waveColor(wh)));
       }
+    });
+  }
+
+  // Sea temperature: a coloured dot with °C along the whole coast (blue = cold, red = warm)
+  if (on.sst && hasData && pts.length && map.getZoom() >= 7) {
+    const z = map.getZoom(), every = z >= 11 ? 1 : z >= 9 ? 2 : z >= 8 ? 3 : 5;
+    const bounds = map.getBounds().pad(0.1);
+    pts.forEach((p, i) => {
+      if (i % every || !p.sea) return;
+      const h = hourAt(evalFor(p), t)?.hour;
+      if (h?.sst == null || !bounds.contains(p.sea)) return;
+      const off = [p.sea[0] + (p.sea[0] - p.geometry.coordinates[1]) * 0.8, p.sea[1] + (p.sea[1] - p.geometry.coordinates[0]) * 0.8];
+      arrowLayer.addLayer(window.L.marker(off, { pane: 'arrows', interactive: false, keyboard: false,
+        icon: window.L.divIcon({ className: 'sst-dot', html: `<span style="background:${sstColor(h.sst)}">${h.sst.toFixed(0)}°</span>`, iconSize: [34, 20], iconAnchor: [17, 10] }) }));
     });
   }
 
@@ -235,6 +276,7 @@ export function refreshCoastMap() {
 let placedCache = null;
 // Card for a "★ Best stretch" label: same score as the label, plus the actual spots along that stretch
 function openBestSheet(p, r) {
+  setSheetRefresher(null);
   const t = selectedTime(), act = state.activity;
   const [plng, plat] = p.geometry.coordinates;
   const km = l => Math.hypot((l.geometry.coordinates[0] - plng) * Math.cos(plat * Math.PI / 180), l.geometry.coordinates[1] - plat) * 111;
@@ -263,12 +305,13 @@ function placedIncidents() {
   return list;
 }
 
-function arrowMarker(latlng, toDeg, kind, scale, label) {
+function arrowMarker(latlng, toDeg, kind, scale, label, color = null) {
+  const c = color ? `color:${color};` : '';
   return window.L.marker(latlng, {
     pane: 'arrows', interactive: false, keyboard: false,
     icon: window.L.divIcon({
       className: 'arrow-wrap',
-      html: `<div class="flow ${kind}" style="transform:rotate(${toDeg - 90}deg) scale(${scale.toFixed(2)})"><span class="glyph">➤</span></div><span class="flow-lbl ${kind}">${label}</span>`,
+      html: `<div class="flow ${kind}" style="${c}transform:rotate(${toDeg - 90}deg) scale(${scale.toFixed(2)})"><span class="glyph">➤</span></div><span class="flow-lbl ${kind}" style="${c}">${label}</span>`,
       iconSize: [34, 34], iconAnchor: [17, 17]
     })
   });
@@ -324,19 +367,23 @@ async function onMapClick(latlng, title = 'Exact point') {
 
   // report goes into the bottom sheet (no pop-up, so the map never jumps)
   let open = true;
-  const body = openSheet(tapHTML(loc, where, sh, false), { title, state: title === 'Exact point' ? 'peek' : 'half',
-    onClose: () => { open = false; if (tapMarker) { tapMarker.remove(); tapMarker = null; } } });
+  let exact = false;
+  const body = openSheet(plainify(tapHTML(loc, where, sh, false)), { title, state: title === 'Exact point' ? 'peek' : 'half',
+    onClose: () => { open = false; setSheetRefresher(null); if (tapMarker) { tapMarker.remove(); tapMarker = null; } } });
   fillNearby(body, [lng, lat]);
   wireSpotLinks(body);
   const depthP = depthAt(lat, lng);
   const fillDepth = () => depthP.then(d => { const el = body.querySelector('#pop-depth'); if (el) el.innerHTML = depthText(d, hourAt(evalFor(loc, 'shore'), selectedTime())?.hour?.sea_level); });
   fillDepth();
+  // follow the time slider / play button
+  setSheetRefresher(() => { if (!open) return; const y = body.scrollTop; body.innerHTML = plainify(tapHTML(loc, where, sh, exact)); fillNearby(body, [lng, lat]); fillDepth(); body.scrollTop = y; });
 
   // exact forecast for this point (one small request), then redraw the card
   const cond = await loadPointConditions(loc);
   if (state.tapLoc !== loc || !open) return;
   if (cond) { state.tapCond = cond; delete loc.condFrom; }
-  body.innerHTML = tapHTML(loc, where, sh, !!cond);
+  exact = !!cond;
+  body.innerHTML = plainify(tapHTML(loc, where, sh, !!cond));
   fillNearby(body, [lng, lat]);
   fillDepth();
 }
@@ -358,12 +405,14 @@ function spotsListHTML(list) {
 function wireSpotLinks(body, extra = null) {
   body.onclick = e => {
     extra?.(e);
+    const c = e.target.closest('[data-t]'); if (c) { setSelectedTime(+c.dataset.t); return; }
     const b = e.target.closest('[data-loc]'); if (!b) return;
     const l = [...state.data.locations, ...(state.osmSpots || [])].find(x => x.id === b.dataset.loc);
     if (l) { map.flyTo([l.geometry.coordinates[1], l.geometry.coordinates[0]], Math.max(map.getZoom(), 15), { duration: 0.6 }); map.once('moveend', () => openSpotSheet(l)); }
   };
 }
 export function placeReport(lat, lng, name) {
+  setSheetRefresher(null);
   const L = window.L;
   placeMarker?.remove();
   placeMarker = L.marker([lat, lng], { keyboard: false, zIndexOffset: 2100, title: name,
@@ -412,10 +461,11 @@ function tapHTML(loc, where, sh, exact) {
   return `
     <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br>
     ${where ? `<span class="small">${esc(where)}</span><br>` : ''}
+    ${verdictHTML(verdict(state.activity === 'spear' ? spear : shore, state.activity === 'spear' ? rp : rs, legal, state.activity, t))}
+    ${hourStrip(state.activity === 'spear' ? spear : shore, t)}
     <div class="small" id="pop-depth">Depth: checking…</div>
     <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
     <div class="row" style="margin:8px 0;gap:6px"><div><div class="small muted">Shore</div>${pillFor(rs)}</div><div><div class="small muted">Spear</div>${pillFor(rp)}</div></div>
-    <div style="margin:-2px 0 6px">${(() => { const r = state.activity === 'spear' ? rp : rs; return r ? chanceIcon(r.score, state.activity, r.blocked && r.blockKind) : ''; })()}</div>
     <div style="margin:4px 0">${legalHTML(legal)}</div>
     ${[rs, rp].flatMap(r => r?.blocks ?? []).filter(b => b.kind !== 'legal').map(b => `<div class="small warn-text">⚠ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
     ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · ${loc.estuary ? 'Sheltered water (no ocean swell)' : `Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''}`} · Tide ${h.tide_rate == null ? '?' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
@@ -485,4 +535,16 @@ function buildWindy() {
     panel.querySelectorAll('[data-overlay]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));
     load(b.dataset.overlay);
   }));
+}
+
+// colour scales shared with the map key: waves green (small) -> red (big); sea temperature blue (cold) -> red (warm)
+export function waveColor(m) { return m < 0.5 ? '#7ee2c8' : m < 1 ? '#a3e635' : m < 1.5 ? '#facc15' : m < 2.5 ? '#fb923c' : '#f87171'; }
+export function sstColor(c) {
+  const stops = [[14, [70, 110, 230]], [17, [60, 180, 230]], [19, [80, 200, 140]], [21, [240, 200, 70]], [24, [240, 90, 60]]];
+  if (c <= stops[0][0]) return `rgb(${stops[0][1]})`;
+  for (let i = 1; i < stops.length; i++) if (c <= stops[i][0]) {
+    const [a, ca] = stops[i - 1], [b, cb] = stops[i], f = (c - a) / (b - a);
+    return `rgb(${ca.map((v, k) => Math.round(v + (cb[k] - v) * f)).join(',')})`;
+  }
+  return `rgb(${stops[stops.length - 1][1]})`;
 }

@@ -1,7 +1,7 @@
 // Draggable bottom sheet (mobile) / side panel (desktop ≥ 900 px).
 // States: 'peek' (small summary), 'half' (essentials), 'full' (details). Drag the handle, tap it,
 // or use the buttons. The browser Back button closes the sheet before leaving the map.
-const H = { peek: 0.24, half: 0.55, full: 0.92 };   // fraction of the map area height
+const H = { peek: 0.34, half: 0.58, full: 0.92 };   // fraction of the map area height
 let el, body, handle, current = null, onCloseCb = null, onStateCb = null, pushed = false;
 
 export function initSheet() {

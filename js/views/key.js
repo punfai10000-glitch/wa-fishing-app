@@ -99,6 +99,14 @@ export function renderKey(view) {
       <p class="small"><strong>Rip currents are not shown.</strong> The forecast grid is about 8 km wide, so it shows the drift offshore, not the small, fast rips near the beach or in gaps between reefs. Look for rips yourself: a darker, calmer-looking gap between breaking waves, rippled or foamy water, or sand and weed moving out to sea. If caught in one, don't fight it — float, raise an arm, or swim sideways out of it.</p>
     </div>
 
+    <div class="card"><h2>Safe, take care, or not safe?</h2>
+      <p class="small">The app compares the forecast with safety limits for each activity (Learn more under My Fishing → Safety limits):</p>
+      ${row('<b style="color:#5be08a">✓</b>', 'Within limits', 'Waves, wind and current are below the limits. Still look at the water yourself.')}
+      ${row('<b style="color:#ffc04d">⚠</b>', 'Take care', 'Allowed, but close to a limit — e.g. spearfishing with 1–1.5 m of swell reaching the spot. For experienced people, with a buddy and a float; pick a calm entry and exit.')}
+      ${row('<b style="color:#ff7b7b">🚫</b>', 'Not safe', 'Over a limit (e.g. spearfishing: swell over 1.5 m reaching the spot, wind over 30 km/h, gusts over 50, current over 3 km/h). The card tells you the next safer time.')}
+      <p class="small muted">Why is the south coast often "Not safe" for spearfishing? It faces the Southern Ocean, where 2–3 m swell is normal. Look for bays and the sheltered side of headlands and islands (e.g. King George Sound, Esperance Bay) — the app counts how sheltered each spot is from the swell direction, so they often show as safe when the open beaches don't.</p>
+    </div>
+
     <div class="card"><h2>Safety</h2>
       ${row('<div class="incident fatal">☠</div>', 'Red skull', 'Recorded fatal shark incident.')}
       ${row('<div class="incident injured">!</div>', 'Orange !', 'Recorded shark incident with injury.')}

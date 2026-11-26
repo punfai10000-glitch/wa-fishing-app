@@ -14,6 +14,13 @@ function inPolygon(pt, poly) {
 }
 function contains(geom, pt) {
   if (!geom) return false;
+  if (!geom._bb) {   // bounding box once per zone: most points are rejected without walking the polygon
+    let a = Infinity, b = Infinity, c = -Infinity, d = -Infinity;
+    const walk = x => { if (typeof x[0] === 'number') { if (x[0] < a) a = x[0]; if (x[0] > c) c = x[0]; if (x[1] < b) b = x[1]; if (x[1] > d) d = x[1]; } else x.forEach(walk); };
+    walk(geom.coordinates); Object.defineProperty(geom, '_bb', { value: [a, b, c, d] });
+  }
+  const [a, b, c, d] = geom._bb;
+  if (pt[0] < a || pt[0] > c || pt[1] < b || pt[1] > d) return false;
   if (geom.type === 'Polygon') return inPolygon(pt, geom.coordinates);
   if (geom.type === 'MultiPolygon') return geom.coordinates.some(p => inPolygon(pt, p));
   return false;

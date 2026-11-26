@@ -1,9 +1,11 @@
 // Compass helpers. Directions are meteorological: the direction wind/waves come FROM.
 const POINTS = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
 
+const C2D = new Map();
 export function compassToDeg(name) {
-  const i = POINTS.indexOf(String(name).toUpperCase());
-  return i < 0 ? null : i * 22.5;
+  let v = C2D.get(name);
+  if (v === undefined) { const i = POINTS.indexOf(String(name).toUpperCase()); v = i < 0 ? null : i * 22.5; C2D.set(name, v); }
+  return v;
 }
 
 export function degToCompass(deg) {

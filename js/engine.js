@@ -64,8 +64,9 @@ export function evaluate(loc, hours, activity, ctx = {}) {
     const sun = sunCache.get(dk);
     if (sun) h.light = (Math.abs(h.t + 1800e3 - sun.sunrise) <= 5400e3 || Math.abs(h.t + 1800e3 - sun.sunset) <= 5400e3) ? 'twilight' : (h.t > sun.sunrise && h.t < sun.sunset ? 'day' : 'night');
     const result = scoreHour(loc, h, activity, { species: ctx.species });
-    const blocks = checkBlocks(loc, h, activity, { thresholds: ctx.thresholds, rules: ctx.rules, sun: sunCache.get(dk), zoneHits: ctx.zoneHits?.(loc) ?? [] });
-    return { t: h.t, hour: h, result, score: result.score, blocks, blocked: blocks.length > 0, blockKind: blockKindOf(blocks) };
+    const all = checkBlocks(loc, h, activity, { thresholds: ctx.thresholds, rules: ctx.rules, sun: sunCache.get(dk), zoneHits: ctx.zoneHits?.(loc) ?? [] });
+    const blocks = all.filter(b => b.kind !== 'caution'), cautions = blocks.some(b => b.kind === 'safety') ? [] : all.filter(b => b.kind === 'caution');
+    return { t: h.t, hour: h, result, score: result.score, blocks, cautions, blocked: blocks.length > 0, blockKind: blockKindOf(blocks) };
   });
 
   const window24 = hourly.filter(h => h.t >= now - HOUR && h.t < now + 24 * HOUR);

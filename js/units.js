@@ -41,7 +41,8 @@ export function fmtAge(t, now = Date.now()) {
 
 // Day key in Perth time, e.g. "2026-11-25"
 const keyFmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Perth' });
-export const dayKey = t => keyFmt.format(new Date(t));
+// Perth has no daylight saving: UTC+8 all year, so plain arithmetic is exact (and much faster than Intl)
+export const dayKey = t => new Date(+t + 8 * 3600e3).toISOString().slice(0, 10);
 
 // How fresh a MEASURED reading is (not a safety rule): fresh <1 h, aging 1–3 h, old >3 h.
 export function freshness(t, now = Date.now()) {
