@@ -15,6 +15,8 @@ import { renderLocation } from './views/location.js';
 import { likelyTargets, targetsData } from './targets.js';
 import { legalStatus } from './zones.js';
 import { openWindy } from './coastmap.js';
+import { makeDepthLayer, loadDepthIndex, depthAt, depthText, DEPTH_BANDS } from './depth.js';
+import { offshorePoint } from './shore.js';
 
 let map, markerLayer, zoneLayer, amenityLayer;
 export const FISH_SVG = '<svg viewBox="0 0 32 20" width="26" height="16"><path d="M2 10c5-7 14-8 20-3l7-5v16l-7-5c-6 5-15 4-20-3z" fill="#56b4e9" stroke="#fff" stroke-width="1.5"/><circle cx="8" cy="9" r="1.6" fill="#04121f"/></svg>';
@@ -42,7 +44,7 @@ const LAYERS = [
   { group: 'Marine conditions', id: 'waves', label: 'Wave height labels', note: 'Forecast metres with direction (zoom in)' },
   { group: 'Marine conditions', id: 'sst', label: 'Sea temperature', note: 'Modelled, shown under each spot' },
   { group: 'Under the water', id: 'habitat', label: 'Seabed habitat', note: 'Reef, seagrass and sand where mapped (Seamap Australia); patchy near shore' },
-  { group: 'Under the water', id: 'depth', label: 'Depth (general)', note: 'GEBCO ~450 m grid — drop-offs only, not for navigation' },
+  { group: 'Under the water', id: 'depth', label: 'Water depth (colour bands)', note: 'Detailed near shore where Transport WA surveyed (zoom in); general depth when zoomed out. Tap the water for the depth in metres. Not for navigation.' },
   { group: 'Facilities', id: 'tackle', label: 'Tackle & bait shops', note: '' },
   { group: 'Facilities', id: 'fuel', label: 'Servos', note: 'Bait not confirmed — call ahead' },
   { group: 'Facilities', id: 'toilets', label: 'Public toilets', note: 'Within 10 km of the coast' },
@@ -101,9 +103,12 @@ export function initMap() {
 
   map.createPane('underwater'); map.getPane('underwater').style.zIndex = 350;
   overlays.depth = L.tileLayer.wms('https://wms.gebco.net/mapserv?', {
-    layers: 'GEBCO_LATEST', format: 'image/png', transparent: true, opacity: 0.55, pane: 'underwater',
+    layers: 'GEBCO_LATEST', format: 'image/png', transparent: true, opacity: 0.55, pane: 'underwater', maxZoom: 10,
     attribution: 'Depth: <a href="https://www.gebco.net">GEBCO Compilation Group</a>'
   });
+  // detailed nearshore depth (Transport WA surveys) from zoom 11; GEBCO above covers the zoomed-out view
+  overlays.depthDetail = makeDepthLayer(L);
+  loadDepthIndex();
   overlays.habitat = L.tileLayer.wms('https://geoserver.imas.utas.edu.au/geoserver/seamap/wms', {
     layers: 'seamap:SeamapAus_National_Benthic_Habitat_Layer', format: 'image/png', transparent: true, opacity: 0.7, pane: 'underwater',
     attribution: 'Habitat: <a href="https://seamapaustralia.org">Seamap Australia</a> (UTAS)'
@@ -316,7 +321,8 @@ export function openSpotSheet(loc) {
         <button class="btn ghost" data-act="fav" aria-pressed="${fav}">${fav ? '★ Saved' : '☆ Save'}</button>
       </div>
     </div>
-    <div class="spot-half">${ev.applicable === false ? '' : fourChecks(loc, ev, hr, state.data.zones, state.activity)}</div>
+    <div class="spot-half">${ev.applicable === false ? '' : fourChecks(loc, ev, hr, state.data.zones, state.activity)}
+      <div class="small" id="spot-depth" style="margin-top:6px">Depth: checking…</div></div>
     <div class="spot-full" data-full></div>`;
   const body = openSheet(html, {
     title: loc.name, state: 'peek',
@@ -331,6 +337,9 @@ export function openSpotSheet(loc) {
     if (b.dataset.act === 'more') setSheetState('full');
     if (b.dataset.act === 'fav') { const on = store.toggleFavourite(loc.id); b.textContent = on ? '★ Saved' : '☆ Save'; b.setAttribute('aria-pressed', String(on)); }
   };
+  // depth ~60 m out from the spot (the pin itself sits on the shoreline)
+  const off = loc.estuary ? { lat, lng } : (offshorePoint(lat, lng, 0.06) || { lat, lng });
+  depthAt(off.lat, off.lng).then(d => { const el = body.querySelector('#spot-depth'); if (el) el.innerHTML = depthText(d).replace('Depth:', loc.estuary ? 'Depth here:' : 'Depth ~60 m out:'); });
   markSelected();
   // keep the chosen spot visible above the sheet without changing the zoom
   const pt = map.latLngToContainerPoint([lat, lng]), h = map.getSize().y;
@@ -350,6 +359,7 @@ function applyLayers() {
   for (const id of ['depth', 'habitat']) {
     if (on[id]) overlays[id].addTo(map); else map.removeLayer(overlays[id]);
   }
+  if (on.depth) overlays.depthDetail.addTo(map); else map.removeLayer(overlays.depthDetail);
   document.getElementById('habitat-legend').hidden = !on.habitat;
   renderAmenities();
 }
@@ -475,6 +485,7 @@ function updateLegend(on) {
   if (on.spots && !isWeatherView()) parts.push('<div class="lg-h">Spots & coast</div>' + [['good', 'Good 70+'], ['fair', 'Fair 40–69'], ['poor', 'Poor &lt;40'], ['blk-legal', 'Not allowed'], ['blk-safety', 'Not safe'], ['unknown', 'Unknown']].map(([c, t]) => dot(c, t)).join('') + '<span class="muted">dashed pin = lower confidence</span>');
   if (on.zones) parts.push('<div class="lg-h">Rules</div><span><i class="key-zone sanct" style="width:16px;height:10px"></i> No fishing</span><span><i class="key-zone restr" style="width:16px;height:10px"></i> Special rules</span>');
   if (on.buoys) parts.push('<div class="lg-h">Buoys (measured)</div><span style="color:#30d158">■ under 1 h old</span><span style="color:#f5a524">■ 1–3 h</span><span style="color:#e5484d">■ older — not current</span>');
+  if (on.depth) parts.push('<div class="lg-h">Water depth</div>' + DEPTH_BANDS.map(([max, c], i) => `<span><i class="dot" style="background:rgb(${c.join(',')});border-radius:2px"></i>${i ? DEPTH_BANDS[i - 1][0] : 0}${max === Infinity ? '+' : '–' + max} m</span>`).join('') + '<span class="muted">zoom in for survey detail</span>');
   if (on.windFlow) parts.push('<div class="lg-h">Wind streaks</div><span>white light · blue moderate · yellow fresh · red strong</span>');
   if (state.targetSpecies) parts.push(`<div class="lg-h">Species filter</div><span>Only spots where it's likely now</span>`);
   parts.push('<a href="#/key" class="small">Full key →</a>');
