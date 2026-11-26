@@ -9,12 +9,22 @@ export function renderMore(view) {
   const opt = (v, cur, label) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${label}</option>`;
   view.innerHTML = `
   <div>
-    <h1>Settings & info</h1>
+    <h1>My Fishing</h1>
 
     <div class="card">
-      <h2>Map key</h2>
-      <p class="small">What every colour, pin and symbol on the map means.</p>
-      <a class="btn" href="#/key">Open map key</a>
+      <h2>Saved spots</h2>
+      ${favs.size ? `<ul class="plain">${[...favs].map(id => { const l = [...state.data.locations, ...(state.osmSpots || [])].find(x => x.id === id); return l ? `<li><a href="#/loc/${encodeURIComponent(id)}">★ ${esc(l.name)}</a></li>` : ''; }).join('')}</ul>` : '<p class="small muted">Tap ☆ Save on any spot card to keep it here.</p>'}
+      <p class="small muted">Fishing journal (catches and trips with no fish) is coming in a later update — saved on this phone only.</p>
+    </div>
+
+    <div class="card">
+      <h2>App settings</h2>
+      <label class="tog"><input type="checkbox" id="lite" ${store.get('lite') ? 'checked' : ''}><span><span class="tog-l">Battery & data saver</span><small>No wind/swell animation and fewer pins — for older phones or slow connections.</small></span></label>
+      <div class="row" style="gap:8px;margin-top:10px;flex-wrap:wrap">
+        <button class="btn ghost" id="reset-view">Reset map view</button>
+        <button class="btn ghost" id="reset-all">Reset all settings</button>
+      </div>
+      <p class="small muted">Saved on this phone only: map position, layers, species, units and saved spots. Your location is never stored.</p>
     </div>
 
     <div class="card">
@@ -66,5 +76,12 @@ export function renderMore(view) {
   view.querySelectorAll('[data-unit]').forEach(s => s.addEventListener('change', () => { setUnits({ [s.dataset.unit]: s.value }); rerender(); }));
   view.querySelector('#refresh').addEventListener('click', () => actions.refresh());
   view.querySelector('#clear-fav').addEventListener('click', () => { store.set('favourites', []); rerender(); });
+  view.querySelector('#lite').addEventListener('change', e => { store.set('lite', e.target.checked); rerender(); });
+  view.querySelector('#reset-view').addEventListener('click', () => { store.remove('mapView'); location.hash = '#/map'; location.reload(); });
+  view.querySelector('#reset-all').addEventListener('click', () => {
+    if (!confirm('Reset all settings on this phone (map, layers, species, units, saved spots)?')) return;
+    ['mapView', 'layers', 'layersV3', 'layersV4', 'targetSpecies', 'recentSpecies', 'favSpecies', 'favourites', 'units', 'lite', 'dismissed', 'activity'].forEach(k => store.remove(k));
+    location.hash = '#/map'; location.reload();
+  });
   view.querySelector('#show-ack').addEventListener('click', () => document.getElementById('ack').showModal?.());
 }

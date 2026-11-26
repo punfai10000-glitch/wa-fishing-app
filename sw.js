@@ -1,12 +1,13 @@
 // Offline support: cache the app shell; network-first for data and forecasts.
 // Map tiles are deliberately NOT cached (Esri terms prohibit offline tile export).
-const VERSION = 'wafi-v22';
+const VERSION = 'wafi-v23';
 const SHELL = [
   './', 'index.html', 'css/app.css', 'manifest.webmanifest', 'assets/icon.svg',
   'js/app.js', 'js/config.js', 'js/data.js', 'js/engine.js', 'js/map.js', 'js/storage.js', 'js/ui.js', 'js/units.js',
   'js/scoring/score.js', 'js/scoring/blocks.js', 'js/scoring/confidence.js', 'js/scoring/window.js', 'js/scoring/geo.js',
   'js/amenities.js', 'js/coast.js', 'js/coastmap.js', 'js/flow.js', 'js/shore.js', 'js/views/key.js', 'data/coastline.json', 'js/buoys.js', 'js/zones.js', 'js/osm.js', 'js/osmspots.js', 'js/views/community.js', 'data/coast.json', 'data/incidents.json', 'js/wiki.js', 'js/views/live.js', 'js/views/fish.js', 'js/views/spots.js', 'js/views/location.js', 'js/views/rules.js', 'js/views/fishid.js', 'js/views/more.js',
   'js/vendor/leaflet.js', 'js/vendor/leaflet.css', 'js/vendor/suncalc.js',
+  'js/sheet.js', 'js/checks.js', 'js/targets.js', 'data/targets.json', 'data/zones/closures.geojson',
   'data/locations.json', 'data/species.json', 'data/rules.json', 'data/thresholds.json', 'data/sources.json', 'data/zones/marine-parks.geojson'
 ];
 

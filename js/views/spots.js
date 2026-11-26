@@ -16,7 +16,7 @@ export function renderSpots(view) {
   const speciesOpts = state.data.species.species.filter(s => s.activities.includes(state.activity));
   view.innerHTML = `
     <div>
-      <h1>Best spots · next 24 h</h1>
+      <h1>Forecast · best spots next 24 h</h1>
       <p class="muted small">Ranked by environmental suitability for ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'} — not a guarantee of fish.</p>
       <div class="filters">
         ${activityToggle(state.activity)}

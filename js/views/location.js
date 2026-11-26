@@ -45,7 +45,7 @@ export function renderLocation(view, rawId) {
 
   view.innerHTML = `
   <div>
-    <div class="row">
+    <div class="row loc-head">
       <a class="btn ghost" href="#/${sessionStorage.getItem('lastTab') || 'spots'}" aria-label="Back">←</a>
       <div>
         <h1 style="margin:0">${esc(loc.name)}</h1>
@@ -80,7 +80,7 @@ export function renderLocation(view, rawId) {
       <p class="muted small" style="margin:8px 0 0">${state.cond.fetchedAt ? `Forecast updated ${fmtAge(state.cond.fetchedAt)} (${fmtDateTime(state.cond.fetchedAt)})` : 'No forecast loaded'}</p>
     </div>
 
-    ${(() => { const ev = evalFor(loc); return ev?.applicable === false ? '' : `<div class="card"><h2>Right now — four checks</h2>${fourChecks(loc, ev, ev.current, state.data.zones, state.activity)}</div>
+    ${(() => { const ev = evalFor(loc); return ev?.applicable === false ? '' : `<div class="card loc-checks"><h2>Right now — four checks</h2>${fourChecks(loc, ev, ev.current, state.data.zones, state.activity)}</div>
       <div class="card"><h2>What might be biting</h2>
         ${(() => { const tg = likelyTargets(loc, ev.current?.hour, state.activity, { max: 6, zones: state.data.zones }); return tg.length ? `<table class="checks small">${tg.map(t => `<tr><th><a href="#/fish/${encodeURIComponent(t.id)}">${esc(t.name)}</a></th><td><b class="ck ${{ good: 'good', possible: 'fair', unlikely: 'unknown', closed: 'poor' }[t.level]}">${LEVEL_LABEL[t.level]}</b> ${esc(t.reasons.join(' · '))}${t.why ? `<br><span class="muted">${esc(t.why)}</span>` : ''}</td></tr>`).join('')}</table>` : '<p class="small muted">No common target species listed for this kind of spot.</p>'; })()}
         <p class="small muted">Seasonal guide from general WA angling knowledge — season, habitat, time of day and sea state for this kind of spot. Not based on catch reports, so treat it as a starting point. Sources: ${(targetsData()?.sources || []).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name.split(' — ')[0])}</a>`).join(' · ')}</p>

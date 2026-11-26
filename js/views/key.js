@@ -7,12 +7,12 @@ const row = (sym, title, text) => `<div class="key-row"><div class="key-sym">${s
 export function renderKey(view) {
   view.innerHTML = `
   <div>
-        <h1>Map key</h1>
+        <h1>Learn · map key</h1>
     <p class="small muted">What every colour, pin and symbol on the map means. Turn layers on and off with the <strong>layers</strong> button (stacked squares, bottom right of the map).</p>
 
     <div class="card"><h2>Map views &amp; filter</h2>
       <p class="small"><strong>Fishing</strong> and <strong>Spear</strong> show spots and conditions for that activity. <strong>Weather</strong> shows only wind, swell and buoys.</p>
-      <p class="small">The <strong>funnel button</strong> on the right lets you choose what's on the map: spots, coast colour, buoys, marine parks, wind and swell animation, shark history and facilities. The <strong>layers button</strong> changes the background (satellite, street map, seabed habitat, depth).</p>
+      <p class="small">The <strong>layers button</strong> (bottom right) chooses the background (satellite or street) and what is on the map: spots, coast colour, rules, buoys, wind and swell, seabed, shark history and facilities. The <strong>+ and −</strong> buttons zoom, <strong>⌖</strong> goes to your location, <strong>[ ]</strong> shows the whole coast, and <strong>🎯</strong> at the top picks a target species. Tap a spot to open its card; drag the card up for more, or press Back to close it.</p>
     </div>
     <div class="card"><h2>Four checks (in each spot)</h2>
       <p class="small"><strong>Conditions</strong> rates wind, waves, tide and light only. <strong>Fish</strong> lists species likely for this kind of spot at this time of year and day (a seasonal guide, not catch reports). <strong>Safety</strong> says Not safe when wind or waves pass the safety limits (listed under More); otherwise Not verified, because only you can judge it on site. <strong>Rules</strong> checks marine park zones. <strong>Data</strong> is how complete and fresh the information is.</p>
@@ -78,7 +78,7 @@ export function renderKey(view) {
     </div>
 
     <div class="card"><h2>Facilities</h2>
-      <p class="small muted">Nothing is shown until you choose: tap the filter (funnel) button on the right of the map and tick what you want. Toilets, servos and 24/7 food are shown only within 10 km of the coast; zoom in to see them.</p>
+      <p class="small muted">Nothing is shown until you choose: tap the layers button (stacked squares, bottom right) and tick what you want. Toilets, servos and 24/7 food are shown only within 10 km of the coast; zoom in to see them.</p>
       ${row('<div class="am am-tackle">B</div>', 'B', 'Tackle &amp; bait shop.')}
       ${row('<div class="am am-fuel">F</div>', 'F', 'Servo. Many sell bait, but the map data doesn\'t say which, so call ahead.')}
       ${row('<div class="am am-toilets">WC</div>', 'WC', 'Public toilet.')}

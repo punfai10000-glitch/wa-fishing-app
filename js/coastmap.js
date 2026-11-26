@@ -1,5 +1,6 @@
 // Coastline conditions layer, animated wind/wave arrows, time slider with play,
 // tap-anywhere spot reports, measured buoy markers and the Windy animated view.
+import { openSheet } from './sheet.js';
 import { state, evalFor } from './app.js';
 import { viewOn as layerOn, refreshMap } from './map.js';
 import { nearestCoastPoint } from './coast.js';
@@ -299,17 +300,18 @@ async function onMapClick(latlng) {
   tapMarker = L.marker([lat, lng], { interactive: false, keyboard: false, zIndexOffset: 2000,
     icon: L.divIcon({ className: 'tap-pin', html: '<div class="tap-dot"></div>', iconSize: [22, 22], iconAnchor: [11, 11] }) }).addTo(map);
 
-  const popup = L.popup({ maxWidth: 310, autoPanPaddingTopLeft: [10, 140], autoPanPaddingBottomRight: [10, 120] })
-    .setLatLng([lat, lng]).setContent(tapHTML(loc, where, sh, false)).openOn(map);
-  popup.on('remove', () => { if (tapMarker) { tapMarker.remove(); tapMarker = null; } });
-  fillNearby(popup, [lng, lat]);
+  // report goes into the bottom sheet (no pop-up, so the map never jumps)
+  let open = true;
+  const body = openSheet(tapHTML(loc, where, sh, false), { title: 'Exact point', state: 'peek',
+    onClose: () => { open = false; if (tapMarker) { tapMarker.remove(); tapMarker = null; } } });
+  fillNearby(body, [lng, lat]);
 
-  // exact forecast for this point (one small request), then redraw the popup
+  // exact forecast for this point (one small request), then redraw the card
   const cond = await loadPointConditions(loc);
-  if (state.tapLoc !== loc || !map.hasLayer(popup)) return;
+  if (state.tapLoc !== loc || !open) return;
   if (cond) { state.tapCond = cond; delete loc.condFrom; }
-  popup.setContent(tapHTML(loc, where, sh, !!cond));
-  fillNearby(popup, [lng, lat]);
+  body.innerHTML = tapHTML(loc, where, sh, !!cond);
+  fillNearby(body, [lng, lat]);
 }
 
 function fmtDist(km) { return km < 1 ? `${Math.max(10, Math.round(km * 1000 / 10) * 10)} m` : `${km.toFixed(1)} km`; }
@@ -327,7 +329,7 @@ function tapHTML(loc, where, sh, exact) {
   const pillFor = r => !r ? '<span class="pill unknown">Unknown</span>' : r.blocked ? blockPill(r.blockKind) : `<span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score ?? ''}</span>`;
   const gmaps = `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(6)},${lng.toFixed(6)}`;
   return `
-    <strong>Exact point</strong> <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br>
+    <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br>
     ${where ? `<span class="small">${esc(where)}</span><br>` : ''}
     <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
     <div class="row" style="margin:8px 0;gap:6px"><div><div class="small muted">Shore</div>${pillFor(rs)}</div><div><div class="small muted">Spear</div>${pillFor(rp)}</div></div>
@@ -344,9 +346,9 @@ function tapHTML(loc, where, sh, exact) {
     <p style="margin:6px 0 0"><a href="${gmaps}" target="_blank" rel="noopener">Directions here ↗</a> · <a href="#/live/${encodeURIComponent(loc.id)}">Live summary →</a></p>`;
 }
 
-async function fillNearby(popup, coords) {
+async function fillNearby(root, coords) {
   const n = await nearest(coords, 25);
-  const el = popup.getElement()?.querySelector('#pop-nearby');
+  const el = root?.querySelector('#pop-nearby');
   if (!el) return;
   if (!n) { el.textContent = 'Nearby: shop/servo/toilet data not downloaded yet.'; return; }
   const item = (k, l) => n[k] ? `${l} ${n[k].d.toFixed(1)} km (${esc(n[k].f.properties.name || n[k].f.properties.brand || 'unnamed')})` : null;
@@ -381,18 +383,19 @@ function updateTimeLabel() {
 }
 
 // ---- Windy animated view (official embed, free with logo visible) -----------
+let openWindyFn = null;
+export function openWindy() { openWindyFn?.(); }
 function buildWindy() {
-  const btn = document.getElementById('windy-btn');
   const panel = document.getElementById('windy-panel');
   const load = overlay => {
     const c = map.getCenter();
     const z = Math.max(5, Math.min(11, map.getZoom()));
     panel.querySelector('iframe').src = `https://embed.windy.com/embed2.html?lat=${c.lat.toFixed(3)}&lon=${c.lng.toFixed(3)}&detailLat=${c.lat.toFixed(3)}&detailLon=${c.lng.toFixed(3)}&zoom=${z}&level=surface&overlay=${overlay}&product=ecmwf&menu=&message=true&marker=&calendar=now&pressure=&type=map&location=coordinates&detail=&metricWind=km%2Fh&metricTemp=%C2%B0C&radarRange=-1`;
   };
-  btn.addEventListener('click', () => {
+  openWindyFn = () => {
     panel.hidden = false;
     load(panel.querySelector('[aria-pressed="true"]').dataset.overlay);
-  });
+  };
   panel.querySelector('#windy-close').addEventListener('click', () => { panel.hidden = true; panel.querySelector('iframe').src = 'about:blank'; });
   panel.querySelectorAll('[data-overlay]').forEach(b => b.addEventListener('click', () => {
     panel.querySelectorAll('[data-overlay]').forEach(x => x.setAttribute('aria-pressed', String(x === b)));

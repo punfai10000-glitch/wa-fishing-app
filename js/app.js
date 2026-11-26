@@ -5,6 +5,7 @@ import * as store from './storage.js';
 import { fmtAge } from './units.js';
 import { esc } from './ui.js';
 import { initMap, refreshMap, showMap } from './map.js';
+import { initSheet, closeSheet } from './sheet.js';
 import { renderSpots } from './views/spots.js';
 import { renderKey } from './views/key.js';
 import { renderLocation } from './views/location.js';
@@ -91,21 +92,25 @@ function banners() {
   const d = state.data;
   if (!navigator.onLine) out.push(['warn', 'You are offline. Showing the last data saved on this device.']);
   if (state.cond.fetchedAt && state.cond.stale) out.push(['warn', `Forecast data is out of date (updated ${fmtAge(state.cond.fetchedAt)}). Scores have lower confidence.`]);
-  if (!state.loading && !state.cond.fetchedAt) out.push(['danger', 'Forecast data could not be loaded. Conditions and scores are Unknown.']);
+  if (!state.loading && !state.cond.fetchedAt) out.push(['danger', 'Forecast data could not be loaded. Conditions and scores are Unknown.', null, 'retry']);
   if (state.cond.fetchedAt) for (const err of state.cond.errors || []) out.push(['warn', `${err}. Affected values show as Unknown.`]);
   if (d && d.locations.some(l => l.status === 'demo')) out.push(['info', 'Early preview: spot details are still being verified. Treat locations as approximate.', 'demo']);
   if (d && d.thresholds.some(t => t.status === 'draft')) out.push(['info', 'Safety limits are drafts pending review. Always judge conditions on site.', 'draft']);
   else if (d && d.thresholds.some(t => t.status === 'researched')) out.push(['info', 'Safety limits follow BOM, Transport WA and Recfishwest guidance, but nobody has checked them on site. Always judge conditions yourself.', 'researched']);
   const dismissed = new Set(store.get('dismissed', []));
-  document.getElementById('banners').innerHTML = out
-    .filter(([, , key]) => !key || !dismissed.has(key))
-    .map(([cls, msg, key]) => `<div class="banner ${cls}"><span>${esc(msg)}</span>${key ? `<button data-dismiss="${key}" aria-label="Dismiss">✕</button>` : ''}</div>`).join('');
+  const shown = out.filter(([, , key]) => !key || !dismissed.has(key));
+  const urgent = shown.filter(([cls]) => cls !== 'info'), info = shown.filter(([cls]) => cls === 'info');
+  document.getElementById('banners').innerHTML =
+    urgent.map(([cls, msg, key, act]) => `<div class="banner ${cls}"><span>${esc(msg)}</span>${act === 'retry' ? '<button data-retry class="btn ghost">Retry</button>' : ''}${key ? `<button data-dismiss="${key}" aria-label="Dismiss">✕</button>` : ''}</div>`).join('') +
+    (info.length ? `<details class="banner info banner-fold"><summary>ℹ Early version — ${info.length} note${info.length > 1 ? 's' : ''} (tap)</summary>${info.map(([, msg]) => `<p>${esc(msg)}</p>`).join('')}
+      <button data-dismiss="${info.map(i => i[2]).join(',')}" class="btn ghost">Got it, hide</button></details>` : '');
 }
 
 document.getElementById('banners').addEventListener('click', e => {
+  if (e.target.closest('[data-retry]')) { e.target.closest('[data-retry]').textContent = 'Retrying…'; refreshConditions(true); return; }
   const k = e.target.closest('[data-dismiss]')?.dataset.dismiss;
   if (!k) return;
-  store.set('dismissed', [...new Set([...store.get('dismissed', []), k])]);
+  store.set('dismissed', [...new Set([...store.get('dismissed', []), ...k.split(',')])]);
   banners();
 });
 
@@ -124,7 +129,8 @@ const ROUTES = {
 function route() {
   const [, name = 'map', arg] = (location.hash || '#/map').split('/');
   const view = document.getElementById('view');
-  const tab = name === 'loc' ? (sessionStorage.getItem('lastTab') || 'spots') : ({ fishid: 'fish', rules: 'fish' }[name] || name);
+  // 5 tabs: Map · Forecast (spots, live, spot pages) · Species (fish, ID, rules) · Learn (key) · My Fishing (more)
+  const tab = ({ loc: 'spots', live: 'spots', fishid: 'fish', rules: 'fish' }[name] || name);
   if (name !== 'loc') try { sessionStorage.setItem('lastTab', name); } catch { /* ignore */ }
   document.querySelectorAll('#tabbar a').forEach(a => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
 
@@ -133,6 +139,7 @@ function route() {
     showMap(true);
     return;
   }
+  closeSheet(true);
   showMap(false);
   view.hidden = false;
   if (!state.data) { view.innerHTML = '<p class="muted">Loading…</p>'; return; }
@@ -177,9 +184,10 @@ async function boot() {
     await loadShore();
     snapPinsToShore([...state.data.locations, ...state.osmSpots]);
   } catch (e) {
-    document.getElementById('banners').innerHTML = `<div class="banner danger">Could not load app data: ${esc(e.message)}</div>`;
+    document.getElementById('banners').innerHTML = `<div class="banner danger"><span>Could not load app data (${esc(e.message)}). Check your connection.</span><button onclick="location.reload()">Retry</button></div>`;
     return;
   }
+  initSheet();
   initMap();
   window.addEventListener('hashchange', route);
   route();
