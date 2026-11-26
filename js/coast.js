@@ -67,12 +67,13 @@ async function getJson(u) {
 
 // The hourly GitHub workflow fetches every coast point once and publishes one file (pipeline/fetch_coast_forecast.py),
 // so phones don't each send ~700 Open-Meteo calls (that trips Open-Meteo's free limits and the map goes "?").
-async function fromLiveFile(pts) {
+async function fromLiveFile(pts, allowStale = false) {
   try {
     const r = await fetch(`https://raw.githubusercontent.com/${CONFIG.GITHUB_REPO}/live-data/coast_forecast.json?t=${Math.floor(Date.now() / 600000)}`);
     if (!r.ok) return null;
     const d = await r.json();
-    if (Date.now() - Date.parse(d.generated_at) > 3 * 3600e3) return null;   // stale: ask Open-Meteo directly
+    const old = Date.now() - Date.parse(d.generated_at) > 3 * 3600e3;
+    if (old && !allowStale) return null;   // stale: ask Open-Meteo directly first
     const byId = {};
     const obj = (vars, arrs, [la, ln]) => arrs ? { latitude: la, longitude: ln, hourly: Object.fromEntries([['time', d.time], ...vars.map((v, i) => [v, arrs[i]])]) } : undefined;
     for (const p of pts) {
@@ -107,6 +108,10 @@ export async function loadCoastConditions(force = false) {
     });
   }
   const ok = Object.values(byId).some(h => h.length);
+  if (!ok) {   // Open-Meteo unreachable too (offline or limited): an older hourly file still beats nothing
+    const stale = await fromLiveFile(pts, true);
+    if (stale) { stale.loadedAt = Date.now(); stale.errors = ['coast forecast is from an older update']; cache = stale; return cache; }
+  }
   cache = ok ? { byId, fetchedAt: Date.now(), loadedAt: Date.now(), errors: [...new Set(errors)] } : (cache ?? { byId: {}, fetchedAt: null, errors: [errors.length ? 'coast data unavailable — Open-Meteo may be limiting requests from this device; try again in an hour' : 'coast data unavailable'] });
   return cache;
 }

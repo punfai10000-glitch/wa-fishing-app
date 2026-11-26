@@ -19,7 +19,7 @@ const km = (a, b, c, d) => Math.hypot((d - b) * Math.cos(a * Math.PI / 180), c -
 export function tideCheck(tides, lat, lng, modelHoursFor) {
   if (!tides?.stations?.length) return null;
   const st = tides.stations.map(s => ({ s, d: km(lat, lng, s.lat, s.lng) })).sort((a, b) => a.d - b.d)[0];
-  if (!st || st.d > 220) return null;
+  if (!st || st.d > 120) return null;   // further away the surge and tide timing differ too much to be useful
   const s = st.s, model = modelHoursFor(s.lat, s.lng);
   if (!model?.length) return null;
   const byT = new Map(model.filter(h => h.sea_level != null).map(h => [h.t, h.sea_level]));

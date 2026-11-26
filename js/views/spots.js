@@ -69,7 +69,7 @@ export function renderSpots(view) {
             </div>
             ${nowLine(ev)}
             ${ev.explanation && !ev.blocked ? `<p class="why">${plainify(esc(ev.explanation))}</p>` : ''}
-            <div class="row" style="gap:8px;margin-top:6px"><button class="btn" data-map="${esc(l.id)}">🗺 Show on map</button><a class="btn ghost" href="#/loc/${encodeURIComponent(l.id)}">7-day forecast</a></div>
+            <div class="row" style="gap:8px;margin-top:6px"><button class="btn" data-map="${esc(l.id)}">🗺 Show on map</button><a class="btn ghost" href="#/loc/${encodeURIComponent(l.id)}">Details &amp; forecast</a></div>
             <div class="small muted">${confText(ev.confidence)}</div>
           </div>`).join('') : `<div class="card muted">No spots ${near ? `within 40 km of ${esc(near.name)} for ${act}` : 'match these filters'}.</div>`}
       </div>

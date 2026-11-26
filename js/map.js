@@ -636,11 +636,20 @@ function buildSearch() {
   const close = () => { list.hidden = true; list.innerHTML = ''; };
   const row = i => `<li><button data-kind="${i.kind}" data-id="${esc(i.id ?? '')}" data-lat="${i.lat ?? ''}" data-lng="${i.lng ?? ''}" data-name="${esc(i.name)}">${i.kind === 'place' ? '📍 ' : i.kind === 'region' ? '🗺 ' : '🎣 '}${esc(i.name)}<small>${esc(i.sub ?? '')}</small></button></li>`;
   const draw = (q, places, loading) => {
+    q = q.toLowerCase();   // (the place search passes the typed text as-is)
     const regions = Object.entries(REGIONS).filter(([, r]) => r.name.toLowerCase().includes(q)).map(([id, r]) => ({ kind: 'region', id, name: r.name, sub: 'Area' }));
     const all = [...state.data.locations, ...(state.osmSpots || []).filter(l => !/^(Beach|Jetty|Groyne|Reef|Rock|Point)/.test(l.name))];
     const spots = all.filter(l => l.name.toLowerCase().includes(q)).slice(0, 5)
       .map(l => ({ kind: 'spot', id: l.id, name: l.name, sub: `Fishing spot · ${REGIONS[l.region]?.name ?? ''}` }));
-    const items = [...regions, ...spots, ...places];
+    // towns along the coast (works offline and when the place search is busy): first coast point named after each town
+    const seenT = new Set(places.map(p => p.name.toLowerCase()));
+    const towns = [];
+    for (const c of state.coast?.points || []) {
+      const n = c.near || ''; if (!n.toLowerCase().includes(q) || seenT.has(n.toLowerCase())) continue;
+      seenT.add(n.toLowerCase());
+      const [lng, lat] = c.geometry.coordinates; towns.push({ kind: 'place', name: n, sub: 'Coast town', lat, lng });
+    }
+    const items = [...regions, ...towns.slice(0, 3), ...spots, ...places];
     list.innerHTML = items.map(row).join('') +
       (loading ? '<li class="muted small" style="padding:10px">Searching places…</li>' : !items.length ? '<li class="muted small" style="padding:10px">Nothing found — try a town or beach name.</li>' : '') +
       (places.length ? '<li class="muted small" style="padding:6px 10px">Places from OpenStreetMap (Nominatim)</li>' : '');
@@ -682,7 +691,8 @@ function buildSearch() {
       map.flyTo([lat, lng], 14, { duration: 0.9 });
       map.once('moveend', () => placeReport(lat, lng, name));
     } else {
-      const locs = state.data.locations.filter(l => l.region === b.dataset.id);
+      let locs = state.data.locations.filter(l => l.region === b.dataset.id);
+      if (!locs.length) locs = (state.coast?.points || []).filter(l => l.region === b.dataset.id);   // areas without starter spots (e.g. Geraldton)
       if (locs.length) map.flyToBounds(locs.map(l => [l.geometry.coordinates[1], l.geometry.coordinates[0]]), { maxZoom: 12, padding: [40, 40] });
     }
     input.value = ''; close(); input.blur();

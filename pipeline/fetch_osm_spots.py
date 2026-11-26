@@ -1,4 +1,4 @@
-"""Weekly: coordinate-based fishing spot candidates from OpenStreetMap (ODbL), Perth→Esperance.
+"""Weekly: coordinate-based fishing spot candidates from OpenStreetMap (ODbL), Geraldton→Esperance.
 Groynes, breakwaters, piers/jetties, reefs, capes/headlands, rocky shores, named beaches, and
 anything tagged leisure=fishing or fishing=yes. Output: data/osm-spots.geojson (points + tags).
 """

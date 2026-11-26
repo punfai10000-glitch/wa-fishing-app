@@ -24,9 +24,12 @@ ENDPOINTS = [
 ]
 UA = {"User-Agent": "wa-fishing-intelligence/0.6 (weekly extract via GitHub Actions)"}
 
-# Perth -> Esperance, split so the dense Perth/Mandurah/Bunbury area gets smaller tiles.
+# Geraldton -> Esperance, split so the dense Perth/Mandurah/Bunbury area gets smaller tiles.
 TILES = [
     # (south, west, north, east)
+    (-29.40, 113.40, -28.30, 115.20),   # Geraldton / Abrolhos / Dongara
+    (-30.60, 114.80, -29.40, 115.40),   # Leeman / Green Head / Jurien / Cervantes
+    (-31.50, 115.00, -30.60, 115.90),   # Lancelin / Guilderton / Two Rocks
     (-32.10, 115.40, -31.50, 116.20),   # Perth north
     (-32.60, 115.40, -32.10, 116.20),   # Perth south / Rockingham / Mandurah
     (-33.40, 115.30, -32.60, 116.20),   # Peel / Bunbury

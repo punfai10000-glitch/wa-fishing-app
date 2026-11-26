@@ -1,6 +1,7 @@
 import { state, evalFor, getLoc } from '../app.js';
 import { REGIONS, TYPE_LABELS } from '../config.js';
-import { esc, pill, windowText, confText, typeTag, chanceIcon } from '../ui.js';
+import { esc, pill, windowText, confText, typeTag, chanceIcon, blockPill } from '../ui.js';
+import { BAND_LABEL } from '../scoring/score.js';
 import { fmtWind, fmtHeight, fmtTemp, fmtHour, fmtDay, fmtDateTime, fmtAge } from '../units.js';
 import { degToCompass } from '../scoring/geo.js';
 import { band } from '../scoring/score.js';
@@ -16,9 +17,12 @@ const val = (v, f, type) => v == null ? `Unknown ${typeTag('unknown')}` : `${f(v
 
 function scoreBox(title, ev) {
   if (ev.applicable === false) return `<div class="scorebox"><div class="muted small">${title}</div><div class="muted">Not listed for this activity</div></div>`;
+  // the pill is the score NOW (ev.score is the best of the next 24 h, shown in the "Best time" line below)
+  const c = ev.current;
+  const now = !c ? pill(ev) : c.blocked ? blockPill(c.blockKind) : c.score == null ? pill(ev) : `<span class="pill ${band(c.score)}">${BAND_LABEL[band(c.score)]} ${c.score}</span>`;
   return `<div class="scorebox">
     <div class="muted small">${title}</div>
-    <div style="margin:6px 0">${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked' && (ev.blockKind || true))}</div>
+    <div style="margin:6px 0"><span class="small muted">Now:</span> ${now} ${chanceIcon(c?.score ?? ev.score, state.activity, (c ? c.blocked : ev.band === 'blocked') && ((c?.blockKind ?? ev.blockKind) || true))}</div>
     <div class="small">${esc(windowText(ev))}</div>
     <div>${confText(ev.confidence)}</div>
   </div>`;
@@ -36,7 +40,7 @@ export function renderLocation(view, rawId) {
   const fav = store.favourites().has(loc.id);
   rememberLiveSpot(loc.id);
   const spearH = spear.current?.hour;
-  const vis = spearH ? visibilityEstimate(spearH, loc) : null;
+  const vis = spearH || h.t ? visibilityEstimate(spearH || h, loc) : null;   // shore-only spots still get the water clarity
   const isRock = loc.type === 'rock_platform';
   const region = REGIONS[loc.region];
 
@@ -61,7 +65,7 @@ export function renderLocation(view, rawId) {
 
     <div class="card">
       <div class="scores">${scoreBox('Shore fishing', shore)}${scoreBox('Spearfishing', spear)}</div>
-      ${primary.explanation ? `<p class="small" style="margin:10px 0 0">${esc(primary.explanation)}</p>` : ''}
+      ${primary.explanation ? `<p class="small" style="margin:10px 0 0"><span class="muted">At the best time —</span> ${esc(primary.explanation)}</p>` : ''}
       <p class="muted small" style="margin:8px 0 0">Scores rate environmental suitability, not the chance of catching fish.</p>
       <p style="margin:8px 0 0"><a class="btn" href="#/live/${encodeURIComponent(loc.id)}">Open live summary</a></p>
     </div>
@@ -96,7 +100,7 @@ export function renderLocation(view, rawId) {
     ${loc.activities.includes('spear') ? '<div class="card"><h2>Shark activity</h2><p class="small">Check the official <a href="https://www.sharksmart.com.au/" target="_blank" rel="noopener">SharkSmart WA</a> app or map for recent sightings before entering the water.</p></div>' : ''}
 
     <details><summary>Next 24 hours</summary><div class="body tbl-scroll">${hourlyTable(shore, spear)}</div></details>
-    <details><summary>7-day outlook</summary><div class="body tbl-scroll">${dailyTable(shore, spear)}</div></details>
+    <details><summary>Day-by-day outlook</summary><div class="body tbl-scroll">${dailyTable(shore, spear)}</div></details>
     <details><summary>Why this score</summary><div class="body">${factorTable(primary)}</div></details>
     <details><summary>Sun & moon</summary><div class="body">
       <dl class="kv">
@@ -173,7 +177,7 @@ function dailyTable(shore, spear) {
   const c = (d, ev) => ev.applicable === false ? '<td class="muted">–</td>' : !d ? '<td>?</td>' : d.best == null ? `<td><span class="pill ${d.blockedHours ? 'blocked' : 'unknown'}">${d.blockedHours ? '✕' : '?'}</span></td>` : `<td><span class="pill ${band(d.best)}">${d.best}</span> <span class="muted small">${fmtHour(d.bestHour)}</span></td>`;
   return `<table><thead><tr><th>Day</th><th>Shore best</th><th>Spear best</th></tr></thead><tbody>
     ${days.map(d => `<tr><td>${fmtDay(d.t)}</td>${c(shDays.get(d.day), shore)}${c(spDays.get(d.day), spear)}</tr>`).join('')}
-  </tbody></table><p class="muted small">Forecast accuracy drops after 2–3 days.</p>`;
+  </tbody></table><p class="muted small">Coast spots show 3 days (the hourly coast file); the hand-picked spots show 7. Forecast accuracy drops after 2–3 days.</p>`;
 }
 
 function factorTable(ev) {
