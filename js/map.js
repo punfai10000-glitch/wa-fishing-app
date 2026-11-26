@@ -339,7 +339,7 @@ export function openSpotSheet(loc) {
   };
   // depth ~60 m out from the spot (the pin itself sits on the shoreline)
   const off = loc.estuary ? { lat, lng } : (offshorePoint(lat, lng, 0.06) || { lat, lng });
-  depthAt(off.lat, off.lng).then(d => { const el = body.querySelector('#spot-depth'); if (el) el.innerHTML = depthText(d).replace('Depth:', loc.estuary ? 'Depth here:' : 'Depth ~60 m out:'); });
+  depthAt(off.lat, off.lng).then(d => { const el = body.querySelector('#spot-depth'); if (el) el.innerHTML = depthText(d, hr?.hour?.sea_level).replace('Depth:', loc.estuary ? 'Depth here:' : 'Depth ~60 m out:'); });
   markSelected();
   // keep the chosen spot visible above the sheet without changing the zoom
   const pt = map.latLngToContainerPoint([lat, lng]), h = map.getSize().y;

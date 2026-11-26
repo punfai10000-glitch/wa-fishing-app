@@ -45,13 +45,20 @@ export async function depthAt(lat, lng) {
   const a = await depthTile(x, y);
   if (a) {
     // small 3x3 look-around so a tap a few metres off a surveyed cell still gets a value
-    const px = Math.floor((t.x - x) * 256), py = Math.floor((t.y - y) * 256);
+    const fx = (t.x - x) * 256 - 0.5, fy = (t.y - y) * 256 - 0.5;
+    const px = Math.max(0, Math.min(255, Math.round(fx))), py = Math.max(0, Math.min(255, Math.round(fy)));
     let v = a[py * 256 + px];
+    const x0 = Math.max(0, Math.floor(fx)), y0 = Math.max(0, Math.floor(fy)), x1 = Math.min(255, x0 + 1), y1 = Math.min(255, y0 + 1);
+    const q = [a[y0 * 256 + x0], a[y0 * 256 + x1], a[y1 * 256 + x0], a[y1 * 256 + x1]];
+    if (q.every(Number.isFinite)) {
+      const wx = Math.min(1, Math.max(0, fx - x0)), wy = Math.min(1, Math.max(0, fy - y0));
+      v = q[0] * (1 - wx) * (1 - wy) + q[1] * wx * (1 - wy) + q[2] * (1 - wx) * wy + q[3] * wx * wy;
+    }
     if (!Number.isFinite(v)) for (const [dx, dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[-1,-1],[1,-1],[-1,1]]) {
       const q = a[Math.min(255, Math.max(0, py + dy)) * 256 + Math.min(255, Math.max(0, px + dx))];
       if (Number.isFinite(q)) { v = q; break; }
     }
-    if (Number.isFinite(v)) return { value: v, source: 'Transport WA survey (LiDAR / multibeam)', detail: '~15–20 m grid', coarse: false };
+    if (Number.isFinite(v)) return { value: v, source: 'Transport WA survey (LiDAR / multibeam)', detail: 'averaged over ~15–20 m squares, so right at the shore it smooths out the first few metres', coarse: false };
   }
   // coarse fallback: Geoscience Australia national grid (250 m) — fine offshore, often wrong right at the shore
   try {
@@ -65,13 +72,19 @@ export async function depthAt(lat, lng) {
   return null;
 }
 
-export function depthText(d) {
+const fmtLen = m => { const a = Math.abs(m); return a < 1 ? `${Math.max(5, Math.round(a * 100 / 5) * 5)} cm` : a < 10 ? `${a.toFixed(1)} m` : `${Math.round(a)} m`; };
+
+/** seaLevel: forecast water level now (m above mean sea level), if known — adds the tide to the depth */
+export function depthText(d, seaLevel = null) {
   if (!d) return 'Depth: not available here.';
-  const v = d.value;
-  const main = v < -0.3 ? `about <strong>${Math.abs(v) < 10 ? Math.abs(v).toFixed(1) : Math.round(Math.abs(v))} m deep</strong>`
-    : v > 0.3 ? `land or reef top, about <strong>+${v < 10 ? v.toFixed(1) : Math.round(v)} m</strong> above sea level`
-    : '<strong>about 0 m</strong> — the water\u2019s edge or very shallow';
-  return `Depth: ${main} <span class="muted">(${d.coarse ? '≈ ' : ''}${d.source}, ${d.detail}. Sand moves and tide changes this by up to ~1 m. Not for navigation.)</span>`;
+  const v = d.value;                       // seabed height vs mean sea level (negative = under water)
+  const now = Number.isFinite(seaLevel) ? seaLevel - v : null;   // water depth at the forecast tide
+  let main;
+  if (v < -0.05) main = `about <strong>${fmtLen(v)} deep</strong> at mean sea level`;
+  else if (v > 0.05) main = `seabed/sand about <strong>${fmtLen(v)} above</strong> mean sea level (dry or just awash)`;
+  else main = '<strong>right at the water line</strong> (about 0 cm at mean sea level)';
+  const tide = now == null ? '' : now > 0.05 ? ` · with the forecast tide: <strong>about ${fmtLen(now)}</strong> of water now` : ' · with the forecast tide: <strong>dry or only a few cm</strong> now';
+  return `Depth: ${main}${tide} <span class="muted">(${d.coarse ? '≈ ' : ''}${d.source}, ${d.detail}. Waves and moving sand change this — check with your own eyes. Not for navigation.)</span>`;
 }
 
 // colour bands for the map layer (depth below datum, metres)

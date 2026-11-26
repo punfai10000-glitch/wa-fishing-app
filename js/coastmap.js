@@ -180,8 +180,11 @@ export function refreshCoastMap() {
       .filter(x => x.r && !x.r.blocked && x.r.score != null && x.r.score >= 70)
       .sort((a, b) => b.r.score - a.r.score);
     const picked = [];
-    for (const x of ranked) { // spread them out (>= 40 km apart)
-      if (picked.every(y => Math.hypot(y.p.geometry.coordinates[0] - x.p.geometry.coordinates[0], y.p.geometry.coordinates[1] - x.p.geometry.coordinates[1]) * 100 > 40)) picked.push(x);
+    const px = x => map.latLngToContainerPoint([x.p.geometry.coordinates[1], x.p.geometry.coordinates[0]]);
+    for (const x of ranked) { // spread them out: >= 40 km apart AND far enough apart on screen not to overlap
+      const q = px(x);
+      if (picked.every(y => Math.hypot(y.p.geometry.coordinates[0] - x.p.geometry.coordinates[0], y.p.geometry.coordinates[1] - x.p.geometry.coordinates[1]) * 100 > 40
+        && (Math.abs(y.q.x - q.x) > 140 || Math.abs(y.q.y - q.y) > 44))) picked.push({ ...x, q });
       if (picked.length === 3) break;
     }
     for (const { p, r } of picked) {
@@ -317,7 +320,7 @@ async function onMapClick(latlng) {
     onClose: () => { open = false; if (tapMarker) { tapMarker.remove(); tapMarker = null; } } });
   fillNearby(body, [lng, lat]);
   const depthP = depthAt(lat, lng);
-  const fillDepth = () => depthP.then(d => { const el = body.querySelector('#pop-depth'); if (el) el.innerHTML = depthText(d); });
+  const fillDepth = () => depthP.then(d => { const el = body.querySelector('#pop-depth'); if (el) el.innerHTML = depthText(d, hourAt(evalFor(loc, 'shore'), selectedTime())?.hour?.sea_level); });
   fillDepth();
 
   // exact forecast for this point (one small request), then redraw the card
