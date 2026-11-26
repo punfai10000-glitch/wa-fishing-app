@@ -75,7 +75,7 @@ export function renderLocation(view, rawId) {
         <dt>Wind waves</dt><dd>${val(h.wind_wave_height, fmtHeight, t.wind_wave_height)}</dd>
         <dt>Tide</dt><dd>${h.tide_rate == null ? val(null) : `${h.tide_rate > 0.005 ? 'Rising' : h.tide_rate < -0.005 ? 'Falling' : 'Slack'} ${typeTag('modelled')}`}</dd>
         <dt>Sea temp</dt><dd>${val(h.sst, fmtTemp, t.sst)}</dd>
-        <dt>Visibility</dt><dd>${vis ? `${vis.label[0].toUpperCase() + vis.label.slice(1)} ${typeTag('estimated')} <span class="muted small">from recent swell, wind &amp; rain — not measured</span>` : `Unknown ${typeTag('unknown')}`}</dd>
+        <dt>Visibility</dt><dd>${vis ? `${vis.label[0].toUpperCase() + vis.label.slice(1)} ${typeTag('estimated')} <span class="muted small">${vis.sat ? 'satellite water clarity, adjusted for swell, wind &amp; rain since' : 'from recent swell, wind &amp; rain — not measured'}</span>` : `Unknown ${typeTag('unknown')}`}</dd>
       </dl>
       <p class="muted small" style="margin:8px 0 0">${state.cond.fetchedAt ? `Forecast updated ${fmtAge(state.cond.fetchedAt)} (${fmtDateTime(state.cond.fetchedAt)})` : 'No forecast loaded'}</p>
     </div>

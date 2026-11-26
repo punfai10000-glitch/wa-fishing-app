@@ -123,16 +123,25 @@ function sstFactor(hour) {
 // light or offshore wind and no rain. Inputs are prepared by engine.js (prior-hours context).
 export function visibilityEstimate(hour, loc) {
   const c = hour.vis_ctx;
-  if (!c || c.maxWave24 == null) return null;
-  let s = 85;
+  const sat = loc.sat && loc.sat.ageDays != null && loc.sat.ageDays < 31 ? loc.sat : null;
+  if ((!c || c.maxWave24 == null) && !sat) return null;
+  // satellite clarity (Kd490) is the starting point; the older the pass, the more it leans back to the forecast-only
+  // guess (85), and swell, wind and rain since then still count
+  const satScore = sat ? ({ vclear: 92, clear: 80, ok: 62, murky: 40, vmurky: 20 }[sat.band.key]) : null;
+  const fresh = sat ? Math.max(0, 1 - Math.max(0, sat.ageDays - 3) / 20) : 0;   // 1 up to 3 days old -> ~0 at 23 days
+  let s = sat ? Math.round(satScore * (0.4 + 0.6 * fresh) + 85 * (0.6 - 0.6 * fresh)) : 85;
+  const k = sat ? 1 - 0.5 * fresh : 1;
+  if (!c || c.maxWave24 == null) return { score: s, label: `${sat.band.label.toLowerCase()} (satellite)`, sat };
+  const s0 = s;
   const exposed = c.maxWave24 * (c.onshoreShare >= 0.5 ? 1 : 0.6);
   if (exposed > 0.8) s -= Math.min(45, (exposed - 0.8) * 40);
   if (hour.wind_wave_height != null && hour.wind_wave_height > 0.4) s -= Math.min(15, (hour.wind_wave_height - 0.4) * 30);
   if (c.onshoreWind12 != null && c.onshoreWind12 > 18) s -= Math.min(15, (c.onshoreWind12 - 18));
   if (c.rain48 != null && c.rain48 > 3) s -= Math.min(25, c.rain48 * (['estuary', 'bay'].includes(loc.type) ? 3 : 1.5));
+  if (sat) s = s0 - (s0 - s) * k;
   s = clamp(s);
-  const label = s >= 70 ? 'likely clear' : s >= 45 ? 'likely average' : 'likely murky';
-  return { score: s, label };
+  const label = sat ? `likely ${s >= 70 ? 'clear' : s >= 45 ? 'average' : 'murky'} — satellite ${sat.ageDays < 1.5 ? 'yesterday' : Math.round(sat.ageDays) + ' days ago'}: ${sat.band.label.toLowerCase()} (~${sat.band.vis})` : s >= 70 ? 'likely clear' : s >= 45 ? 'likely average' : 'likely murky';
+  return { score: s, label, sat };
 }
 
 const LABELS = { light: 'Light (sun)', wind: 'Wind', waves: 'Waves & swell', tide: 'Tide', season: 'Season', terrain: 'Terrain', access: 'Access', sst: 'Sea temperature', visibility: 'Underwater visibility' };

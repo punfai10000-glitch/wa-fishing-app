@@ -5,6 +5,7 @@ import { depthAt, depthText } from './depth.js';
 import { state, evalFor } from './app.js';
 import { viewOn as layerOn, refreshMap, openSpotSheet, setSheetRefresher } from './map.js';
 import { verdict, verdictHTML, hourStrip } from './verdict.js';
+import { tideCheck, tideCheckText } from './ocean.js';
 import { plainify } from './plain.js';
 import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
@@ -373,7 +374,11 @@ async function onMapClick(latlng, title = 'Exact point') {
   fillNearby(body, [lng, lat]);
   wireSpotLinks(body);
   const depthP = depthAt(lat, lng);
-  const fillDepth = () => depthP.then(d => { const el = body.querySelector('#pop-depth'); if (el) el.innerHTML = depthText(d, hourAt(evalFor(loc, 'shore'), selectedTime())?.hour?.sea_level); });
+  const fillDepth = () => depthP.then(d => {
+    const el = body.querySelector('#pop-depth'); if (!el) return;
+    const tc = measuredTide(lat, lng), sl = hourAt(evalFor(loc, 'shore'), selectedTime())?.hour?.sea_level;
+    el.innerHTML = depthText(d, sl != null && tc && tc.ageH < 6 && Math.abs(tc.offset) >= 0.05 ? sl + tc.offset : sl) + (tc ? `<div class="muted">${esc(tideCheckText(tc))}</div>` : '');
+  });
   fillDepth();
   // follow the time slider / play button
   setSheetRefresher(() => { if (!open) return; const y = body.scrollTop; body.innerHTML = plainify(tapHTML(loc, where, sh, exact)); fillNearby(body, [lng, lat]); fillDepth(); body.scrollTop = y; });
@@ -470,7 +475,7 @@ function tapHTML(loc, where, sh, exact) {
     ${[rs, rp].flatMap(r => r?.blocks ?? []).filter(b => b.kind !== 'legal').map(b => `<div class="small warn-text">⚠ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
     ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · ${loc.estuary ? 'Sheltered water (no ocean swell)' : `Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''}`} · Tide ${h.tide_rate == null ? '?' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
       ${!loc.estuary ? currentLine(h) : ''}
-      <div class="small">Visibility: ${vis ? vis.label : 'unknown'} (estimate) · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>
+      <div class="small">Visibility: ${vis ? vis.label : 'unknown'} ${vis?.sat ? '' : '(estimate)'} · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>
       <div class="small muted">${exact ? (loc.estuary ? 'Wind forecast for this exact point; tide from the nearest ocean point.' : 'Forecast for this exact point (waves read ~1 km out to sea in front of it).') : 'Loading the forecast for this exact point… showing the nearest coast area for now.'}</div>` : '<div class="small muted">Loading forecast for this point…</div>'}
     ${buoy && !loc.estuary ? `<div class="small" style="margin-top:4px"><strong>Measured:</strong> ${esc(buoy.b.site)} buoy ${buoy.d.toFixed(0)} km away — ${fmtHeight(buoy.b.hs)}${buoy.b.tp != null ? ` @ ${Math.round(buoy.b.tp)} s` : ''}, ${fmtAge(Date.parse(buoy.b.time))}</div>` : ''}
     ${(loc.safety_notes || []).filter(n => !/^Spearfishing is banned/.test(n)).map(n => `<div class="small">⚠ ${esc(n)}</div>`).join('')}
@@ -547,4 +552,13 @@ export function sstColor(c) {
     return `rgb(${ca.map((v, k) => Math.round(v + (cb[k] - v) * f)).join(',')})`;
   }
   return `rgb(${stops[stops.length - 1][1]})`;
+}
+
+// measured tide vs forecast at the nearest gauge (Hillarys / Esperance)
+export function measuredTide(lat, lng) {
+  return tideCheck(state.tides, lat, lng, (la, ln) => {
+    const k = Math.cos(la * Math.PI / 180);
+    const p = state.coast.points.reduce((b, q) => { const d = Math.hypot((q.geometry.coordinates[0] - ln) * k, q.geometry.coordinates[1] - la); return !b || d < b.d ? { q, d } : b; }, null);
+    return p ? state.coast.byId?.[p.q.id] : null;
+  });
 }

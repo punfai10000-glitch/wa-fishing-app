@@ -7,7 +7,8 @@ import { fmtDateTime } from './units.js';
 import { fmtWind, fmtHeight, fmtTemp } from './units.js';
 import { degToCompass } from './scoring/geo.js';
 import { AMENITY_TYPES, loadAmenities } from './amenities.js';
-import { initCoastMap, refreshCoastMap, selectedTime, setSelectedTime, waveColor, sstColor } from './coastmap.js';
+import { initCoastMap, refreshCoastMap, selectedTime, setSelectedTime, waveColor, sstColor, measuredTide } from './coastmap.js';
+import { tideCheckText, clarityImage, CLARITY_BANDS } from './ocean.js';
 import { verdict, verdictHTML, hourStrip } from './verdict.js';
 import { plainify } from './plain.js';
 import { setDraft } from './diary.js';
@@ -23,7 +24,7 @@ import { openWindy, placeReport } from './coastmap.js';
 import { makeDepthLayer, loadDepthIndex, depthAt, depthText, DEPTH_BANDS } from './depth.js';
 import { offshorePoint } from './shore.js';
 
-let map, markerLayer, zoneLayer, zoneLabels, amenityLayer, zonesDrawn = null, sheetRefresher = null;
+let map, markerLayer, zoneLayer, zoneLabels, amenityLayer, zonesDrawn = null, sheetRefresher = null, clarityLayer = null;
 export const FISH_SVG = '<svg viewBox="0 0 32 20" width="26" height="16"><path d="M2 10c5-7 14-8 20-3l7-5v16l-7-5c-6 5-15 4-20-3z" fill="#56b4e9" stroke="#fff" stroke-width="1.5"/><circle cx="8" cy="9" r="1.6" fill="#04121f"/></svg>';
 export const SPEAR_SVG = '<svg viewBox="0 0 32 20" width="26" height="16"><path d="M1 10h24" stroke="#fff" stroke-width="2.2"/><path d="M25 5l6 5-6 5z" fill="#ffd166"/><path d="M3 6l4 4-4 4" stroke="#ffd166" stroke-width="1.6" fill="none"/></svg>';
 const baseLayers = {};
@@ -50,6 +51,7 @@ const LAYERS = [
   { group: 'Marine conditions', id: 'wind', label: 'Wind speed labels', note: 'Forecast km/h with direction (zoom in)' },
   { group: 'Marine conditions', id: 'waves', label: 'Wave height labels', note: 'Forecast metres with direction (zoom in)' },
   { group: 'Marine conditions', id: 'sst', label: 'Sea temperature', note: 'Coloured dots with °C all along the coast (blue cold → red warm). Forecast model.' },
+  { group: 'Under the water', id: 'clarity', label: 'Water clarity (satellite)', note: 'How clear the water was on the latest satellite pass (NOAA, ~2–4 km squares, cloud gaps filled). Blue = clear, brown = murky. Right at the shore it can differ — swell and rain since then make it murkier.' },
   { group: 'Under the water', id: 'habitat', label: 'Seabed habitat', note: 'Reef, seagrass and sand where mapped (Seamap Australia); patchy near shore' },
   { group: 'Under the water', id: 'depth', label: 'Water depth (colour bands)', note: 'Detailed near shore where Transport WA surveyed (zoom in); general depth when zoomed out. Tap the water for the depth in metres. Not for navigation.' },
   { group: 'Facilities', id: 'tackle', label: 'Tackle & bait shops', note: '' },
@@ -58,7 +60,7 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Within 10 km of the coast' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: '' }
 ];
-const DEFAULTS = { base: 'satellite', aerial: true, currentFlow: null, spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
+const DEFAULTS = { base: 'satellite', aerial: true, currentFlow: null, spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, clarity: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
 export const layerOn = () => {
   const saved = store.get('layers', {});
   // v2: facilities (bait/tackle, servos, toilets) on by default — switch them on once for people with saved settings
@@ -400,7 +402,12 @@ export function openSpotSheet(loc) {
   };
   // depth ~60 m out from the spot (the pin itself sits on the shoreline)
   const off = loc.estuary ? { lat, lng } : (offshorePoint(lat, lng, 0.06) || { lat, lng });
-  depthAt(off.lat, off.lng).then(d => { const el = body.querySelector('#spot-depth'); if (el) el.innerHTML = depthText(d, p0.hr?.hour?.sea_level).replace('Depth:', loc.estuary ? 'Depth here:' : 'Depth ~60 m out:'); });
+  depthAt(off.lat, off.lng).then(d => {
+    const el = body.querySelector('#spot-depth'); if (!el) return;
+    const tc = measuredTide(lat, lng), sl = p0.hr?.hour?.sea_level;
+    el.innerHTML = depthText(d, sl != null && tc && tc.ageH < 6 && Math.abs(tc.offset) >= 0.05 ? sl + tc.offset : sl).replace('Depth:', loc.estuary ? 'Depth here:' : 'Depth ~60 m out:')
+      + (tc ? `<div class="muted">${esc(tideCheckText(tc))}</div>` : '');
+  });
   markSelected();
   // keep the chosen spot visible above the sheet without changing the zoom
   const pt = map.latLngToContainerPoint([lat, lng]), h = map.getSize().y;
@@ -420,6 +427,7 @@ function applyLayers() {
   }
   document.getElementById('map').classList.toggle('osm-dark', base === 'street');
   if (base === 'satellite' && on.aerial && !lite()) { if (!map.hasLayer(overlays.aerial)) overlays.aerial.addTo(map); } else map.removeLayer(overlays.aerial);
+  syncClarity(on);
   for (const id of ['depth', 'habitat']) {
     if (on[id]) overlays[id].addTo(map); else map.removeLayer(overlays[id]);
   }
@@ -458,6 +466,7 @@ export function refreshMap() {
   const L = window.L;
   const on = viewOn();
   updateLegend(on);
+  syncClarity(on);
   if (lastView !== (state.mapView || 'spots')) { lastView = state.mapView || 'spots'; renderAmenities(); }
   markerLayer.clearLayers();
   const zoom = map.getZoom();
@@ -567,6 +576,7 @@ function updateLegend(on) {
   if (on.buoys) parts.push('<div class="lg-h">Buoys (measured)</div><span style="color:#30d158">■ under 1 h old</span><span style="color:#f5a524">■ 1–3 h</span><span style="color:#e5484d">■ older — not current</span>');
   if (on.depth) parts.push('<div class="lg-h">Water depth</div>' + DEPTH_BANDS.map(([max, c], i) => `<span><i class="dot" style="background:rgb(${c.join(',')});border-radius:2px"></i>${i ? DEPTH_BANDS[i - 1][0] : 0}${max === Infinity ? '+' : '–' + max} m</span>`).join('') + '<span class="muted">zoom in for survey detail</span>');
   if (on.waves) parts.push('<div class="lg-h">Wave height (arrows point where waves go)</div>' + [[0.3, 'under 0.5 m calm'], [0.7, '0.5–1 m small'], [1.2, '1–1.5 m moderate'], [2, '1.5–2.5 m big'], [3, '2.5 m+ very big']].map(([v, t]) => `<span><i class="dot" style="background:${waveColor(v)}"></i>${t}</span>`).join(''));
+  if (on.clarity) parts.push('<div class="lg-h">Water clarity (satellite' + (state.clarity?.date ? ', ' + new Date(state.clarity.date).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' }) : ' — loading') + ')</div>' + CLARITY_BANDS.map(b => `<span><i class="dot" style="background:${b.color}"></i>${b.label} · ${b.vis}</span>`).join(''));
   if (on.sst) parts.push('<div class="lg-h">Sea temperature</div>' + [14, 17, 19, 21, 24].map(v => `<span><i class="dot" style="background:${sstColor(v)}"></i>${v} °C</span>`).join(''));
   if (on.windFlow) parts.push('<div class="lg-h">Wind streaks</div><span>white light · blue moderate · yellow fresh · red strong</span>');
   if (on.currentFlow) parts.push('<div class="lg-h">Water movement (current)</div>' + CURRENT_BANDS.map(b => `<span><i class="dot" style="background:${currentColor(b.max === Infinity ? 9 : b.max - 0.5)}"></i>${b.label} ${b.max === Infinity ? '3+' : (b.max - 1) + '–' + b.max} km/h</span>`).join('') + '<span class="muted">offshore forecast — not rips</span>');
@@ -708,4 +718,17 @@ export function openGuide() {
     { title: 'How to use — 3 steps', state: 'half' });
   b.onclick = e => { if (e.target.closest('[data-g]')) closeSheet(); };
   try { localStorage.setItem('wafi.guide', '1'); } catch {}
+}
+
+function syncClarity(on) {
+  // satellite clarity picture (rebuilt when a new satellite day arrives)
+  if (on.clarity && state.clarity && !lite()) {
+    if (clarityLayer?._date !== state.clarity.date) {
+      clarityLayer?.remove();
+      const im = clarityImage(state.clarity);
+      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 0.6, pane: 'underwater', className: 'clarity-img', attribution: 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
+      clarityLayer._date = state.clarity.date;
+    }
+    if (!map.hasLayer(clarityLayer)) clarityLayer.addTo(map);
+  } else if (clarityLayer) map.removeLayer(clarityLayer);
 }

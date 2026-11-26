@@ -9,6 +9,7 @@ import { initSheet, closeSheet } from './sheet.js';
 import { renderLocation } from './views/location.js';
 import { loadCoastPoints, loadCoastConditions } from './coast.js';
 import { loadBuoys, loadBomObs } from './buoys.js';
+import { loadTides, loadClarity, clarityAt } from './ocean.js';
 import { loadTargets } from './targets.js';
 import { zoneHitsFor } from './zones.js';
 import { loadOsmSpots } from './osmspots.js';
@@ -42,6 +43,11 @@ export function evalFor(loc, activity = state.activity) {
   const src = loc.tap && state.tapCond ? state.tapCond : loc.virtual || loc.condFrom ? state.coast : state.cond;
   const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}`;
   if (!state.evalCache.has(key)) {
+    // satellite water clarity for this spot (used by the spearfishing visibility estimate)
+    if (state.clarity && loc._satFor !== state.clarity.date) {
+      const [lng, lat] = loc.geometry.coordinates;
+      loc.sat = loc.estuary ? null : clarityAt(state.clarity, loc.sea?.[0] ?? lat, loc.sea?.[1] ?? lng); loc._satFor = state.clarity.date;
+    }
     state.evalCache.set(key, evaluate(loc, src.byId[loc.condFrom || loc.id], activity, {
       thresholds: state.data.thresholds, rules: state.data.rules, zones: state.data.zones,
       staleSources: state.cond.stale ? 1 : 0, sunFn, species: state.species || null,
@@ -160,10 +166,12 @@ async function refreshConditions(force = false) {
   state.loading = false;
   rerender();
   // Coastline + measured buoys load after the main spots so the app is usable sooner
-  const [coast, buoys, bom] = await Promise.all([loadCoastConditions(force), loadBuoys(force), loadBomObs(force)]);
+  const [coast, buoys, bom, tides, clarity] = await Promise.all([loadCoastConditions(force), loadBuoys(force), loadBomObs(force), loadTides(), loadClarity()]);
   state.coast = { points: state.coast.points, ...coast };
   state.buoys = buoys;
   state.bom = bom;
+  state.tides = tides;
+  state.clarity = clarity;
   rerender();
 }
 

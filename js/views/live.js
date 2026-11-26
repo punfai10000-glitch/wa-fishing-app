@@ -66,7 +66,7 @@ export function renderLive(view, rawId) {
       ${tile('Swell', fmtHeight(h.swell_height), h.swell_period != null ? `${Math.round(h.swell_period)} s from ${degToCompass(h.swell_direction) ?? '?'}` : '', t.swell_height)}
       ${tile('Tide', h.tide_rate == null ? 'Unknown' : h.tide_rate > 0.005 ? 'Rising' : h.tide_rate < -0.005 ? 'Falling' : 'Slack', '', h.tide_rate == null ? 'unknown' : 'modelled')}
       ${tile('Sea temp', fmtTemp(h.sst), '', t.sst)}
-      ${activity === 'spear' ? tile('Visibility', vis ? vis.label[0].toUpperCase() + vis.label.slice(1) : 'Unknown', 'from swell, wind & rain', vis ? 'estimated' : 'unknown') : tile('Rain', h.precipitation == null ? 'Unknown' : `${h.precipitation.toFixed(1)} mm`, 'this hour', t.precipitation)}
+      ${activity === 'spear' ? tile('Visibility', vis ? vis.label[0].toUpperCase() + vis.label.slice(1) : 'Unknown', vis?.sat ? 'satellite + forecast' : 'from swell, wind & rain', vis ? 'estimated' : 'unknown') : tile('Rain', h.precipitation == null ? 'Unknown' : `${h.precipitation.toFixed(1)} mm`, 'this hour', t.precipitation)}
     </div>
 
     ${measuredCard(loc)}

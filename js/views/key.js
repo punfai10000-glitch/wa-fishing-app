@@ -1,4 +1,5 @@
 // Map key: every colour, marker and symbol on the map, drawn with the same styles the map uses.
+import { CLARITY_BANDS } from '../ocean.js';
 import { chanceIcon, blockPill } from '../ui.js';
 import { DEPTH_BANDS } from '../depth.js';
 
@@ -117,6 +118,16 @@ export function renderKey(view) {
     <div class="card"><h2>Water depth colours</h2>
       <p class="small muted">Layers button → "Water depth (colour bands)". Light = shallow, dark = deep, measured from mean sea level. Detailed near shore where Transport WA has surveyed (zoom in); a general depth map when zoomed out. Tap the water for the depth in metres or centimetres. Not for navigation.</p>
       ${DEPTH_BANDS.map(([max, c], i) => row(sw(`rgb(${c.join(',')})`), `${i ? DEPTH_BANDS[i - 1][0] : 0}${max === Infinity ? ' m and deeper' : '–' + max + ' m'}`, i === 0 ? 'Very shallow — wading depth, sand bars and the edge of the beach.' : i === 1 ? 'Shallow — waist to head height.' : max <= 5 ? 'Snorkel and shallow spearfishing depth.' : max <= 12 ? 'Deeper water — drop-offs and reef edges often start here.' : 'Deep water — out past most shore casts.')).join('')}
+    </div>
+
+    <div class="card"><h2>Water clarity (satellite)</h2>
+      <p class="small">Layers → "Water clarity (satellite)". Satellites measure how quickly light fades in the water (called Kd490). The app turns that into a rough diving visibility. The legend shows the date of the satellite pass — the services sometimes run a week or two behind, and the app leans less on old passes.</p>
+      ${CLARITY_BANDS.map(b => row(sw(b.color), `${b.label} — about ${b.vis}`, { vclear: 'Blue-water days: great for spearfishing and sight-fishing.', clear: 'Good diving visibility.', ok: 'Fine for most diving; fish shy less.', murky: 'Short visibility — stay close to your buddy; sharks are harder to see.', vmurky: 'River plumes and stirred-up water after storms.' }[b.key])).join('')}
+      <p class="small muted">The squares are 2–4 km wide, so right at the shore it can be different. Big swell, strong onshore wind or rain since the satellite pass make the water murkier — the card's "Visibility" line already allows for that.</p>
+    </div>
+
+    <div class="card"><h2>Measured tide</h2>
+      <p class="small">Near Perth and Esperance the card also shows the real tide from the Hillarys and Esperance tide gauges (updated hourly): whether it's rising or falling, and how far it is from the forecast. If it differs by 5 cm or more, the "water now" depth uses the measured difference.</p>
     </div>
 
     <div class="card"><h2>Seabed (habitat) colours</h2>

@@ -40,7 +40,7 @@ export function verdict(ev, hr, ls, activity, t) {
     const ns = nextSafe(ev, t);
     const why = hr.blockKind === 'dark' ? 'Too dark — spearfishing is only rated in daylight.' : hr.blocks.find(b => b.kind === 'safety')?.reason || '';
     return { cls: hr.blockKind === 'dark' ? 'dark' : 'unsafe', icon: hr.blockKind === 'dark' ? '🌙' : '🚫', title: hr.blockKind === 'dark' ? 'Too dark now' : 'Not safe at this time',
-      text: why, next: ns ? `Safer time: <strong>${whenText(ns.start, ns.end)}</strong> (score about ${ns.score}${ns.careful ? ', take care' : ''})` : 'No safer time in the forecast yet — check again later.' };
+      text: why, next: ns ? `${hr.blockKind === 'dark' ? 'Next daylight time that is OK' : 'Safer time'}: <strong>${whenText(ns.start, ns.end)}</strong> (score about ${ns.score}${ns.careful ? ', take care' : ''})` : 'No safer time in the forecast yet — check again later.' };
   }
   const s = hr.score ?? 0;
   if (hr.cautions?.length) return { cls: 'care', icon: '⚠', title: `Allowed — take care (${BAND_LABEL[band(s)]} ${s})`, text: hr.cautions[0].reason + '. For experienced people, with a buddy.' };
