@@ -68,7 +68,28 @@ def main():
         rgba = np.dstack([r, g, b, np.where(np.isfinite(a), 255, 0)]).astype(np.uint8)
         os.makedirs(f"{OUT}/{Z}/{x}", exist_ok=True)
         Image.fromarray(rgba, "RGBA").save(f"{OUT}/{Z}/{x}/{y}.png", optimize=True)
+    # overview zooms 12 and 11 (2x2 / 4x4 averages) so zoomed-out views need one small file per tile
+    def enc(a):
+        v = np.where(np.isfinite(a), a, 0).astype(np.float64) + 32768
+        r = np.floor(v / 256); g = np.floor(v - r * 256); b = np.floor((v - np.floor(v)) * 256)
+        return np.dstack([r, g, b, np.where(np.isfinite(a), 255, 0)]).astype(np.uint8)
+    levels = {Z: tiles}
+    for zz in (Z - 1, Z - 2):
+        child = levels[zz + 1]; parent = {}
+        for (x, y), a in child.items():
+            px, py = x // 2, y // 2
+            P = parent.setdefault((px, py), np.full((TS, TS), np.nan, dtype=np.float32))
+            with np.errstate(all="ignore"):
+                small = np.nanmean(a.reshape(TS // 2, 2, TS // 2, 2), axis=(1, 3))
+            ox, oy = (x % 2) * (TS // 2), (y % 2) * (TS // 2)
+            P[oy:oy + TS // 2, ox:ox + TS // 2] = small
+        levels[zz] = parent
+        shutil.rmtree(f"{OUT}/{zz}", ignore_errors=True)
+        for (x, y), a in parent.items():
+            os.makedirs(f"{OUT}/{zz}/{x}", exist_ok=True)
+            Image.fromarray(enc(a), "RGBA").save(f"{OUT}/{zz}/{x}/{y}.png", optimize=True)
     json.dump({"z": Z, "tiles": sorted([f"{x}/{y}" for x, y in tiles]), "encoding": "terrarium",
+               "overviews": {str(zz): sorted([f"{x}/{y}" for x, y in levels[zz]]) for zz in (Z - 1, Z - 2)},
                "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                "source": "WA Department of Transport — Composite Surfaces (Multibeam, LiDAR, Laser), DOT-022, CC BY 3.0 AU",
                "areas": meta}, open(f"{OUT}/index.json", "w"), separators=(",", ":"))
