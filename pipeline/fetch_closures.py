@@ -1,4 +1,4 @@
-"""Official DPIRD fishing prohibition areas (Fish Resources Management Act orders) for Perth -> Esperance.
+"""Official DPIRD fishing prohibition areas (Fish Resources Management Act orders) for Geraldton/Abrolhos -> Esperance.
 
 Source: Landgate SLIP public ArcGIS service 'DPIRD_Fisheries_Guide' (Fisheries Guide - CEO Notices &
 Consolidated Notices and Orders). Each feature links to the legal order PDF on wa.gov.au.
@@ -10,7 +10,8 @@ BBOX = "113.4,-35.6,124.5,-28.3"
 OUT = "data/zones/closures.geojson"
 LAYERS = {130: "burswood", 133: "esperance_jetty", 134: "greens_pool", 140: "ngari", 141: "rottnest", 144: "marmion",
           148: "shoalwater", 149: "walpole", 152: "wreck", 153: "wreck", 155: "wreck", 156: "wreck", 157: "wreck", 158: "wreck",
-          244: "fhpa", 213: "lobster", 249: "wire", 150: "heirisson", 204: "bsc", 131: "snapper", 206: "crab_geo", 207: "crab_peel"}
+          244: "fhpa", 213: "lobster", 249: "wire", 150: "heirisson", 204: "bsc", 131: "snapper", 206: "crab_geo", 207: "crab_peel",
+          143: "jurien", 112: "abrolhos_roa", 243: "abrolhos_fhpa", 246: "lancelin", 159: "wreck", 209: "samson_abrolhos", 214: "lobster_7mile"}
 BOTH = ["shore", "spear"]
 
 def get(url, **p):
@@ -106,6 +107,39 @@ def classify(kind, a):
                      ["✓ Rod or handline from the shore", "✓ Trolling from a boat for pelagic fish", "✗ Bottom (demersal) fishing from a boat", "✗ Spearfishing"])
         return z("restricted", "Rottnest Island Reserve", ["spear"], "No spearfishing anywhere at Rottnest. Line fishing allowed outside the protected areas.",
                  ["✓ Line fishing (outside sanctuary and protected areas)", *common])
+    if kind == "jurien":
+        park = "Jurien Bay Marine Park"
+        t = (desc or legal).strip()
+        if re.search(r"Schedule 4|Sanctuary", legal + desc, re.I):
+            t = re.sub(r"Sanctuary (Area|Zone)", "Sanctuary Zone", t)
+            return z("sanctuary", f"{t} ({park})", BOTH, "Sanctuary zone — no fishing or collecting of any kind.", NO_ALL)
+        if re.search(r"Schedule 1|Shore", legal, re.I):
+            return z("restricted", f"{t} ({park})", ["spear"], "Shore-based activities area: line fishing from the shore only — no spearfishing, no fishing from a boat.",
+                     ["✓ Line or net fishing from the shore (not from or with a boat)", "✓ Abalone and rock lobster from the shore without diving (licence)",
+                      "✗ Spearfishing and any diving", "✗ Fishing from a boat"])
+        if re.search(r"Schedule 2|Puerulus", legal, re.I):
+            return z("restricted", f"Puerulus monitoring area — Boullanger, Tern, Whitlock & Osprey islands ({park})", ["spear"], "Only line fishing allowed here.",
+                     ["✓ Line fishing (shore or boat)", "✗ Spearfishing", "✗ Rock lobster, abalone, crabs, nets and any other fishing"])
+        return z("restricted", f"{t} ({park})", ["spear"], "Scientific reference area: rock lobster OK; from the shore only line, net or abalone. No spearfishing.",
+                 ["✓ Rock lobster (licence)", "✓ From the shore (no boat): line fishing, nets, abalone", "✗ Spearfishing", "✗ Line fishing from a boat"])
+    if kind == "abrolhos_roa":
+        if re.search(r"Schedule 2", legal, re.I):
+            return None   # traditional island fishers' areas inside the reef observation areas — no change for visitors
+        g = re.sub(r"^Schedule 1 - Reef Observation Areas \(\d\.\s*|\)\s*$", "", desc).strip()
+        return z("restricted", f"Reef Observation Area — {g} (Houtman Abrolhos)", BOTH, "No fishing except rock lobster (pots or diving, licence) and rod or handline from a jetty.",
+                 ["✗ Line fishing from boats or the shore", "✗ Spearfishing", "✓ Rock lobster by pot or diving (licence)", "✓ Attended rod or handline from a jetty"])
+    if kind == "abrolhos_fhpa":
+        return z("general_use", "Abrolhos Islands Fish Habitat Protection Area", [], "Fish habitat protection area: fishing allowed outside the reef observation areas, with extra Abrolhos rules.",
+                 ["✓ Line fishing and spearfishing outside the reef observation areas", "✗ No samsonfish or yellowtail kingfish near the island jetties and anchorages (marked areas)",
+                  "⚠ Extra Abrolhos rules (landing, anchoring, demersal limits) — check DPIRD before you go"])
+    if kind == "lancelin":
+        return z("restricted", "Lancelin Island Lagoon Fish Habitat Protection Area", BOTH, "Set aside for watching fish (snorkelling) — treat it as no fishing and check DPIRD's rules before fishing here.",
+                 ["✓ Snorkelling and diving to look", "✗ Treat as no fishing or collecting (fish habitat protection area for fish observation)"])
+    if kind == "samson_abrolhos":
+        return {**z("species", f"No samsonfish or kingfish — {desc.split(' –')[0].strip()} (Abrolhos)", [], "Samsonfish and yellowtail kingfish can't be taken here.",
+                    ["✗ Samsonfish", "✗ Yellowtail kingfish"]), "species_id": "samsonfish"}
+    if kind == "lobster_7mile":
+        return z("gear", "No rock lobster fishing — Seven Mile Beach (Dongara)", [], "Rock lobster fishing is banned here (research area).", ["✗ Rock lobster by any method"])
     if kind == "wreck":
         return z("sanctuary", desc or name, BOTH, "Protected wreck — no fishing.", NO_ALL)
     if kind in ("burswood", "greens_pool", "heirisson"):
@@ -178,6 +212,6 @@ if sanct < 10:
 os.makedirs("data/zones", exist_ok=True)
 json.dump({"type": "FeatureCollection", "loaded": True, "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
            "source": "DPIRD fishing prohibition orders via Landgate SLIP (DPIRD_Fisheries_Guide). Each area links to its order.",
-           "covers_parks": ["Marmion", "Shoalwater Islands", "Ngari Capes", "Rottnest"], "features": feats},
+           "covers_parks": ["Marmion", "Shoalwater Islands", "Ngari Capes", "Rottnest", "Jurien Bay"], "features": feats},
           open(OUT, "w"), separators=(",", ":"))
 print("wrote", OUT, len(feats), "features,", sanct, "no-fishing areas")
