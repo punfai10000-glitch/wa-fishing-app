@@ -186,7 +186,9 @@ for lid, kind in LAYERS.items():
         if not props: continue
         g = f["geometry"]
         def rnd(c): return [round(c[0], 5), round(c[1], 5)] if isinstance(c[0], (int, float)) else [rnd(x) for x in c]
-        def ring_simplify(r):   # Douglas-Peucker, ~2 m tolerance: same legal line, fewer points to download
+        # Douglas-Peucker: ~2 m for no-fishing lines, ~15 m for seasonal/gear/species areas that follow river banks
+        tol = 0.00002 if props["zone_type"] in ("sanctuary", "restricted", "permit") else 0.00015
+        def ring_simplify(r):
             if len(r) < 5: return r
             keep = [False] * len(r); keep[0] = keep[-1] = True; stack = [(0, len(r) - 1)]
             while stack:
@@ -195,7 +197,7 @@ for lid, kind in LAYERS.items():
                 for k in range(a + 1, b):
                     d = abs(dy * (r[k][0] - ax) - dx * (r[k][1] - ay)) / L
                     if d > dm: i, dm = k, d
-                if dm > 0.00002: keep[i] = True; stack += [(a, i), (i, b)]
+                if dm > tol: keep[i] = True; stack += [(a, i), (i, b)]
             out = [p for p, k in zip(r, keep) if k]
             return out if len(out) >= 4 else r
         def simp(c): return ring_simplify(c) if isinstance(c[0][0], (int, float)) else [simp(x) for x in c]
