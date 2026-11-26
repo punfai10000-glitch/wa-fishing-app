@@ -1,7 +1,7 @@
 """Nearshore depth tiles from Transport WA bathymetric LiDAR / multibeam composite surfaces (5 m grids).
 
 Source: WA Department of Transport, 'Composite Surfaces - Multibeam LIDAR Laser (DOT-022)', CC BY 3.0 AU.
-Output: data/depth/13/{x}/{y}.png — Web Mercator z13 tiles (~19 m pixels at the equator, ~16 m in Perth),
+Output: data/depth/14/{x}/{y}.png — Web Mercator z14 tiles (~8 m pixels in Perth) plus averaged overviews at z13-z11,
 'Terrarium' encoded: value_m = (R*256 + G + B/256) - 32768; transparent where there is no survey.
 Values are heights relative to the survey's vertical datum (negative = below; see data/depth/index.json).
 """
@@ -13,7 +13,9 @@ from PIL import Image
 
 INDEX = ("https://public-services.slip.wa.gov.au/public/rest/services/Landgate_Public_Maps/WA_Bathymetry/MapServer/1/query"
          "?where=1%3D1&outFields=location,url&returnGeometry=false&f=json")
-Z, TS, R = 13, 256, 6378137.0
+Z, TS, R = 14, 256, 6378137.0
+REGION = (114.4, -35.6, 124.5, -31.0)   # app coverage (Perth to Esperance) — skip surveys outside it
+OVERVIEWS = (13, 12, 11)
 OUT = "data/depth"
 
 def tile_bounds_3857(x, y, z):
@@ -47,6 +49,8 @@ def main():
             print(" ", json.dumps(arr_info)[:400])
             meta.append({"name": name, "source_url": url, "crs": arr_info["crs"], "range_m": arr_info["range"], "tags": arr_info["tags"]})
             w, s, e, n = transform_bounds(src.crs, "EPSG:4326", *src.bounds)
+            if e < REGION[0] or w > REGION[2] or n < REGION[1] or s > REGION[3]:
+                print("   outside app region — skipped"); continue
             x0, y0 = lonlat_to_tile(w, n, Z); x1, y1 = lonlat_to_tile(e, s, Z)
             for x in range(x0, x1 + 1):
                 for y in range(y0, y1 + 1):
@@ -61,20 +65,22 @@ def main():
                         tiles[(x, y)] = dst
     if len(tiles) < 50:
         print("Too few tiles — not writing."); sys.exit(1)
-    import shutil; shutil.rmtree(f"{OUT}/{Z}", ignore_errors=True)
+    import shutil
+    for d in os.listdir(OUT) if os.path.isdir(OUT) else []:
+        if d.isdigit(): shutil.rmtree(f"{OUT}/{d}", ignore_errors=True)
     for (x, y), a in tiles.items():
         v = np.where(np.isfinite(a), a, 0).astype(np.float64) + 32768
         r = np.floor(v / 256); g = np.floor(v - r * 256); b = np.floor((v - np.floor(v)) * 256)
         rgba = np.dstack([r, g, b, np.where(np.isfinite(a), 255, 0)]).astype(np.uint8)
         os.makedirs(f"{OUT}/{Z}/{x}", exist_ok=True)
         Image.fromarray(rgba, "RGBA").save(f"{OUT}/{Z}/{x}/{y}.png", optimize=True)
-    # overview zooms 12 and 11 (2x2 / 4x4 averages) so zoomed-out views need one small file per tile
+    # overview zooms (2x2 averages, repeated) so zoomed-out views need one small file per tile
     def enc(a):
         v = np.where(np.isfinite(a), a, 0).astype(np.float64) + 32768
         r = np.floor(v / 256); g = np.floor(v - r * 256); b = np.floor((v - np.floor(v)) * 256)
         return np.dstack([r, g, b, np.where(np.isfinite(a), 255, 0)]).astype(np.uint8)
     levels = {Z: tiles}
-    for zz in (Z - 1, Z - 2):
+    for zz in OVERVIEWS:
         child = levels[zz + 1]; parent = {}
         for (x, y), a in child.items():
             px, py = x // 2, y // 2
@@ -89,7 +95,7 @@ def main():
             os.makedirs(f"{OUT}/{zz}/{x}", exist_ok=True)
             Image.fromarray(enc(a), "RGBA").save(f"{OUT}/{zz}/{x}/{y}.png", optimize=True)
     json.dump({"z": Z, "tiles": sorted([f"{x}/{y}" for x, y in tiles]), "encoding": "terrarium",
-               "overviews": {str(zz): sorted([f"{x}/{y}" for x, y in levels[zz]]) for zz in (Z - 1, Z - 2)},
+               "overviews": {str(zz): sorted([f"{x}/{y}" for x, y in levels[zz]]) for zz in OVERVIEWS},
                "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                "source": "WA Department of Transport — Composite Surfaces (Multibeam, LiDAR, Laser), DOT-022, CC BY 3.0 AU",
                "areas": meta}, open(f"{OUT}/index.json", "w"), separators=(",", ":"))
