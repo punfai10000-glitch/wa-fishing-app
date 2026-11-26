@@ -565,3 +565,8 @@ html, body { height: 100%; height: 100dvh; overscroll-behavior: none; }
 .guide li { margin:0 0 12px; line-height:1.45; }
 .guide li > b:first-child { display:block; font-size:16px; margin-bottom:2px; }
 .guide span { display:block; font-size:.92em; opacity:.88; margin-top:3px; }
+/* Learn: symbols never spill into the text column */
+.key-sym { min-width: 0; overflow: hidden; }
+.key-sym .best-pin { position: static; display: inline-block; max-width: 100%; }
+.key-sym .best-pin span { white-space: normal; font-size: 11px; line-height: 1.2; display: inline-block; max-width: 108px; text-align: center; }
+@media (max-width: 420px) { .key-row { grid-template-columns: 92px 1fr; } .key-sym .best-pin span { max-width: 90px; } }

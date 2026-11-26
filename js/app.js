@@ -6,13 +6,7 @@ import { fmtAge } from './units.js';
 import { esc } from './ui.js';
 import { initMap, refreshMap, showMap } from './map.js';
 import { initSheet, closeSheet } from './sheet.js';
-import { renderSpots } from './views/spots.js';
-import { renderMeasure } from './views/measure.js';
-import { renderKey } from './views/key.js';
 import { renderLocation } from './views/location.js';
-import { renderFish } from './views/fish.js';
-import { renderLive } from './views/live.js';
-import { renderMore } from './views/more.js';
 import { loadCoastPoints, loadCoastConditions } from './coast.js';
 import { loadBuoys, loadBomObs } from './buoys.js';
 import { loadTargets } from './targets.js';
@@ -115,16 +109,18 @@ document.getElementById('banners').addEventListener('click', e => {
   banners();
 });
 
+// Pages other than the map load only when first opened (faster start on phones)
+const lazy = (file, fn, extra) => async (v, arg) => (await import(`./views/${file}.js`))[fn](v, extra ?? arg);
 const ROUTES = {
   map: () => null,
-  spots: renderSpots,
-  live: renderLive,
-  fish: renderFish,
-  fishid: (v) => renderFish(v, 'id'),
-  rules: (v) => renderFish(v, 'rules'),
-  more: renderMore,
-  measure: renderMeasure,
-  key: renderKey,
+  spots: lazy('spots', 'renderSpots'),
+  live: lazy('live', 'renderLive'),
+  fish: lazy('fish', 'renderFish'),
+  fishid: lazy('fish', 'renderFish', 'id'),
+  rules: lazy('fish', 'renderFish', 'rules'),
+  more: lazy('more', 'renderMore'),
+  measure: lazy('measure', 'renderMeasure'),
+  key: lazy('key', 'renderKey'),
   loc: renderLocation
 };
 
@@ -147,7 +143,7 @@ function route() {
   if (!state.data) { view.innerHTML = '<p class="muted">Loading…</p>'; return; }
   view.innerHTML = '';
   view.scrollTop = 0;
-  ROUTES[name](view, arg);
+  Promise.resolve(ROUTES[name](view, arg)).catch(e => { view.innerHTML = `<div class="card">This page couldn't load (${esc(e.message)}). Check your connection and try again.</div>`; });
 }
 
 export function rerender() {
@@ -178,12 +174,11 @@ async function boot() {
   }
   syncToggles();
   try {
-    state.data = await loadStatic();
-    await loadTargets();
-    state.coast.points = await loadCoastPoints();
+    // independent downloads in parallel
+    const shoreP = loadShore();
+    [state.data, , state.coast.points] = await Promise.all([loadStatic(), loadTargets(), loadCoastPoints()]);
     setCoastPoints(state.coast.points);
-    state.osmSpots = await loadOsmSpots(state.coast.points);
-    await loadShore();
+    [state.osmSpots] = await Promise.all([loadOsmSpots(state.coast.points), shoreP]);
     snapPinsToShore([...state.data.locations, ...state.osmSpots]);
   } catch (e) {
     document.getElementById('banners').innerHTML = `<div class="banner danger"><span>Could not load app data (${esc(e.message)}). Check your connection.</span><button onclick="location.reload()">Retry</button></div>`;

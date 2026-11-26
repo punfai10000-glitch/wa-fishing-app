@@ -4,27 +4,25 @@ jobs:
   x:
     runs-on: ubuntu-latest
     steps:
-      - name: dot tides
+      - name: tide page
         run: |
           UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36"
-          for u in https://www.transport.wa.gov.au/imarine/tide-and-wave-data.asp https://www.transport.wa.gov.au/imarine/tide-and-wave-data https://www.transport.wa.gov.au/imarine/latest-tide-data.asp ; do
-            echo "=== $u"; curl -sL -A "$UA" "$u" -o p.html -w "%{http_code} %{url_effective}\n"; grep -oiE 'href="[^"]*(tide|wave|\.csv|\.txt|\.json)[^"]*"' p.html | sort -u | head -40; done
-          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Marine_and_Estuaries/MapServer/17/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=json" | head -c 3000; echo
-      - name: kd490
+          curl -sL -A "$UA" https://www.transport.wa.gov.au/imarine/fremantle-tide.asp -o p.html -w "%{http_code} %{url_effective} %{size_download}\n"
+          grep -oiE '(src|href|data-[a-z]+)="[^"]+"' p.html | grep -viE '\.(css|png|svg|ico|jpg)|google|facebook|twitter' | sort -u | head -60
+          grep -oiE "https?://[^\"' )]+" p.html | grep -iE 'tide|json|csv|txt|data|api' | sort -u | head -30
+          grep -oiE "[a-zA-Z0-9_/.-]+\.(txt|csv|json|xml)" p.html | sort -u | head -30
+      - name: oc
         run: |
-          curl -s "https://coastwatch.pfeg.noaa.gov/erddap/search/index.json?searchFor=kd490&itemsPerPage=40" | python3 -c "import json,sys;d=json.load(sys.stdin);c=d['table']['columnNames'];i=c.index('Dataset ID');t=c.index('Title');[print(r[i],'|',r[t][:110]) for r in d['table']['rows']]" || true
-          curl -s "https://coastwatch.noaa.gov/erddap/search/index.json?searchFor=kd490&itemsPerPage=40" | python3 -c "import json,sys;d=json.load(sys.stdin);c=d['table']['columnNames'];i=c.index('Dataset ID');t=c.index('Title');[print('CW',r[i],'|',r[t][:110]) for r in d['table']['rows']]" || true
-      - name: zones
+          curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/catalog.xml" | grep -oE 'name="[^"]+"|xlink:href="[^"]+"' | head -40
+          curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/aqua/P1D/catalog.xml" | grep -oE 'xlink:title="[^"]+"' | tail -5
+          curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/snpp/P1D/catalog.xml" | grep -oE 'xlink:title="[^"]+"' | tail -5
+          curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/noaa20/P1D/catalog.xml" | grep -oE 'xlink:title="[^"]+"' | tail -5
+      - name: points
         run: |
-          for q in "marine%20park%20zones" "marine%20parks%20and%20reserves" "DBCA%20marine" "Swan%20Estuary%20Marine%20Park" "Walpole%20Nornalup"; do
-            echo "=== $q"; curl -s "https://catalogue.data.wa.gov.au/api/3/action/package_search?q=$q&rows=8" | python3 -c "
-          import json,sys
-          d=json.load(sys.stdin)
-          for p in d['result']['results']:
-            print(p['name'],'|',p['title'][:80]); [print('    ',r.get('format'),r.get('url','')[:160]) for r in p.get('resources',[])[:6]]" || true; done
-      - name: depth points
+          for c in DM WL HT PB BB DV SC MH AL; do curl -sI "https://s3-ap-southeast-2.amazonaws.com/transport.wa/Bathymetry/PointData/$c.zip" | grep -i "content-length" | sed "s/^/$c /"; done
+          curl -s -o pb.zip https://s3-ap-southeast-2.amazonaws.com/transport.wa/Bathymetry/PointData/PB.zip && unzip -l pb.zip | head -20 && unzip -o -q pb.zip -d pb && find pb -type f | head && for f in $(find pb -type f \( -iname '*.xyz' -o -iname '*.txt' -o -iname '*.csv' \) | head -2); do echo "== $f"; head -5 "$f"; wc -l "$f"; done
+      - name: dbca
         run: |
-          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Marine_and_Estuaries/MapServer/12/query?where=1%3D1&geometry=116.5,-35.5,124,-34&geometryType=esriGeometryEnvelope&inSR=4326&outFields=*&returnGeometry=false&f=json" | python3 -c "
-          import json,sys;d=json.load(sys.stdin);fs=d.get('features',[]);print(len(fs));[print(f['attributes']) for f in fs[:6]]" || true
-          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Marine_and_Estuaries/MapServer/12/query?where=1%3D1&geometry=115.6,-32.8,116.0,-31.9&geometryType=esriGeometryEnvelope&inSR=4326&outFields=*&returnGeometry=false&f=json" | python3 -c "
-          import json,sys;d=json.load(sys.stdin);fs=d.get('features',[]);print(len(fs));[print(f['attributes']) for f in fs[:6]]" || true
+          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Property_and_Planning/MapServer?f=json" | python3 -c "import json,sys;d=json.load(sys.stdin);[print(l['id'],l['name']) for l in d['layers'] if any(k in l['name'] for k in ['Marine','DBCA','Zone','Reserve','Park'])]"
+          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Boundaries/MapServer?f=json" | python3 -c "import json,sys;d=json.load(sys.stdin);[print('B',l['id'],l['name']) for l in d['layers'] if any(k in l['name'] for k in ['Marine','DBCA','Zone','Reserve','Park'])]"
+          curl -s "https://catalogue.data.wa.gov.au/api/3/action/package_search?q=sanctuary&rows=10" | python3 -c "import json,sys;d=json.load(sys.stdin);[print(p['name'],'|',p['title'][:90]) for p in d['result']['results']]"
