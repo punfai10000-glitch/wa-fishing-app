@@ -331,3 +331,5 @@ dialog li { margin-bottom: 8px; }
 .legend { top: 112px !important; }
 .legend[hidden] { display: none !important; }
 .leaflet-top.leaflet-left { top: 104px; }
+.key-zone.restr { display:inline-block; width:28px; height:18px; border:1.5px dashed #f5a524; background:rgba(245,165,36,.12); border-radius:3px; }
+.key-zone.park { display:inline-block; width:28px; height:18px; border:1px dashed #4e79a7; border-radius:3px; }

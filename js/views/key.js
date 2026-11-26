@@ -71,8 +71,10 @@ export function renderKey(view) {
     </div>
 
     <div class="card"><h2>Legal</h2>
-      ${row('<span class="key-zone sanct"></span>', 'Red area', 'Sanctuary zone (or similar no-take zone): no fishing, spearing or collecting.')}
-      ${row('<span class="key-zone other"></span>', 'Blue area', 'Other marine park zone: fishing allowed under the normal rules, but special-purpose zones can have extra limits.')}
+      ${row('<span class="key-zone sanct"></span>', 'Red area', 'No fishing: sanctuary zones (Marmion, Shoalwater, Ngari Capes, Rottnest), protected wrecks and other closed waters — from official DPIRD fishing orders.')}
+      ${row('<span class="key-zone restr"></span>', 'Orange dashed area', 'Special rules: e.g. surfing zones, Rottnest reserve (no spearfishing), Cottesloe Reef. Tap it and read the linked order.')}
+      ${row('<span class="key-zone park"></span>', 'Blue dashed outline', 'Marine park boundary. Outside red/orange areas normal rules apply.')}
+      <p class="small muted">Species and gear rules (e.g. blue swimmer crab closure 1 Sep–30 Nov Swan River–Minninup, wire trace bans) show in each spot's Rules check. The zone data updates weekly from DPIRD via Landgate.</p>
     </div>
 
     <div class="card"><h2>Facilities</h2>

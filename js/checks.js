@@ -12,13 +12,14 @@ export function fourChecks(loc, ev, hr, zones, activity) {
   rows.push(['Conditions', hr && !hr.blocked && sc != null ? `<b class="ck ${band(sc)}">${sc}/100</b> wind, waves, tide${activity === 'spear' ? ', visibility (estimate)' : ', light'}` :
     hr?.blocked ? '<b class="ck poor">Not rated</b> see safety / rules' : '<b class="ck unknown">Unknown</b> no forecast for this hour']);
   // 2. Fish activity — only from checked evidence, never guessed from weather
-  const tg = likelyTargets(loc, hr?.hour, activity, { max: 3, zones }).filter(t => t.level !== 'unlikely');
+  const legalBlocked = (hr?.blocks || []).some(b => b.kind === 'legal') || legalStatus(zones, loc, activity).state === 'blocked';
+  const tg = legalBlocked ? [] : likelyTargets(loc, hr?.hour, activity, { max: 3, zones }).filter(t => t.level !== 'unlikely');
   const good = tg.filter(t => t.level === 'good');
   const poss = tg.filter(t => t.level === 'possible'), closed = tg.filter(t => t.level === 'closed');
   rows.push(['Fish', tg.length ? [good.length ? `<b class="ck good">Good chance</b> ${esc(good.map(t => t.name).join(', '))}` : '',
       poss.length ? `<b class="ck fair">Possible</b> ${esc(poss.map(t => t.name).join(', '))}` : '',
       closed.length ? `<b class="ck poor">Closed</b> ${esc(closed.map(t => t.name).join(', '))}` : ''].filter(Boolean).join('<br>') + ' <span class="muted">· seasonal guide</span>'
-    : '<b class="ck unknown">Nothing in season</b> for this kind of spot — seasonal guide']);
+    : legalBlocked ? '<b class="ck poor">—</b> no fishing allowed here, so no species suggestions' : '<b class="ck unknown">Nothing in season</b> for this kind of spot — seasonal guide']);
   // 3. Safety
   const sb = (hr?.blocks || []).find(b => b.kind === 'safety');
   rows.push(['Safety', sb ? `<b class="ck poor">Not safe</b> ${esc(sb.reason)}` :
