@@ -1,0 +1,30 @@
+name: explore
+on: workflow_dispatch
+jobs:
+  x:
+    runs-on: ubuntu-latest
+    steps:
+      - name: dot tides
+        run: |
+          UA="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/124 Safari/537.36"
+          for u in https://www.transport.wa.gov.au/imarine/tide-and-wave-data.asp https://www.transport.wa.gov.au/imarine/tide-and-wave-data https://www.transport.wa.gov.au/imarine/latest-tide-data.asp ; do
+            echo "=== $u"; curl -sL -A "$UA" "$u" -o p.html -w "%{http_code} %{url_effective}\n"; grep -oiE 'href="[^"]*(tide|wave|\.csv|\.txt|\.json)[^"]*"' p.html | sort -u | head -40; done
+          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Marine_and_Estuaries/MapServer/17/query?where=1%3D1&outFields=*&returnGeometry=true&outSR=4326&f=json" | head -c 3000; echo
+      - name: kd490
+        run: |
+          curl -s "https://coastwatch.pfeg.noaa.gov/erddap/search/index.json?searchFor=kd490&itemsPerPage=40" | python3 -c "import json,sys;d=json.load(sys.stdin);c=d['table']['columnNames'];i=c.index('Dataset ID');t=c.index('Title');[print(r[i],'|',r[t][:110]) for r in d['table']['rows']]" || true
+          curl -s "https://coastwatch.noaa.gov/erddap/search/index.json?searchFor=kd490&itemsPerPage=40" | python3 -c "import json,sys;d=json.load(sys.stdin);c=d['table']['columnNames'];i=c.index('Dataset ID');t=c.index('Title');[print('CW',r[i],'|',r[t][:110]) for r in d['table']['rows']]" || true
+      - name: zones
+        run: |
+          for q in "marine%20park%20zones" "marine%20parks%20and%20reserves" "DBCA%20marine" "Swan%20Estuary%20Marine%20Park" "Walpole%20Nornalup"; do
+            echo "=== $q"; curl -s "https://catalogue.data.wa.gov.au/api/3/action/package_search?q=$q&rows=8" | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          for p in d['result']['results']:
+            print(p['name'],'|',p['title'][:80]); [print('    ',r.get('format'),r.get('url','')[:160]) for r in p.get('resources',[])[:6]]" || true; done
+      - name: depth points
+        run: |
+          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Marine_and_Estuaries/MapServer/12/query?where=1%3D1&geometry=116.5,-35.5,124,-34&geometryType=esriGeometryEnvelope&inSR=4326&outFields=*&returnGeometry=false&f=json" | python3 -c "
+          import json,sys;d=json.load(sys.stdin);fs=d.get('features',[]);print(len(fs));[print(f['attributes']) for f in fs[:6]]" || true
+          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Marine_and_Estuaries/MapServer/12/query?where=1%3D1&geometry=115.6,-32.8,116.0,-31.9&geometryType=esriGeometryEnvelope&inSR=4326&outFields=*&returnGeometry=false&f=json" | python3 -c "
+          import json,sys;d=json.load(sys.stdin);fs=d.get('features',[]);print(len(fs));[print(f['attributes']) for f in fs[:6]]" || true
