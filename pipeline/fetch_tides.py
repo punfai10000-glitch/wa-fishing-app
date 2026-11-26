@@ -28,7 +28,7 @@ def main():
             if not (-5 < v < 10): continue
             k = int(t.timestamp() // 3600 * 3600 * 1000)
             hours.setdefault(k, []).append(v)
-        series = [[k, round(sum(v) / len(v), 3)] for k, v in sorted(hours.items()) if len(v) >= 10]   # 1-min gauges give ~60 a hour, Geraldton (3-min) ~20
+        series = [[k, round(sum(v) / len(v), 3)] for k, v in sorted(hours.items()) if len(v) >= 3]   # 1-min gauges give ~60 a reading an hour; Geraldton reports less often
         if len(series) < 6: print(name, "too little data"); continue
         res.append({"code": code, "name": name, "lat": lat, "lng": lng, "hourly": series})
         print(name, len(series), "hours, last", series[-1])
