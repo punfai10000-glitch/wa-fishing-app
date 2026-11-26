@@ -5,13 +5,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          python3 - <<'PY'
-          import json, urllib.request, urllib.parse
-          B="https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/DPIRD_Fisheries_Guide/MapServer"
-          for lid in (143,112,243,246,159,209,214,215):
-              q=urllib.parse.urlencode({"where":"1=1","geometry":"113.4,-31.3,116.0,-28.3","geometryType":"esriGeometryEnvelope","inSR":4326,"outFields":"*","returnGeometry":"false","f":"json"})
-              d=json.load(urllib.request.urlopen(f"{B}/{lid}/query?{q}",timeout=60))
-              for f in d.get('features',[]):
-                  a={k:v for k,v in f['attributes'].items() if v not in (None,'',' ') and k.lower() not in ('objectid','shape_area','shape_length','st_area(shape)','st_length(shape)')}
-                  print('A',lid,json.dumps(a)[:600])
-          PY
+          sudo apt-get install -y -qq poppler-utils >/dev/null
+          for u in "https://www.wa.gov.au/system/files/2024-07/prohibition_on_recreational_fishing_jurien_bay_marine_park_order_2005.pdf" "https://www.wa.gov.au/system/files/2024-07/houtman_abrolhos_reef_observation_areas_notice_1994.pdf" "https://www.wa.gov.au/system/files/2021-08/Lancelin%20Island%20Lagoon%20Fish%20Habitat%20Protection%20Area%20Order%202001.pdf" "https://www.wa.gov.au/system/files/2024-07/prohibition_taking_samson_fish_or_yellowtail_kingfish_houtman_abrolhos_notice_1995.pdf" "https://www.wa.gov.au/system/files/2024-07/prohibition_on_fishing_for_rock_lobster_seven_mile_beach_order_2014.pdf"; do
+            echo "=========== $u"; curl -sL -A "Mozilla/5.0" -o o.pdf "$u"; pdftotext -layout o.pdf - | grep -v "^\s*$" | sed 's/  */ /g' | grep -v -i "^ *[0-9]* *°\|’ *[SE]\b" | head -170
+          done
