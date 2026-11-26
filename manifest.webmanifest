@@ -1,7 +1,7 @@
 {
   "name": "WA Fishing Intelligence",
   "short_name": "WA Fishing",
-  "description": "Fishing conditions, safety and rules from Perth to Esperance.",
+  "description": "Fishing conditions, safety and rules from Geraldton to Esperance.",
   "start_url": "./#/map",
   "scope": "./",
   "display": "standalone",

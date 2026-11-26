@@ -13501,7 +13501,7 @@
   {
    "id": "seahorses",
    "name": "Seahorses (all species)",
-   "scientific": "Hippocampus spp.",
+   "scientific": "Hippocampus",
    "aka": [],
    "group": "Protected fish",
    "status": "protected",
@@ -13600,7 +13600,7 @@
   {
    "id": "manta_devil_rays",
    "name": "Manta and devil rays",
-   "scientific": "Mobula spp.",
+   "scientific": "Mobula",
    "aka": [],
    "group": "Protected fish",
    "status": "protected",
