@@ -2,7 +2,7 @@
 import { state, evalFor, actions, getLoc } from '../app.js';
 import { nearestBuoy, nearestStation } from '../buoys.js';
 import { moonName } from '../coastmap.js';
-import { legalStatus } from '../zones.js';
+import { legalStatus, legalHTML } from '../zones.js';
 import { communityCard, sightingsCard, fillSightings } from './community.js';
 import { REGIONS, TYPE_LABELS } from '../config.js';
 import { esc, pill, windowText, confText, typeTag, activityToggle, chanceIcon, blockPill } from '../ui.js';
@@ -87,7 +87,7 @@ export function renderLive(view, rawId) {
 
     ${ev.explanation ? `<div class="card small">${esc(ev.explanation)}</div>` : ''}
     ${loc.type === 'rock_platform' ? '<div class="notice danger small"><strong>Rock fishing danger.</strong> Wear a lifejacket, never fish alone, never turn your back on the sea.</div>' : ''}
-    ${(() => { const ls = legalStatus(state.data.zones, loc); return `<div class="notice small ${ls.state === 'blocked' ? 'danger' : ls.state === 'ok' ? 'info' : ''}"><strong>Legal:</strong> ${esc(ls.text)}</div>`; })()}
+    ${legalHTML(legalStatus(state.data.zones, loc, state.activity))}
     ${accessCard(loc)}
     <div class="card" id="live-sightings"><h2>What's being caught or seen here</h2>${sightingsCard()}</div>
     ${communityCard(loc)}

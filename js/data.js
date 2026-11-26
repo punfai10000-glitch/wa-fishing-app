@@ -14,6 +14,13 @@ export async function loadStatic() {
     json('data/locations.json'), json('data/species.json'), json('data/rules.json'),
     json('data/thresholds.json'), json('data/zones/marine-parks.geojson'), json('data/sources.json')
   ]);
+  // Official DPIRD fishing orders (sanctuaries, wrecks, closures) on top of the park outlines
+  try {
+    const cl = await json('data/zones/closures.geojson');
+    for (const f of zones?.features || []) if (/rottnest/i.test(f.properties?.name || '') && f.properties.zone_type === 'marine_park')
+      Object.assign(f.properties, { prohibits: ['spear'], note: 'Spearfishing is prohibited within the Rottnest Island Marine Reserve (Rottnest Island Authority).', link: 'https://www.ria.wa.gov.au/boating/plan-your-boat-trip/respecting-the-environment' });
+    if (cl?.features?.length && zones) { zones.features = [...cl.features, ...(zones.features || [])]; zones.covers_parks = cl.covers_parks || []; zones.closures_generated_at = cl.generated_at; zones.sanctuaries_mapped = true; }
+  } catch { /* closures not downloaded yet: park outlines only */ }
   return { locations: loc.locations, species, rules: rules.rules, ruleGuide: rules.guide, ruleLinks: rules.official_links, thresholds: thresholds.thresholds, thresholdSources: thresholds.sources || [], zones, sources: sources.sources };
 }
 

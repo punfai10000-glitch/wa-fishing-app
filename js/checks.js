@@ -25,11 +25,11 @@ export function fourChecks(loc, ev, hr, zones, activity) {
     hr?.blockKind === 'dark' ? '<b class="ck poor">Too dark</b> no spearfishing at night' :
     `<b class="ck unknown">Not verified</b> within published safety limits — check on site${loc.type === 'rock_platform' ? '; wear a lifejacket on rocks' : ''}`]);
   // 4. Rules
-  const ls = legalStatus(zones, loc);
+  const ls = legalStatus(zones, loc, activity);
   const lb = (hr?.blocks || []).find(b => b.kind === 'legal');
-  rows.push(['Rules', lb ? `<b class="ck poor">Not allowed</b> ${esc(lb.reason)}` : ls.state === 'blocked' ? '<b class="ck poor">Not allowed</b> sanctuary zone' :
+  rows.push(['Rules', lb ? `<b class="ck poor">Not allowed</b> ${esc(lb.reason)}` : ls.state === 'blocked' ? `<b class="ck poor">Not allowed</b> ${esc(ls.text)}` :
     ls.state === 'ok' ? '<b class="ck good">No zone found</b> normal bag & size limits apply' :
-    ls.state === 'caution' ? '<b class="ck fair">Check zone</b> inside a marine park, zones not fully mapped' : '<b class="ck unknown">Not checked</b> zone data not loaded']);
+    ls.state === 'caution' ? `<b class="ck fair">Special rules</b> ${esc(ls.text)}` : '<b class="ck unknown">Not checked</b> zone data not loaded']);
   // 5. Data confidence
   const c = ev.confidence?.level;
   rows.push(['Data', `<b class="ck ${c === 'high' ? 'good' : c === 'medium' ? 'fair' : 'unknown'}">${{ high: 'High', medium: 'Moderate', low: 'Low' }[c] ?? 'Unknown'} confidence</b>`]);

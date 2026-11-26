@@ -10,7 +10,7 @@ BBOX = "114.5,-35.6,123.5,-31.3"
 OUT = "data/zones/closures.geojson"
 LAYERS = {130: "burswood", 133: "esperance_jetty", 134: "greens_pool", 140: "ngari", 141: "rottnest", 144: "marmion",
           148: "shoalwater", 149: "walpole", 152: "wreck", 153: "wreck", 155: "wreck", 156: "wreck", 157: "wreck", 158: "wreck",
-          244: "fhpa", 213: "lobster", 249: "wire"}
+          244: "fhpa", 213: "lobster", 249: "wire", 210: "garfish", 204: "bsc", 131: "snapper", 206: "crab_geo", 207: "crab_peel"}
 BOTH = ["shore", "spear"]
 
 def get(url, **p):
@@ -31,6 +31,10 @@ def classify(kind, a):
     if kind in ("ngari", "marmion", "shoalwater"):
         park = {"ngari": "Ngari Capes Marine Park", "marmion": "Marmion Marine Park", "shoalwater": "Shoalwater Islands Marine Park"}[kind]
         title = re.sub(r"^Schedule \d+ - ", "", desc) or legal
+        if re.search(r"General Use", title + legal, re.I) or title.strip() == park:
+            return z("general_use", f"General use area ({park})", [], "General use — normal fishing rules apply.")
+        if re.search(r"pointed instrument", title + legal, re.I):
+            return z("restricted", f"Spearfishing restriction area ({park})", [], "Spearfishing (pointed instruments) is restricted here — read the order.")
         if re.search(r"sanctuary", legal + desc, re.I):
             return z("sanctuary", f"{title} ({park})", BOTH, "Sanctuary zone — no fishing or collecting of any kind.")
         return z("restricted", f"{title} ({park})", [], f"{re.sub(r'^Schedule \\d+ - ', '', legal)}: extra fishing rules apply here — read the order.")
@@ -42,7 +46,7 @@ def classify(kind, a):
             return z("restricted", f"{t} (Rottnest Island)", ["spear"], "Only shore fishing with a rod or handline, in signposted areas. No spearfishing.")
         if re.search(r"West End", t, re.I):
             return z("restricted", f"{t} (Rottnest Island)", ["spear"], "No demersal (bottom) fishing. No spearfishing at Rottnest.")
-        return z("restricted", f"{t} (Rottnest Island)", ["spear"], "Rottnest Island Reserve — spearfishing prohibited; other restrictions apply.")
+        return z("restricted", "Rottnest Island Reserve (fishing rules area)", ["spear"], "Rottnest Island Reserve — spearfishing prohibited; other fishing restrictions apply in parts — read the order.")
     if kind == "wreck":
         return z("sanctuary", desc or name, BOTH, "Protected wreck — no fishing.")
     if kind in ("burswood", "greens_pool"):
@@ -55,8 +59,17 @@ def classify(kind, a):
         return z("restricted", "Cottesloe Reef Fish Habitat Protection Area", [], "Fish Habitat Protection Area — special rules apply; read the order.")
     if kind == "lobster":
         return z("species", f"{desc} — rock lobster closure", [], "No fishing for rock lobster here.")
+    # Species closures: the app uses 'species_id' + 'months' (1-12; empty = all year) to mark target fish as closed
+    if kind == "garfish":
+        return {**z("species", "Southern garfish — no take in Perth metropolitan waters", [], "Southern garfish may not be taken in Perth metropolitan waters."), "species_id": "southern_garfish", "months": []}
+    if kind == "bsc":
+        return {**z("species", "Blue swimmer crab seasonal closure (Swan River to Minninup)", [], "No blue swimmer crabs 1 September – 30 November."), "species_id": "blue_swimmer_crab", "months": [9, 10, 11]}
+    if kind == "snapper":
+        return {**z("species", "Cockburn & Warnbro Sound pink snapper closure", [], "Pink snapper spawning closure in these waters (about 1 October – 31 January) — read the order for exact dates."), "species_id": "pink_snapper", "months": [10, 11, 12, 1]}
+    if kind in ("crab_geo", "crab_peel"):
+        return z("species", ("Geographe Bay" if kind == "crab_geo" else "Peel Inlet & Harvey Estuary") + " crab rules", [], "Extra rules for crabbing apply here (gear and/or times) — read the order.")
     if kind == "wire":
-        return z("gear", f"Wire trace ban — {desc}", [], "Wire trace is prohibited here.")
+        return z("gear", f"Wire trace ban — {desc}", [], "Wire trace is prohibited here.")  # renamed by location below
     return None
 
 feats = []
@@ -71,6 +84,9 @@ for lid, kind in LAYERS.items():
         g = f["geometry"]
         def rnd(c): return [round(c[0], 5), round(c[1], 5)] if isinstance(c[0], (int, float)) else [rnd(x) for x in c]
         g["coordinates"] = rnd(g["coordinates"])
+        if kind == "wire":  # the source labels Busselton/Esperance the wrong way round — name by where the polygon is
+            x0 = (g["coordinates"][0][0][0] if g["type"] == "Polygon" else g["coordinates"][0][0][0][0])
+            props["name"] = "Wire trace ban — " + ("Esperance Jetty" if x0 > 120 else "Busselton Jetty" if x0 < 115.5 and props["name"].endswith("Jetty") else "Perth metropolitan waters")
         feats.append({"type": "Feature", "properties": props, "geometry": g}); n += 1
     print(f"layer {lid:>3} {kind:<15} {n} features")
 

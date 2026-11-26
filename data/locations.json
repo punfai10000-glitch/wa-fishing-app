@@ -447,11 +447,11 @@
    "geometry": {
     "type": "Point",
     "coordinates": [
-     121.89439,
-     -33.8632
+     121.905,
+     -33.853
     ]
    },
-   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "pin_precision": "on the jetty (from the official DPIRD jetty boundary)",
    "exposure": {
     "onshore_dirs": [
      "S",

@@ -7,7 +7,7 @@ import { band } from '../scoring/score.js';
 import * as store from '../storage.js';
 import { visibilityEstimate } from '../scoring/score.js';
 import { rememberLiveSpot, accessCard, fillAccessFor, measuredCard } from './live.js';
-import { legalStatus } from '../zones.js';
+import { legalStatus, legalHTML } from '../zones.js';
 import { fourChecks } from '../checks.js';
 import { likelyTargets, LEVEL_LABEL, targetsData } from '../targets.js';
 import { communityCard, sightingsCard, fillSightings } from './community.js';
@@ -88,7 +88,7 @@ export function renderLocation(view, rawId) {
     ${measuredCard(loc)}
     <div class="card">
       <h2>Legal status</h2>
-      ${(() => { const ls = legalStatus(state.data.zones, loc); return `<div class="notice ${ls.state === 'blocked' ? 'danger' : ls.state === 'ok' ? 'info' : ''}"><strong>${ls.state === 'blocked' ? 'No fishing here.' : ls.state === 'ok' ? 'Zone check:' : (ls.state === 'caution' ? 'Check the zone.' : 'Zone check pending.')}</strong> ${esc(ls.text)}</div>`; })()}
+      ${legalHTML(legalStatus(state.data.zones, loc, state.activity), { small: false })}
       ${rulesHere.map(r => `<p class="small"><strong>${esc(r.summary)}</strong><br><span class="muted">Source: <a href="${esc(r.source_url)}" target="_blank" rel="noopener">${esc(r.source_name)}</a> · checked ${esc(r.last_checked)}</span></p>`).join('')}
       <p class="small"><a href="https://rules.fish.wa.gov.au" target="_blank" rel="noopener">Check all official rules (DPIRD) →</a></p>
     </div>

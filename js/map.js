@@ -94,9 +94,10 @@ export function initMap() {
   });
 
   map.attributionControl.addAttribution('Forecasts: <a href="https://open-meteo.com/">Open-Meteo</a>');
-  zoneLayer = L.geoJSON(null, { style: f => {
+  zoneLayer = L.geoJSON(null, { filter: f => !['species', 'gear', 'general_use'].includes(f.properties?.zone_type), style: f => {
     const p = f.properties || {};
-    if ((p.prohibits || []).length || p.zone_type === 'sanctuary') return { color: '#e15759', weight: 2, fillOpacity: 0.25 };
+    if (p.zone_type === 'sanctuary') return { color: '#e15759', weight: 2, fillOpacity: 0.25 };
+    if (p.zone_type === 'restricted') return { color: '#f5a524', weight: 1.5, fillOpacity: 0.12, dashArray: '4 4' };
     if (p.zone_type === 'marine_park') return { color: '#4e79a7', weight: 1, fillOpacity: 0, dashArray: '6 6' };
     return { color: '#4e79a7', weight: 1.5, fillOpacity: 0.1 };
   } }).addTo(map);

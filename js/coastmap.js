@@ -6,7 +6,7 @@ import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
 import { loadPointConditions } from './data.js';
-import { legalStatus } from './zones.js';
+import { legalStatus, legalHTML } from './zones.js';
 import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
 import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
@@ -323,7 +323,7 @@ function tapHTML(loc, where, sh, exact) {
   const vis = rp?.hour ? visibilityEstimate(rp.hour, loc) : null;
   const moon = window.SunCalc.getMoonIllumination(new Date(t));
   const buoy = nearestBuoy(state.buoys, lat, lng);
-  const legal = legalStatus(state.data.zones, loc);
+  const legal = legalStatus(state.data.zones, loc, state.activity);
   const pillFor = r => !r ? '<span class="pill unknown">Unknown</span>' : r.blocked ? blockPill(r.blockKind) : `<span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score ?? ''}</span>`;
   const gmaps = `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(6)},${lng.toFixed(6)}`;
   return `
@@ -337,7 +337,7 @@ function tapHTML(loc, where, sh, exact) {
       <div class="small">Visibility: ${vis ? vis.label : 'unknown'} (estimate) · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>
       <div class="small muted">${exact ? (loc.estuary ? 'Wind forecast for this exact point; tide from the nearest ocean point.' : 'Forecast for this exact point (waves read ~1 km out to sea in front of it).') : 'Loading the forecast for this exact point… showing the nearest coast area for now.'}</div>` : '<div class="small muted">Loading forecast for this point…</div>'}
     ${buoy && !loc.estuary ? `<div class="small" style="margin-top:4px"><strong>Measured:</strong> ${esc(buoy.b.site)} buoy ${buoy.d.toFixed(0)} km away — ${fmtHeight(buoy.b.hs)}${buoy.b.tp != null ? ` @ ${Math.round(buoy.b.tp)} s` : ''}, ${fmtAge(Date.parse(buoy.b.time))}</div>` : ''}
-    <div class="small" style="margin-top:4px"><strong>Legal:</strong> ${esc(legal.text)}</div>
+    <div style="margin-top:4px">${legalHTML(legal)}</div>
     ${(loc.safety_notes || []).filter(n => !/^Spearfishing is banned/.test(n)).map(n => `<div class="small">⚠ ${esc(n)}</div>`).join('')}
     <div class="small" id="pop-nearby" style="margin-top:4px">Nearby: loading…</div>
     <p class="small muted" style="margin:6px 0 0">Not a checked fishing spot — check access, cliffs and private land before you go.</p>
