@@ -135,11 +135,11 @@ def main(outdir):
     out = {"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
            "source": "WA Department of Transport wave buoys via AODN (near real-time, not quality controlled). CC BY.",
            "type": "measured", "buoys": buoys}
+    if not buoys:   # keep last hour's file rather than publishing an empty one
+        print("WARNING: no buoys this run — keeping the previous file"); return
     with open(os.path.join(outdir, "buoys.json"), "w") as f:
         json.dump(out, f, separators=(",", ":"))
     print("wrote", len(buoys), "buoys")
-    if not buoys:
-        print("WARNING: no buoys written")
 
 
 if __name__ == "__main__":

@@ -47,6 +47,8 @@ def main(outdir):
     res = {"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"),
            "source": "Bureau of Meteorology automatic weather stations (IDW60920). © Bureau of Meteorology.",
            "type": "measured", "stations": out}
+    if not out:
+        print("no BOM stations this run — keeping the previous file"); return
     with open(os.path.join(outdir, "bom_obs.json"), "w") as f:
         json.dump(res, f, separators=(",", ":"))
     print("wrote", len(out), "BOM stations")

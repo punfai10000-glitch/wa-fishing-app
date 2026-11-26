@@ -16,6 +16,13 @@ jobs:
       - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
       - run: pip install netCDF4
+      - name: Start from the last published files (a source that fails this hour keeps its previous data)
+        run: |
+          mkdir -p out
+          if git fetch -q --depth 1 origin live-data; then
+            for f in $(git ls-tree --name-only FETCH_HEAD); do git show "FETCH_HEAD:$f" > "out/$f"; done
+          fi
+          ls out || true
       - run: python pipeline/fetch_buoys.py out || echo "buoys failed"
       - run: python pipeline/fetch_bom_obs.py out || echo "BOM failed"
       - run: python pipeline/fetch_tides.py out || echo "tides failed"
