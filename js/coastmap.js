@@ -3,14 +3,14 @@
 import { openSheet } from './sheet.js';
 import { depthAt, depthText } from './depth.js';
 import { state, evalFor } from './app.js';
-import { viewOn as layerOn, refreshMap } from './map.js';
+import { viewOn as layerOn, refreshMap, openSpotSheet } from './map.js';
 import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
 import { loadPointConditions } from './data.js';
 import { legalStatus, legalHTML } from './zones.js';
 import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
-import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes } from './shore.js';
+import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes, placeIncident } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass } from './scoring/geo.js';
 import { esc, typeTag, chanceIcon, blockPill } from './ui.js';
@@ -185,8 +185,11 @@ export function refreshCoastMap() {
       if (picked.length === 3) break;
     }
     for (const { p, r } of picked) {
-      L.marker([p.geometry.coordinates[1], p.geometry.coordinates[0]], { pane: 'arrows', interactive: false, keyboard: false,
-        icon: L.divIcon({ className: 'best-pin', html: `<span>★ Best ${state.activity === 'spear' ? 'spear' : 'fishing'} ${r.score}</span>`, iconSize: [110, 20], iconAnchor: [55, 30] }) }).addTo(bestLayer);
+      // tapping the label opens the SAME stretch and score it shows (it used to fall through to the map
+      // and report a different point)
+      L.marker([p.geometry.coordinates[1], p.geometry.coordinates[0]], { keyboard: true, zIndexOffset: 1500, title: 'Best stretch of coast right now',
+        icon: L.divIcon({ className: 'best-pin', html: `<span>★ Best stretch ${r.score}</span>`, iconSize: [120, 28], iconAnchor: [60, 34] }) })
+        .on('click', () => openBestSheet(p, r)).addTo(bestLayer);
     }
   }
 
@@ -219,25 +222,32 @@ export function refreshCoastMap() {
 // park. Move land-side ones just offshore of the nearest real shoreline (rivers/estuaries are left alone),
 // and fan out repeats at the same place so they don't stack.
 let placedCache = null;
+// Card for a "★ Best stretch" label: same score as the label, plus the actual spots along that stretch
+function openBestSheet(p, r) {
+  const t = selectedTime(), act = state.activity;
+  const [plng, plat] = p.geometry.coordinates;
+  const km = l => Math.hypot((l.geometry.coordinates[0] - plng) * Math.cos(plat * Math.PI / 180), l.geometry.coordinates[1] - plat) * 111;
+  const near = [...state.data.locations, ...(state.osmSpots || [])].filter(l => l.activities?.includes(act) && km(l) <= 6)
+    .map(l => ({ l, d: km(l), h: hourAt(evalFor(l), t) })).filter(x => x.h).sort((a, b) => (b.h.blocked ? -1 : b.h.score ?? -1) - (a.h.blocked ? -1 : a.h.score ?? -1)).slice(0, 6);
+  const body = openSheet(`
+    <p class="small" style="margin-top:0">This is the best-scoring <strong>stretch of coast</strong> (about 8 km${p.near ? ` near ${esc(p.near)}` : ''}) for ${act === 'spear' ? 'spearfishing' : 'shore fishing'} at ${t === Math.floor(Date.now() / HOUR) * HOUR ? 'this hour' : esc(fmtDateTime(t))}. The score rates the conditions along the whole stretch — pick an actual spot below.</p>
+    <div class="row" style="gap:8px;align-items:center;margin:6px 0"><span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score}</span>${chanceIcon(r.score, act, false)}</div>
+    <h3 class="sheet-h3">Spots along this stretch</h3>
+    ${near.length ? `<ul class="plain">${near.map(({ l, d, h }) => `<li><button class="linklike" data-loc="${esc(l.id)}">${esc(l.name)}</button> <span class="small muted">${d.toFixed(1)} km</span> ${h.blocked ? blockPill(h.blockKind) : `<span class="pill ${band(h.score)}">${h.score}</span>`}</li>`).join('')}</ul>`
+      : '<p class="small muted">No mapped spots on this stretch — tap the coast to check an exact point.</p>'}
+    <p class="small muted">Spot scores can differ from the stretch score: each spot's own exposure to wind and swell is taken into account.</p>`,
+    { title: `★ Best stretch right now · ${r.score}`, state: 'half' });
+  body.onclick = e => {
+    const b = e.target.closest('[data-loc]'); if (!b) return;
+    const l = [...state.data.locations, ...(state.osmSpots || [])].find(x => x.id === b.dataset.loc);
+    if (l) { map.flyTo([l.geometry.coordinates[1], l.geometry.coordinates[0]], Math.max(map.getZoom(), 14), { duration: 0.6 }); map.once('moveend', () => openSpotSheet(l)); }
+  };
+}
+
 function placedIncidents() {
   if (placedCache && placedCache.shore === shoreData()) return placedCache.list;
-  const WATERWAY = /river|estuary|inlet|lake|creek|swan|canning|leschenault|peel/i;
   const seen = new Map();
-  const list = incidents.incidents.map(i => {
-    let plat = i.lat, plon = i.lon, moved = false, along = 0;
-    const n = shoreData()?.segs.length ? nearestShore(i.lat, i.lon, 30) : null;
-    if (n && !WATERWAY.test(i.place || '') && (n.onLand || n.km < 0.15)) {
-      const k = `${n.lat.toFixed(3)}|${n.lng.toFixed(3)}`;
-      const c = seen.get(k) || 0; seen.set(k, c + 1);
-      along = (c % 2 ? -1 : 1) * Math.ceil(c / 2) * 0.18;           // 180 m steps along the shore
-      const out = (shoreData().precise ? 0.35 : 0.9) + Math.floor(c / 6) * 0.2;   // rough coastline: go further out to be safe
-      const b = n.seaBearing * Math.PI / 180, cosl = Math.cos(n.lat * Math.PI / 180);
-      plat = n.lat + (Math.cos(b) * out - Math.sin(b) * along) / 111;
-      plon = n.lng + (Math.sin(b) * out + Math.cos(b) * along) / (111 * cosl);
-      moved = true;
-    }
-    return { ...i, plat, plon, moved };
-  });
+  const list = incidents.incidents.map(i => { const p = placeIncident(i, seen); return p ? { ...i, ...p } : null; }).filter(Boolean);
   placedCache = { shore: shoreData(), list };
   return list;
 }

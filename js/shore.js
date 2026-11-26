@@ -131,3 +131,66 @@ export function estuaryNotes(lat, lng, name = '') {
   }
   return notes;
 }
+
+// ---- Placing reported shark incidents in the water ---------------------------------------
+// ASID positions are geocoded to a place name (town, beach, suburb), so many land on the land.
+// River/estuary incidents go to the nearest river water; coastal ones go just offshore, and the
+// result is checked to really be water.
+const RIVER_NAME = /(swan|canning|collie|blackwood|murray|serpentine|harvey) river|estuary|creek|lake|\binlet\b/i;
+const COASTAL_NAME = /beach|break|bay|point|reef|island|harbour|cove|prevelly|lefthanders|cottesloe|off coast/i;
+
+function nearestRiverWater(lat, lng, maxKm = 20, prefer = null) {
+  if (!shore?.water?.length) return null;
+  const k = Math.cos(lat * Math.PI / 180);
+  let best = null;
+  for (const w of shore.water) {
+    const [x0, y0, x1, y1] = w.bbox, pad = maxKm / 111;
+    if (lng < x0 - pad || lng > x1 + pad || lat < y0 - pad || lat > y1 + pad) continue;
+    const bonus = prefer && prefer.test(w.name || '') ? 0.5 : 1;   // prefer the river named in the report
+    const r = w.rings[0];
+    for (let i = 0; i < r.length - 1; i++) {
+      const d = Math.hypot((r[i][0] - lng) * k, r[i][1] - lat) * 111 * bonus;
+      if (d <= maxKm && (!best || d < best.d)) best = { d, w, i };
+    }
+  }
+  if (!best) return null;
+  // step from the bank vertex toward the water body's centre until we are inside the water
+  const r = best.w.rings[0];
+  let cx = 0, cy = 0; for (const [x, y] of r) { cx += x; cy += y; } cx /= r.length; cy /= r.length;
+  const [vx, vy] = r[best.i];
+  for (const t of [0.01, 0.02, 0.04, 0.08, 0.15, 0.3]) {
+    const px = vx + (cx - vx) * t, py = vy + (cy - vy) * t;
+    if (inRing(px, py, r)) return { lat: py, lng: px, name: best.w.name };
+  }
+  // fall back to the neighbouring edge midpoints nudged inward
+  for (let j = Math.max(0, best.i - 3); j < Math.min(r.length - 1, best.i + 3); j++) {
+    const mx = (r[j][0] + r[j + 1][0]) / 2, my = (r[j][1] + r[j + 1][1]) / 2;
+    for (const t of [0.02, 0.05, 0.1]) { const px = mx + (cx - mx) * t, py = my + (cy - my) * t; if (inRing(px, py, r)) return { lat: py, lng: px, name: best.w.name }; }
+  }
+  return null;
+}
+
+export function placeIncident(i, seen) {
+  const place = i.place || '';
+  if (riverWaterAt(i.lat, i.lon)) return { plat: i.lat, plon: i.lon, moved: false, where: 'river' };
+  const n0 = nearestShore(i.lat, i.lon, 120);
+  const riverReport = RIVER_NAME.test(place) && (!COASTAL_NAME.test(place) || /^(swan|canning|collie) river/i.test(place));
+  if (riverReport) {
+    const preferRe = /swan/i.test(place) ? /swan|canning|melville|perth water/i : /canning/i.test(place) ? /canning/i : null;
+    const rw = nearestRiverWater(i.lat, i.lon, 25, preferRe);
+    if (rw) return { plat: rw.lat, plon: rw.lng, moved: true, where: 'river' };
+  }
+  if (n0 && !n0.onLand && n0.km >= 0.15) return { plat: i.lat, plon: i.lon, moved: false, where: 'sea' };
+  if (!n0) return null;   // can't place it sensibly — leave it off the map
+  const key = `${n0.lat.toFixed(3)}|${n0.lng.toFixed(3)}`;
+  const c = seen.get(key) || 0; seen.set(key, c + 1);
+  const along = (c % 2 ? -1 : 1) * Math.ceil(c / 2) * 0.18;          // fan repeats out 180 m along the shore
+  const b = n0.seaBearing * Math.PI / 180, cosl = Math.cos(n0.lat * Math.PI / 180);
+  for (let out = (shore.precise ? 0.35 : 0.9) + Math.floor(c / 6) * 0.2; out <= 3; out += 0.35) {
+    const plat = n0.lat + (Math.cos(b) * out - Math.sin(b) * along) / 111;
+    const plon = n0.lng + (Math.sin(b) * out + Math.cos(b) * along) / (111 * cosl);
+    const chk = nearestShore(plat, plon, 10);
+    if (chk && !chk.onLand && !riverWaterAt(plat, plon)) return { plat, plon, moved: true, where: 'sea' };
+  }
+  return null;
+}
