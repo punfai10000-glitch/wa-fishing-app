@@ -344,14 +344,17 @@ const comp = d => COMPASS[Math.round((((d % 360) + 360) % 360) / 22.5) % 16];
 async function onMapClick(latlng, title = 'Exact point') {
   const L = window.L;
   const { lat, lng } = latlng;
+  await loadShore();   // need the real shoreline to tell land from water
   const sample = nearestCoastPoint(lat, lng, 30);
   const sh = nearestShore(lat, lng, 25);
+  const river = riverWaterAt(lat, lng, 0.05);
+  // Dry land (more than ~300 m from the sea and not on a river/estuary): no fishing score — just where the nearest coast is
+  if (!river && (!sh || (sh.onLand && sh.km > 0.3))) { landReport(lat, lng, title === 'Exact point' ? 'Dropped pin' : title.replace(/^📍\s*/, ''), sh); return; }
   if (!sample && !sh) return;
   const precise = !!shoreData()?.precise;
   const p = sample?.p ?? null;
   const facing = sh && precise ? Math.round(sh.seaBearing) : p?.facing ?? Math.round(sh.seaBearing);
   const sea = sh ? offshorePoint(lat, lng, 1.0) : null;
-  const river = riverWaterAt(lat, lng, 0.05);
   const where = river ? `In ${river.name ? `the ${river.name}` : 'a river / estuary'}` : !sh || !shoreData()?.precise ? '' : sh.onLand
     ? `On land, about ${fmtDist(sh.km)} from the water`
     : `In the water, about ${fmtDist(sh.km)} from shore`;
@@ -431,24 +434,28 @@ export function placeReport(lat, lng, name) {
   placeMarker?.remove();
   placeMarker = L.marker([lat, lng], { keyboard: false, zIndexOffset: 2100, title: name,
     icon: L.divIcon({ className: 'place-pin', html: `<div class="place-dot">📍</div><span class="place-lbl">${esc(name)}</span>`, iconSize: [30, 30], iconAnchor: [15, 28] }) }).addTo(map);
-  const sh = nearestShore(lat, lng, 300);
-  const nearWater = riverWaterAt(lat, lng, 0.05) || (sh && (!sh.onLand || sh.km <= 0.3));
-  if (nearWater) {   // on the shore or in the water: the normal exact-point report, titled with the place name
-    onMapClick({ lat, lng }, `📍 ${name}`).then(() => {});
-    return;
-  }
+  // on the shore or in the water: the normal exact-point report, titled with the place name (it sends dry land back here)
+  onMapClick({ lat, lng }, `📍 ${name}`).then(() => {});
+}
+
+function landReport(lat, lng, name, sh0) {
+  setSheetRefresher(null);
+  const L = window.L;
+  placeMarker?.remove();
+  placeMarker = L.marker([lat, lng], { keyboard: false, zIndexOffset: 2100, title: name,
+    icon: L.divIcon({ className: 'place-pin', html: `<div class="place-dot">📍</div><span class="place-lbl">${esc(name)}</span>`, iconSize: [30, 30], iconAnchor: [15, 28] }) }).addTo(map);
+  const sh = sh0 || nearestShore(lat, lng, 300);
   const coast = nearestCoastPoint(lat, lng, 300);
-  const r = coast ? hourAt(evalFor(coast.p), selectedTime()) : null;
   const list = spotsNear(lat, lng);
   const body = openSheet(`
-    <p class="small" style="margin-top:0">${sh ? `About <strong>${fmtDist(sh.km)}</strong> from the sea${coast?.p?.near ? ` (nearest coast near ${esc(coast.p.near)})` : ''}.` : 'A long way from the coast.'}</p>
-    ${r ? `<div class="small">Conditions on the nearest coast right now: ${r.blocked ? blockPill(r.blockKind) : `<span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score}</span>`}</div>` : ''}
+    <div class="verdict v-na"><strong>🏜 On dry land — no fishing score here</strong><br><span class="small">${sh ? `The sea is about <strong>${fmtDist(sh.km)}</strong> away${coast?.p?.near ? ` (nearest coast near ${esc(coast.p.near)})` : ''}.` : 'This is a long way from the coast.'} Scores are only given on the shore, in the sea and in estuaries. Inland rivers, lakes and dams aren't covered by this app — freshwater rules and licences apply there.</span></div>
     <h3 class="sheet-h3">Fishing spots near here</h3>
     ${spotsListHTML(list)}
     ${sh ? `<button class="btn" data-act="coast" style="margin:6px 0">Show the report for the nearest beach</button>` : ''}
     <div class="small" id="pop-nearby" style="margin-top:6px">Nearby: loading…</div>
     <p class="small muted">Tap any spot for its full card, or tap the water anywhere for an exact report.</p>`,
     { title: `📍 ${name}`, state: 'half', onClose: () => { placeMarker?.remove(); placeMarker = null; } });
+  if (tapMarker) { tapMarker.remove(); tapMarker = null; }
   wireSpotLinks(body, e => {
     if (e.target.closest('[data-act="coast"]') && sh) {
       const o = offshorePoint(sh.lat, sh.lng, 0.05) || sh;

@@ -65,11 +65,33 @@ async function getJson(u) {
   return Array.isArray(j) ? j : [j];
 }
 
+// The hourly GitHub workflow fetches every coast point once and publishes one file (pipeline/fetch_coast_forecast.py),
+// so phones don't each send ~700 Open-Meteo calls (that trips Open-Meteo's free limits and the map goes "?").
+async function fromLiveFile(pts) {
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/${CONFIG.GITHUB_REPO}/live-data/coast_forecast.json?t=${Math.floor(Date.now() / 600000)}`);
+    if (!r.ok) return null;
+    const d = await r.json();
+    if (Date.now() - Date.parse(d.generated_at) > 3 * 3600e3) return null;   // stale: ask Open-Meteo directly
+    const byId = {};
+    const obj = (vars, arrs, [la, ln]) => arrs ? { latitude: la, longitude: ln, hourly: Object.fromEntries([['time', d.time], ...vars.map((v, i) => [v, arrs[i]])]) } : undefined;
+    for (const p of pts) {
+      const e = d.points[p.id];
+      if (!e) continue;
+      byId[p.id] = normalise(obj(d.f_vars, e.f, e.ll), obj(d.m_vars, e.m, e.sea));
+    }
+    if (Object.keys(byId).length < pts.length * 0.8) return null;
+    return { byId, fetchedAt: Date.parse(d.generated_at), errors: [], source: 'live' };
+  } catch { return null; }
+}
+
 let cache = null;
 // Returns { byId, fetchedAt, errors }
 export async function loadCoastConditions(force = false) {
   const pts = await loadCoastPoints();
-  if (cache && !force && Date.now() - cache.fetchedAt < CONFIG.REFRESH_MINUTES * 60000) return cache;
+  if (cache && !force && Date.now() - (cache.loadedAt || cache.fetchedAt) < CONFIG.REFRESH_MINUTES * 60000) return cache;
+  const live = await fromLiveFile(pts);
+  if (live) { live.loadedAt = Date.now(); cache = live; return cache; }
   const byId = {};
   const errors = [];
   for (let i = 0; i < pts.length; i += CHUNK) {
@@ -85,7 +107,7 @@ export async function loadCoastConditions(force = false) {
     });
   }
   const ok = Object.values(byId).some(h => h.length);
-  cache = ok ? { byId, fetchedAt: Date.now(), errors: [...new Set(errors)] } : (cache ?? { byId: {}, fetchedAt: null, errors: ['coast data unavailable'] });
+  cache = ok ? { byId, fetchedAt: Date.now(), loadedAt: Date.now(), errors: [...new Set(errors)] } : (cache ?? { byId: {}, fetchedAt: null, errors: [errors.length ? 'coast data unavailable — Open-Meteo may be limiting requests from this device; try again in an hour' : 'coast data unavailable'] });
   return cache;
 }
 
