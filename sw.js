@@ -1,6 +1,6 @@
 // Offline support: cache the app shell; network-first for data and forecasts.
 // Map tiles are deliberately NOT cached (Esri terms prohibit offline tile export).
-const VERSION = 'wafi-v23';
+const VERSION = 'wafi-v24';
 const SHELL = [
   './', 'index.html', 'css/app.css', 'manifest.webmanifest', 'assets/icon.svg',
   'js/app.js', 'js/config.js', 'js/data.js', 'js/engine.js', 'js/map.js', 'js/storage.js', 'js/ui.js', 'js/units.js',
@@ -26,14 +26,16 @@ self.addEventListener('fetch', e => {
   const url = new URL(e.request.url);
   if (e.request.method !== 'GET' || isTile(url)) return;
   if (isNetworkFirst(url)) {
-    e.respondWith(fetch(e.request).then(res => {
+    e.respondWith(fetch(url.origin === location.origin ? new Request(e.request, { cache: 'no-cache' }) : e.request).then(res => {
       if (res.ok) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(e.request, copy)); }
       return res;
     }).catch(() => caches.match(e.request)));
     return;
   }
-  // App files: network first so updates show immediately; cached copy when offline
-  e.respondWith(fetch(e.request).then(res => {
+  // App files: network first, and always re-check with the server (cache: 'no-cache') so the page and
+  // its scripts can never be a mix of an old and a new version; cached copy only when offline
+  const req = url.origin === location.origin ? new Request(e.request, { cache: 'no-cache' }) : e.request;
+  e.respondWith(fetch(req).then(res => {
     if (res.ok && url.origin === location.origin) { const copy = res.clone(); caches.open(VERSION).then(c => c.put(e.request, copy)); }
     return res;
   }).catch(() => caches.match(e.request)));

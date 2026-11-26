@@ -187,9 +187,12 @@ async function boot() {
     document.getElementById('banners').innerHTML = `<div class="banner danger"><span>Could not load app data (${esc(e.message)}). Check your connection.</span><button onclick="location.reload()">Retry</button></div>`;
     return;
   }
-  initSheet();
-  initMap();
   window.addEventListener('hashchange', route);
+  try { initSheet(); initMap(); }
+  catch (e) {
+    console.error(e);
+    document.getElementById('banners').insertAdjacentHTML('afterbegin', `<div class="banner danger"><span>The map couldn't start (${esc(e.message)}). Pull down to refresh, or close and reopen the app.</span><button onclick="location.reload()">Reload</button></div>`);
+  }
   route();
   banners();
   await refreshConditions();

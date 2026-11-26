@@ -6,6 +6,12 @@ let el, body, handle, current = null, onCloseCb = null, onStateCb = null, pushed
 
 export function initSheet() {
   el = document.getElementById('sheet');
+  if (!el) {   // old cached page without the sheet markup: build it so the app still starts
+    el = document.createElement('section');
+    el.id = 'sheet'; el.className = 'sheet'; el.hidden = true; el.dataset.state = 'closed';
+    el.innerHTML = '<div class="sheet-head"><button class="sheet-handle" aria-label="Resize"><span></span></button><div class="sheet-bar"><strong class="sheet-title"></strong><span class="spacer"></span><button class="sheet-grow ctl-sm" aria-label="Show more">⌃</button><button class="sheet-close ctl-sm" aria-label="Close">✕</button></div></div><div class="sheet-body"></div>';
+    (document.getElementById('map-wrap') || document.body).appendChild(el);
+  }
   body = el.querySelector('.sheet-body');
   handle = el.querySelector('.sheet-handle');
   el.querySelector('.sheet-close').addEventListener('click', () => closeSheet());
