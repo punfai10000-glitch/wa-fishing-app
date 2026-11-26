@@ -10,6 +10,7 @@ import { AMENITY_TYPES, loadAmenities } from './amenities.js';
 import { initCoastMap, refreshCoastMap, selectedTime, setSelectedTime, waveColor, sstColor } from './coastmap.js';
 import { verdict, verdictHTML, hourStrip } from './verdict.js';
 import { plainify } from './plain.js';
+import { setDraft } from './diary.js';
 import { currentColor } from './flow.js';
 import { CURRENT_BANDS } from './units.js';
 import { loadShore, nearestShore } from './shore.js';
@@ -369,7 +370,8 @@ export function openSpotSheet(loc) {
         <button class="btn" data-act="more">Why? More details</button>
         <a class="btn ghost" href="https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}" target="_blank" rel="noopener">Directions</a>
         <button class="btn ghost" data-act="fav" aria-pressed="${fav}">${fav ? '★ Saved' : '☆ Save'}</button>
-        <a class="btn ghost" href="#/measure">📏 Measure a catch</a>
+        <a class="btn ghost" href="#/diary" data-act="log">📓 Log a trip</a>
+        <a class="btn ghost" href="#/measure">📏 Measure</a>
       </div>
     </div>
     <div class="spot-half"><h3 class="sheet-h3">The details</h3><div data-half>${p0.half}</div>
@@ -391,6 +393,7 @@ export function openSpotSheet(loc) {
   body.onclick = e => {
     const c = e.target.closest('[data-t]');
     if (c) { setSelectedTime(+c.dataset.t); return; }
+    if (e.target.closest('[data-act="log"]')) { setDraft({ loc: loc.id, act: state.activity, t: selectedTime() }); return; }
     const b = e.target.closest('button'); if (!b) return;
     if (b.dataset.act === 'more') setSheetState('full');
     if (b.dataset.act === 'fav') { const on = store.toggleFavourite(loc.id); b.textContent = on ? '★ Saved' : '☆ Save'; b.setAttribute('aria-pressed', String(on)); }

@@ -3,6 +3,7 @@
 // size gives the scale. Works offline; the photo never leaves the phone.
 import { state } from '../app.js';
 import { esc } from '../ui.js';
+import { setDraft, shrinkPhoto } from '../diary.js';
 
 const REFS = [
   { id: 'card', label: 'Bank card / driver licence — long side (85.6 mm)', mm: 85.6 },
@@ -89,7 +90,9 @@ export function renderMeasure(view) {
       <div class="small muted">about ±${(mm * 0.05 / 10).toFixed(1)} cm · scale from: ${esc(ref.label.split(' —')[0])}</div>
       ${s ? `<div style="margin-top:6px"><strong>${esc(s.name)}</strong><ul class="small measure-lims">${verdictRows || '<li>No size limit listed.</li>'}</ul>
         ${lims.some(l => l.carapace) ? '<div class="small">This one is measured on the shell (carapace), not nose to tail — put the orange dots on the shell edges.</div>' : ''}
-        <a class="small" href="#/fish">Bag limits and rules →</a></div>` : '<div class="small">Choose the species above to check the legal size.</div>'}`;
+        <a class="small" href="#/fish">Bag limits and rules →</a></div>` : '<div class="small">Choose the species above to check the legal size.</div>'}
+      <button class="btn" id="m-save" style="margin-top:8px">📓 Save to my diary</button>`;
+    out.querySelector('#m-save').onclick = async () => { setDraft({ species: speciesId || undefined, length: +(mm / 10).toFixed(1), count: 1, photo: await shrinkPhoto(img) }); location.hash = '#/diary'; };
   }
   // drag handles (pointer events: touch + mouse), with a magnifier so you can see under your finger
   let drag = null;

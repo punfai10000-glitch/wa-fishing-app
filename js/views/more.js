@@ -10,6 +10,7 @@ export function renderMore(view) {
   view.innerHTML = `
   <div>
     <h1>My Fishing</h1>
+    <a class="card" href="#/diary" style="display:block;text-decoration:none"><h2>📓 Fishing diary</h2><p class="small muted">Log trips and catches (with photos) and how it really was — saved only on this phone.</p></a>
     <a class="card" href="#/measure" style="display:block;text-decoration:none"><h2>📏 Measure a catch</h2><p class="small muted">Take a photo with a bank card next to the fish — the app works out its length and checks the legal size.</p></a>
 
     <div class="card">

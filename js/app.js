@@ -120,6 +120,7 @@ const ROUTES = {
   rules: lazy('fish', 'renderFish', 'rules'),
   more: lazy('more', 'renderMore'),
   measure: lazy('measure', 'renderMeasure'),
+  diary: lazy('diary', 'renderDiary'),
   key: lazy('key', 'renderKey'),
   loc: renderLocation
 };
@@ -128,7 +129,7 @@ function route() {
   const [, name = 'map', arg] = (location.hash || '#/map').split('/');
   const view = document.getElementById('view');
   // 5 tabs: Map · Forecast (spots, live, spot pages) · Species (fish, ID, rules) · Learn (key) · My Fishing (more)
-  const tab = ({ loc: 'spots', live: 'spots', fishid: 'fish', rules: 'fish', measure: 'more' }[name] || name);
+  const tab = ({ loc: 'spots', live: 'spots', fishid: 'fish', rules: 'fish', measure: 'more', diary: 'more' }[name] || name);
   if (name !== 'loc') try { sessionStorage.setItem('lastTab', name); } catch { /* ignore */ }
   document.querySelectorAll('#tabbar a').forEach(a => { if (a.dataset.tab === tab) a.setAttribute('aria-current', 'page'); else a.removeAttribute('aria-current'); });
 
