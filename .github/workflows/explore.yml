@@ -1,0 +1,39 @@
+name: explore
+on: workflow_dispatch
+jobs:
+  x:
+    runs-on: ubuntu-latest
+    steps:
+      - run: sudo apt-get install -y poppler-utils >/dev/null 2>&1 || true
+      - name: orders
+        run: |
+          for u in \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_on_fishing_ngari_capes_marine_park_order_2018.pdf \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_on_recreational_fishing_marmion_marine_park_order_1999.pdf \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_on_recreational_fishing_shoalwater_islands_marine_park_order_2010.pdf \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_on_fishing_rottnest_island_order_2007.pdf \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_on_recreational_fishing_activities_walpole_nornalup_estuary_order_2002.pdf \
+            "https://www.wa.gov.au/system/files/2021-08/Cottesloe%20Reef%20Fish%20Habitat%20Protection%20Area%20Order%202001.pdf" \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_on_fishing_esperance_jetty_order_1997.pdf \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_on_fishing_crabs_geographe_bay_order_2005.pdf \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_fishing_crabs_peel_inlet_and_harvey_estuary_order_2007.pdf \
+            https://www.wa.gov.au/system/files/2024-10/prohibition_on_fishing_cockburn_sound_and_warnbro_sound_amendment_order_2005.pdf \
+            https://www.wa.gov.au/system/files/2024-07/prohibition_on_fishing_for_rock_lobster_cape_naturaliste_to_cape_leeuwin_order_2005.pdf ; do
+            echo "=================== $u"; curl -sL -A "Mozilla/5.0" "$u" -o o.pdf; pdftotext -layout o.pdf - | sed -n '1,400p' | grep -v '^\s*$' | cut -c1-200
+          done
+      - name: imagery
+        run: |
+          B=https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Locate/MapServer
+          curl -s "$B?f=json" | python3 -c "import json,sys;d=json.load(sys.stdin);print(d.get('serviceDescription','')[:2000]);print(d.get('tileInfo'));print(d.get('minScale'),d.get('maxScale'))"
+          for bb in "12839000,-3978000,12839600,-3977400" "12831500,-3979200,12832100,-3978600" "13568000,-4004000,13568600,-4003400" "12852000,-3842400,12852600,-3841800"; do
+            curl -s -o t.jpg -w "export $bb %{http_code} %{size_download}B %{time_total}s\n" "$B/export?bbox=$bb&bboxSR=3857&imageSR=3857&size=256,256&format=jpg&f=image"
+            file t.jpg
+          done
+          curl -s -o w.xml -w "wms caps %{http_code} %{time_total}s\n" "$B/../../Locate/MapServer/WMSServer?request=GetCapabilities&service=WMS"; head -c 1500 w.xml; echo
+          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Locate/ImageServer?f=json" | python3 -c "import json,sys;d=json.load(sys.stdin);print({k:d.get(k) for k in ['pixelSizeX','pixelSizeY','capabilities','maxImageWidth','copyrightText','allowedMosaicMethods']})"
+          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Imagery_and_Maps/MapServer?f=json" | python3 -c "import json,sys;d=json.load(sys.stdin);[print(l['id'],l['name']) for l in d.get('layers',[])]"
+          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Locate/MapServer/0/query?where=1%3D1&geometry=115.33,-33.65,115.35,-33.62&geometryType=esriGeometryEnvelope&inSR=4326&outFields=*&returnGeometry=false&f=json" | head -c 2500; echo
+      - name: currents
+        run: |
+          curl -s "https://marine-api.open-meteo.com/v1/marine?latitude=-32.0,-33.6,-34.4&longitude=115.6,115.3,115.1&hourly=ocean_current_velocity,ocean_current_direction&forecast_days=1&timezone=Australia%2FPerth" | head -c 1500; echo
+          curl -s "https://marine-api.open-meteo.com/v1/marine?latitude=-32.0&longitude=115.6&hourly=ocean_current_velocity&forecast_days=1&models=meteofrance_currents" | head -c 600; echo
