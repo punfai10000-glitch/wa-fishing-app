@@ -1,6 +1,6 @@
 // Offline support: cache the app shell; network-first for data and forecasts.
 // Map tiles are deliberately NOT cached (Esri terms prohibit offline tile export).
-const VERSION = 'wafi-v28';
+const VERSION = 'wafi-v29';
 const SHELL = [
   './', 'index.html', 'css/app.css', 'manifest.webmanifest', 'assets/icon.svg',
   'js/app.js', 'js/config.js', 'js/data.js', 'js/engine.js', 'js/map.js', 'js/storage.js', 'js/ui.js', 'js/units.js',
@@ -19,7 +19,7 @@ self.addEventListener('activate', e => {
   e.waitUntil(caches.keys().then(keys => Promise.all(keys.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim()));
 });
 
-const isTile = url => /tile\.openstreetmap\.org|arcgis\.com|arcgisonline\.com|eox\.at|gebco\.net|imas\.utas\.edu\.au|wikimedia\.org|windy\.com|githubusercontent\.com|inaturalist\.org|static\.inaturalist\.org/.test(url.hostname);
+const isTile = url => /tile\.openstreetmap\.org|arcgis\.com|arcgisonline\.com|eox\.at|gebco\.net|imas\.utas\.edu\.au|wikimedia\.org|windy\.com|githubusercontent\.com|inaturalist\.org|static\.inaturalist\.org|nominatim\.openstreetmap\.org|services\.ga\.gov\.au/.test(url.hostname);
 const isNetworkFirst = url => url.pathname.includes('/data/') || /open-meteo\.com$|wikipedia\.org$/.test(url.hostname);
 
 self.addEventListener('fetch', e => {

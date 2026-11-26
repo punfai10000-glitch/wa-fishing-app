@@ -10,7 +10,27 @@ export function renderKey(view) {
   view.innerHTML = `
   <div>
         <h1>Learn · map key</h1>
-    <p class="small muted">What every colour, pin and symbol on the map means. Turn layers on and off with the <strong>layers</strong> button (stacked squares, bottom right of the map).</p>
+    <p class="small muted">What everything on the map means, in plain words. New to fishing apps? Start with the first two boxes.</p>
+
+    <div class="card"><h2>New here? Start like this</h2>
+      <ol class="small steps">
+        <li><strong>Pick what you're doing</strong> at the top of the map: <em>Fishing</em> (from the beach, rocks or a jetty) or <em>Spear</em> (spearfishing).</li>
+        <li><strong>Look for green numbers</strong> on the map. Each is a fishing spot; the number is how good the weather and sea are there, out of 100. Green = good, orange = OK, red = poor.</li>
+        <li><strong>Tap a spot</strong> to see why, what fish might be around, whether fishing is allowed, and directions. Drag the card up for more.</li>
+        <li><strong>Drag the time slider</strong> at the bottom to see later today or the next few days. Press ▶ to play it.</li>
+        <li><strong>Search</strong> a beach, town or your campsite to jump there. Tap the water anywhere for its depth and conditions.</li>
+        <li><strong>Always look at the water yourself.</strong> The app is a guide, not a guarantee.</li>
+      </ol>
+    </div>
+
+    <div class="card"><h2>Waves, wind and tide — what the numbers mean</h2>
+      ${row('<strong style="font-size:1.2rem">1.7 m</strong>', 'Wave height', 'How tall the waves are, from the low point (trough) to the top (crest). <strong>1.7 m is about as tall as an adult.</strong> It\'s the average of the bigger waves — every so often one comes through <strong>up to twice as big</strong>. Rough guide for shore fishing: under 1 m = calm, 1–2 m = moderate, over 2 m = big (stay off rocks).')}
+      ${row('<strong style="font-size:1.2rem">12 s</strong>', 'Wave period (seconds)', 'Time between one wave and the next. Short (under 8 s) = choppy local waves from the wind. Long (12 s or more) = powerful ocean swell that surges much further up beaches and rocks than its height suggests.')}
+      ${row('<strong style="font-size:1.2rem">20 km/h</strong>', 'Wind', 'Under 10 km/h = calm, easy casting. 10–20 = breezy, fine. 20–30 = whitecaps, hard to cast light lines. 30–40 = strong, unpleasant. Over 45 = dangerous on jetties and rocks. <strong>Onshore</strong> wind blows from the sea onto the beach (choppy); <strong>offshore</strong> blows from the land (smooth water, but drifts you out if you\'re in the water).')}
+      ${row('<strong style="font-size:1.2rem">↑↓</strong>', 'Tide', 'The sea slowly rising and falling. Perth\'s tide is small (often under 1 m). Fish often feed more while the water is moving (rising or falling) than at the turn.')}
+    </div>
+
+    <p class="small muted">Turn things on and off on the map with the <strong>layers</strong> button (stacked squares, bottom right).</p>
 
     <div class="card"><h2>Map views &amp; filter</h2>
       <p class="small"><strong>Fishing</strong> and <strong>Spear</strong> show spots and conditions for that activity. <strong>Weather</strong> shows only wind, swell and buoys.</p>
@@ -21,9 +41,9 @@ export function renderKey(view) {
     </div>
     <div class="card"><h2>Scores</h2>
       <p class="small muted">Every score is out of 100 and rates the <em>conditions</em> (wind, waves, tide, light, visibility for spearfishing) at the time on the slider. It does not mean fish are there. Switch between <strong>Shore</strong> and <strong>Spear</strong> at the top of the map.</p>
-      ${row('<span class="pill good">Good 70+</span>', 'Good', 'Conditions suit this activity.')}
-      ${row('<span class="pill fair">Fair 40–69</span>', 'Fair', 'Fishable, but something isn\'t ideal (e.g. some wind or swell).')}
-      ${row('<span class="pill poor">Poor &lt;40</span>', 'Poor', 'Rough, windy or otherwise unpleasant.')}
+      ${row('<span class="pill good">Good 70+</span>', 'Good (70 to 100)', 'Light wind, manageable waves, moving tide — a nice day to be out. Higher is better.')}
+      ${row('<span class="pill fair">Fair 40–69</span>', 'Fair (40 to 69)', 'You can fish, but something isn\'t ideal — e.g. a bit windy or choppy.')}
+      ${row('<span class="pill poor">Poor &lt;40</span>', 'Poor (under 40)', 'Rough, windy or messy. Probably not worth the trip — try another spot or time.')}
       ${row(blockPill('legal'), 'Not allowed', 'Against the rules here: a sanctuary zone, spearfishing in a river or estuary, or a closed season.')}
       ${row(blockPill('safety'), 'Not safe', 'Wind or swell over the safety limit for this kind of spot, or a thunderstorm forecast.')}
       ${row(blockPill('dark'), 'Too dark', 'Spearfishing is only rated in daylight. At night, Spear mode jumps the time slider to the next morning.')}
@@ -40,8 +60,9 @@ export function renderKey(view) {
       ${row(`<div class="mk good" style="width:34px;height:34px">86</div>`, 'Spot pin with score', 'A fishing spot. The number is its score at the time on the slider — it changes as you drag the slider or press ▶. ⛔ / ⚠ / 🌙 = not allowed / not safe / too dark.')}
       ${row(`<div class="mk good conf-medium" style="width:34px;height:34px">86</div>`, 'Dashed white border', 'Medium confidence: e.g. found on OpenStreetMap but not yet checked by us.')}
       ${row(`<div class="mk fair conf-low" style="width:34px;height:34px">70</div>`, 'Dashed yellow border', 'Low confidence: only a little data, so treat the score with care.')}
-      ${row('<span class="best-pin"><span>★ Best fishing 88</span></span>', 'Best right now', 'The top 3 stretches of coast at the chosen time (at least 40 km apart).')}
-      ${row('<div class="tap-dot" style="display:inline-block"></div>', 'Your tapped point', 'Where you tapped. The pop-up shows conditions, legal status, facilities and directions for that exact point.')}
+      ${row('<span class="best-pin"><span>★ Best stretch 88</span></span>', 'Best stretch right now', 'The best-scoring ~8 km stretches of coast at the chosen time. Tap it to see the actual fishing spots along that stretch.')}
+      ${row('<div class="tap-dot" style="display:inline-block"></div>', 'Where you tapped', 'Tap anywhere: the card shows the water depth, conditions, whether fishing is allowed, the nearest spots, toilets and servos, and directions.')}
+      ${row('<span style="font-size:24px">📍</span>', 'A place you searched', 'Your campsite, town or beach. The card shows how far the sea is and the nearest fishing spots.')}
     </div>
 
     <div class="card"><h2>Chance icons (when you open a spot)</h2>
@@ -58,11 +79,11 @@ export function renderKey(view) {
     <div class="card"><h2>Wind &amp; waves</h2>
       ${row('<span class="key-wind"><i style="background:rgba(255,255,255,.7)"></i><i style="background:rgba(190,240,255,.9)"></i><i style="background:rgba(255,225,120,.95)"></i><i style="background:rgba(255,140,110,1)"></i></span>', 'Moving streaks', 'Wind flow (forecast). White = light (&lt;10 km/h), blue = moderate, yellow = fresh (20–30), red = strong (30+). They move the way the wind blows.')}
       ${row('<svg width="44" height="24" aria-hidden="true"><path d="M6 18 Q22 6 38 18" stroke="rgb(120,220,255)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>', 'Blue rolling lines', 'Swell (forecast) rolling toward the shore. Thicker = bigger swell, slower = longer period. Zoom in to see them.')}
-      ${row('<div class="buoy" style="width:36px;height:36px">1.7<small>m</small></div>', 'Square with a number', 'Measured wave buoy (real reading, not a forecast). The number is wave height. Buoys sit 30–60 m deep offshore, so waves at the beach are usually smaller.')}
-      ${row('<div class="buoy fresh" style="width:36px;height:42px">1.7<small>m</small><em>40 min</em></div>', 'Green buoy', 'Reading less than 1 hour old.')}
-      ${row('<div class="buoy aging" style="width:36px;height:42px">1.7<small>m</small><em>2 h</em></div>', 'Orange buoy', 'Reading 1–3 hours old.')}
-      ${row('<div class="buoy old" style="width:36px;height:42px">1.7<small>m</small><em>9 h</em></div>', 'Red dashed buoy', 'Reading more than 3 hours old — out of date, not current conditions. The small number is how old it is.')}
-      ${row('<span class="small" style="padding:2px 4px;border-radius:4px;background:rgba(11,18,32,.8);color:#fff">➤ 18</span>', 'Small labels (zoomed in)', 'Wind speed (white, km/h) and wave height (blue, m) with direction arrows.')}
+      ${row('<div class="buoy" style="width:36px;height:36px">1.7<small>m</small></div>', 'Square with a number = wave buoy', 'A real floating sensor out at sea that measures the waves (this is a measurement, not a forecast). <strong>1.7 m means the waves out there are about as tall as an adult.</strong> The buoy sits in deep water a few kilometres out, so waves at the beach are usually smaller — but rock ledges facing the open sea can get the full size.')}
+      ${row('<div class="buoy fresh" style="width:36px;height:42px">1.7<small>m</small><em>40 min</em></div>', 'Green buoy', 'Fresh: measured less than 1 hour ago. The small number at the bottom says how long ago (here 40 minutes).')}
+      ${row('<div class="buoy aging" style="width:36px;height:42px">1.7<small>m</small><em>2 h</em></div>', 'Orange buoy', 'Measured 1–3 hours ago — still a useful guide.')}
+      ${row('<div class="buoy old" style="width:36px;height:42px">1.7<small>m</small><em>9 h</em></div>', 'Red dashed buoy', 'Old: measured more than 3 hours ago (here 9 hours). Conditions may have changed — use the forecast instead.')}
+      ${row('<span class="small" style="padding:2px 4px;border-radius:4px;background:rgba(11,18,32,.8);color:#fff">➤ 18</span>', 'Small arrows with numbers (zoomed in)', 'White = wind speed in km/h, blue = wave height in metres. The arrow points the way the wind or waves are going.')}
     </div>
 
     <div class="card"><h2>Safety</h2>

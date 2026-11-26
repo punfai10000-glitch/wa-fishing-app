@@ -14,7 +14,7 @@ import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuar
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass } from './scoring/geo.js';
 import { esc, typeTag, chanceIcon, blockPill } from './ui.js';
-import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge , freshness } from './units.js';
+import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge , freshness, waveWords } from './units.js';
 
 let map, coastLayer, arrowLayer, buoyLayer, incidentLayer, bestLayer;
 let incidents = null;
@@ -268,11 +268,11 @@ function arrowMarker(latlng, toDeg, kind, scale, label) {
 
 function buoyHTML(b) {
   return `<strong>${esc(b.site)} wave buoy</strong> ${typeTag('measured')}<br>
-    <span class="small">Wave height ${b.hs != null ? fmtHeight(b.hs) : 'Unknown'}${b.tp != null ? `, period ${Math.round(b.tp)} s` : ''}${b.dir != null ? ` from ${degToCompass(b.dir)}` : ''}</span><br>
+    <span class="small">Waves out at sea ${b.hs != null ? `<strong>${fmtHeight(b.hs)}</strong> (${waveWords(b.hs)}; the odd one up to twice that)` : 'Unknown'}${b.tp != null ? `, period ${Math.round(b.tp)} s` : ''}${b.dir != null ? ` from ${degToCompass(b.dir)}` : ''}</span><br>
     ${b.swell_h != null ? `<span class="small">Swell ${fmtHeight(b.swell_h)}${b.swell_p != null ? ` @ ${Math.round(b.swell_p)} s` : ''}${b.swell_dir != null ? ` from ${degToCompass(b.swell_dir)}` : ''}</span><br>` : ''}
     ${b.sst != null ? `<span class="small">Water ${fmtTemp(b.sst)}</span><br>` : ''}
     <span class="small fresh-${freshness(Date.parse(b.time)).cls}">● Measured ${fmtAge(Date.parse(b.time))} (${fmtDateTime(Date.parse(b.time))}) — ${freshness(Date.parse(b.time)).label}</span><br>
-    <span class="small muted"> WA Dept of Transport via AODN — not quality controlled. Buoy sits 30–60 m deep offshore.</span>`;
+    <span class="small muted"> A real measurement from a WA Dept of Transport buoy in deep water offshore — waves at the beach are usually smaller. Not quality controlled.</span>`;
 }
 
 // ---- Tap anywhere: report for the EXACT point tapped -----------------------
@@ -280,7 +280,7 @@ let tapMarker = null;
 const COMPASS = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
 const comp = d => COMPASS[Math.round((((d % 360) + 360) % 360) / 22.5) % 16];
 
-async function onMapClick(latlng) {
+async function onMapClick(latlng, title = 'Exact point') {
   const L = window.L;
   const { lat, lng } = latlng;
   const sample = nearestCoastPoint(lat, lng, 30);
@@ -316,9 +316,10 @@ async function onMapClick(latlng) {
 
   // report goes into the bottom sheet (no pop-up, so the map never jumps)
   let open = true;
-  const body = openSheet(tapHTML(loc, where, sh, false), { title: 'Exact point', state: 'peek',
+  const body = openSheet(tapHTML(loc, where, sh, false), { title, state: title === 'Exact point' ? 'peek' : 'half',
     onClose: () => { open = false; if (tapMarker) { tapMarker.remove(); tapMarker = null; } } });
   fillNearby(body, [lng, lat]);
+  wireSpotLinks(body);
   const depthP = depthAt(lat, lng);
   const fillDepth = () => depthP.then(d => { const el = body.querySelector('#pop-depth'); if (el) el.innerHTML = depthText(d, hourAt(evalFor(loc, 'shore'), selectedTime())?.hour?.sea_level); });
   fillDepth();
@@ -330,6 +331,60 @@ async function onMapClick(latlng) {
   body.innerHTML = tapHTML(loc, where, sh, !!cond);
   fillNearby(body, [lng, lat]);
   fillDepth();
+}
+
+// ---- Search result: a named place (campground, town, beach…) ------------------------------
+let placeMarker = null;
+function spotsNear(lat, lng, maxKm = 30, n = 6) {
+  const t = selectedTime(), act = state.activity, k = Math.cos(lat * Math.PI / 180);
+  return [...state.data.locations, ...(state.osmSpots || [])].filter(l => l.activities?.includes(act))
+    .map(l => ({ l, d: Math.hypot((l.geometry.coordinates[0] - lng) * k, l.geometry.coordinates[1] - lat) * 111 }))
+    .filter(x => x.d <= maxKm).sort((a, b) => a.d - b.d).slice(0, n)
+    .map(x => ({ ...x, h: hourAt(evalFor(x.l), t) }));
+}
+function spotsListHTML(list) {
+  if (!list.length) return '<p class="small muted">No mapped fishing spots within 30 km.</p>';
+  return `<ul class="plain">${list.map(({ l, d, h }) => `<li><button class="linklike" data-loc="${esc(l.id)}">${esc(l.name)}</button> <span class="small muted">${d < 1 ? Math.round(d * 1000) + ' m' : d.toFixed(1) + ' km'}</span> ${!h ? '' : h.blocked ? blockPill(h.blockKind) : `<span class="pill ${band(h.score)}">${BAND_LABEL[band(h.score)]} ${h.score}</span>`}</li>`).join('')}</ul>`;
+}
+// (uses body.onclick, not addEventListener: the sheet body element is reused, so handlers must not pile up)
+function wireSpotLinks(body, extra = null) {
+  body.onclick = e => {
+    extra?.(e);
+    const b = e.target.closest('[data-loc]'); if (!b) return;
+    const l = [...state.data.locations, ...(state.osmSpots || [])].find(x => x.id === b.dataset.loc);
+    if (l) { map.flyTo([l.geometry.coordinates[1], l.geometry.coordinates[0]], Math.max(map.getZoom(), 15), { duration: 0.6 }); map.once('moveend', () => openSpotSheet(l)); }
+  };
+}
+export function placeReport(lat, lng, name) {
+  const L = window.L;
+  placeMarker?.remove();
+  placeMarker = L.marker([lat, lng], { keyboard: false, zIndexOffset: 2100, title: name,
+    icon: L.divIcon({ className: 'place-pin', html: `<div class="place-dot">📍</div><span class="place-lbl">${esc(name)}</span>`, iconSize: [30, 30], iconAnchor: [15, 28] }) }).addTo(map);
+  const sh = nearestShore(lat, lng, 300);
+  const nearWater = riverWaterAt(lat, lng, 0.05) || (sh && (!sh.onLand || sh.km <= 0.3));
+  if (nearWater) {   // on the shore or in the water: the normal exact-point report, titled with the place name
+    onMapClick({ lat, lng }, `📍 ${name}`).then(() => {});
+    return;
+  }
+  const coast = nearestCoastPoint(lat, lng, 300);
+  const r = coast ? hourAt(evalFor(coast.p), selectedTime()) : null;
+  const list = spotsNear(lat, lng);
+  const body = openSheet(`
+    <p class="small" style="margin-top:0">${sh ? `About <strong>${fmtDist(sh.km)}</strong> from the sea${coast?.p?.near ? ` (nearest coast near ${esc(coast.p.near)})` : ''}.` : 'A long way from the coast.'}</p>
+    ${r ? `<div class="small">Conditions on the nearest coast right now: ${r.blocked ? blockPill(r.blockKind) : `<span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score}</span>`}</div>` : ''}
+    <h3 class="sheet-h3">Fishing spots near here</h3>
+    ${spotsListHTML(list)}
+    ${sh ? `<button class="btn" data-act="coast" style="margin:6px 0">Show the report for the nearest beach</button>` : ''}
+    <div class="small" id="pop-nearby" style="margin-top:6px">Nearby: loading…</div>
+    <p class="small muted">Tap any spot for its full card, or tap the water anywhere for an exact report.</p>`,
+    { title: `📍 ${name}`, state: 'half', onClose: () => { placeMarker?.remove(); placeMarker = null; } });
+  wireSpotLinks(body, e => {
+    if (e.target.closest('[data-act="coast"]') && sh) {
+      const o = offshorePoint(sh.lat, sh.lng, 0.05) || sh;
+      map.flyTo([o.lat, o.lng], 15, { duration: 0.6 }); map.once('moveend', () => onMapClick({ lat: o.lat, lng: o.lng }, `Beach nearest ${name}`));
+    }
+  });
+  fillNearby(body, [lng, lat]);
 }
 
 function fmtDist(km) { return km < 1 ? `${Math.max(10, Math.round(km * 1000 / 10) * 10)} m` : `${km.toFixed(1)} km`; }
@@ -361,6 +416,7 @@ function tapHTML(loc, where, sh, exact) {
     <div style="margin-top:4px">${legalHTML(legal)}</div>
     ${(loc.safety_notes || []).filter(n => !/^Spearfishing is banned/.test(n)).map(n => `<div class="small">⚠ ${esc(n)}</div>`).join('')}
     <div class="small" id="pop-nearby" style="margin-top:4px">Nearby: loading…</div>
+    <h3 class="sheet-h3">Nearest fishing spots</h3>${spotsListHTML(spotsNear(lat, lng, 15, 4))}
     <p class="small muted" style="margin:6px 0 0">Not a checked fishing spot — check access, cliffs and private land before you go.</p>
     <p style="margin:6px 0 0"><a href="${gmaps}" target="_blank" rel="noopener">Directions here ↗</a> · <a href="#/live/${encodeURIComponent(loc.id)}">Live summary →</a></p>`;
 }

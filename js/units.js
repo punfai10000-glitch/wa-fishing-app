@@ -49,3 +49,9 @@ export function freshness(t, now = Date.now()) {
   const h = (now - t) / 3600e3;
   return h <= 1 ? { cls: 'fresh', label: 'fresh' } : h <= 3 ? { cls: 'aging', label: '1–3 h old' } : { cls: 'old', label: 'out of date — not current conditions' };
 }
+
+// Plain-language size of a wave height (metres, trough to crest)
+export function waveWords(h) {
+  if (h == null || !Number.isFinite(h)) return '';
+  return h < 0.4 ? 'small — about knee-high' : h < 0.8 ? 'about waist-high' : h < 1.3 ? 'about chest-high' : h < 1.9 ? 'about as tall as an adult' : h < 3 ? 'bigger than a person' : 'very big';
+}

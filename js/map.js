@@ -14,7 +14,7 @@ import { openSheet, closeSheet, setState as setSheetState, sheetState } from './
 import { renderLocation } from './views/location.js';
 import { likelyTargets, targetsData } from './targets.js';
 import { legalStatus } from './zones.js';
-import { openWindy } from './coastmap.js';
+import { openWindy, placeReport } from './coastmap.js';
 import { makeDepthLayer, loadDepthIndex, depthAt, depthText, DEPTH_BANDS } from './depth.js';
 import { offshorePoint } from './shore.js';
 
@@ -506,30 +506,58 @@ function buildLegend() {
 function buildSearch() {
   const input = document.getElementById('search');
   const list = document.getElementById('search-results');
+  let timer = null, seq = 0, lastPlaces = [];
   const close = () => { list.hidden = true; list.innerHTML = ''; };
+  const row = i => `<li><button data-kind="${i.kind}" data-id="${esc(i.id ?? '')}" data-lat="${i.lat ?? ''}" data-lng="${i.lng ?? ''}" data-name="${esc(i.name)}">${i.kind === 'place' ? '📍 ' : i.kind === 'region' ? '🗺 ' : '🎣 '}${esc(i.name)}<small>${esc(i.sub ?? '')}</small></button></li>`;
+  const draw = (q, places, loading) => {
+    const regions = Object.entries(REGIONS).filter(([, r]) => r.name.toLowerCase().includes(q)).map(([id, r]) => ({ kind: 'region', id, name: r.name, sub: 'Area' }));
+    const all = [...state.data.locations, ...(state.osmSpots || []).filter(l => !/^(Beach|Jetty|Groyne|Reef|Rock|Point)/.test(l.name))];
+    const spots = all.filter(l => l.name.toLowerCase().includes(q)).slice(0, 5)
+      .map(l => ({ kind: 'spot', id: l.id, name: l.name, sub: `Fishing spot · ${REGIONS[l.region]?.name ?? ''}` }));
+    const items = [...regions, ...spots, ...places];
+    list.innerHTML = items.map(row).join('') +
+      (loading ? '<li class="muted small" style="padding:10px">Searching places…</li>' : !items.length ? '<li class="muted small" style="padding:10px">Nothing found — try a town or beach name.</li>' : '') +
+      (places.length ? '<li class="muted small" style="padding:6px 10px">Places from OpenStreetMap (Nominatim)</li>' : '');
+    list.hidden = false;
+  };
+  // Places (campgrounds, towns, beaches, boat ramps…) from OpenStreetMap's free search, limited to WA.
+  // Waits until you stop typing (fair use: max ~1 request a second).
+  const lookPlaces = async (q, my) => {
+    try {
+      const u = `https://nominatim.openstreetmap.org/search?format=jsonv2&limit=6&countrycodes=au&viewbox=112.5,-13.5,129.1,-35.4&bounded=1&accept-language=en&q=${encodeURIComponent(q)}`;
+      const res = await fetch(u, { headers: { Accept: 'application/json' } }).then(r => (r.ok ? r.json() : []));
+      if (my !== seq) return;
+      lastPlaces = res.map(r => {
+        const parts = String(r.display_name || '').split(',').map(x => x.trim());
+        return { kind: 'place', name: r.name || parts[0], sub: parts.slice(1, 3).join(', '), lat: +r.lat, lng: +r.lon };
+      }).filter(p => Number.isFinite(p.lat));
+      draw(q, lastPlaces, false);
+    } catch { if (my === seq) draw(q, [], false); }
+  };
   input.addEventListener('input', () => {
     const q = input.value.trim().toLowerCase();
+    clearTimeout(timer); seq++;
     if (q.length < 2) return close();
-    const regions = Object.entries(REGIONS).filter(([, r]) => r.name.toLowerCase().includes(q)).map(([id, r]) => ({ kind: 'region', id, name: r.name }));
-    const spots = state.data.locations.filter(l => l.name.toLowerCase().includes(q) || (REGIONS[l.region]?.name ?? '').toLowerCase().includes(q))
-      .map(l => ({ kind: 'spot', id: l.id, name: l.name, sub: REGIONS[l.region]?.name }));
-    const items = [...regions, ...spots].slice(0, 8);
-    list.innerHTML = items.length ? items.map(i => `<li><button data-kind="${i.kind}" data-id="${esc(i.id)}">${esc(i.name)}<small>${i.kind === 'region' ? 'Area' : esc(i.sub ?? '')}</small></button></li>`).join('')
-      : '<li class="muted small" style="padding:10px">No matching spots yet</li>';
-    list.hidden = false;
+    draw(q, [], q.length >= 3);
+    if (q.length >= 3) { const my = seq; timer = setTimeout(() => lookPlaces(input.value.trim(), my), 600); }
   });
+  input.addEventListener('keydown', e => { if (e.key === 'Enter') { const first = list.querySelector('button'); first?.click(); } if (e.key === 'Escape') { close(); input.blur(); } });
   list.addEventListener('click', e => {
     const b = e.target.closest('button');
     if (!b) return;
+    rememberView();
     if (b.dataset.kind === 'spot') {
-      const loc = state.data.locations.find(l => l.id === b.dataset.id);
+      const loc = [...state.data.locations, ...(state.osmSpots || [])].find(l => l.id === b.dataset.id);
       const [lng, lat] = loc.geometry.coordinates;
-      rememberView();
-      map.flyTo([lat, lng], Math.max(map.getZoom(), 13), { duration: 0.8 });
+      map.flyTo([lat, lng], Math.max(map.getZoom(), 14), { duration: 0.8 });
       map.once('moveend', () => openSpotSheet(loc));
+    } else if (b.dataset.kind === 'place') {
+      const lat = +b.dataset.lat, lng = +b.dataset.lng, name = b.dataset.name;
+      map.flyTo([lat, lng], 14, { duration: 0.9 });
+      map.once('moveend', () => placeReport(lat, lng, name));
     } else {
       const locs = state.data.locations.filter(l => l.region === b.dataset.id);
-      if (locs.length) { rememberView(); } if (locs.length) map.flyToBounds(locs.map(l => [l.geometry.coordinates[1], l.geometry.coordinates[0]]), { maxZoom: 12, padding: [40, 40] });
+      if (locs.length) map.flyToBounds(locs.map(l => [l.geometry.coordinates[1], l.geometry.coordinates[0]]), { maxZoom: 12, padding: [40, 40] });
     }
     input.value = ''; close(); input.blur();
   });
