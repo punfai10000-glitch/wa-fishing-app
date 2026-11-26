@@ -42,3 +42,10 @@ export function fmtAge(t, now = Date.now()) {
 // Day key in Perth time, e.g. "2026-11-25"
 const keyFmt = new Intl.DateTimeFormat('en-CA', { timeZone: 'Australia/Perth' });
 export const dayKey = t => keyFmt.format(new Date(t));
+
+// How fresh a MEASURED reading is (not a safety rule): fresh <1 h, aging 1–3 h, old >3 h.
+export function freshness(t, now = Date.now()) {
+  if (!t || Number.isNaN(t)) return { cls: 'old', label: 'time unknown' };
+  const h = (now - t) / 3600e3;
+  return h <= 1 ? { cls: 'fresh', label: 'fresh' } : h <= 3 ? { cls: 'aging', label: '1–3 h old' } : { cls: 'old', label: 'out of date — not current conditions' };
+}

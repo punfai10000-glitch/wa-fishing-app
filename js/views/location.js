@@ -8,6 +8,7 @@ import * as store from '../storage.js';
 import { visibilityEstimate } from '../scoring/score.js';
 import { rememberLiveSpot, accessCard, fillAccessFor, measuredCard } from './live.js';
 import { legalStatus } from '../zones.js';
+import { fourChecks } from '../checks.js';
 import { communityCard, sightingsCard, fillSightings } from './community.js';
 
 const val = (v, f, type) => v == null ? `Unknown ${typeTag('unknown')}` : `${f(v)} ${typeTag(type)}`;
@@ -78,6 +79,7 @@ export function renderLocation(view, rawId) {
       <p class="muted small" style="margin:8px 0 0">${state.cond.fetchedAt ? `Forecast updated ${fmtAge(state.cond.fetchedAt)} (${fmtDateTime(state.cond.fetchedAt)})` : 'No forecast loaded'}</p>
     </div>
 
+    ${(() => { const ev = evalFor(loc); return ev?.applicable === false ? '' : `<div class="card"><h2>Right now — four checks</h2>${fourChecks(loc, ev, ev.current, state.data.zones, state.activity)}</div>`; })()}
     ${measuredCard(loc)}
     <div class="card">
       <h2>Legal status</h2>

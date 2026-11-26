@@ -10,6 +10,13 @@ export function renderKey(view) {
         <h1>Map key</h1>
     <p class="small muted">What every colour, pin and symbol on the map means. Turn layers on and off with the <strong>layers</strong> button (stacked squares, bottom right of the map).</p>
 
+    <div class="card"><h2>Map views &amp; filter</h2>
+      <p class="small"><strong>Fishing</strong> and <strong>Spear</strong> show spots and conditions for that activity. <strong>Weather</strong> shows only wind, swell and buoys.</p>
+      <p class="small">The <strong>funnel button</strong> on the right lets you choose what's on the map: spots, coast colour, buoys, marine parks, wind and swell animation, shark history and facilities. The <strong>layers button</strong> changes the background (satellite, street map, seabed habitat, depth).</p>
+    </div>
+    <div class="card"><h2>Four checks (in each spot)</h2>
+      <p class="small"><strong>Conditions</strong> rates wind, waves, tide and light only. <strong>Fish</strong> shows species recorded there — the weather can't tell us if fish are present. <strong>Safety</strong> says Not safe when wind or waves pass the draft limits; otherwise Not verified, because only you can judge it on site. <strong>Rules</strong> checks marine park zones. <strong>Data</strong> is how complete and fresh the information is.</p>
+    </div>
     <div class="card"><h2>Scores</h2>
       <p class="small muted">Every score is out of 100 and rates the <em>conditions</em> (wind, waves, tide, light, visibility for spearfishing) at the time on the slider. It does not mean fish are there. Switch between <strong>Shore</strong> and <strong>Spear</strong> at the top of the map.</p>
       ${row('<span class="pill good">Good 70+</span>', 'Good', 'Conditions suit this activity.')}
@@ -50,6 +57,9 @@ export function renderKey(view) {
       ${row('<span class="key-wind"><i style="background:rgba(255,255,255,.7)"></i><i style="background:rgba(190,240,255,.9)"></i><i style="background:rgba(255,225,120,.95)"></i><i style="background:rgba(255,140,110,1)"></i></span>', 'Moving streaks', 'Wind flow (forecast). White = light (&lt;10 km/h), blue = moderate, yellow = fresh (20–30), red = strong (30+). They move the way the wind blows.')}
       ${row('<svg width="44" height="24" aria-hidden="true"><path d="M6 18 Q22 6 38 18" stroke="rgb(120,220,255)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>', 'Blue rolling lines', 'Swell (forecast) rolling toward the shore. Thicker = bigger swell, slower = longer period. Zoom in to see them.')}
       ${row('<div class="buoy" style="width:36px;height:36px">1.7<small>m</small></div>', 'Square with a number', 'Measured wave buoy (real reading, not a forecast). The number is wave height. Buoys sit 30–60 m deep offshore, so waves at the beach are usually smaller.')}
+      ${row('<div class="buoy fresh" style="width:36px;height:42px">1.7<small>m</small><em>40 min</em></div>', 'Green buoy', 'Reading less than 1 hour old.')}
+      ${row('<div class="buoy aging" style="width:36px;height:42px">1.7<small>m</small><em>2 h</em></div>', 'Orange buoy', 'Reading 1–3 hours old.')}
+      ${row('<div class="buoy old" style="width:36px;height:42px">1.7<small>m</small><em>9 h</em></div>', 'Red dashed buoy', 'Reading more than 3 hours old — out of date, not current conditions. The small number is how old it is.')}
       ${row('<span class="small" style="padding:2px 4px;border-radius:4px;background:rgba(11,18,32,.8);color:#fff">➤ 18</span>', 'Small labels (zoomed in)', 'Wind speed (white, km/h) and wave height (blue, m) with direction arrows.')}
     </div>
 
@@ -66,7 +76,7 @@ export function renderKey(view) {
     </div>
 
     <div class="card"><h2>Facilities</h2>
-      <p class="small muted">Nothing is shown until you choose: tap the house button on the right of the map and tick what you want. Toilets, servos and 24/7 food are shown only within 10 km of the coast; zoom in to see them.</p>
+      <p class="small muted">Nothing is shown until you choose: tap the filter (funnel) button on the right of the map and tick what you want. Toilets, servos and 24/7 food are shown only within 10 km of the coast; zoom in to see them.</p>
       ${row('<div class="am am-tackle">B</div>', 'B', 'Tackle &amp; bait shop.')}
       ${row('<div class="am am-fuel">F</div>', 'F', 'Servo. Many sell bait, but the map data doesn\'t say which, so call ahead.')}
       ${row('<div class="am am-toilets">WC</div>', 'WC', 'Public toilet.')}

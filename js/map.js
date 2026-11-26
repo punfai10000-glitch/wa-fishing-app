@@ -9,6 +9,7 @@ import { degToCompass } from './scoring/geo.js';
 import { AMENITY_TYPES, loadAmenities } from './amenities.js';
 import { initCoastMap, refreshCoastMap, selectedTime } from './coastmap.js';
 import { loadShore, nearestShore } from './shore.js';
+import { fourChecks } from './checks.js';
 
 let map, markerLayer, zoneLayer, amenityLayer;
 export const FISH_SVG = '<svg viewBox="0 0 32 20" width="26" height="16"><path d="M2 10c5-7 14-8 20-3l7-5v16l-7-5c-6 5-15 4-20-3z" fill="#56b4e9" stroke="#fff" stroke-width="1.5"/><circle cx="8" cy="9" r="1.6" fill="#04121f"/></svg>';
@@ -42,14 +43,22 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Places tagged open 24/7 on OpenStreetMap' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: 'Public car parks within ~2 km of the shore (OpenStreetMap)' }
 ];
-const DEFAULTS = { base: 'satellite', coast: true, buoys: true, food24: false, parking: false, incidents: true, windFlow: true, swellFlow: true, wind: false, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
+const DEFAULTS = { base: 'satellite', spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
 export const layerOn = () => {
   const saved = store.get('layers', {});
   // v2: facilities (bait/tackle, servos, toilets) on by default — switch them on once for people with saved settings
   // v3: facilities are off until the user picks what they want (too many pins otherwise)
   if (!store.get('layersV3')) { store.set('layersV3', 1); Object.assign(saved, { tackle: false, fuel: false, toilets: false, food24: false, parking: false }); store.set('layers', saved); }
+  // v4: calmer map — wind/swell animation live in the Weather view; shark history is opt-in
+  if (!store.get('layersV4')) { store.set('layersV4', 1); Object.assign(saved, { windFlow: false, swellFlow: false, incidents: false }); store.set('layers', saved); }
   return { ...DEFAULTS, ...saved };
 };
+// What is actually drawn: the Weather view swaps spots for wind, swell and buoys.
+export const isWeatherView = () => state.mapView === 'weather';
+export const viewOn = () => isWeatherView()
+  ? { ...layerOn(), coast: false, zones: false, incidents: false, tackle: false, fuel: false, toilets: false, food24: false, parking: false,
+      windFlow: true, swellFlow: true, wind: true, waves: true, buoys: true }
+  : layerOn();
 const setLayer = (k, v) => store.set('layers', { ...layerOn(), [k]: v });
 
 export function getMap() { return map; }
@@ -110,7 +119,7 @@ export function initMap() {
 }
 
 function applyLayers() {
-  const on = layerOn();
+  const on = viewOn();
   const base = baseLayers[on.base] ? on.base : 'satellite';
   for (const [id, layer] of Object.entries(baseLayers)) {
     if (id === base) { if (!map.hasLayer(layer)) layer.addTo(map); } else map.removeLayer(layer);
@@ -147,10 +156,13 @@ function subLabel(loc, ev, on) {
   return bits.length ? `<span class="mk-sub">${esc(bits.join(' · '))}</span>` : '';
 }
 
+let lastView = 'spots';
 export function refreshMap() {
   if (!map) return;
   const L = window.L;
-  const on = layerOn();
+  const on = viewOn();
+  document.getElementById('legend').hidden = isWeatherView();
+  if (lastView !== (state.mapView || 'spots')) { lastView = state.mapView || 'spots'; renderAmenities(); }
   const reopen = map._popup && map.hasLayer(map._popup) ? map._popup._source?.options?.locId : null;
   markerLayer.clearLayers();
   const zoom = map.getZoom();
@@ -163,6 +175,7 @@ export function refreshMap() {
     .map(loc => { const ev = evalFor(loc); return { loc, ev, hr: hourRow(ev) }; })
     .sort((a, b) => (a.loc.osm ? 1 : 0) - (b.loc.osm ? 1 : 0) || (b.hr?.score ?? -1) - (a.hr?.score ?? -1));
   for (const { loc, ev, hr } of cand) {
+    if (isWeatherView() || !on.spots) break;   // Weather view or spots switched off: no spot pins
     if (ev.applicable === false) continue;   // e.g. beach spots in Spear mode: don't clutter the map
     const pt = map.latLngToContainerPoint([loc.geometry.coordinates[1], loc.geometry.coordinates[0]]);
     if (loc.osm && zoom < 16 && placed.some(q => Math.abs(q.x - pt.x) < 44 && Math.abs(q.y - pt.y) < 56)) continue;
@@ -183,10 +196,10 @@ export function refreshMap() {
       ${ev.applicable === false ? `<div style="margin:8px 0">${pill(ev)}</div>` : `
       <div class="small muted" style="margin-top:6px">${timeLabel()}</div>
       <div style="margin:2px 0 6px">${hr ? (hr.blocked ? blockPill(hr.blockKind) : `<span class="pill ${band(hr.score)}">${BAND_LABEL[band(hr.score)]} ${hr.score ?? '?'}</span>`) : '<span class="pill unknown">Unknown</span>'} ${hr ? chanceIcon(hr.score, state.activity, hr.blocked && (hr.blockKind || true)) : ''}</div>
-      <div class="small">Next 24 h: ${pill(ev)} ${esc(windowText(ev))}</div>`}
+      ${fourChecks(loc, ev, hr, state.data.zones, state.activity)}
+      <div class="small" style="margin-top:4px">Next 24 h: ${pill(ev)} ${esc(windowText(ev))}</div>`}
       ${ev.applicable === false ? `<div class="small muted">Not listed for ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'}.</div>` : ''}
       ${ev.blocked ? `<div class="small">${esc(ev.blockReasons[0] ?? '')}</div>` : ''}
-      <div>${confText(ev.confidence)}</div>
       <p style="margin:8px 0 0"><a href="#/live/${encodeURIComponent(loc.id)}">Live summary →</a> &nbsp; <a href="#/loc/${encodeURIComponent(loc.id)}">Full details →</a></p>`);
     markerLayer.addLayer(m);
     if (reopen && loc.id === reopen) setTimeout(() => m.openPopup(), 0);
@@ -208,30 +221,36 @@ async function coastalAmenities() {
   return coastalCache;
 }
 
+const SHOW = [
+  ['On the map', [['spots', 'Fishing spots & scores'], ['coast', 'Coast colour (conditions)'], ['buoys', 'Wave buoys (measured)'], ['zones', 'Marine parks & sanctuaries']]],
+  ['Weather', [['windFlow', 'Wind animation'], ['swellFlow', 'Swell lines'], ['wind', 'Wind speed labels'], ['waves', 'Wave height labels']]],
+  ['Safety history', [['incidents', 'Past shark incidents']]],
+  ['Facilities', ['tackle', 'fuel', 'toilets', 'food24', 'parking'].map(id => [id, AMENITY_TYPES[id].label, AMENITY_TYPES[id].short])]
+];
 function buildFacilitiesPicker() {
   const btn = document.getElementById('fac-btn'), panel = document.getElementById('fac-panel');
   if (!btn || !panel) return;
   const draw = () => {
     const on = layerOn();
-    const ids = ['tackle', 'fuel', 'toilets', 'food24', 'parking'];
-    panel.innerHTML = `<h3>Show on the map</h3>` + ids.map(id => `<label><input type="checkbox" data-fac="${id}" ${on[id] ? 'checked' : ''}>
-      <span class="am am-${id}" aria-hidden="true">${AMENITY_TYPES[id].short}</span>${esc(AMENITY_TYPES[id].label)}</label>`).join('') +
-      `<p class="small muted" style="margin:4px 0 0">Toilets, servos and food within 10 km of the coast. Zoom in to see them.</p>`;
-    btn.setAttribute('aria-pressed', ids.some(id => on[id]) ? 'true' : 'false');
+    const wx = isWeatherView();
+    panel.innerHTML = `<h3>Show on the map</h3>${wx ? '<p class="small muted" style="margin:0 0 6px">Weather view shows wind, swell and buoys only. Tap Fishing or Spear to pick your own.</p>' : ''}` +
+      SHOW.map(([g, items]) => `<div class="fac-group">${g}</div>` + items.map(([id, label, short]) => `<label><input type="checkbox" data-fac="${id}" ${on[id] ? 'checked' : ''} ${wx ? 'disabled' : ''}>
+        ${short ? `<span class="am am-${id}" aria-hidden="true">${short}</span>` : ''}${esc(label)}</label>`).join('')).join('') +
+      `<p class="small muted" style="margin:6px 0 0">Toilets, servos and food: within 10 km of the coast, zoom in to see them. More map styles under the layers button.</p>`;
   };
   btn.addEventListener('click', () => { const open = panel.hidden; panel.hidden = !open; btn.setAttribute('aria-expanded', String(open)); if (open) draw(); });
   panel.addEventListener('change', e => {
     const id = e.target.dataset.fac; if (!id) return;
     store.set('layers', { ...layerOn(), [id]: e.target.checked });
-    draw(); renderAmenities();
+    draw(); applyLayers(); refreshMap();
   });
-  draw();
+  document.addEventListener('click', e => { if (!panel.hidden && !panel.contains(e.target) && !btn.contains(e.target)) { panel.hidden = true; btn.setAttribute('aria-expanded', 'false'); } });
 }
 
 async function renderAmenities() {
   if (!map) return;
   const L = window.L;
-  const on = layerOn();
+  const on = viewOn();
   amenityLayer.clearLayers();
   const wanted = Object.keys(AMENITY_TYPES).filter(k => on[k]);
   const note = document.getElementById('amenity-note');

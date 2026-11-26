@@ -302,9 +302,32 @@ dialog li { margin-bottom: 8px; }
 .chance.blk-legal { color: #d8b4fe; } .chance.blk-safety { color: #fca5a5; } .chance.blk-dark { color: #cbd5e1; }
 
 /* Facilities picker (nothing shown until the user ticks something) */
-.fac-panel { position: absolute; right: 64px; bottom: calc(var(--tabbar-h) + 120px + var(--safe-b)); z-index: 950; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; width: 230px; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
+.fac-panel { position: absolute; right: 64px; bottom: calc(var(--tabbar-h) + 44px + var(--safe-b)); max-height: calc(100% - 190px); overflow-y: auto; z-index: 1100; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; width: 230px; box-shadow: 0 6px 24px rgba(0,0,0,.5); }
 .fac-panel h3 { margin: 0 0 6px; font-size: .95rem; }
-.fac-panel label { display: flex; align-items: center; gap: 8px; padding: 6px 0; font-size: .9rem; }
+.fac-panel label { display: flex; align-items: center; gap: 8px; padding: 5px 0; font-size: .9rem; }
+.fac-group { font-size: .72rem; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); margin: 8px 0 2px; }
 .fac-panel .am { width: 22px; height: 22px; font-size: 10px; }
 #fac-btn[aria-pressed="true"] { border-color: var(--accent); color: var(--accent); }
 #tabbar a { font-size: .66rem; }
+
+/* Freshness of MEASURED readings: green <1 h, orange 1–3 h, red >3 h */
+.buoy em { display: block; font: 600 8px/1 system-ui; font-style: normal; margin-top: 1px; }
+.buoy.aging { border-color: #f5a524; color: #f5a524; }
+.buoy.old { border-color: #e5484d; color: #e5484d; opacity: .7; border-style: dashed; }
+.buoy.fresh { border-color: #30d158; color: #30d158; }
+.fresh-fresh { color: #30d158; } .fresh-aging { color: #f5a524; } .fresh-old { color: #e5484d; }
+
+/* Four-checks table in pop-ups */
+.checks { border-collapse: collapse; margin: 4px 0 2px; width: 100%; }
+.checks th { text-align: left; font-weight: 600; color: var(--muted); padding: 2px 8px 2px 0; vertical-align: top; white-space: nowrap; }
+.checks td { padding: 2px 0; }
+.checks b.ck { display: inline-block; margin-right: 4px; }
+.ck.good { color: #30d158; } .ck.fair { color: #f5a524; } .ck.poor { color: #e5484d; } .ck.unknown { color: #9aa4b2; }
+
+/* Header: search on row 1, Fishing / Spear / Weather on row 2; legend underneath */
+.map-top .search { flex: 1 1 100%; }
+.map-top [data-map-toggle] { flex: 1 1 100%; display: flex; }
+.map-top [data-map-toggle] button { flex: 1; }
+.legend { top: 112px !important; }
+.legend[hidden] { display: none !important; }
+.leaflet-top.leaflet-left { top: 104px; }

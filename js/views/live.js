@@ -6,7 +6,7 @@ import { legalStatus } from '../zones.js';
 import { communityCard, sightingsCard, fillSightings } from './community.js';
 import { REGIONS, TYPE_LABELS } from '../config.js';
 import { esc, pill, windowText, confText, typeTag, activityToggle, chanceIcon, blockPill } from '../ui.js';
-import { fmtWind, fmtHeight, fmtTemp, fmtHour, fmtAge, fmtDateTime } from '../units.js';
+import { fmtWind, fmtHeight, fmtTemp, fmtHour, fmtAge, fmtDateTime, freshness } from '../units.js';
 import { degToCompass } from '../scoring/geo.js';
 import { band, BAND_LABEL, visibilityEstimate } from '../scoring/score.js';
 import { nearest } from '../amenities.js';
@@ -137,14 +137,14 @@ export function measuredCard(loc) {
   const ns = nearestStation(state.bom, lat, lng);
   const wind = ns ? `<div class="card small"><strong>Live wind — ${esc(ns.s.site)} weather station</strong> (${ns.d.toFixed(0)} km away) ${typeTag('measured')}<br>
     ${ns.s.wind_dir ?? ''} ${fmtWind(ns.s.wind_kmh)}${ns.s.gust_kmh != null ? `, gusts ${fmtWind(ns.s.gust_kmh)}` : ''}<br>
-    <span class="muted">Observed ${ns.s.time ? fmtAge(Date.parse(ns.s.time)) : ''} · © Bureau of Meteorology</span></div>`
+    <span class="fresh-${freshness(Date.parse(ns.s.time)).cls}">● Observed ${ns.s.time ? `${fmtAge(Date.parse(ns.s.time))} (${fmtDateTime(Date.parse(ns.s.time))})` : 'time unknown'} — ${freshness(Date.parse(ns.s.time)).label}</span> <span class="muted">· © Bureau of Meteorology</span></div>`
     : `<div class="card small"><strong>Live wind:</strong> ${state.bom ? 'no BOM station within 60 km' : 'weather-station feed not running yet — run the Live data workflow'} ${typeTag('unknown')}</div>`;
   const nb = nearestBuoy(state.buoys, lat, lng);
   if (!nb) return wind + `<div class="card small"><strong>Live swell:</strong> ${state.buoys ? 'no buoy within 120 km' : 'buoy feed not running yet — run the Live data workflow'} ${typeTag('unknown')}</div>`;
   const b = nb.b;
   return wind + `<div class="card small"><strong>Live swell — ${esc(b.site)} buoy</strong> (${nb.d.toFixed(0)} km away) ${typeTag('measured')}<br>
     Waves ${fmtHeight(b.hs)}${b.tp != null ? ` @ ${Math.round(b.tp)} s` : ''}${b.dir != null ? ` from ${degToCompass(b.dir)}` : ''}${b.swell_h != null ? ` · swell ${fmtHeight(b.swell_h)}` : ''}${b.sst != null ? ` · water ${fmtTemp(b.sst)}` : ''}<br>
-    <span class="muted">Read ${fmtAge(Date.parse(b.time))}. Offshore buoy (30–60 m deep) — conditions at the shore are usually smaller. Not quality controlled.</span></div>`;
+    <span class="fresh-${freshness(Date.parse(b.time)).cls}">● Measured ${fmtAge(Date.parse(b.time))} (${fmtDateTime(Date.parse(b.time))}) — ${freshness(Date.parse(b.time)).label}</span><br><span class="muted">Offshore buoy (30–60 m deep) — conditions at the shore are usually smaller. Not quality controlled.</span></div>`;
 }
 
 function tile(label, value, sub, type) {

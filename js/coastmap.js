@@ -1,7 +1,7 @@
 // Coastline conditions layer, animated wind/wave arrows, time slider with play,
 // tap-anywhere spot reports, measured buoy markers and the Windy animated view.
 import { state, evalFor } from './app.js';
-import { layerOn, refreshMap } from './map.js';
+import { viewOn as layerOn, refreshMap } from './map.js';
 import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
@@ -12,7 +12,7 @@ import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuar
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass } from './scoring/geo.js';
 import { esc, typeTag, chanceIcon, blockPill } from './ui.js';
-import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge } from './units.js';
+import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge , freshness } from './units.js';
 
 let map, coastLayer, arrowLayer, buoyLayer, incidentLayer, bestLayer;
 let incidents = null;
@@ -203,7 +203,8 @@ export function refreshCoastMap() {
 
   if (on.buoys && state.buoys?.buoys) {
     for (const b of state.buoys.buoys) {
-      const icon = L.divIcon({ className: 'mk-wrap', html: `<div class="buoy" aria-hidden="true">${b.hs != null ? b.hs.toFixed(1) : '?'}<small>m</small></div>`, iconSize: [40, 40], iconAnchor: [20, 20] });
+      const fr = freshness(Date.parse(b.time));
+      const icon = L.divIcon({ className: 'mk-wrap', html: `<div class="buoy ${fr.cls}" aria-hidden="true">${b.hs != null ? b.hs.toFixed(1) : '?'}<small>m</small><em>${esc(fmtAge(Date.parse(b.time)).replace(' ago', ''))}</em></div>`, iconSize: [40, 48], iconAnchor: [20, 20] });
       L.marker([b.lat, b.lon], { icon, title: `${b.site} buoy`, keyboard: true, zIndexOffset: 900 })
         .bindPopup(buoyHTML(b)).addTo(buoyLayer);
     }
@@ -255,7 +256,8 @@ function buoyHTML(b) {
     <span class="small">Wave height ${b.hs != null ? fmtHeight(b.hs) : 'Unknown'}${b.tp != null ? `, period ${Math.round(b.tp)} s` : ''}${b.dir != null ? ` from ${degToCompass(b.dir)}` : ''}</span><br>
     ${b.swell_h != null ? `<span class="small">Swell ${fmtHeight(b.swell_h)}${b.swell_p != null ? ` @ ${Math.round(b.swell_p)} s` : ''}${b.swell_dir != null ? ` from ${degToCompass(b.swell_dir)}` : ''}</span><br>` : ''}
     ${b.sst != null ? `<span class="small">Water ${fmtTemp(b.sst)}</span><br>` : ''}
-    <span class="small muted">Measured ${fmtAge(Date.parse(b.time))} (${fmtDateTime(Date.parse(b.time))}). WA Dept of Transport via AODN — not quality controlled. Buoy sits 30–60 m deep offshore.</span>`;
+    <span class="small fresh-${freshness(Date.parse(b.time)).cls}">● Measured ${fmtAge(Date.parse(b.time))} (${fmtDateTime(Date.parse(b.time))}) — ${freshness(Date.parse(b.time)).label}</span><br>
+    <span class="small muted"> WA Dept of Transport via AODN — not quality controlled. Buoy sits 30–60 m deep offshore.</span>`;
 }
 
 // ---- Tap anywhere: report for the EXACT point tapped -----------------------

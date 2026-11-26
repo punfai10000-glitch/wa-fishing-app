@@ -23,9 +23,10 @@
           <input id="search" type="search" placeholder="Search places or spots" autocomplete="off" aria-label="Search places or fishing spots">
           <ul id="search-results" role="listbox" hidden></ul>
         </div>
-        <div class="seg" role="group" aria-label="Activity" data-activity-toggle>
-          <button data-activity="shore" aria-pressed="true">Shore</button>
+        <div class="seg" role="group" aria-label="Map view" data-activity-toggle data-map-toggle>
+          <button data-activity="shore" aria-pressed="true">Fishing</button>
           <button data-activity="spear" aria-pressed="false">Spear</button>
+          <button data-view="weather" aria-pressed="false">Weather</button>
         </div>
       </div>
       <div class="timebar-wrap"><div id="timebar" class="timebar"></div><div id="coast-status" class="small muted coast-status"></div><div id="flow-note" class="small muted coast-status" hidden>Animation paused: your device has Reduce Motion switched on.</div></div>
@@ -46,9 +47,9 @@
         <iframe title="Animated wind and waves by Windy.com" src="about:blank" loading="lazy"></iframe>
         <p class="small muted" style="margin:4px 8px">Animation by <a href="https://www.windy.com" target="_blank" rel="noopener">Windy.com</a> (ECMWF model). Forecast, not measured.</p>
       </div>
-      <button id="fac-btn" class="fab fab-3" aria-expanded="false" aria-controls="fac-panel" title="Show bait shops, servos, toilets…">
-        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M5 21V8l7-5 7 5v13M9 21v-6h6v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
-        <span class="sr">Facilities</span>
+      <button id="fac-btn" class="fab fab-3" aria-expanded="false" aria-controls="fac-panel" title="Choose what to show on the map">
+        <svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path d="M3 5h18l-7 8v6l-4 2v-8L3 5Z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
+        <span class="sr">Show on map</span>
       </button>
       <div id="fac-panel" class="fac-panel" hidden></div>
       <button id="layers-btn" class="fab" aria-expanded="false" aria-controls="layers-panel" title="Map layers">

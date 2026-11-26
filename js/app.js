@@ -66,14 +66,23 @@ export function visibleLocations() {
 
 export function setActivity(a) {
   state.activity = a;
+  state.mapView = 'spots';
   store.set('activity', a);
-  document.querySelectorAll('[data-activity-toggle] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.activity === a)));
+  syncToggles();
   rerender();
+}
+
+// Map views: Fishing / Spear show spots & conditions; Weather shows only wind, swell and buoys.
+export function syncToggles() {
+  document.querySelectorAll('[data-activity-toggle] button').forEach(b => b.setAttribute('aria-pressed',
+    String(b.dataset.view ? state.mapView === b.dataset.view : state.mapView !== 'weather' && b.dataset.activity === state.activity)));
 }
 
 document.addEventListener('click', e => {
   const btn = e.target.closest('[data-activity-toggle] button');
-  if (btn) setActivity(btn.dataset.activity);
+  if (!btn) return;
+  if (btn.dataset.view) { state.mapView = btn.dataset.view; syncToggles(); rerender(); }
+  else setActivity(btn.dataset.activity);
 });
 
 function banners() {
@@ -156,7 +165,7 @@ async function boot() {
     ack.showModal?.();
     document.getElementById('ack-ok').addEventListener('click', () => { store.set('ack', Date.now()); ack.close(); });
   }
-  document.querySelectorAll('[data-activity-toggle] button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.activity === state.activity)));
+  syncToggles();
   try {
     state.data = await loadStatic();
     state.coast.points = await loadCoastPoints();
