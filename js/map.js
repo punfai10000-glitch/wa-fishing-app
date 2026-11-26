@@ -102,12 +102,16 @@ export function initMap() {
   });
 
   map.createPane('underwater'); map.getPane('underwater').style.zIndex = 350;
+  map.createPane('depthPane'); map.getPane('depthPane').style.zIndex = 360;   // above seabed habitat
   overlays.depth = L.tileLayer.wms('https://wms.gebco.net/mapserv?', {
     layers: 'GEBCO_LATEST', format: 'image/png', transparent: true, opacity: 0.55, pane: 'underwater', maxZoom: 10,
     attribution: 'Depth: <a href="https://www.gebco.net">GEBCO Compilation Group</a>'
   });
   // detailed nearshore depth (Transport WA surveys) from zoom 11; GEBCO above covers the zoomed-out view
   overlays.depthDetail = makeDepthLayer(L);
+  // quick feedback while depth tiles load, and a hint when zoomed out too far for survey detail
+  overlays.depthDetail.on('loading', () => { if (map.getZoom() >= 11) toast('Loading water depth…', 4000); });
+  overlays.depthDetail.on('load', () => { const t = document.getElementById('toast'); if (t.textContent.startsWith('Loading water depth')) t.hidden = true; });
   loadDepthIndex();
   overlays.habitat = L.tileLayer.wms('https://geoserver.imas.utas.edu.au/geoserver/seamap/wms', {
     layers: 'seamap:SeamapAus_National_Benthic_Habitat_Layer', format: 'image/png', transparent: true, opacity: 0.7, pane: 'underwater',

@@ -1,7 +1,9 @@
 // Map key: every colour, marker and symbol on the map, drawn with the same styles the map uses.
 import { chanceIcon, blockPill } from '../ui.js';
+import { DEPTH_BANDS } from '../depth.js';
 
 const line = (color, dashed) => `<svg width="44" height="12" aria-hidden="true"><line x1="3" y1="6" x2="41" y2="6" stroke="${color}" stroke-width="7" stroke-linecap="round" ${dashed ? 'stroke-dasharray="4 8"' : ''}/></svg>`;
+const sw = hex => `<span class="key-swatch" style="background:${hex}"></span>`;
 const row = (sym, title, text) => `<div class="key-row"><div class="key-sym">${sym}</div><div><strong>${title}</strong><div class="small muted">${text}</div></div></div>`;
 
 export function renderKey(view) {
@@ -68,6 +70,36 @@ export function renderKey(view) {
       ${row('<div class="incident injured">!</div>', 'Orange !', 'Recorded shark incident with injury.')}
       ${row('<div class="incident uninjured">·</div>', 'Grey dot', 'Recorded shark incident, no injury.')}
       <p class="small muted">From the Australian Shark-Incident Database (Taronga), Perth to Esperance, records to 2022. Exact spots weren't recorded, so pins are shown just offshore from the reported place. Check <a href="https://www.sharksmart.com.au" target="_blank" rel="noopener">SharkSmart WA</a> for current sightings.</p>
+    </div>
+
+    <div class="card"><h2>Water depth colours</h2>
+      <p class="small muted">Layers button → "Water depth (colour bands)". Light = shallow, dark = deep, measured from mean sea level. Detailed near shore where Transport WA has surveyed (zoom in); a general depth map when zoomed out. Tap the water for the depth in metres or centimetres. Not for navigation.</p>
+      ${DEPTH_BANDS.map(([max, c], i) => row(sw(`rgb(${c.join(',')})`), `${i ? DEPTH_BANDS[i - 1][0] : 0}${max === Infinity ? ' m and deeper' : '–' + max + ' m'}`, i === 0 ? 'Very shallow — wading depth, sand bars and the edge of the beach.' : i === 1 ? 'Shallow — waist to head height.' : max <= 5 ? 'Snorkel and shallow spearfishing depth.' : max <= 12 ? 'Deeper water — drop-offs and reef edges often start here.' : 'Deep water — out past most shore casts.')).join('')}
+    </div>
+
+    <div class="card"><h2>Seabed (habitat) colours</h2>
+      <p class="small muted">Layers button → "Seabed habitat". Colours come from Seamap Australia (University of Tasmania), who combined many surveys. On the map they look a bit paler because the layer is see-through. <strong>No colour means "not mapped", not "no reef".</strong> Mapping near the shore is patchy and some areas are old surveys.</p>
+      ${row(sw('#02DC00'), 'Seagrass (bright green)', 'Underwater meadows of seagrass ("weed beds"). Nursery for many fish. Squid, King George whiting, garfish and herring feed along the edges; blue swimmer crabs live on the sand patches in between.')}
+      ${row(sw('#2D9624'), 'Macroalgae (mid green)', 'Kelp and other seaweed, usually growing on rocky reef. Home to drummer, buffalo bream, sweep, wrasse and rock lobster. Spearos work the edges and gutters.')}
+      ${row(sw('#D8F263'), 'Mixed macrophytes (lime yellow-green)', 'A mix of seagrass and seaweed. Fish it like seagrass and reef together — edges and sand holes are best.')}
+      ${row(sw('#016300'), 'Vegetation (very dark green)', 'Plants recorded but not split into seagrass or seaweed.')}
+      ${row(sw('#CCFF99'), 'Biota present (pale lime)', 'Something living covers the seabed, but the survey did not say what.')}
+      ${row(sw('#1AA3FF'), 'Mixed biota (bright blue)', 'A mix of living cover — weed, sponges and invertebrates together. Usually patchy reef: good for a look.')}
+      ${row(sw('#FFF9A5'), 'Sand (pale yellow)', 'Open sand. Whiting, flathead, tailor and salmon move over it; little shelter for reef fish. Gutters and the sand next to reef or weed are the productive parts.')}
+      ${row(sw('#FFD480'), 'Soft seabed (light orange)', 'Sand, silt or mud, not split further. Same fishing as sand.')}
+      ${row(sw('#F9F075'), 'Fine sediment (yellow)', 'Fine sand and silt, often in sheltered bays and estuaries — crabs, whiting and flathead.')}
+      ${row(sw('#DCCEA3'), 'Mixed soft seabed (beige)', 'A mix of sand, shell and silt.')}
+      ${row(sw('#ADAD85'), 'Shelled biota (olive grey)', 'Seabed covered in shells and shellfish (e.g. scallop or razor-clam beds).')}
+      ${row(sw('#640000'), 'Reef rock (dark red-brown)', 'Solid rocky reef (limestone or granite). Holds dhufish, snapper, wrasse, harlequin and rock lobster — and snags tackle. Check the zone rules: many sanctuary zones are on reef.')}
+      ${row(sw('#8A5C5C'), 'Hard seabed (brown)', 'Rock or reef, type not recorded.')}
+      ${row(sw('#CCCC00'), 'Pavement reef (mustard)', 'Flat, low rock platform under water with a thin cover of weed.')}
+      ${row(sw('#994D00'), 'Boulders (rust brown)', 'Large loose rocks — caves and ledges for lobster and reef fish.')}
+      ${row(sw('#CC6600'), 'Mixed reef and sand (orange-brown)', 'Patchy reef with sand between. The edges are often the most productive fishing ground.')}
+      ${row(sw('#FF99E6'), 'Sponges and filter feeders (pink)', 'Sponge gardens, usually in deeper water.')}
+      ${row(sw('#4B0066'), 'Urchin barren (deep purple)', 'Reef stripped bare by sea urchins — few fish.')}
+      ${row(sw('#C0C0D8'), 'Nothing living (grey-lilac)', 'Bare seabed recorded.')}
+      ${row(sw('#26734B'), 'Mangrove / saltmarsh / wetland (dark green, orange)', 'Estuary and river edges — bream, crabs and mullet country.')}
+      <p class="small muted">Lines and shapes on top of the colours are other layers: red = no-fishing zone, orange dashed = special rules, blue dashed = marine park boundary.</p>
     </div>
 
     <div class="card"><h2>Legal</h2>

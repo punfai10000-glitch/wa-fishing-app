@@ -7,7 +7,7 @@ const tileCache = new Map();   // "x/y" -> Promise<Float32Array|null>
 
 export function loadDepthIndex() {
   if (!indexP) indexP = fetch('data/depth/index.json').then(r => (r.ok ? r.json() : null)).catch(() => null)
-    .then(j => { index = j; if (j) j.set = new Set(j.tiles); return j; });
+    .then(j => { index = j; if (j) { j.set = new Set(j.tiles); j.ov = Object.fromEntries(Object.entries(j.overviews || {}).map(([z, t]) => [z, new Set(t)])); } return j; });
   return indexP;
 }
 export const depthMeta = () => index;
@@ -19,11 +19,12 @@ function tileXY(lat, lng, z = Z) {
   return { x, y };
 }
 
-export function depthTile(x, y) {
-  const k = `${x}/${y}`;
-  if (!index?.set?.has(k)) return Promise.resolve(null);
-  if (!tileCache.has(k)) {
-    tileCache.set(k, fetch(`data/depth/${Z}/${k}.png`).then(r => (r.ok ? r.blob() : null))
+export function depthTile(x, y, z = Z) {
+  const k = `${x}/${y}`, ck = `${z}/${k}`;
+  const has = z === Z ? index?.set?.has(k) : index?.ov?.[z]?.has(k);
+  if (!has) return Promise.resolve(null);
+  if (!tileCache.has(ck)) {
+    tileCache.set(ck, fetch(`data/depth/${z}/${k}.png`).then(r => (r.ok ? r.blob() : null))
       .then(b => b && createImageBitmap(b, { premultiplyAlpha: 'none', colorSpaceConversion: 'none' }))
       .then(img => {
         if (!img) return null;
@@ -35,7 +36,7 @@ export function depthTile(x, y) {
         return out;
       }).catch(() => null));
   }
-  return tileCache.get(k);
+  return tileCache.get(ck);
 }
 
 /** { value (m, negative = below), source, detail, coarse } or null */
@@ -101,32 +102,28 @@ export function makeDepthLayer(L) {
       const c = document.createElement('canvas'); c.width = c.height = 256;
       const z = coords.z;
       if (z < 11) { setTimeout(() => done(null, c), 0); return c; }
-      const ctx = c.getContext('2d'), img = ctx.createImageData(256, 256);
-      const jobs = [];
-      if (z >= Z) {
-        const s = 2 ** (z - Z), px = Math.floor(coords.x / s), py = Math.floor(coords.y / s), ox = (coords.x % s) * 256 / s, oy = (coords.y % s) * 256 / s;
-        jobs.push(depthTile(px, py).then(a => {
-          if (!a) return;
-          for (let j = 0; j < 256; j++) for (let i = 0; i < 256; i++) {
-            const v = a[Math.floor(oy + j / s) * 256 + Math.floor(ox + i / s)];
-            paint(img.data, (j * 256 + i) * 4, v);
-          }
-        }));
-      } else {
-        const s = 2 ** (Z - z);   // 2 or 4 child tiles per side
-        for (let cy = 0; cy < s; cy++) for (let cx = 0; cx < s; cx++) {
-          jobs.push(depthTile(coords.x * s + cx, coords.y * s + cy).then(a => {
+      loadDepthIndex().then(() => {
+        const ctx = c.getContext('2d'), img = ctx.createImageData(256, 256), jobs = [];
+        if (z >= Z) {
+          const s = 2 ** (z - Z), px = Math.floor(coords.x / s), py = Math.floor(coords.y / s), ox = (coords.x % s) * 256 / s, oy = (coords.y % s) * 256 / s;
+          jobs.push(depthTile(px, py).then(a => {
             if (!a) return;
-            const w = 256 / s;
-            for (let j = 0; j < w; j++) for (let i = 0; i < w; i++) paint(img.data, ((cy * w + j) * 256 + cx * w + i) * 4, a[(j * s) * 256 + i * s]);
+            for (let j = 0; j < 256; j++) for (let i = 0; i < 256; i++) paint(img.data, (j * 256 + i) * 4, a[Math.floor(oy + j / s) * 256 + Math.floor(ox + i / s)]);
+          }));
+        } else if (index?.ov?.[z]) {   // pre-built overview tile: one small file
+          jobs.push(depthTile(coords.x, coords.y, z).then(a => { if (a) for (let i = 0; i < 65536; i++) paint(img.data, i * 4, a[i]); }));
+        } else {                        // data without overviews: build from the z13 tiles
+          const s = 2 ** (Z - z), w = 256 / s;
+          for (let cy = 0; cy < s; cy++) for (let cx = 0; cx < s; cx++) jobs.push(depthTile(coords.x * s + cx, coords.y * s + cy).then(a => {
+            if (a) for (let j = 0; j < w; j++) for (let i = 0; i < w; i++) paint(img.data, ((cy * w + j) * 256 + cx * w + i) * 4, a[(j * s) * 256 + i * s]);
           }));
         }
-      }
-      Promise.all(jobs).then(() => { ctx.putImageData(img, 0, 0); done(null, c); });
+        return Promise.all(jobs).then(() => { ctx.putImageData(img, 0, 0); done(null, c); });
+      }).catch(() => done(null, c));
       return c;
     }
   });
-  return new Layer({ pane: 'underwater', opacity: 0.72, minZoom: 11, maxZoom: 19, attribution: 'Depth: <a href="https://www.transport.wa.gov.au/imarine/marine-geographic-data.asp">Transport WA</a> (CC BY 3.0 AU)' });
+  return new Layer({ pane: 'depthPane', opacity: 0.78, minZoom: 11, maxZoom: 19, updateWhenIdle: false, updateWhenZooming: false, keepBuffer: 3, attribution: 'Depth: <a href="https://www.transport.wa.gov.au/imarine/marine-geographic-data.asp">Transport WA</a> (CC BY 3.0 AU)' });
 }
 function paint(d, o, v) {
   if (!Number.isFinite(v) || v > -0.2) return;   // land / dry / no survey: leave clear

@@ -478,3 +478,4 @@ html, body { height: 100%; height: 100dvh; overscroll-behavior: none; }
 .legend-box[open] .legend span { display: flex; align-items: center; gap: 6px; white-space: normal; }
 /* Fix: an empty side panel stayed on screen on computers — [hidden] must always win over display:flex */
 .sheet[hidden] { display: none !important; }
+.key-swatch { display: inline-block; width: 40px; height: 24px; border-radius: 6px; border: 1px solid rgba(255,255,255,.25); }

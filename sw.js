@@ -1,6 +1,6 @@
 // Offline support: cache the app shell; network-first for data and forecasts.
 // Map tiles are deliberately NOT cached (Esri terms prohibit offline tile export).
-const VERSION = 'wafi-v27';
+const VERSION = 'wafi-v28';
 const SHELL = [
   './', 'index.html', 'css/app.css', 'manifest.webmanifest', 'assets/icon.svg',
   'js/app.js', 'js/config.js', 'js/data.js', 'js/engine.js', 'js/map.js', 'js/storage.js', 'js/ui.js', 'js/units.js',
