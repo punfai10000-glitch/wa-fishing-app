@@ -1,6 +1,6 @@
 """Measured sea level (tide gauges) for the live-data branch.
 Source: IOC Sea Level Station Monitoring Facility (UNESCO/IOC, data from the Bureau of Meteorology gauges at
-Hillarys and Esperance), 1-minute data, free and public. Output: out/tides.json with hourly means for 36 h.
+Geraldton, Hillarys and Esperance), 1- or 3-minute data, free and public. Output: out/tides.json with hourly means for 36 h.
 """
 import json, os, sys, time, urllib.request
 from datetime import datetime, timedelta, timezone
@@ -28,7 +28,7 @@ def main():
             if not (-5 < v < 10): continue
             k = int(t.timestamp() // 3600 * 3600 * 1000)
             hours.setdefault(k, []).append(v)
-        series = [[k, round(sum(v) / len(v), 3)] for k, v in sorted(hours.items()) if len(v) >= 20]
+        series = [[k, round(sum(v) / len(v), 3)] for k, v in sorted(hours.items()) if len(v) >= 10]   # 1-min gauges give ~60 a hour, Geraldton (3-min) ~20
         if len(series) < 6: print(name, "too little data"); continue
         res.append({"code": code, "name": name, "lat": lat, "lng": lng, "hourly": series})
         print(name, len(series), "hours, last", series[-1])

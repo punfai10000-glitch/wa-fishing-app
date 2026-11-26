@@ -1,1 +1,6162 @@
-{"_note":"Auto-generated coastline sample points (~8 km apart) from Natural Earth 10m land (public domain). Each point faces the sea in direction `facing`. These are condition-sampling points, NOT fishing spots.","step_km":8,"points":[{"id":"coast-0","lat":-33.9999,"lng":122.0808,"sea":[-33.9882,122.0515],"facing":296,"onshore_dirs":["WSW","W","WNW","NW","NNW"],"sheltered_dirs":["ENE","E","ESE","SE","SSE"],"near":"Esperance","near_km":23.5,"bioregion":"west_coast"},{"id":"coast-1","lat":-33.9387,"lng":122.0898,"sea":[-33.9487,122.0596],"facing":248,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Esperance","near_km":20.4,"bioregion":"west_coast"},{"id":"coast-2","lat":-33.8717,"lng":122.0622,"sea":[-33.8881,122.0364],"facing":233,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Esperance","near_km":16,"bioregion":"west_coast"},{"id":"coast-3","lat":-33.8204,"lng":122.0044,"sea":[-33.8466,121.9966],"facing":194,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Esperance","near_km":11.4,"bioregion":"west_coast"},{"id":"coast-4","lat":-33.8351,"lng":121.9219,"sea":[-33.8587,121.9377],"facing":151,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Esperance","near_km":4,"bioregion":"west_coast"},{"id":"coast-5","lat":-33.879,"lng":121.8563,"sea":[-33.9033,121.8703],"facing":154,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Esperance","near_km":3.8,"bioregion":"west_coast"},{"id":"coast-6","lat":-33.8906,"lng":121.7763,"sea":[-33.9146,121.7613],"facing":207,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Esperance","near_km":11,"bioregion":"west_coast"},{"id":"coast-7","lat":-33.8585,"lng":121.7022,"sea":[-33.8854,121.7008],"facing":183,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Esperance","near_km":17.3,"bioregion":"west_coast"},{"id":"coast-8","lat":-33.8736,"lng":121.6265,"sea":[-33.8978,121.6122],"facing":206,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Esperance","near_km":24.4,"bioregion":"west_coast"},{"id":"coast-9","lat":-33.8334,"lng":121.5582,"sea":[-33.8577,121.544],"facing":206,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Esperance","near_km":30.8,"bioregion":"west_coast"},{"id":"coast-10","lat":-33.8207,"lng":121.4768,"sea":[-33.8477,121.4764],"facing":181,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Esperance","near_km":38.4,"bioregion":"west_coast"},{"id":"coast-11","lat":-33.8172,"lng":121.3903,"sea":[-33.8441,121.3887],"facing":183,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Esperance","near_km":46.4,"bioregion":"west_coast"},{"id":"coast-12","lat":-33.8237,"lng":121.3058,"sea":[-33.849,121.3171],"facing":160,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Starvation Boat Harbour","near_km":39.4,"bioregion":"west_coast"},{"id":"coast-13","lat":-33.8394,"lng":121.2225,"sea":[-33.8649,121.2331],"facing":161,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Starvation Boat Harbour","near_km":31.9,"bioregion":"west_coast"},{"id":"coast-14","lat":-33.8604,"lng":121.1501,"sea":[-33.8863,121.1408],"facing":196,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Starvation Boat Harbour","near_km":25.8,"bioregion":"west_coast"},{"id":"coast-15","lat":-33.8483,"lng":121.0694,"sea":[-33.874,121.0791],"facing":163,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Starvation Boat Harbour","near_km":18.3,"bioregion":"west_coast"},{"id":"coast-16","lat":-33.8631,"lng":120.9858,"sea":[-33.89,120.9881],"facing":176,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Starvation Boat Harbour","near_km":12,"bioregion":"west_coast"},{"id":"coast-17","lat":-33.8566,"lng":120.9049,"sea":[-33.8835,120.9021],"facing":185,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Starvation Boat Harbour","near_km":6.7,"bioregion":"west_coast"},{"id":"coast-18","lat":-33.8731,"lng":120.8233,"sea":[-33.8973,120.8379],"facing":153,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Starvation Boat Harbour","near_km":9.7,"bioregion":"west_coast"},{"id":"coast-19","lat":-33.8909,"lng":120.742,"sea":[-33.9177,120.7458],"facing":173,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Starvation Boat Harbour","near_km":16.3,"bioregion":"west_coast"},{"id":"coast-20","lat":-33.8909,"lng":120.6553,"sea":[-33.9179,120.6553],"facing":180,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Starvation Boat Harbour","near_km":23.1,"bioregion":"west_coast"},{"id":"coast-21","lat":-33.8913,"lng":120.5687,"sea":[-33.9166,120.5799],"facing":160,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Starvation Boat Harbour","near_km":30.5,"bioregion":"west_coast"},{"id":"coast-22","lat":-33.9399,"lng":120.5167,"sea":[-33.9639,120.5317],"facing":153,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Hopetoun","near_km":35.7,"bioregion":"west_coast"},{"id":"coast-23","lat":-33.9661,"lng":120.4359,"sea":[-33.9918,120.4457],"facing":162,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Hopetoun","near_km":28.3,"bioregion":"west_coast"},{"id":"coast-24","lat":-33.9565,"lng":120.3572,"sea":[-33.9819,120.3462],"facing":200,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Hopetoun","near_km":21,"bioregion":"west_coast"},{"id":"coast-25","lat":-33.9378,"lng":120.2735,"sea":[-33.9644,120.2683],"facing":189,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Hopetoun","near_km":13.3,"bioregion":"west_coast"},{"id":"coast-26","lat":-33.932,"lng":120.1871,"sea":[-33.9589,120.1887],"facing":177,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Hopetoun","near_km":5.6,"bioregion":"west_coast"},{"id":"coast-27","lat":-33.9512,"lng":120.1053,"sea":[-33.9782,120.104],"facing":182,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Hopetoun","near_km":2.3,"bioregion":"west_coast"},{"id":"coast-28","lat":-33.9237,"lng":120.0274,"sea":[-33.9506,120.0246],"facing":185,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Hopetoun","near_km":9.9,"bioregion":"west_coast"},{"id":"coast-29","lat":-33.9519,"lng":119.9507,"sea":[-33.9745,119.9685],"facing":147,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Hopetoun","near_km":16.5,"bioregion":"west_coast"},{"id":"coast-30","lat":-33.9678,"lng":119.8685,"sea":[-33.9944,119.8744],"facing":170,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Hopetoun","near_km":24.2,"bioregion":"west_coast"},{"id":"coast-31","lat":-33.9963,"lng":119.7903,"sea":[-34.0171,119.811],"facing":140,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Hopetoun","near_km":31.7,"bioregion":"west_coast"},{"id":"coast-32","lat":-34.0485,"lng":119.7306,"sea":[-34.0694,119.7513],"facing":141,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Hopetoun","near_km":38.4,"bioregion":"west_coast"},{"id":"coast-33","lat":-34.0809,"lng":119.6533,"sea":[-34.1048,119.6686],"facing":152,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Bremer Bay","near_km":43.5,"bioregion":"west_coast"},{"id":"coast-34","lat":-34.1255,"lng":119.6086,"sea":[-34.1452,119.6309],"facing":137,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Bremer Bay","near_km":37,"bioregion":"west_coast"},{"id":"coast-35","lat":-34.176,"lng":119.5551,"sea":[-34.1871,119.5848],"facing":114,"onshore_dirs":["ENE","E","ESE","SE","SSE"],"sheltered_dirs":["WSW","W","WNW","NW","NNW"],"near":"Bremer Bay","near_km":29.6,"bioregion":"west_coast"},{"id":"coast-36","lat":-34.2331,"lng":119.507,"sea":[-34.2526,119.5296],"facing":136,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Bremer Bay","near_km":21.9,"bioregion":"west_coast"},{"id":"coast-37","lat":-34.2971,"lng":119.4732,"sea":[-34.3017,119.5054],"facing":100,"onshore_dirs":["NE","ENE","E","ESE","SE"],"sheltered_dirs":["SW","WSW","W","WNW","NW"],"near":"Bremer Bay","near_km":14.3,"bioregion":"west_coast"},{"id":"coast-38","lat":-34.3612,"lng":119.4913,"sea":[-34.3391,119.5099],"facing":35,"onshore_dirs":["N","NNE","NE","ENE","E"],"sheltered_dirs":["S","SSW","SW","WSW","W"],"near":"Bremer Bay","near_km":11.1,"bioregion":"south_coast"},{"id":"coast-39","lat":-34.3891,"lng":119.5471,"sea":[-34.409,119.5693],"facing":137,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Bremer Bay","near_km":15.4,"bioregion":"south_coast"},{"id":"coast-40","lat":-34.394,"lng":119.4677,"sea":[-34.4168,119.4501],"facing":213,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Bremer Bay","near_km":8.1,"bioregion":"south_coast"},{"id":"coast-41","lat":-34.3794,"lng":119.3951,"sea":[-34.4002,119.4158],"facing":141,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Bremer Bay","near_km":2.7,"bioregion":"south_coast"},{"id":"coast-42","lat":-34.4444,"lng":119.3872,"sea":[-34.4379,119.4189],"facing":76,"onshore_dirs":["NNE","NE","ENE","E","ESE"],"sheltered_dirs":["SSW","SW","WSW","W","WNW"],"near":"Bremer Bay","near_km":5,"bioregion":"south_coast"},{"id":"coast-43","lat":-34.4947,"lng":119.3604,"sea":[-34.5217,119.3608],"facing":179,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Bremer Bay","near_km":10.7,"bioregion":"south_coast"},{"id":"coast-44","lat":-34.4455,"lng":119.3101,"sea":[-34.4724,119.3085],"facing":183,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Bremer Bay","near_km":8.2,"bioregion":"south_coast"},{"id":"coast-45","lat":-34.497,"lng":119.2638,"sea":[-34.5015,119.2961],"facing":100,"onshore_dirs":["NE","ENE","E","ESE","SE"],"sheltered_dirs":["SW","WSW","W","WNW","NW"],"near":"Bremer Bay","near_km":15.2,"bioregion":"south_coast"},{"id":"coast-46","lat":-34.5216,"lng":119.2162,"sea":[-34.5403,119.1927],"facing":226,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Bremer Bay","near_km":20.2,"bioregion":"south_coast"},{"id":"coast-47","lat":-34.4938,"lng":119.1494,"sea":[-34.5193,119.1387],"facing":199,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Bremer Bay","near_km":23.6,"bioregion":"south_coast"},{"id":"coast-48","lat":-34.4658,"lng":119.0728,"sea":[-34.4924,119.0674],"facing":189,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Bremer Bay","near_km":29.1,"bioregion":"south_coast"},{"id":"coast-49","lat":-34.4539,"lng":118.9868,"sea":[-34.4805,118.9814],"facing":189,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Bremer Bay","near_km":36.6,"bioregion":"south_coast"},{"id":"coast-50","lat":-34.4567,"lng":118.9032,"sea":[-34.4832,118.909],"facing":170,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Bremer Bay","near_km":44.2,"bioregion":"south_coast"},{"id":"coast-51","lat":-34.4665,"lng":118.8545,"sea":[-34.4509,118.8812],"facing":55,"onshore_dirs":["N","NNE","NE","ENE","E"],"sheltered_dirs":["S","SSW","SW","WSW","W"],"near":"Bremer Bay","near_km":48.8,"bioregion":"south_coast"},{"id":"coast-52","lat":-34.5089,"lng":118.8587,"sea":[-34.5352,118.8659],"facing":167,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Bremer Bay","near_km":49.3,"bioregion":"south_coast"},{"id":"coast-53","lat":-34.5272,"lng":118.7761,"sea":[-34.55,118.7937],"facing":148,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Cheyne Beach","near_km":52.2,"bioregion":"south_coast"},{"id":"coast-54","lat":-34.579,"lng":118.7241,"sea":[-34.5759,118.7566],"facing":83,"onshore_dirs":["NE","ENE","E","ESE","SE"],"sheltered_dirs":["SW","WSW","W","WNW","NW"],"near":"Cheyne Beach","near_km":44.7,"bioregion":"south_coast"},{"id":"coast-55","lat":-34.6268,"lng":118.7326,"sea":[-34.6452,118.7565],"facing":133,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Cheyne Beach","near_km":41.4,"bioregion":"south_coast"},{"id":"coast-56","lat":-34.6621,"lng":118.6589,"sea":[-34.6855,118.6752],"facing":150,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Cheyne Beach","near_km":33.9,"bioregion":"south_coast"},{"id":"coast-57","lat":-34.6921,"lng":118.581,"sea":[-34.7183,118.5883],"facing":167,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Cheyne Beach","near_km":26.6,"bioregion":"south_coast"},{"id":"coast-58","lat":-34.711,"lng":118.4967,"sea":[-34.7357,118.51],"facing":156,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Cheyne Beach","near_km":20.8,"bioregion":"south_coast"},{"id":"coast-59","lat":-34.7542,"lng":118.4283,"sea":[-34.769,118.4558],"facing":123,"onshore_dirs":["ENE","E","ESE","SE","SSE"],"sheltered_dirs":["WSW","W","WNW","NW","NNW"],"near":"Cheyne Beach","near_km":14.2,"bioregion":"south_coast"},{"id":"coast-60","lat":-34.819,"lng":118.3916,"sea":[-34.826,118.4233],"facing":105,"onshore_dirs":["ENE","E","ESE","SE","SSE"],"sheltered_dirs":["WSW","W","WNW","NW","NNW"],"near":"Cheyne Beach","near_km":6.8,"bioregion":"south_coast"},{"id":"coast-61","lat":-34.8893,"lng":118.3998,"sea":[-34.8944,118.4321],"facing":101,"onshore_dirs":["NE","ENE","E","ESE","SE"],"sheltered_dirs":["SW","WSW","W","WNW","NW"],"near":"Cheyne Beach","near_km":1,"bioregion":"south_coast"},{"id":"coast-62","lat":-34.9065,"lng":118.3294,"sea":[-34.9335,118.3302],"facing":179,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Cheyne Beach","near_km":7.1,"bioregion":"south_coast"},{"id":"coast-63","lat":-34.9181,"lng":118.2438,"sea":[-34.9426,118.2577],"facing":155,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Two Peoples Bay","near_km":8.2,"bioregion":"south_coast"},{"id":"coast-64","lat":-34.9451,"lng":118.1645,"sea":[-34.9624,118.1898],"facing":130,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Two Peoples Bay","near_km":3.1,"bioregion":"south_coast"},{"id":"coast-65","lat":-34.9999,"lng":118.201,"sea":[-35.0003,118.2339],"facing":91,"onshore_dirs":["NE","ENE","E","ESE","SE"],"sheltered_dirs":["SW","WSW","W","WNW","NW"],"near":"Two Peoples Bay","near_km":3.8,"bioregion":"south_coast"},{"id":"coast-66","lat":-34.9995,"lng":118.1402,"sea":[-35.0229,118.1237],"facing":210,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Two Peoples Bay","near_km":4.9,"bioregion":"south_coast"},{"id":"coast-67","lat":-35.0001,"lng":118.069,"sea":[-35.0253,118.0809],"facing":159,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Two Peoples Bay","near_km":10.6,"bioregion":"south_coast"},{"id":"coast-68","lat":-35.0082,"lng":117.9861,"sea":[-35.0352,117.9848],"facing":182,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Albany","near_km":9.1,"bioregion":"south_coast"},{"id":"coast-69","lat":-35.0187,"lng":117.9103,"sea":[-35.0447,117.9191],"facing":165,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Albany","near_km":2.2,"bioregion":"south_coast"},{"id":"coast-70","lat":-35.0386,"lng":117.8327,"sea":[-35.0449,117.8647],"facing":104,"onshore_dirs":["ENE","E","ESE","SE","SSE"],"sheltered_dirs":["WSW","W","WNW","NW","NNW"],"near":"Albany","near_km":5.3,"bioregion":"south_coast"},{"id":"coast-71","lat":-35.0813,"lng":117.8936,"sea":[-35.0564,117.8808],"facing":337,"onshore_dirs":["WNW","NW","NNW","N","NNE"],"sheltered_dirs":["ESE","SE","SSE","S","SSW"],"near":"Albany","near_km":5.7,"bioregion":"south_coast"},{"id":"coast-72","lat":-35.0544,"lng":117.921,"sea":[-35.0361,117.9452],"facing":47,"onshore_dirs":["N","NNE","NE","ENE","E"],"sheltered_dirs":["S","SSW","SW","WSW","W"],"near":"Albany","near_km":3.9,"bioregion":"south_coast"},{"id":"coast-73","lat":-35.0854,"lng":117.9842,"sea":[-35.0598,117.9944],"facing":18,"onshore_dirs":["NNW","N","NNE","NE","ENE"],"sheltered_dirs":["SSE","S","SSW","SW","WSW"],"near":"Albany","near_km":10.6,"bioregion":"south_coast"},{"id":"coast-74","lat":-35.116,"lng":117.951,"sea":[-35.1414,117.9624],"facing":160,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Albany","near_km":11.1,"bioregion":"south_coast"},{"id":"coast-75","lat":-35.1098,"lng":117.8653,"sea":[-35.1339,117.8504],"facing":207,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Albany","near_km":9.2,"bioregion":"south_coast"},{"id":"coast-76","lat":-35.0668,"lng":117.7961,"sea":[-35.0907,117.7809],"facing":208,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Albany","near_km":9.5,"bioregion":"south_coast"},{"id":"coast-77","lat":-35.0481,"lng":117.7122,"sea":[-35.075,117.7098],"facing":184,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Albany","near_km":16.3,"bioregion":"south_coast"},{"id":"coast-78","lat":-35.0692,"lng":117.6339,"sea":[-35.0847,117.6608],"facing":125,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Albany","near_km":23.7,"bioregion":"south_coast"},{"id":"coast-79","lat":-35.1362,"lng":117.6166,"sea":[-35.1611,117.6293],"facing":157,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Albany","near_km":27.5,"bioregion":"south_coast"},{"id":"coast-80","lat":-35.0952,"lng":117.5449,"sea":[-35.1185,117.5283],"facing":210,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Denmark","near_km":20.7,"bioregion":"south_coast"},{"id":"coast-81","lat":-35.0765,"lng":117.461,"sea":[-35.1015,117.4486],"facing":202,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Denmark","near_km":13.2,"bioregion":"south_coast"},{"id":"coast-82","lat":-35.0371,"lng":117.3875,"sea":[-35.06,117.3701],"facing":212,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Denmark","near_km":5.4,"bioregion":"south_coast"},{"id":"coast-83","lat":-35.0317,"lng":117.3168,"sea":[-35.0585,117.3211],"facing":173,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Denmark","near_km":4.6,"bioregion":"south_coast"},{"id":"coast-84","lat":-35.0183,"lng":117.2345,"sea":[-35.0453,117.2326],"facing":183,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Denmark","near_km":10.7,"bioregion":"south_coast"},{"id":"coast-85","lat":-35.0255,"lng":117.1597,"sea":[-35.042,117.1858],"facing":128,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Denmark","near_km":17.6,"bioregion":"south_coast"},{"id":"coast-86","lat":-35.0421,"lng":117.1112,"sea":[-35.065,117.0938],"facing":212,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Peaceful Bay","near_km":17.4,"bioregion":"south_coast"},{"id":"coast-87","lat":-35.0234,"lng":117.0299,"sea":[-35.0504,117.0301],"facing":180,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Peaceful Bay","near_km":10.2,"bioregion":"south_coast"},{"id":"coast-88","lat":-35.0144,"lng":116.9477,"sea":[-35.0402,116.9571],"facing":163,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Peaceful Bay","near_km":3.8,"bioregion":"south_coast"},{"id":"coast-89","lat":-35.0542,"lng":116.8778,"sea":[-35.081,116.881],"facing":174,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Peaceful Bay","near_km":4.2,"bioregion":"south_coast"},{"id":"coast-90","lat":-35.0256,"lng":116.7991,"sea":[-35.0493,116.7832],"facing":209,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Walpole","near_km":6.9,"bioregion":"south_coast"},{"id":"coast-91","lat":-35.0206,"lng":116.7258,"sea":[-35.0451,116.7398],"facing":155,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Walpole","near_km":2.3,"bioregion":"south_coast"},{"id":"coast-92","lat":-35.0316,"lng":116.6528,"sea":[-35.0553,116.6685],"facing":152,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Walpole","near_km":7.9,"bioregion":"south_coast"},{"id":"coast-93","lat":-35.0234,"lng":116.5897,"sea":[-35.0477,116.5752],"facing":206,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Walpole","near_km":13,"bioregion":"south_coast"},{"id":"coast-94","lat":-35.0022,"lng":116.5088,"sea":[-35.0278,116.4984],"facing":198,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Walpole","near_km":20.1,"bioregion":"south_coast"},{"id":"coast-95","lat":-34.9743,"lng":116.4353,"sea":[-34.9941,116.413],"facing":223,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Walpole","near_km":27,"bioregion":"south_coast"},{"id":"coast-96","lat":-34.9262,"lng":116.3821,"sea":[-34.9452,116.4055],"facing":135,"onshore_dirs":["E","ESE","SE","SSE","S"],"sheltered_dirs":["W","WNW","NW","NNW","N"],"near":"Walpole","near_km":32.7,"bioregion":"south_coast"},{"id":"coast-97","lat":-34.9389,"lng":116.4667,"sea":[-34.9127,116.4748],"facing":14,"onshore_dirs":["NNW","N","NNE","NE","ENE"],"sheltered_dirs":["SSE","S","SSW","SW","WSW"],"near":"Walpole","near_km":24.9,"bioregion":"south_coast"},{"id":"coast-98","lat":-34.9135,"lng":116.4746,"sea":[-34.9374,116.4593],"facing":208,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Walpole","near_km":25.2,"bioregion":"south_coast"},{"id":"coast-99","lat":-34.8717,"lng":116.4082,"sea":[-34.8913,116.3856],"facing":223,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Walpole","near_km":32.6,"bioregion":"south_coast"},{"id":"coast-100","lat":-34.8948,"lng":116.3924,"sea":[-34.8924,116.4252],"facing":85,"onshore_dirs":["NE","ENE","E","ESE","SE"],"sheltered_dirs":["SW","WSW","W","WNW","NW"],"near":"Walpole","near_km":32.9,"bioregion":"south_coast"},{"id":"coast-101","lat":-34.9122,"lng":116.3291,"sea":[-34.9381,116.3198],"facing":196,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Windy Harbour","near_km":28.4,"bioregion":"south_coast"},{"id":"coast-102","lat":-34.8791,"lng":116.2514,"sea":[-34.9036,116.2377],"facing":205,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Windy Harbour","near_km":20.7,"bioregion":"south_coast"},{"id":"coast-103","lat":-34.8568,"lng":116.1681,"sea":[-34.8825,116.1583],"facing":197,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Windy Harbour","near_km":12.7,"bioregion":"south_coast"},{"id":"coast-104","lat":-34.8369,"lng":116.084,"sea":[-34.8634,116.0779],"facing":191,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Windy Harbour","near_km":4.9,"bioregion":"south_coast"},{"id":"coast-105","lat":-34.833,"lng":115.9976,"sea":[-34.8599,115.9942],"facing":186,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Windy Harbour","near_km":3.1,"bioregion":"south_coast"},{"id":"coast-106","lat":-34.7824,"lng":115.9734,"sea":[-34.7938,115.9436],"facing":245,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Windy Harbour","near_km":8.2,"bioregion":"south_coast"},{"id":"coast-107","lat":-34.7205,"lng":115.9314,"sea":[-34.7333,115.9025],"facing":242,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Windy Harbour","near_km":16.1,"bioregion":"south_coast"},{"id":"coast-108","lat":-34.6659,"lng":115.8748,"sea":[-34.6837,115.8502],"facing":229,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Windy Harbour","near_km":24,"bioregion":"south_coast"},{"id":"coast-109","lat":-34.611,"lng":115.8184,"sea":[-34.6284,115.7934],"facing":230,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Windy Harbour","near_km":32,"bioregion":"south_coast"},{"id":"coast-110","lat":-34.556,"lng":115.762,"sea":[-34.5739,115.7374],"facing":229,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Black Point","near_km":24.6,"bioregion":"south_coast"},{"id":"coast-111","lat":-34.5069,"lng":115.6985,"sea":[-34.5273,115.6772],"facing":221,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Black Point","near_km":16.7,"bioregion":"south_coast"},{"id":"coast-112","lat":-34.4599,"lng":115.6324,"sea":[-34.4807,115.6115],"facing":220,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Black Point","near_km":8.8,"bioregion":"south_coast"},{"id":"coast-113","lat":-34.4224,"lng":115.5591,"sea":[-34.4476,115.5475],"facing":201,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Black Point","near_km":0.9,"bioregion":"south_coast"},{"id":"coast-114","lat":-34.383,"lng":115.4941,"sea":[-34.4051,115.4754],"facing":215,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Black Point","near_km":6.6,"bioregion":"west_coast"},{"id":"coast-115","lat":-34.3499,"lng":115.4168,"sea":[-34.3737,115.4015],"facing":208,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Black Point","near_km":14.5,"bioregion":"west_coast"},{"id":"coast-116","lat":-34.3163,"lng":115.3397,"sea":[-34.3409,115.3264],"facing":204,"onshore_dirs":["SSE","S","SSW","SW","WSW"],"sheltered_dirs":["NNW","N","NNE","NE","ENE"],"near":"Augusta","near_km":16.5,"bioregion":"west_coast"},{"id":"coast-117","lat":-34.2982,"lng":115.2562,"sea":[-34.3251,115.2553],"facing":182,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Augusta","near_km":8.9,"bioregion":"west_coast"},{"id":"coast-118","lat":-34.3068,"lng":115.1707,"sea":[-34.3293,115.1888],"facing":146,"onshore_dirs":["ESE","SE","SSE","S","SSW"],"sheltered_dirs":["WNW","NW","NNW","N","NNE"],"near":"Augusta","near_km":1,"bioregion":"west_coast"},{"id":"coast-119","lat":-34.3634,"lng":115.1205,"sea":[-34.3902,115.1175],"facing":185,"onshore_dirs":["SE","SSE","S","SSW","SW"],"sheltered_dirs":["NW","NNW","N","NNE","NE"],"near":"Augusta","near_km":7,"bioregion":"west_coast"},{"id":"coast-120","lat":-34.3072,"lng":115.0682,"sea":[-34.3253,115.0439],"facing":228,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Augusta","near_km":8.4,"bioregion":"west_coast"},{"id":"coast-121","lat":-34.2514,"lng":115.0147,"sea":[-34.261,114.9842],"facing":249,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Hamelin Bay","near_km":3.8,"bioregion":"west_coast"},{"id":"coast-122","lat":-34.1801,"lng":115.0121,"sea":[-34.182,114.9796],"facing":266,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Hamelin Bay","near_km":4.7,"bioregion":"west_coast"},{"id":"coast-123","lat":-34.1118,"lng":114.9858,"sea":[-34.1217,114.9555],"facing":248,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Hamelin Bay","near_km":12.7,"bioregion":"west_coast"},{"id":"coast-124","lat":-34.0421,"lng":114.9756,"sea":[-34.0421,114.9431],"facing":270,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Prevelly / Gnarabup","near_km":7,"bioregion":"west_coast"},{"id":"coast-125","lat":-33.9702,"lng":114.9738,"sea":[-33.9708,114.9413],"facing":269,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Prevelly / Gnarabup","near_km":1.9,"bioregion":"west_coast"},{"id":"coast-126","lat":-33.8988,"lng":114.9661,"sea":[-33.9034,114.9341],"facing":260,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Gracetown","near_km":4.8,"bioregion":"west_coast"},{"id":"coast-127","lat":-33.8281,"lng":114.9702,"sea":[-33.8216,114.9387],"facing":284,"onshore_dirs":["WSW","W","WNW","NW","NNW"],"sheltered_dirs":["ENE","E","ESE","SE","SSE"],"near":"Gracetown","near_km":4,"bioregion":"west_coast"},{"id":"coast-128","lat":-33.7604,"lng":114.9752,"sea":[-33.7694,114.9446],"facing":251,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Gracetown","near_km":11.2,"bioregion":"west_coast"},{"id":"coast-129","lat":-33.6909,"lng":114.9581,"sea":[-33.6873,114.926],"facing":278,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Yallingup","near_km":8.1,"bioregion":"west_coast"},{"id":"coast-130","lat":-33.6296,"lng":114.9984,"sea":[-33.6183,114.969],"facing":295,"onshore_dirs":["WSW","W","WNW","NW","NNW"],"sheltered_dirs":["ENE","E","ESE","SE","SSE"],"near":"Yallingup","near_km":3.7,"bioregion":"west_coast"},{"id":"coast-131","lat":-33.5595,"lng":114.9942,"sea":[-33.5639,114.9622],"facing":261,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Cape Naturaliste","near_km":3.3,"bioregion":"west_coast"},{"id":"coast-132","lat":-33.53,"lng":115.0242,"sea":[-33.5058,115.0385],"facing":26,"onshore_dirs":["NNW","N","NNE","NE","ENE"],"sheltered_dirs":["SSE","S","SSW","SW","WSW"],"near":"Cape Naturaliste","near_km":2.2,"bioregion":"west_coast"},{"id":"coast-133","lat":-33.5808,"lng":115.0822,"sea":[-33.5651,115.1085],"facing":55,"onshore_dirs":["N","NNE","NE","ENE","E"],"sheltered_dirs":["S","SSW","SW","WSW","W"],"near":"Dunsborough","near_km":3.6,"bioregion":"west_coast"},{"id":"coast-134","lat":-33.6276,"lng":115.1457,"sea":[-33.6036,115.1604],"facing":27,"onshore_dirs":["NNW","N","NNE","NE","ENE"],"sheltered_dirs":["SSE","S","SSW","SW","WSW"],"near":"Dunsborough","near_km":4.7,"bioregion":"west_coast"},{"id":"coast-135","lat":-33.6498,"lng":115.2275,"sea":[-33.623,115.2315],"facing":7,"onshore_dirs":["NW","NNW","N","NNE","NE"],"sheltered_dirs":["SE","SSE","S","SSW","SW"],"near":"Busselton","near_km":10.4,"bioregion":"west_coast"},{"id":"coast-136","lat":-33.6462,"lng":115.3132,"sea":[-33.62,115.3056],"facing":346,"onshore_dirs":["WNW","NW","NNW","N","NNE"],"sheltered_dirs":["ESE","SE","SSE","S","SSW"],"near":"Busselton","near_km":2.5,"bioregion":"west_coast"},{"id":"coast-137","lat":-33.6194,"lng":115.3928,"sea":[-33.5964,115.3761],"facing":329,"onshore_dirs":["WNW","NW","NNW","N","NNE"],"sheltered_dirs":["ESE","SE","SSE","S","SSW"],"near":"Busselton","near_km":6,"bioregion":"west_coast"},{"id":"coast-138","lat":-33.572,"lng":115.4567,"sea":[-33.5547,115.4319],"facing":310,"onshore_dirs":["W","WNW","NW","NNW","N"],"sheltered_dirs":["E","ESE","SE","SSE","S"],"near":"Busselton","near_km":13.9,"bioregion":"west_coast"},{"id":"coast-139","lat":-33.5168,"lng":115.512,"sea":[-33.5011,115.4857],"facing":306,"onshore_dirs":["W","WNW","NW","NNW","N"],"sheltered_dirs":["E","ESE","SE","SSE","S"],"near":"Busselton","near_km":21.8,"bioregion":"west_coast"},{"id":"coast-140","lat":-33.4545,"lng":115.555,"sea":[-33.4414,115.5268],"facing":299,"onshore_dirs":["WSW","W","WNW","NW","NNW"],"sheltered_dirs":["ENE","E","ESE","SE","SSE"],"near":"Bunbury","near_km":15.5,"bioregion":"west_coast"},{"id":"coast-141","lat":-33.3904,"lng":115.5941,"sea":[-33.3792,115.5647],"facing":295,"onshore_dirs":["WSW","W","WNW","NW","NNW"],"sheltered_dirs":["ENE","E","ESE","SE","SSE"],"near":"Bunbury","near_km":7.5,"bioregion":"west_coast"},{"id":"coast-142","lat":-33.3221,"lng":115.62,"sea":[-33.3111,115.5905],"facing":294,"onshore_dirs":["WSW","W","WNW","NW","NNW"],"sheltered_dirs":["ENE","E","ESE","SE","SSE"],"near":"Bunbury","near_km":1.3,"bioregion":"west_coast"},{"id":"coast-143","lat":-33.3037,"lng":115.6881,"sea":[-33.2795,115.6736],"facing":333,"onshore_dirs":["WNW","NW","NNW","N","NNE"],"sheltered_dirs":["ESE","SE","SSE","S","SSW"],"near":"Bunbury","near_km":6.1,"bioregion":"west_coast"},{"id":"coast-144","lat":-33.2399,"lng":115.7088,"sea":[-33.2412,115.6765],"facing":267,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Bunbury","near_km":12.4,"bioregion":"west_coast"},{"id":"coast-145","lat":-33.2103,"lng":115.6915,"sea":[-33.2195,115.7219],"facing":110,"onshore_dirs":["ENE","E","ESE","SE","SSE"],"sheltered_dirs":["WSW","W","WNW","NW","NNW"],"near":"Myalup","near_km":12.3,"bioregion":"west_coast"},{"id":"coast-146","lat":-33.2811,"lng":115.6761,"sea":[-33.2953,115.7036],"facing":122,"onshore_dirs":["ENE","E","ESE","SE","SSE"],"sheltered_dirs":["WSW","W","WNW","NW","NNW"],"near":"Bunbury","near_km":6.9,"bioregion":"west_coast"},{"id":"coast-147","lat":-33.2292,"lng":115.6686,"sea":[-33.2287,115.6364],"facing":271,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Bunbury","near_km":11.8,"bioregion":"west_coast"},{"id":"coast-148","lat":-33.1573,"lng":115.6702,"sea":[-33.1568,115.638],"facing":271,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Myalup","near_km":6.6,"bioregion":"west_coast"},{"id":"coast-149","lat":-33.0854,"lng":115.6723,"sea":[-33.0845,115.6401],"facing":272,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Myalup","near_km":2.3,"bioregion":"west_coast"},{"id":"coast-150","lat":-33.0135,"lng":115.6727,"sea":[-33.016,115.6407],"facing":265,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Myalup","near_km":9.7,"bioregion":"west_coast"},{"id":"coast-151","lat":-32.9423,"lng":115.6608,"sea":[-32.9471,115.6292],"facing":260,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Preston Beach","near_km":6.9,"bioregion":"west_coast"},{"id":"coast-152","lat":-32.8723,"lng":115.6413,"sea":[-32.8785,115.6101],"facing":257,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Preston Beach","near_km":1.9,"bioregion":"west_coast"},{"id":"coast-153","lat":-32.8021,"lng":115.6229,"sea":[-32.8061,115.5911],"facing":261,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Preston Beach","near_km":9.3,"bioregion":"west_coast"},{"id":"coast-154","lat":-32.7305,"lng":115.6135,"sea":[-32.7354,115.582],"facing":260,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Dawesville","near_km":12.5,"bioregion":"west_coast"},{"id":"coast-155","lat":-32.6599,"lng":115.603,"sea":[-32.6566,115.5712],"facing":277,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Dawesville","near_km":5.6,"bioregion":"west_coast"},{"id":"coast-156","lat":-32.5925,"lng":115.6313,"sea":[-32.5792,115.6034],"facing":299,"onshore_dirs":["WSW","W","WNW","NW","NNW"],"sheltered_dirs":["ENE","E","ESE","SE","SSE"],"near":"Dawesville","near_km":3.2,"bioregion":"west_coast"},{"id":"coast-157","lat":-32.5322,"lng":115.6777,"sea":[-32.5151,115.6529],"facing":309,"onshore_dirs":["W","WNW","NW","NNW","N"],"sheltered_dirs":["E","ESE","SE","SSE","S"],"near":"Mandurah","near_km":3,"bioregion":"west_coast"},{"id":"coast-158","lat":-32.5565,"lng":115.6882,"sea":[-32.5687,115.7167],"facing":117,"onshore_dirs":["ENE","E","ESE","SE","SSE"],"sheltered_dirs":["WSW","W","WNW","NW","NNW"],"near":"Mandurah","near_km":3.6,"bioregion":"west_coast"},{"id":"coast-159","lat":-32.6139,"lng":115.6386,"sea":[-32.6212,115.6694],"facing":106,"onshore_dirs":["ENE","E","ESE","SE","SSE"],"sheltered_dirs":["WSW","W","WNW","NW","NNW"],"near":"Dawesville","near_km":0.7,"bioregion":"west_coast"},{"id":"coast-160","lat":-32.6844,"lng":115.6493,"sea":[-32.676,115.6798],"facing":72,"onshore_dirs":["NNE","NE","ENE","E","ESE"],"sheltered_dirs":["SSW","SW","WSW","W","WNW"],"near":"Dawesville","near_km":7.2,"bioregion":"west_coast"},{"id":"coast-161","lat":-32.7513,"lng":115.6801,"sea":[-32.7379,115.7079],"facing":60,"onshore_dirs":["NNE","NE","ENE","E","ESE"],"sheltered_dirs":["SSW","SW","WSW","W","WNW"],"near":"Preston Beach","near_km":14.4,"bioregion":"west_coast"},{"id":"coast-162","lat":-32.7518,"lng":115.7194,"sea":[-32.7544,115.6875],"facing":265,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Preston Beach","near_km":15.3,"bioregion":"west_coast"},{"id":"coast-163","lat":-32.6871,"lng":115.684,"sea":[-32.6958,115.6536],"facing":251,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Dawesville","near_km":8.5,"bioregion":"west_coast"},{"id":"coast-164","lat":-32.6245,"lng":115.6648,"sea":[-32.6029,115.6456],"facing":323,"onshore_dirs":["W","WNW","NW","NNW","N"],"sheltered_dirs":["E","ESE","SE","SSE","S"],"near":"Dawesville","near_km":2.4,"bioregion":"west_coast"},{"id":"coast-165","lat":-32.6377,"lng":115.7444,"sea":[-32.6122,115.7342],"facing":341,"onshore_dirs":["WNW","NW","NNW","N","NNE"],"sheltered_dirs":["ESE","SE","SSE","S","SSW"],"near":"Dawesville","near_km":10,"bioregion":"west_coast"},{"id":"coast-166","lat":-32.5779,"lng":115.7626,"sea":[-32.5946,115.7374],"facing":232,"onshore_dirs":["S","SSW","SW","WSW","W"],"sheltered_dirs":["N","NNE","NE","ENE","E"],"near":"Mandurah","near_km":7.3,"bioregion":"west_coast"},{"id":"coast-167","lat":-32.5277,"lng":115.7142,"sea":[-32.5245,115.6824],"facing":277,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Mandurah","near_km":0.5,"bioregion":"west_coast"},{"id":"coast-168","lat":-32.4614,"lng":115.7449,"sea":[-32.4574,115.7132],"facing":278,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Secret Harbour","near_km":6.8,"bioregion":"west_coast"},{"id":"coast-169","lat":-32.3917,"lng":115.7339,"sea":[-32.4065,115.7072],"facing":237,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Secret Harbour","near_km":1.1,"bioregion":"west_coast"},{"id":"coast-170","lat":-32.3381,"lng":115.7345,"sea":[-32.3339,115.703],"facing":279,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Rockingham","near_km":6.5,"bioregion":"west_coast"},{"id":"coast-171","lat":-32.2871,"lng":115.6835,"sea":[-32.302,115.6568],"facing":237,"onshore_dirs":["SSW","SW","WSW","W","WNW"],"sheltered_dirs":["NNE","NE","ENE","E","ESE"],"near":"Rockingham","near_km":4.4,"bioregion":"west_coast"},{"id":"coast-172","lat":-32.2631,"lng":115.7363,"sea":[-32.246,115.7116],"facing":309,"onshore_dirs":["W","WNW","NW","NNW","N"],"sheltered_dirs":["E","ESE","SE","SSE","S"],"near":"Rockingham","near_km":2,"bioregion":"west_coast"},{"id":"coast-173","lat":-32.193,"lng":115.7551,"sea":[-32.1888,115.7236],"facing":279,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Coogee","near_km":8.1,"bioregion":"west_coast"},{"id":"coast-174","lat":-32.1263,"lng":115.7366,"sea":[-32.1289,115.7048],"facing":264,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Coogee","near_km":2.3,"bioregion":"west_coast"},{"id":"coast-175","lat":-32.0577,"lng":115.7286,"sea":[-32.0591,115.6968],"facing":267,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Fremantle","near_km":1.1,"bioregion":"west_coast"},{"id":"coast-176","lat":-31.9861,"lng":115.7363,"sea":[-31.9835,115.7047],"facing":275,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Cottesloe","near_km":1.4,"bioregion":"west_coast"},{"id":"coast-177","lat":-31.9145,"lng":115.7412,"sea":[-31.9162,115.7095],"facing":266,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Cottesloe","near_km":8.4,"bioregion":"west_coast"},{"id":"coast-178","lat":-31.8431,"lng":115.7311,"sea":[-31.8463,115.6996],"facing":263,"onshore_dirs":["SW","WSW","W","WNW","NW"],"sheltered_dirs":["NE","ENE","E","ESE","SE"],"near":"Cottesloe","near_km":16.4,"bioregion":"west_coast"}]}
+{
+ "_note": "Auto-generated coastline sample points (~8 km apart) from Natural Earth 10m land (public domain). Each point faces the sea in direction `facing`. These are condition-sampling points, NOT fishing spots. Points north of Hillarys (ids coast-n*) were added from the precise OSM coastline. Points north of Hillarys (ids coast-n*) were added from the precise OSM coastline.",
+ "step_km": 8,
+ "points": [
+  {
+   "id": "coast-0",
+   "lat": -33.9999,
+   "lng": 122.0808,
+   "sea": [
+    -33.9882,
+    122.0515
+   ],
+   "facing": 296,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Esperance",
+   "near_km": 23.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-1",
+   "lat": -33.9387,
+   "lng": 122.0898,
+   "sea": [
+    -33.9487,
+    122.0596
+   ],
+   "facing": 248,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Esperance",
+   "near_km": 20.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-2",
+   "lat": -33.8717,
+   "lng": 122.0622,
+   "sea": [
+    -33.8881,
+    122.0364
+   ],
+   "facing": 233,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Esperance",
+   "near_km": 16,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-3",
+   "lat": -33.8204,
+   "lng": 122.0044,
+   "sea": [
+    -33.8466,
+    121.9966
+   ],
+   "facing": 194,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Esperance",
+   "near_km": 11.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-4",
+   "lat": -33.8351,
+   "lng": 121.9219,
+   "sea": [
+    -33.8587,
+    121.9377
+   ],
+   "facing": 151,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Esperance",
+   "near_km": 4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-5",
+   "lat": -33.879,
+   "lng": 121.8563,
+   "sea": [
+    -33.9033,
+    121.8703
+   ],
+   "facing": 154,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Esperance",
+   "near_km": 3.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-6",
+   "lat": -33.8906,
+   "lng": 121.7763,
+   "sea": [
+    -33.9146,
+    121.7613
+   ],
+   "facing": 207,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Esperance",
+   "near_km": 11,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-7",
+   "lat": -33.8585,
+   "lng": 121.7022,
+   "sea": [
+    -33.8854,
+    121.7008
+   ],
+   "facing": 183,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Esperance",
+   "near_km": 17.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-8",
+   "lat": -33.8736,
+   "lng": 121.6265,
+   "sea": [
+    -33.8978,
+    121.6122
+   ],
+   "facing": 206,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Esperance",
+   "near_km": 24.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-9",
+   "lat": -33.8334,
+   "lng": 121.5582,
+   "sea": [
+    -33.8577,
+    121.544
+   ],
+   "facing": 206,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Esperance",
+   "near_km": 30.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-10",
+   "lat": -33.8207,
+   "lng": 121.4768,
+   "sea": [
+    -33.8477,
+    121.4764
+   ],
+   "facing": 181,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Esperance",
+   "near_km": 38.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-11",
+   "lat": -33.8172,
+   "lng": 121.3903,
+   "sea": [
+    -33.8441,
+    121.3887
+   ],
+   "facing": 183,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Esperance",
+   "near_km": 46.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-12",
+   "lat": -33.8237,
+   "lng": 121.3058,
+   "sea": [
+    -33.849,
+    121.3171
+   ],
+   "facing": 160,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 39.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-13",
+   "lat": -33.8394,
+   "lng": 121.2225,
+   "sea": [
+    -33.8649,
+    121.2331
+   ],
+   "facing": 161,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 31.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-14",
+   "lat": -33.8604,
+   "lng": 121.1501,
+   "sea": [
+    -33.8863,
+    121.1408
+   ],
+   "facing": 196,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 25.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-15",
+   "lat": -33.8483,
+   "lng": 121.0694,
+   "sea": [
+    -33.874,
+    121.0791
+   ],
+   "facing": 163,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 18.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-16",
+   "lat": -33.8631,
+   "lng": 120.9858,
+   "sea": [
+    -33.89,
+    120.9881
+   ],
+   "facing": 176,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 12,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-17",
+   "lat": -33.8566,
+   "lng": 120.9049,
+   "sea": [
+    -33.8835,
+    120.9021
+   ],
+   "facing": 185,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 6.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-18",
+   "lat": -33.8731,
+   "lng": 120.8233,
+   "sea": [
+    -33.8973,
+    120.8379
+   ],
+   "facing": 153,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 9.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-19",
+   "lat": -33.8909,
+   "lng": 120.742,
+   "sea": [
+    -33.9177,
+    120.7458
+   ],
+   "facing": 173,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 16.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-20",
+   "lat": -33.8909,
+   "lng": 120.6553,
+   "sea": [
+    -33.9179,
+    120.6553
+   ],
+   "facing": 180,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 23.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-21",
+   "lat": -33.8913,
+   "lng": 120.5687,
+   "sea": [
+    -33.9166,
+    120.5799
+   ],
+   "facing": 160,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Starvation Boat Harbour",
+   "near_km": 30.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-22",
+   "lat": -33.9399,
+   "lng": 120.5167,
+   "sea": [
+    -33.9639,
+    120.5317
+   ],
+   "facing": 153,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 35.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-23",
+   "lat": -33.9661,
+   "lng": 120.4359,
+   "sea": [
+    -33.9918,
+    120.4457
+   ],
+   "facing": 162,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 28.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-24",
+   "lat": -33.9565,
+   "lng": 120.3572,
+   "sea": [
+    -33.9819,
+    120.3462
+   ],
+   "facing": 200,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 21,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-25",
+   "lat": -33.9378,
+   "lng": 120.2735,
+   "sea": [
+    -33.9644,
+    120.2683
+   ],
+   "facing": 189,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 13.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-26",
+   "lat": -33.932,
+   "lng": 120.1871,
+   "sea": [
+    -33.9589,
+    120.1887
+   ],
+   "facing": 177,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 5.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-27",
+   "lat": -33.9512,
+   "lng": 120.1053,
+   "sea": [
+    -33.9782,
+    120.104
+   ],
+   "facing": 182,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 2.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-28",
+   "lat": -33.9237,
+   "lng": 120.0274,
+   "sea": [
+    -33.9506,
+    120.0246
+   ],
+   "facing": 185,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 9.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-29",
+   "lat": -33.9519,
+   "lng": 119.9507,
+   "sea": [
+    -33.9745,
+    119.9685
+   ],
+   "facing": 147,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 16.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-30",
+   "lat": -33.9678,
+   "lng": 119.8685,
+   "sea": [
+    -33.9944,
+    119.8744
+   ],
+   "facing": 170,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Hopetoun",
+   "near_km": 24.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-31",
+   "lat": -33.9963,
+   "lng": 119.7903,
+   "sea": [
+    -34.0171,
+    119.811
+   ],
+   "facing": 140,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Hopetoun",
+   "near_km": 31.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-32",
+   "lat": -34.0485,
+   "lng": 119.7306,
+   "sea": [
+    -34.0694,
+    119.7513
+   ],
+   "facing": 141,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Hopetoun",
+   "near_km": 38.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-33",
+   "lat": -34.0809,
+   "lng": 119.6533,
+   "sea": [
+    -34.1048,
+    119.6686
+   ],
+   "facing": 152,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 43.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-34",
+   "lat": -34.1255,
+   "lng": 119.6086,
+   "sea": [
+    -34.1452,
+    119.6309
+   ],
+   "facing": 137,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 37,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-35",
+   "lat": -34.176,
+   "lng": 119.5551,
+   "sea": [
+    -34.1871,
+    119.5848
+   ],
+   "facing": 114,
+   "onshore_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "sheltered_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 29.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-36",
+   "lat": -34.2331,
+   "lng": 119.507,
+   "sea": [
+    -34.2526,
+    119.5296
+   ],
+   "facing": 136,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 21.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-37",
+   "lat": -34.2971,
+   "lng": 119.4732,
+   "sea": [
+    -34.3017,
+    119.5054
+   ],
+   "facing": 100,
+   "onshore_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "sheltered_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 14.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-38",
+   "lat": -34.3612,
+   "lng": 119.4913,
+   "sea": [
+    -34.3391,
+    119.5099
+   ],
+   "facing": 35,
+   "onshore_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "sheltered_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 11.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-39",
+   "lat": -34.3891,
+   "lng": 119.5471,
+   "sea": [
+    -34.409,
+    119.5693
+   ],
+   "facing": 137,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 15.4,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-40",
+   "lat": -34.394,
+   "lng": 119.4677,
+   "sea": [
+    -34.4168,
+    119.4501
+   ],
+   "facing": 213,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 8.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-41",
+   "lat": -34.3794,
+   "lng": 119.3951,
+   "sea": [
+    -34.4002,
+    119.4158
+   ],
+   "facing": 141,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 2.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-42",
+   "lat": -34.4444,
+   "lng": 119.3872,
+   "sea": [
+    -34.4379,
+    119.4189
+   ],
+   "facing": 76,
+   "onshore_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "sheltered_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 5,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-43",
+   "lat": -34.4947,
+   "lng": 119.3604,
+   "sea": [
+    -34.5217,
+    119.3608
+   ],
+   "facing": 179,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 10.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-44",
+   "lat": -34.4455,
+   "lng": 119.3101,
+   "sea": [
+    -34.4724,
+    119.3085
+   ],
+   "facing": 183,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 8.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-45",
+   "lat": -34.497,
+   "lng": 119.2638,
+   "sea": [
+    -34.5015,
+    119.2961
+   ],
+   "facing": 100,
+   "onshore_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "sheltered_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 15.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-46",
+   "lat": -34.5216,
+   "lng": 119.2162,
+   "sea": [
+    -34.5403,
+    119.1927
+   ],
+   "facing": 226,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 20.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-47",
+   "lat": -34.4938,
+   "lng": 119.1494,
+   "sea": [
+    -34.5193,
+    119.1387
+   ],
+   "facing": 199,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 23.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-48",
+   "lat": -34.4658,
+   "lng": 119.0728,
+   "sea": [
+    -34.4924,
+    119.0674
+   ],
+   "facing": 189,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 29.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-49",
+   "lat": -34.4539,
+   "lng": 118.9868,
+   "sea": [
+    -34.4805,
+    118.9814
+   ],
+   "facing": 189,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 36.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-50",
+   "lat": -34.4567,
+   "lng": 118.9032,
+   "sea": [
+    -34.4832,
+    118.909
+   ],
+   "facing": 170,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 44.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-51",
+   "lat": -34.4665,
+   "lng": 118.8545,
+   "sea": [
+    -34.4509,
+    118.8812
+   ],
+   "facing": 55,
+   "onshore_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "sheltered_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 48.8,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-52",
+   "lat": -34.5089,
+   "lng": 118.8587,
+   "sea": [
+    -34.5352,
+    118.8659
+   ],
+   "facing": 167,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Bremer Bay",
+   "near_km": 49.3,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-53",
+   "lat": -34.5272,
+   "lng": 118.7761,
+   "sea": [
+    -34.55,
+    118.7937
+   ],
+   "facing": 148,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 52.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-54",
+   "lat": -34.579,
+   "lng": 118.7241,
+   "sea": [
+    -34.5759,
+    118.7566
+   ],
+   "facing": 83,
+   "onshore_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "sheltered_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 44.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-55",
+   "lat": -34.6268,
+   "lng": 118.7326,
+   "sea": [
+    -34.6452,
+    118.7565
+   ],
+   "facing": 133,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 41.4,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-56",
+   "lat": -34.6621,
+   "lng": 118.6589,
+   "sea": [
+    -34.6855,
+    118.6752
+   ],
+   "facing": 150,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 33.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-57",
+   "lat": -34.6921,
+   "lng": 118.581,
+   "sea": [
+    -34.7183,
+    118.5883
+   ],
+   "facing": 167,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 26.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-58",
+   "lat": -34.711,
+   "lng": 118.4967,
+   "sea": [
+    -34.7357,
+    118.51
+   ],
+   "facing": 156,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 20.8,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-59",
+   "lat": -34.7542,
+   "lng": 118.4283,
+   "sea": [
+    -34.769,
+    118.4558
+   ],
+   "facing": 123,
+   "onshore_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "sheltered_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 14.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-60",
+   "lat": -34.819,
+   "lng": 118.3916,
+   "sea": [
+    -34.826,
+    118.4233
+   ],
+   "facing": 105,
+   "onshore_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "sheltered_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 6.8,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-61",
+   "lat": -34.8893,
+   "lng": 118.3998,
+   "sea": [
+    -34.8944,
+    118.4321
+   ],
+   "facing": 101,
+   "onshore_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "sheltered_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-62",
+   "lat": -34.9065,
+   "lng": 118.3294,
+   "sea": [
+    -34.9335,
+    118.3302
+   ],
+   "facing": 179,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Cheyne Beach",
+   "near_km": 7.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-63",
+   "lat": -34.9181,
+   "lng": 118.2438,
+   "sea": [
+    -34.9426,
+    118.2577
+   ],
+   "facing": 155,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Two Peoples Bay",
+   "near_km": 8.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-64",
+   "lat": -34.9451,
+   "lng": 118.1645,
+   "sea": [
+    -34.9624,
+    118.1898
+   ],
+   "facing": 130,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Two Peoples Bay",
+   "near_km": 3.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-65",
+   "lat": -34.9999,
+   "lng": 118.201,
+   "sea": [
+    -35.0003,
+    118.2339
+   ],
+   "facing": 91,
+   "onshore_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "sheltered_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "near": "Two Peoples Bay",
+   "near_km": 3.8,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-66",
+   "lat": -34.9995,
+   "lng": 118.1402,
+   "sea": [
+    -35.0229,
+    118.1237
+   ],
+   "facing": 210,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Two Peoples Bay",
+   "near_km": 4.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-67",
+   "lat": -35.0001,
+   "lng": 118.069,
+   "sea": [
+    -35.0253,
+    118.0809
+   ],
+   "facing": 159,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Two Peoples Bay",
+   "near_km": 10.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-68",
+   "lat": -35.0082,
+   "lng": 117.9861,
+   "sea": [
+    -35.0352,
+    117.9848
+   ],
+   "facing": 182,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Albany",
+   "near_km": 9.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-69",
+   "lat": -35.0187,
+   "lng": 117.9103,
+   "sea": [
+    -35.0447,
+    117.9191
+   ],
+   "facing": 165,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Albany",
+   "near_km": 2.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-70",
+   "lat": -35.0386,
+   "lng": 117.8327,
+   "sea": [
+    -35.0449,
+    117.8647
+   ],
+   "facing": 104,
+   "onshore_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "sheltered_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "near": "Albany",
+   "near_km": 5.3,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-71",
+   "lat": -35.0813,
+   "lng": 117.8936,
+   "sea": [
+    -35.0564,
+    117.8808
+   ],
+   "facing": 337,
+   "onshore_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "sheltered_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "near": "Albany",
+   "near_km": 5.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-72",
+   "lat": -35.0544,
+   "lng": 117.921,
+   "sea": [
+    -35.0361,
+    117.9452
+   ],
+   "facing": 47,
+   "onshore_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "sheltered_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "near": "Albany",
+   "near_km": 3.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-73",
+   "lat": -35.0854,
+   "lng": 117.9842,
+   "sea": [
+    -35.0598,
+    117.9944
+   ],
+   "facing": 18,
+   "onshore_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "sheltered_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "near": "Albany",
+   "near_km": 10.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-74",
+   "lat": -35.116,
+   "lng": 117.951,
+   "sea": [
+    -35.1414,
+    117.9624
+   ],
+   "facing": 160,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Albany",
+   "near_km": 11.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-75",
+   "lat": -35.1098,
+   "lng": 117.8653,
+   "sea": [
+    -35.1339,
+    117.8504
+   ],
+   "facing": 207,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Albany",
+   "near_km": 9.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-76",
+   "lat": -35.0668,
+   "lng": 117.7961,
+   "sea": [
+    -35.0907,
+    117.7809
+   ],
+   "facing": 208,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Albany",
+   "near_km": 9.5,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-77",
+   "lat": -35.0481,
+   "lng": 117.7122,
+   "sea": [
+    -35.075,
+    117.7098
+   ],
+   "facing": 184,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Albany",
+   "near_km": 16.3,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-78",
+   "lat": -35.0692,
+   "lng": 117.6339,
+   "sea": [
+    -35.0847,
+    117.6608
+   ],
+   "facing": 125,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Albany",
+   "near_km": 23.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-79",
+   "lat": -35.1362,
+   "lng": 117.6166,
+   "sea": [
+    -35.1611,
+    117.6293
+   ],
+   "facing": 157,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Albany",
+   "near_km": 27.5,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-80",
+   "lat": -35.0952,
+   "lng": 117.5449,
+   "sea": [
+    -35.1185,
+    117.5283
+   ],
+   "facing": 210,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Denmark",
+   "near_km": 20.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-81",
+   "lat": -35.0765,
+   "lng": 117.461,
+   "sea": [
+    -35.1015,
+    117.4486
+   ],
+   "facing": 202,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Denmark",
+   "near_km": 13.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-82",
+   "lat": -35.0371,
+   "lng": 117.3875,
+   "sea": [
+    -35.06,
+    117.3701
+   ],
+   "facing": 212,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Denmark",
+   "near_km": 5.4,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-83",
+   "lat": -35.0317,
+   "lng": 117.3168,
+   "sea": [
+    -35.0585,
+    117.3211
+   ],
+   "facing": 173,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Denmark",
+   "near_km": 4.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-84",
+   "lat": -35.0183,
+   "lng": 117.2345,
+   "sea": [
+    -35.0453,
+    117.2326
+   ],
+   "facing": 183,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Denmark",
+   "near_km": 10.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-85",
+   "lat": -35.0255,
+   "lng": 117.1597,
+   "sea": [
+    -35.042,
+    117.1858
+   ],
+   "facing": 128,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Denmark",
+   "near_km": 17.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-86",
+   "lat": -35.0421,
+   "lng": 117.1112,
+   "sea": [
+    -35.065,
+    117.0938
+   ],
+   "facing": 212,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Peaceful Bay",
+   "near_km": 17.4,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-87",
+   "lat": -35.0234,
+   "lng": 117.0299,
+   "sea": [
+    -35.0504,
+    117.0301
+   ],
+   "facing": 180,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Peaceful Bay",
+   "near_km": 10.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-88",
+   "lat": -35.0144,
+   "lng": 116.9477,
+   "sea": [
+    -35.0402,
+    116.9571
+   ],
+   "facing": 163,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Peaceful Bay",
+   "near_km": 3.8,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-89",
+   "lat": -35.0542,
+   "lng": 116.8778,
+   "sea": [
+    -35.081,
+    116.881
+   ],
+   "facing": 174,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Peaceful Bay",
+   "near_km": 4.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-90",
+   "lat": -35.0256,
+   "lng": 116.7991,
+   "sea": [
+    -35.0493,
+    116.7832
+   ],
+   "facing": 209,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Walpole",
+   "near_km": 6.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-91",
+   "lat": -35.0206,
+   "lng": 116.7258,
+   "sea": [
+    -35.0451,
+    116.7398
+   ],
+   "facing": 155,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Walpole",
+   "near_km": 2.3,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-92",
+   "lat": -35.0316,
+   "lng": 116.6528,
+   "sea": [
+    -35.0553,
+    116.6685
+   ],
+   "facing": 152,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Walpole",
+   "near_km": 7.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-93",
+   "lat": -35.0234,
+   "lng": 116.5897,
+   "sea": [
+    -35.0477,
+    116.5752
+   ],
+   "facing": 206,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Walpole",
+   "near_km": 13,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-94",
+   "lat": -35.0022,
+   "lng": 116.5088,
+   "sea": [
+    -35.0278,
+    116.4984
+   ],
+   "facing": 198,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Walpole",
+   "near_km": 20.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-95",
+   "lat": -34.9743,
+   "lng": 116.4353,
+   "sea": [
+    -34.9941,
+    116.413
+   ],
+   "facing": 223,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Walpole",
+   "near_km": 27,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-96",
+   "lat": -34.9262,
+   "lng": 116.3821,
+   "sea": [
+    -34.9452,
+    116.4055
+   ],
+   "facing": 135,
+   "onshore_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "sheltered_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "near": "Walpole",
+   "near_km": 32.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-97",
+   "lat": -34.9389,
+   "lng": 116.4667,
+   "sea": [
+    -34.9127,
+    116.4748
+   ],
+   "facing": 14,
+   "onshore_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "sheltered_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "near": "Walpole",
+   "near_km": 24.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-98",
+   "lat": -34.9135,
+   "lng": 116.4746,
+   "sea": [
+    -34.9374,
+    116.4593
+   ],
+   "facing": 208,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Walpole",
+   "near_km": 25.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-99",
+   "lat": -34.8717,
+   "lng": 116.4082,
+   "sea": [
+    -34.8913,
+    116.3856
+   ],
+   "facing": 223,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Walpole",
+   "near_km": 32.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-100",
+   "lat": -34.8948,
+   "lng": 116.3924,
+   "sea": [
+    -34.8924,
+    116.4252
+   ],
+   "facing": 85,
+   "onshore_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "sheltered_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "near": "Walpole",
+   "near_km": 32.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-101",
+   "lat": -34.9122,
+   "lng": 116.3291,
+   "sea": [
+    -34.9381,
+    116.3198
+   ],
+   "facing": 196,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 28.4,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-102",
+   "lat": -34.8791,
+   "lng": 116.2514,
+   "sea": [
+    -34.9036,
+    116.2377
+   ],
+   "facing": 205,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 20.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-103",
+   "lat": -34.8568,
+   "lng": 116.1681,
+   "sea": [
+    -34.8825,
+    116.1583
+   ],
+   "facing": 197,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 12.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-104",
+   "lat": -34.8369,
+   "lng": 116.084,
+   "sea": [
+    -34.8634,
+    116.0779
+   ],
+   "facing": 191,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 4.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-105",
+   "lat": -34.833,
+   "lng": 115.9976,
+   "sea": [
+    -34.8599,
+    115.9942
+   ],
+   "facing": 186,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 3.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-106",
+   "lat": -34.7824,
+   "lng": 115.9734,
+   "sea": [
+    -34.7938,
+    115.9436
+   ],
+   "facing": 245,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 8.2,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-107",
+   "lat": -34.7205,
+   "lng": 115.9314,
+   "sea": [
+    -34.7333,
+    115.9025
+   ],
+   "facing": 242,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 16.1,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-108",
+   "lat": -34.6659,
+   "lng": 115.8748,
+   "sea": [
+    -34.6837,
+    115.8502
+   ],
+   "facing": 229,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 24,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-109",
+   "lat": -34.611,
+   "lng": 115.8184,
+   "sea": [
+    -34.6284,
+    115.7934
+   ],
+   "facing": 230,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Windy Harbour",
+   "near_km": 32,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-110",
+   "lat": -34.556,
+   "lng": 115.762,
+   "sea": [
+    -34.5739,
+    115.7374
+   ],
+   "facing": 229,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Black Point",
+   "near_km": 24.6,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-111",
+   "lat": -34.5069,
+   "lng": 115.6985,
+   "sea": [
+    -34.5273,
+    115.6772
+   ],
+   "facing": 221,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Black Point",
+   "near_km": 16.7,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-112",
+   "lat": -34.4599,
+   "lng": 115.6324,
+   "sea": [
+    -34.4807,
+    115.6115
+   ],
+   "facing": 220,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Black Point",
+   "near_km": 8.8,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-113",
+   "lat": -34.4224,
+   "lng": 115.5591,
+   "sea": [
+    -34.4476,
+    115.5475
+   ],
+   "facing": 201,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Black Point",
+   "near_km": 0.9,
+   "bioregion": "south_coast"
+  },
+  {
+   "id": "coast-114",
+   "lat": -34.383,
+   "lng": 115.4941,
+   "sea": [
+    -34.4051,
+    115.4754
+   ],
+   "facing": 215,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Black Point",
+   "near_km": 6.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-115",
+   "lat": -34.3499,
+   "lng": 115.4168,
+   "sea": [
+    -34.3737,
+    115.4015
+   ],
+   "facing": 208,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Black Point",
+   "near_km": 14.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-116",
+   "lat": -34.3163,
+   "lng": 115.3397,
+   "sea": [
+    -34.3409,
+    115.3264
+   ],
+   "facing": 204,
+   "onshore_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "sheltered_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "near": "Augusta",
+   "near_km": 16.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-117",
+   "lat": -34.2982,
+   "lng": 115.2562,
+   "sea": [
+    -34.3251,
+    115.2553
+   ],
+   "facing": 182,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Augusta",
+   "near_km": 8.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-118",
+   "lat": -34.3068,
+   "lng": 115.1707,
+   "sea": [
+    -34.3293,
+    115.1888
+   ],
+   "facing": 146,
+   "onshore_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "sheltered_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "near": "Augusta",
+   "near_km": 1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-119",
+   "lat": -34.3634,
+   "lng": 115.1205,
+   "sea": [
+    -34.3902,
+    115.1175
+   ],
+   "facing": 185,
+   "onshore_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "sheltered_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "near": "Augusta",
+   "near_km": 7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-120",
+   "lat": -34.3072,
+   "lng": 115.0682,
+   "sea": [
+    -34.3253,
+    115.0439
+   ],
+   "facing": 228,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Augusta",
+   "near_km": 8.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-121",
+   "lat": -34.2514,
+   "lng": 115.0147,
+   "sea": [
+    -34.261,
+    114.9842
+   ],
+   "facing": 249,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Hamelin Bay",
+   "near_km": 3.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-122",
+   "lat": -34.1801,
+   "lng": 115.0121,
+   "sea": [
+    -34.182,
+    114.9796
+   ],
+   "facing": 266,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Hamelin Bay",
+   "near_km": 4.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-123",
+   "lat": -34.1118,
+   "lng": 114.9858,
+   "sea": [
+    -34.1217,
+    114.9555
+   ],
+   "facing": 248,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Hamelin Bay",
+   "near_km": 12.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-124",
+   "lat": -34.0421,
+   "lng": 114.9756,
+   "sea": [
+    -34.0421,
+    114.9431
+   ],
+   "facing": 270,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Prevelly / Gnarabup",
+   "near_km": 7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-125",
+   "lat": -33.9702,
+   "lng": 114.9738,
+   "sea": [
+    -33.9708,
+    114.9413
+   ],
+   "facing": 269,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Prevelly / Gnarabup",
+   "near_km": 1.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-126",
+   "lat": -33.8988,
+   "lng": 114.9661,
+   "sea": [
+    -33.9034,
+    114.9341
+   ],
+   "facing": 260,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Gracetown",
+   "near_km": 4.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-127",
+   "lat": -33.8281,
+   "lng": 114.9702,
+   "sea": [
+    -33.8216,
+    114.9387
+   ],
+   "facing": 284,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Gracetown",
+   "near_km": 4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-128",
+   "lat": -33.7604,
+   "lng": 114.9752,
+   "sea": [
+    -33.7694,
+    114.9446
+   ],
+   "facing": 251,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Gracetown",
+   "near_km": 11.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-129",
+   "lat": -33.6909,
+   "lng": 114.9581,
+   "sea": [
+    -33.6873,
+    114.926
+   ],
+   "facing": 278,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Yallingup",
+   "near_km": 8.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-130",
+   "lat": -33.6296,
+   "lng": 114.9984,
+   "sea": [
+    -33.6183,
+    114.969
+   ],
+   "facing": 295,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Yallingup",
+   "near_km": 3.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-131",
+   "lat": -33.5595,
+   "lng": 114.9942,
+   "sea": [
+    -33.5639,
+    114.9622
+   ],
+   "facing": 261,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Cape Naturaliste",
+   "near_km": 3.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-132",
+   "lat": -33.53,
+   "lng": 115.0242,
+   "sea": [
+    -33.5058,
+    115.0385
+   ],
+   "facing": 26,
+   "onshore_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "sheltered_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "near": "Cape Naturaliste",
+   "near_km": 2.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-133",
+   "lat": -33.5808,
+   "lng": 115.0822,
+   "sea": [
+    -33.5651,
+    115.1085
+   ],
+   "facing": 55,
+   "onshore_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "sheltered_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "near": "Dunsborough",
+   "near_km": 3.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-134",
+   "lat": -33.6276,
+   "lng": 115.1457,
+   "sea": [
+    -33.6036,
+    115.1604
+   ],
+   "facing": 27,
+   "onshore_dirs": [
+    "NNW",
+    "N",
+    "NNE",
+    "NE",
+    "ENE"
+   ],
+   "sheltered_dirs": [
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW"
+   ],
+   "near": "Dunsborough",
+   "near_km": 4.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-135",
+   "lat": -33.6498,
+   "lng": 115.2275,
+   "sea": [
+    -33.623,
+    115.2315
+   ],
+   "facing": 7,
+   "onshore_dirs": [
+    "NW",
+    "NNW",
+    "N",
+    "NNE",
+    "NE"
+   ],
+   "sheltered_dirs": [
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW"
+   ],
+   "near": "Busselton",
+   "near_km": 10.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-136",
+   "lat": -33.6462,
+   "lng": 115.3132,
+   "sea": [
+    -33.62,
+    115.3056
+   ],
+   "facing": 346,
+   "onshore_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "sheltered_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "near": "Busselton",
+   "near_km": 2.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-137",
+   "lat": -33.6194,
+   "lng": 115.3928,
+   "sea": [
+    -33.5964,
+    115.3761
+   ],
+   "facing": 329,
+   "onshore_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "sheltered_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "near": "Busselton",
+   "near_km": 6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-138",
+   "lat": -33.572,
+   "lng": 115.4567,
+   "sea": [
+    -33.5547,
+    115.4319
+   ],
+   "facing": 310,
+   "onshore_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "sheltered_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "near": "Busselton",
+   "near_km": 13.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-139",
+   "lat": -33.5168,
+   "lng": 115.512,
+   "sea": [
+    -33.5011,
+    115.4857
+   ],
+   "facing": 306,
+   "onshore_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "sheltered_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "near": "Busselton",
+   "near_km": 21.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-140",
+   "lat": -33.4545,
+   "lng": 115.555,
+   "sea": [
+    -33.4414,
+    115.5268
+   ],
+   "facing": 299,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Bunbury",
+   "near_km": 15.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-141",
+   "lat": -33.3904,
+   "lng": 115.5941,
+   "sea": [
+    -33.3792,
+    115.5647
+   ],
+   "facing": 295,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Bunbury",
+   "near_km": 7.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-142",
+   "lat": -33.3221,
+   "lng": 115.62,
+   "sea": [
+    -33.3111,
+    115.5905
+   ],
+   "facing": 294,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Bunbury",
+   "near_km": 1.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-143",
+   "lat": -33.3037,
+   "lng": 115.6881,
+   "sea": [
+    -33.2795,
+    115.6736
+   ],
+   "facing": 333,
+   "onshore_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "sheltered_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "near": "Bunbury",
+   "near_km": 6.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-144",
+   "lat": -33.2399,
+   "lng": 115.7088,
+   "sea": [
+    -33.2412,
+    115.6765
+   ],
+   "facing": 267,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Bunbury",
+   "near_km": 12.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-145",
+   "lat": -33.2103,
+   "lng": 115.6915,
+   "sea": [
+    -33.2195,
+    115.7219
+   ],
+   "facing": 110,
+   "onshore_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "sheltered_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "near": "Myalup",
+   "near_km": 12.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-146",
+   "lat": -33.2811,
+   "lng": 115.6761,
+   "sea": [
+    -33.2953,
+    115.7036
+   ],
+   "facing": 122,
+   "onshore_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "sheltered_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "near": "Bunbury",
+   "near_km": 6.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-147",
+   "lat": -33.2292,
+   "lng": 115.6686,
+   "sea": [
+    -33.2287,
+    115.6364
+   ],
+   "facing": 271,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Bunbury",
+   "near_km": 11.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-148",
+   "lat": -33.1573,
+   "lng": 115.6702,
+   "sea": [
+    -33.1568,
+    115.638
+   ],
+   "facing": 271,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Myalup",
+   "near_km": 6.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-149",
+   "lat": -33.0854,
+   "lng": 115.6723,
+   "sea": [
+    -33.0845,
+    115.6401
+   ],
+   "facing": 272,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Myalup",
+   "near_km": 2.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-150",
+   "lat": -33.0135,
+   "lng": 115.6727,
+   "sea": [
+    -33.016,
+    115.6407
+   ],
+   "facing": 265,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Myalup",
+   "near_km": 9.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-151",
+   "lat": -32.9423,
+   "lng": 115.6608,
+   "sea": [
+    -32.9471,
+    115.6292
+   ],
+   "facing": 260,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Preston Beach",
+   "near_km": 6.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-152",
+   "lat": -32.8723,
+   "lng": 115.6413,
+   "sea": [
+    -32.8785,
+    115.6101
+   ],
+   "facing": 257,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Preston Beach",
+   "near_km": 1.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-153",
+   "lat": -32.8021,
+   "lng": 115.6229,
+   "sea": [
+    -32.8061,
+    115.5911
+   ],
+   "facing": 261,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Preston Beach",
+   "near_km": 9.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-154",
+   "lat": -32.7305,
+   "lng": 115.6135,
+   "sea": [
+    -32.7354,
+    115.582
+   ],
+   "facing": 260,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Dawesville",
+   "near_km": 12.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-155",
+   "lat": -32.6599,
+   "lng": 115.603,
+   "sea": [
+    -32.6566,
+    115.5712
+   ],
+   "facing": 277,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Dawesville",
+   "near_km": 5.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-156",
+   "lat": -32.5925,
+   "lng": 115.6313,
+   "sea": [
+    -32.5792,
+    115.6034
+   ],
+   "facing": 299,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Dawesville",
+   "near_km": 3.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-157",
+   "lat": -32.5322,
+   "lng": 115.6777,
+   "sea": [
+    -32.5151,
+    115.6529
+   ],
+   "facing": 309,
+   "onshore_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "sheltered_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "near": "Mandurah",
+   "near_km": 3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-158",
+   "lat": -32.5565,
+   "lng": 115.6882,
+   "sea": [
+    -32.5687,
+    115.7167
+   ],
+   "facing": 117,
+   "onshore_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "sheltered_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "near": "Mandurah",
+   "near_km": 3.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-159",
+   "lat": -32.6139,
+   "lng": 115.6386,
+   "sea": [
+    -32.6212,
+    115.6694
+   ],
+   "facing": 106,
+   "onshore_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "sheltered_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "near": "Dawesville",
+   "near_km": 0.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-160",
+   "lat": -32.6844,
+   "lng": 115.6493,
+   "sea": [
+    -32.676,
+    115.6798
+   ],
+   "facing": 72,
+   "onshore_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "sheltered_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "near": "Dawesville",
+   "near_km": 7.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-161",
+   "lat": -32.7513,
+   "lng": 115.6801,
+   "sea": [
+    -32.7379,
+    115.7079
+   ],
+   "facing": 60,
+   "onshore_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "sheltered_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "near": "Preston Beach",
+   "near_km": 14.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-162",
+   "lat": -32.7518,
+   "lng": 115.7194,
+   "sea": [
+    -32.7544,
+    115.6875
+   ],
+   "facing": 265,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Preston Beach",
+   "near_km": 15.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-163",
+   "lat": -32.6871,
+   "lng": 115.684,
+   "sea": [
+    -32.6958,
+    115.6536
+   ],
+   "facing": 251,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Dawesville",
+   "near_km": 8.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-164",
+   "lat": -32.6245,
+   "lng": 115.6648,
+   "sea": [
+    -32.6029,
+    115.6456
+   ],
+   "facing": 323,
+   "onshore_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "sheltered_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "near": "Dawesville",
+   "near_km": 2.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-165",
+   "lat": -32.6377,
+   "lng": 115.7444,
+   "sea": [
+    -32.6122,
+    115.7342
+   ],
+   "facing": 341,
+   "onshore_dirs": [
+    "WNW",
+    "NW",
+    "NNW",
+    "N",
+    "NNE"
+   ],
+   "sheltered_dirs": [
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW"
+   ],
+   "near": "Dawesville",
+   "near_km": 10,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-166",
+   "lat": -32.5779,
+   "lng": 115.7626,
+   "sea": [
+    -32.5946,
+    115.7374
+   ],
+   "facing": 232,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Mandurah",
+   "near_km": 7.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-167",
+   "lat": -32.5277,
+   "lng": 115.7142,
+   "sea": [
+    -32.5245,
+    115.6824
+   ],
+   "facing": 277,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Mandurah",
+   "near_km": 0.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-168",
+   "lat": -32.4614,
+   "lng": 115.7449,
+   "sea": [
+    -32.4574,
+    115.7132
+   ],
+   "facing": 278,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Secret Harbour",
+   "near_km": 6.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-169",
+   "lat": -32.3917,
+   "lng": 115.7339,
+   "sea": [
+    -32.4065,
+    115.7072
+   ],
+   "facing": 237,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Secret Harbour",
+   "near_km": 1.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-170",
+   "lat": -32.3381,
+   "lng": 115.7345,
+   "sea": [
+    -32.3339,
+    115.703
+   ],
+   "facing": 279,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Rockingham",
+   "near_km": 6.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-171",
+   "lat": -32.2871,
+   "lng": 115.6835,
+   "sea": [
+    -32.302,
+    115.6568
+   ],
+   "facing": 237,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Rockingham",
+   "near_km": 4.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-172",
+   "lat": -32.2631,
+   "lng": 115.7363,
+   "sea": [
+    -32.246,
+    115.7116
+   ],
+   "facing": 309,
+   "onshore_dirs": [
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+    "N"
+   ],
+   "sheltered_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "near": "Rockingham",
+   "near_km": 2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-173",
+   "lat": -32.193,
+   "lng": 115.7551,
+   "sea": [
+    -32.1888,
+    115.7236
+   ],
+   "facing": 279,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Coogee",
+   "near_km": 8.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-174",
+   "lat": -32.1263,
+   "lng": 115.7366,
+   "sea": [
+    -32.1289,
+    115.7048
+   ],
+   "facing": 264,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Coogee",
+   "near_km": 2.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-175",
+   "lat": -32.0577,
+   "lng": 115.7286,
+   "sea": [
+    -32.0591,
+    115.6968
+   ],
+   "facing": 267,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Fremantle",
+   "near_km": 1.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-176",
+   "lat": -31.9861,
+   "lng": 115.7363,
+   "sea": [
+    -31.9835,
+    115.7047
+   ],
+   "facing": 275,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Cottesloe",
+   "near_km": 1.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-177",
+   "lat": -31.9145,
+   "lng": 115.7412,
+   "sea": [
+    -31.9162,
+    115.7095
+   ],
+   "facing": 266,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Cottesloe",
+   "near_km": 8.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-178",
+   "lat": -31.8431,
+   "lng": 115.7311,
+   "sea": [
+    -31.8463,
+    115.6996
+   ],
+   "facing": 263,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Cottesloe",
+   "near_km": 16.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n0",
+   "lat": -28.5669,
+   "lng": 114.5704,
+   "sea": [
+    -28.5789,
+    114.5429
+   ],
+   "facing": 243,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Geraldton",
+   "near_km": 23.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n1",
+   "lat": -28.6306,
+   "lng": 114.6032,
+   "sea": [
+    -28.6363,
+    114.5732
+   ],
+   "facing": 258,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Geraldton",
+   "near_km": 16.0,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n2",
+   "lat": -28.6964,
+   "lng": 114.6113,
+   "sea": [
+    -28.7027,
+    114.5814
+   ],
+   "facing": 257,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Geraldton",
+   "near_km": 8.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n3",
+   "lat": -28.7635,
+   "lng": 114.6141,
+   "sea": [
+    -28.7428,
+    114.5944
+   ],
+   "facing": 320,
+   "onshore_dirs": [
+    "N",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S"
+   ],
+   "near": "Geraldton",
+   "near_km": 1.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n4",
+   "lat": -28.8619,
+   "lng": 114.6351,
+   "sea": [
+    -28.8714,
+    114.6063
+   ],
+   "facing": 249,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Geraldton",
+   "near_km": 10.0,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n5",
+   "lat": -28.9174,
+   "lng": 114.6748,
+   "sea": [
+    -28.9339,
+    114.6505
+   ],
+   "facing": 232,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Geraldton",
+   "near_km": 17.0,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n6",
+   "lat": -28.9693,
+   "lng": 114.7304,
+   "sea": [
+    -28.9878,
+    114.708
+   ],
+   "facing": 227,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Geraldton",
+   "near_km": 24.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n7",
+   "lat": -29.0209,
+   "lng": 114.7864,
+   "sea": [
+    -29.0381,
+    114.7628
+   ],
+   "facing": 230,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Dongara",
+   "near_km": 29.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n8",
+   "lat": -29.0751,
+   "lng": 114.8394,
+   "sea": [
+    -29.0921,
+    114.8155
+   ],
+   "facing": 231,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Dongara",
+   "near_km": 21.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n9",
+   "lat": -29.1368,
+   "lng": 114.878,
+   "sea": [
+    -29.1454,
+    114.8487
+   ],
+   "facing": 251,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Dongara",
+   "near_km": 13.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n10",
+   "lat": -29.2045,
+   "lng": 114.8999,
+   "sea": [
+    -29.2126,
+    114.8705
+   ],
+   "facing": 253,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Dongara",
+   "near_km": 6.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n11",
+   "lat": -29.2752,
+   "lng": 114.9141,
+   "sea": [
+    -29.2771,
+    114.8832
+   ],
+   "facing": 266,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Dongara",
+   "near_km": 3.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n12",
+   "lat": -29.3314,
+   "lng": 114.9452,
+   "sea": [
+    -29.3449,
+    114.9184
+   ],
+   "facing": 240,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Dongara",
+   "near_km": 8.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n13",
+   "lat": -29.4006,
+   "lng": 114.958,
+   "sea": [
+    -29.4054,
+    114.9276
+   ],
+   "facing": 260,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Dongara",
+   "near_km": 16.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n14",
+   "lat": -29.467,
+   "lng": 114.9883,
+   "sea": [
+    -29.4765,
+    114.9593
+   ],
+   "facing": 249,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Dongara",
+   "near_km": 24.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n15",
+   "lat": -29.5345,
+   "lng": 114.9863,
+   "sea": [
+    -29.5248,
+    114.9574
+   ],
+   "facing": 291,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Dongara",
+   "near_km": 31.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n16",
+   "lat": -29.6042,
+   "lng": 114.9747,
+   "sea": [
+    -29.5984,
+    114.9444
+   ],
+   "facing": 282,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Leeman",
+   "near_km": 38.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n17",
+   "lat": -29.6733,
+   "lng": 114.9594,
+   "sea": [
+    -29.6678,
+    114.929
+   ],
+   "facing": 282,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Leeman",
+   "near_km": 30.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n18",
+   "lat": -29.7544,
+   "lng": 114.9596,
+   "sea": [
+    -29.7561,
+    114.9286
+   ],
+   "facing": 266,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Leeman",
+   "near_km": 21.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n19",
+   "lat": -29.8238,
+   "lng": 114.9727,
+   "sea": [
+    -29.8324,
+    114.9432
+   ],
+   "facing": 251,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Leeman",
+   "near_km": 14.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n20",
+   "lat": -29.8924,
+   "lng": 114.9793,
+   "sea": [
+    -29.8935,
+    114.9482
+   ],
+   "facing": 268,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Leeman",
+   "near_km": 6.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n21",
+   "lat": -29.9606,
+   "lng": 114.972,
+   "sea": [
+    -29.9522,
+    114.9424
+   ],
+   "facing": 288,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Leeman",
+   "near_km": 1.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n22",
+   "lat": -30.0254,
+   "lng": 114.9621,
+   "sea": [
+    -30.0172,
+    114.9324
+   ],
+   "facing": 288,
+   "onshore_dirs": [
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW"
+   ],
+   "sheltered_dirs": [
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE"
+   ],
+   "near": "Green Head",
+   "near_km": 5.0,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n23",
+   "lat": -30.0742,
+   "lng": 114.9671,
+   "sea": [
+    -30.0886,
+    114.9408
+   ],
+   "facing": 238,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Green Head",
+   "near_km": 0.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n24",
+   "lat": -30.1283,
+   "lng": 115.0002,
+   "sea": [
+    -30.135,
+    114.97
+   ],
+   "facing": 256,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Green Head",
+   "near_km": 7.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n25",
+   "lat": -30.1843,
+   "lng": 114.9936,
+   "sea": [
+    -30.1802,
+    114.9628
+   ],
+   "facing": 279,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Green Head",
+   "near_km": 12.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n26",
+   "lat": -30.2805,
+   "lng": 115.0426,
+   "sea": [
+    -30.2818,
+    115.0115
+   ],
+   "facing": 267,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Jurien Bay",
+   "near_km": 2.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n27",
+   "lat": -30.3705,
+   "lng": 115.048,
+   "sea": [
+    -30.3745,
+    115.0171
+   ],
+   "facing": 261,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Jurien Bay",
+   "near_km": 7.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n28",
+   "lat": -30.4409,
+   "lng": 115.0576,
+   "sea": [
+    -30.4484,
+    115.0275
+   ],
+   "facing": 254,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Cervantes",
+   "near_km": 6.6,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n29",
+   "lat": -30.5023,
+   "lng": 115.0584,
+   "sea": [
+    -30.5043,
+    115.0272
+   ],
+   "facing": 266,
+   "onshore_dirs": [
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW"
+   ],
+   "sheltered_dirs": [
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE"
+   ],
+   "near": "Cervantes",
+   "near_km": 0.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n30",
+   "lat": -30.5836,
+   "lng": 115.0975,
+   "sea": [
+    -30.591,
+    115.0674
+   ],
+   "facing": 254,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Cervantes",
+   "near_km": 9.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n31",
+   "lat": -30.6447,
+   "lng": 115.1264,
+   "sea": [
+    -30.6559,
+    115.098
+   ],
+   "facing": 245,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Cervantes",
+   "near_km": 17.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n32",
+   "lat": -30.6929,
+   "lng": 115.1475,
+   "sea": [
+    -30.7003,
+    115.1174
+   ],
+   "facing": 254,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Wedge Island",
+   "near_km": 16.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n33",
+   "lat": -30.7579,
+   "lng": 115.1764,
+   "sea": [
+    -30.7681,
+    115.1474
+   ],
+   "facing": 248,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Wedge Island",
+   "near_km": 8.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n34",
+   "lat": -30.8383,
+   "lng": 115.2233,
+   "sea": [
+    -30.8526,
+    115.1967
+   ],
+   "facing": 238,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Wedge Island",
+   "near_km": 2.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n35",
+   "lat": -30.8977,
+   "lng": 115.2663,
+   "sea": [
+    -30.9077,
+    115.2371
+   ],
+   "facing": 248,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Wedge Island",
+   "near_km": 9.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n36",
+   "lat": -30.9838,
+   "lng": 115.3166,
+   "sea": [
+    -30.9935,
+    115.2872
+   ],
+   "facing": 249,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Lancelin",
+   "near_km": 4.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n37",
+   "lat": -31.0455,
+   "lng": 115.3418,
+   "sea": [
+    -31.0559,
+    115.3128
+   ],
+   "facing": 247,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Lancelin",
+   "near_km": 3.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n38",
+   "lat": -31.1103,
+   "lng": 115.3716,
+   "sea": [
+    -31.1218,
+    115.3431
+   ],
+   "facing": 245,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Ledge Point",
+   "near_km": 1.2,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n39",
+   "lat": -31.176,
+   "lng": 115.3984,
+   "sea": [
+    -31.1836,
+    115.3682
+   ],
+   "facing": 254,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Ledge Point",
+   "near_km": 8.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n40",
+   "lat": -31.2427,
+   "lng": 115.4277,
+   "sea": [
+    -31.2508,
+    115.3976
+   ],
+   "facing": 252,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Seabird",
+   "near_km": 4.3,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n41",
+   "lat": -31.2851,
+   "lng": 115.4466,
+   "sea": [
+    -31.3006,
+    115.4208
+   ],
+   "facing": 235,
+   "onshore_dirs": [
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W"
+   ],
+   "sheltered_dirs": [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E"
+   ],
+   "near": "Seabird",
+   "near_km": 0.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n42",
+   "lat": -31.3454,
+   "lng": 115.4919,
+   "sea": [
+    -31.3592,
+    115.4648
+   ],
+   "facing": 239,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Guilderton",
+   "near_km": 0.9,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n43",
+   "lat": -31.4056,
+   "lng": 115.5365,
+   "sea": [
+    -31.4188,
+    115.5089
+   ],
+   "facing": 241,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Guilderton",
+   "near_km": 7.1,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n44",
+   "lat": -31.4695,
+   "lng": 115.5694,
+   "sea": [
+    -31.4818,
+    115.5412
+   ],
+   "facing": 243,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Two Rocks",
+   "near_km": 3.5,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n45",
+   "lat": -31.5408,
+   "lng": 115.616,
+   "sea": [
+    -31.5542,
+    115.5885
+   ],
+   "facing": 240,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Yanchep",
+   "near_km": 1.7,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n46",
+   "lat": -31.6034,
+   "lng": 115.6546,
+   "sea": [
+    -31.6142,
+    115.6256
+   ],
+   "facing": 246,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Yanchep",
+   "near_km": 6.4,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n47",
+   "lat": -31.6666,
+   "lng": 115.69,
+   "sea": [
+    -31.6766,
+    115.6606
+   ],
+   "facing": 248,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Mindarie",
+   "near_km": 2.8,
+   "bioregion": "west_coast"
+  },
+  {
+   "id": "coast-n48",
+   "lat": -31.7482,
+   "lng": 115.7247,
+   "sea": [
+    -31.7554,
+    115.6942
+   ],
+   "facing": 254,
+   "onshore_dirs": [
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW"
+   ],
+   "sheltered_dirs": [
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE"
+   ],
+   "near": "Mindarie",
+   "near_km": 6.9,
+   "bioregion": "west_coast"
+  }
+ ]
+}

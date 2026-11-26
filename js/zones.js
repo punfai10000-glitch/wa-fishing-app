@@ -135,6 +135,8 @@ export function legalStatus(zones, loc, activity = 'shore', { t } = {}) {
   if (close) return { ...base, state: 'caution', text: `Only about ${close.dist} m from the ${close.name} (no fishing). Its line in the app is traced from the official map and can be out by ~100 m — check the signs and the DBCA map before you fish here.`, link: close.link };
   const special = zonesHere.find(z => z.type === 'restricted' || z.type === 'special_purpose' || z.type === 'general_use' && (z.details || []).some(d => d.startsWith('✗')));
   if (special) return { ...base, state: 'caution', text: `${special.name} — ${special.note}`, link: special.link };
+  if (park && /nature reserve/i.test(park.park_type || '') && !parkCovered)
+    return { ...base, state: 'ok', text: `Next to ${park.name} Nature Reserve (islands). Normal fishing rules apply in the water; landing on the islands may be restricted — check DBCA.`, link: 'https://exploreparks.dbca.wa.gov.au/' };
   const pn = park && PARK_NOTES.find(n => n.re.test(park.name || ''));
   if (park && !parkCovered && pn) return { ...base, state: pn.state, text: pn.text, link: pn.link };
   if (park && !parkCovered) return { ...base, state: 'caution', text: `Inside ${park.name}. Its zones aren't in the app yet — check the DBCA zoning map before fishing.`, link: 'https://exploreparks.dbca.wa.gov.au/' };
