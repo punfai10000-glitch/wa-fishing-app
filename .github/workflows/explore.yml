@@ -5,18 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          curl -s "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/DPIRD_Fisheries_Guide/MapServer?f=json" > ms.json
           python3 - <<'PY'
           import json, urllib.request, urllib.parse
-          d=json.load(open('ms.json'))
-          for l in d['layers']: print('L', l['id'], l.get('parentLayerId'), l['name'])
-          # which non-group layers have features north of -31.3 in the extended box
           B="https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/DPIRD_Fisheries_Guide/MapServer"
-          for l in d['layers']:
-              if l.get('subLayerIds'): continue
-              q=urllib.parse.urlencode({"where":"1=1","geometry":"113.4,-31.3,116.0,-28.3","geometryType":"esriGeometryEnvelope","inSR":4326,"spatialRel":"esriSpatialRelIntersects","returnCountOnly":"true","f":"json"})
-              try:
-                  c=json.load(urllib.request.urlopen(f"{B}/{l['id']}/query?{q}",timeout=60)).get('count')
-              except Exception as e: c=str(e)[:40]
-              if c: print('N', l['id'], c, l['name'])
+          for lid in (143,112,243,246,159,209,214,215):
+              q=urllib.parse.urlencode({"where":"1=1","geometry":"113.4,-31.3,116.0,-28.3","geometryType":"esriGeometryEnvelope","inSR":4326,"outFields":"*","returnGeometry":"false","f":"json"})
+              d=json.load(urllib.request.urlopen(f"{B}/{lid}/query?{q}",timeout=60))
+              for f in d.get('features',[]):
+                  a={k:v for k,v in f['attributes'].items() if v not in (None,'',' ') and k.lower() not in ('objectid','shape_area','shape_length','st_area(shape)','st_length(shape)')}
+                  print('A',lid,json.dumps(a)[:600])
           PY
