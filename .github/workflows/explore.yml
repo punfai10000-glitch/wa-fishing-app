@@ -4,22 +4,9 @@ jobs:
   x:
     runs-on: ubuntu-latest
     steps:
-      - name: oc
-        run: |
-          for sat in noaa20 snpp aqua; do
-            Y=$(date -u +%Y); M=$(date -u +%m)
-            echo "== $sat"; curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/$sat/P1D/$Y/$M/catalog.xml" | grep -oE 'urlPath="[^"]+"' | grep -i "K_490\|kd490\|490" | tail -3
-            curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/$sat/P1D/$Y/$M/catalog.xml" | grep -oE 'urlPath="[^"]+"' | tail -4
-          done
-      - name: ioc
-        run: |
-          curl -s "https://www.ioc-sealevelmonitoring.org/service.php?query=stationlist&showall=all" | python3 -c "
-          import json,sys
-          d=json.load(sys.stdin)
-          for s in d:
-            try: la,lo=float(s.get('Lat') or s.get('lat')),float(s.get('Lon') or s.get('lon'))
-            except: continue
-            if -36<la<-30 and 113<lo<125: print(s)
-          " || true
-          curl -s "https://www.ioc-sealevelmonitoring.org/service.php?query=data&code=hill&timestart=$(date -u -d '-1 day' +%Y-%m-%dT%H:%M)&format=json" | head -c 600; echo
-          curl -s "https://www.ioc-sealevelmonitoring.org/service.php?query=data&code=espe&timestart=$(date -u -d '-1 day' +%Y-%m-%dT%H:%M)&format=json" | head -c 600; echo
+      - run: |
+          for u in "https://coastwatch.noaa.gov/erddap/search/index.csv?searchFor=kd490&itemsPerPage=30" "https://coastwatch.pfeg.noaa.gov/erddap/search/index.csv?searchFor=kd490%20daily&itemsPerPage=30"; do
+            echo "== $u"; curl -s -A "Mozilla/5.0" -w "\nHTTP %{http_code}\n" "$u" | cut -d, -f1-20 | grep -iE "kd490|K490|HTTP" | cut -c1-260 | head -30; done
+          curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/noaa20/catalog.xml" | grep -oE 'xlink:href="[^"]+"' | head
+          curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/noaa20/P1D/2026/11/catalog.xml" | grep -oE 'urlPath="[^"]+K_490[^"]*"' | tail -3
+          curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/contributed/catalog.xml" | grep -oE 'xlink:href="[^"]+"' | head
