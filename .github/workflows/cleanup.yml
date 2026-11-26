@@ -1,0 +1,9 @@
+name: cleanup
+on: workflow_dispatch
+jobs:
+  x:
+    runs-on: ubuntu-latest
+    permissions: { contents: write }
+    steps:
+      - uses: actions/checkout@v5
+      - run: git push origin --delete tmp-imagery
