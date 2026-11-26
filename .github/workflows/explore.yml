@@ -4,21 +4,22 @@ jobs:
   x:
     runs-on: ubuntu-latest
     steps:
-      - name: capad
+      - name: oc
         run: |
-          L=https://gis.environment.gov.au/gispubmap/rest/services/ogc_services/CAPAD/FeatureServer/1
-          curl -s "$L/query?where=NAME+LIKE+%27%25Mamang%25%27+OR+NAME+LIKE+%27%25Wudjari%25%27+OR+NAME+LIKE+%27%25South+Coast%25%27&outFields=NAME,TYPE,ZONE_TYPE,IUCN,GAZ_DATE,LATEST_GAZ&returnGeometry=false&f=json" | head -c 2500; echo
-          curl -s "$L?f=json" | python3 -c "import json,sys;d=json.load(sys.stdin);print(d.get('name'),d.get('description','')[:300]);print([f['name'] for f in d.get('fields',[])])"
-      - name: slip dbca011
+          for sat in noaa20 snpp aqua; do
+            Y=$(date -u +%Y); M=$(date -u +%m)
+            echo "== $sat"; curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/$sat/P1D/$Y/$M/catalog.xml" | grep -oE 'urlPath="[^"]+"' | grep -i "K_490\|kd490\|490" | tail -3
+            curl -s "https://thredds.aodn.org.au/thredds/catalog/IMOS/SRS/OC/gridded/$sat/P1D/$Y/$M/catalog.xml" | grep -oE 'urlPath="[^"]+"' | tail -4
+          done
+      - name: ioc
         run: |
-          S=https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Property_and_Planning/MapServer/15
-          curl -s "$S/query?where=1%3D1&geometry=118.5,-35.0,124.5,-33.0&geometryType=esriGeometryEnvelope&inSR=4326&outFields=*&returnGeometry=false&f=json" | python3 -c "
-          import json,sys;d=json.load(sys.stdin);fs=d.get('features',[]);print(len(fs))
-          seen=set()
-          for f in fs:
-            a=f['attributes']; k=str({x:a[x] for x in a if any(t in x.lower() for t in ['name','categ','type','class','zone'])})
-            if 'arine' in k and k not in seen: seen.add(k); print(k)
+          curl -s "https://www.ioc-sealevelmonitoring.org/service.php?query=stationlist&showall=all" | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          for s in d:
+            try: la,lo=float(s.get('Lat') or s.get('lat')),float(s.get('Lon') or s.get('lon'))
+            except: continue
+            if -36<la<-30 and 113<lo<125: print(s)
           " || true
-      - name: osm
-        run: |
-          curl -s --data-urlencode 'data=[out:json][timeout:60];(relation["name"~"Mamang|Wudjari|Western Bight|Mirning"];way["name"~"Mamang|Wudjari"];relation["protection_title"~"Sanctuary",i](-35.2,118.5,-33.5,124.5););out tags;' https://overpass-api.de/api/interpreter | python3 -c "import json,sys;d=json.load(sys.stdin);[print(e['type'],e['id'],{k:v for k,v in e['tags'].items() if k in ('name','boundary','protect_class','protection_title','leisure','start_date')}) for e in d['elements']]"
+          curl -s "https://www.ioc-sealevelmonitoring.org/service.php?query=data&code=hill&timestart=$(date -u -d '-1 day' +%Y-%m-%dT%H:%M)&format=json" | head -c 600; echo
+          curl -s "https://www.ioc-sealevelmonitoring.org/service.php?query=data&code=espe&timestart=$(date -u -d '-1 day' +%Y-%m-%dT%H:%M)&format=json" | head -c 600; echo

@@ -124,6 +124,26 @@ def main(out="data/zones/marine-parks.geojson"):
         f["properties"] = {"name": p.get("NAME") or "Marine park", "zone_type": zt, "prohibits": prohibits,
                            "park_type": p.get("TYPE"), "authority": p.get("AUTHORITY"), "state": p.get("STATE")}
         found.append(f)
+    # Marine parks newer than CAPAD 2024 (e.g. the South Coast Marine Park: Mamang Maambakoort, Wudjari,
+    # created Dec 2024): outlines from DBCA Legislated Lands and Waters (DBCA-011, via SLIP)
+    have = {re.sub(r"[^a-z]", "", (f["properties"]["name"] or "").lower())[:8] for f in found}
+    try:
+        q = urllib.parse.urlencode({"where": "leg_category='Marine Park'", "geometry": BBOX.replace("123.5", "124.5"), "geometryType": "esriGeometryEnvelope",
+                                    "inSR": 4326, "outFields": "leg_name", "returnGeometry": "true", "outSR": 4326, "maxAllowableOffset": 0.0003,
+                                    "geometryPrecision": 5, "f": "geojson"})
+        d = get(f"https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Property_and_Planning/MapServer/15/query?{q}")
+        added = []
+        for f in d.get("features", []):
+            nm = (f.get("properties") or {}).get("leg_name") or ""
+            nm = nm.replace("Maambacoort", "Maambakoort").replace(" Marine Park", "")
+            if not f.get("geometry") or re.sub(r"[^a-z]", "", nm.lower())[:8] in have:
+                continue
+            f["properties"] = {"name": nm, "zone_type": "marine_park", "prohibits": [], "park_type": "Marine Park",
+                               "authority": "WA DBCA", "state": "WA", "zones_pending": True}
+            found.append(f); added.append(nm)
+        print("DBCA-011 marine parks added:", sorted(set(added)))
+    except SystemExit as ex:
+        print("DBCA-011 skipped:", ex)
     # CAPAD has only whole-park outlines for WA (no ZONE_TYPE, checked 25 Nov 2026). Add sanctuary zones that
     # volunteers have mapped in OpenStreetMap, clearly marked as needing a check against DBCA's zoning maps.
     parks = [f for f in found if f["properties"]["zone_type"] == "marine_park"]

@@ -26,6 +26,69 @@ def lonlat_to_tile(lon, lat, z):
     y = (1 - math.log(math.tan(math.radians(lat)) + 1 / math.cos(math.radians(lat))) / math.pi) / 2 * n
     return int(x), int(y)
 
+# Places with no composite surface: DoT single-beam point surveys (x,y,z text in MGA, metres vs AHD), gridded here.
+POINT_AREAS = {"DM": "Denmark", "WL": "Walpole", "PB": "Peaceful Bay", "BB": "Bremer Bay", "HT": "Hopetoun", "SC": "Swan/Canning Rivers", "MH": "Mandurah / Peel"}
+def add_point_surveys(tiles, meta):
+    import io, re, zipfile
+    from pyproj import Transformer
+    from scipy.interpolate import griddata
+    from scipy.spatial import cKDTree
+    res = 2 * math.pi * R / (2 ** Z) / TS; o = math.pi * R
+    for code, name in POINT_AREAS.items():
+        url = f"https://s3-ap-southeast-2.amazonaws.com/transport.wa/Bathymetry/PointData/{code}.zip"
+        fn = f"/tmp/depth_src/{code}.zip"
+        try:
+            if not os.path.exists(fn): urllib.request.urlretrieve(url, fn)
+            zf = zipfile.ZipFile(fn)
+        except Exception as e:
+            print("  ", code, "download failed", e); continue
+        files = sorted([n for n in zf.namelist() if n.lower().endswith(".txt") and "readme" not in n.lower()],
+                       key=lambda n: (re.search(r"(\d{8})", n) or re.search("", "")).group(0) or "")
+        best = {}   # pixel (gx, gy) -> value; newer surveys overwrite older ones
+        tr = None
+        for n in files:
+            try:
+                a = np.loadtxt(io.TextIOWrapper(zf.open(n)), usecols=(0, 1, 2), ndmin=2, delimiter=None)
+            except Exception:
+                try: a = np.loadtxt(io.TextIOWrapper(zf.open(n)), usecols=(0, 1, 2), ndmin=2, delimiter=",")
+                except Exception as e: print("   skip", n, e); continue
+            if not len(a): continue
+            if tr is None:   # MGA zone 50 or 51: pick the one that lands on the WA south/west coast
+                for epsg in (28350, 28351):
+                    t = Transformer.from_crs(f"EPSG:{epsg}", "EPSG:4326", always_xy=True)
+                    lon, lat = t.transform(float(np.median(a[:, 0])), float(np.median(a[:, 1])))
+                    if (epsg == 28350 and 114 <= lon < 120.1) or (epsg == 28351 and 119.9 <= lon < 126): tr = Transformer.from_crs(f"EPSG:{epsg}", "EPSG:3857", always_xy=True); break
+                if tr is None: print("   no zone fits", code); break
+            X, Y = tr.transform(a[:, 0], a[:, 1])
+            gx = np.floor((X + o) / res).astype(np.int64); gy = np.floor((o - Y) / res).astype(np.int64)
+            key = gx * 10_000_000 + gy
+            uk, inv = np.unique(key, return_inverse=True)
+            mean = np.bincount(inv, weights=a[:, 2]) / np.bincount(inv)
+            for k, v in zip(uk.tolist(), mean.tolist()): best[k] = v
+        if not best: continue
+        keys = np.fromiter(best.keys(), dtype=np.int64); vals = np.fromiter(best.values(), dtype=np.float64)
+        PX, PY = keys // 10_000_000, keys % 10_000_000
+        tree = cKDTree(np.c_[PX, PY])
+        added = 0
+        for tx in range(int(PX.min()) // TS, int(PX.max()) // TS + 1):
+            for ty in range(int(PY.min()) // TS, int(PY.max()) // TS + 1):
+                x0, y0, M = tx * TS, ty * TS, 24
+                sel = (PX >= x0 - M) & (PX < x0 + TS + M) & (PY >= y0 - M) & (PY < y0 + TS + M)
+                if sel.sum() < 20: continue
+                gyy, gxx = np.mgrid[y0:y0 + TS, x0:x0 + TS]
+                try:
+                    grid = griddata(np.c_[PX[sel], PY[sel]], vals[sel], (gxx, gyy), method="linear")
+                except Exception:
+                    continue
+                d, _ = tree.query(np.c_[gxx.ravel(), gyy.ravel()], distance_upper_bound=7)   # only within ~55 m of a sounding
+                grid = np.where(np.isfinite(d.reshape(TS, TS)), grid, np.nan).astype(np.float32)
+                if not np.isfinite(grid).any(): continue
+                cur = tiles.get((tx, ty))
+                if cur is None: tiles[(tx, ty)] = grid; added += 1
+                else: m = ~np.isfinite(cur); cur[m] = grid[m]
+        meta.append({"name": name, "source_url": url, "kind": "point survey (single-beam), gridded ~8 m", "files": len(files)})
+        print(f"   {name}: {len(best)} sounding cells, {added} new tiles")
+
 def main():
     with urllib.request.urlopen(urllib.request.Request(INDEX, headers={"User-Agent": "wa-fishing-app"}), timeout=60) as r:
         feats = json.load(r)["features"]
@@ -63,6 +126,10 @@ def main():
                         cur = tiles[(x, y)]; m = ~np.isfinite(cur); cur[m] = dst[m]
                     else:
                         tiles[(x, y)] = dst
+    try:
+        add_point_surveys(tiles, meta)
+    except Exception as e:
+        print("point surveys skipped:", e)
     if len(tiles) < 50:
         print("Too few tiles — not writing."); sys.exit(1)
     import shutil
@@ -97,7 +164,7 @@ def main():
     json.dump({"z": Z, "tiles": sorted([f"{x}/{y}" for x, y in tiles]), "encoding": "terrarium",
                "overviews": {str(zz): sorted([f"{x}/{y}" for x, y in levels[zz]]) for zz in OVERVIEWS},
                "generated_at": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
-               "source": "WA Department of Transport — Composite Surfaces (Multibeam, LiDAR, Laser), DOT-022, CC BY 3.0 AU",
+               "source": "WA Department of Transport — Composite Surfaces (Multibeam, LiDAR, Laser), DOT-022, and point surveys (DOT-021), CC BY 3.0 AU",
                "areas": meta}, open(f"{OUT}/index.json", "w"), separators=(",", ":"))
     tot = sum(os.path.getsize(os.path.join(dp, f)) for dp, _, fs in os.walk(f"{OUT}/{Z}") for f in fs)
     print(f"wrote {len(tiles)} tiles, {tot/1e6:.1f} MB")

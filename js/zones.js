@@ -43,6 +43,15 @@ export function zoneHitsFor(zones, loc) {
 // Returns { state: ok|caution|blocked|unchecked, text, link, notes[], allow: {shore, spear}, why: {shore, spear}, zones[] }
 const esc = s => String(s ?? '').replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const ACT = { shore: 'Line fishing', spear: 'Spearfishing' };
+// Parks whose zoning isn't in the DPIRD order data (checked Nov 2026)
+const PARK_NOTES = [
+  { re: /swan estuary/i, state: 'ok', link: 'https://exploreparks.dbca.wa.gov.au/park/swan-estuary-marine-park',
+    text: 'Inside Swan Estuary Marine Park (Alfred Cove, Pelican Point or Milyu) — the whole park is a general use zone: line fishing is allowed anywhere in it under the normal rules. (Spearfishing is banned in all rivers and estuaries.)' },
+  { re: /walpole/i, state: 'ok', link: 'https://exploreparks.dbca.wa.gov.au/park/walpole-and-nornalup-inlets-marine-park',
+    text: 'Inside Walpole and Nornalup Inlets Marine Park — zoned for recreation: rod and line, crabbing and prawning allowed under the Walpole fishing order and normal rules.' },
+  { re: /mamang|wudjari|western bight|mirning/i, state: 'caution', link: 'https://www.dbca.wa.gov.au/scmp',
+    text: 'Inside the South Coast Marine Park (created Dec 2024). Fishing is allowed in most of it, but it has sanctuary zones (no fishing at all) that are NOT in the app yet. Check the DBCA zoning map before you fish here.' }
+];
 const monthOf = t => new Date(t ?? Date.now()).getMonth() + 1;
 
 function verdict(hits, loc, act) {
@@ -75,7 +84,9 @@ export function legalStatus(zones, loc, activity = 'shore', { t } = {}) {
   if (!me.ok) return { ...base, state: 'blocked', text: me.why, link: me.link };
   const special = zonesHere.find(z => z.type === 'restricted' || z.type === 'general_use' && (z.details || []).some(d => d.startsWith('✗')));
   if (special) return { ...base, state: 'caution', text: `${special.name} — ${special.note}`, link: special.link };
-  if (park && !parkCovered) return { ...base, state: 'caution', text: `Inside ${park.name}. Its zones aren't in the app yet — check the DBCA zoning map before fishing.` };
+  const pn = park && PARK_NOTES.find(n => n.re.test(park.name || ''));
+  if (park && !parkCovered && pn) return { ...base, state: pn.state, text: pn.text, link: pn.link };
+  if (park && !parkCovered) return { ...base, state: 'caution', text: `Inside ${park.name}. Its zones aren't in the app yet — check the DBCA zoning map before fishing.`, link: 'https://exploreparks.dbca.wa.gov.au/' };
   if (park) return { ...base, state: 'ok', text: `Inside ${park.name}, outside its sanctuary zones. Normal fishing rules apply.` };
   const active = zonesHere.filter(z => z.active && (z.type === 'species' || z.type === 'gear'));
   if (active.length) return { ...base, state: 'caution', text: 'Not in a marine park or sanctuary, but extra rules apply here (below).' };
