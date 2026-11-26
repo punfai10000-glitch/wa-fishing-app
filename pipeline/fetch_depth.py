@@ -14,7 +14,7 @@ from PIL import Image
 INDEX = ("https://public-services.slip.wa.gov.au/public/rest/services/Landgate_Public_Maps/WA_Bathymetry/MapServer/1/query"
          "?where=1%3D1&outFields=location,url&returnGeometry=false&f=json")
 Z, TS, R = 14, 256, 6378137.0
-REGION = (114.4, -35.6, 124.5, -31.0)   # app coverage (Perth to Esperance) — skip surveys outside it
+REGION = (113.4, -35.6, 124.5, -28.3)   # app coverage (Geraldton/Abrolhos to Esperance) — skip surveys outside it
 OVERVIEWS = (13, 12, 11)
 OUT = "data/depth"
 

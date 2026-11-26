@@ -70,7 +70,7 @@ export function renderMore(view) {
 
     <div class="card">
       <h2>About</h2>
-      <p class="small">A free, non-commercial tool for land-based fishing and shore-entry spearfishing from Perth to Esperance. Scores rate environmental suitability only — not the chance of catching fish, and not a safety guarantee. No ads, no accounts, no tracking.</p>
+      <p class="small">A free, non-commercial tool for land-based fishing and shore-entry spearfishing from Geraldton to Esperance. Scores rate environmental suitability only — not the chance of catching fish, and not a safety guarantee. No ads, no accounts, no tracking.</p>
       <button class="btn ghost" id="show-ack">Show safety notice again</button>
     </div>
   </div>`;

@@ -33,7 +33,7 @@ const overlays = {};
 // ---- Base maps ------------------------------------------------------------
 const BASES = [
   { id: 'satellite', label: 'Satellite (Sentinel-2, free)', note: '10 m imagery — reef, weed and sand show in clear shallow water' },
-  { id: 'esri', label: 'Satellite HD (Esri)', note: 'Sharper imagery — needs a free Esri key in js/config.js', needsKey: true },
+  { id: 'esri', label: 'Satellite HD', note: 'Sharp WA Government (Landgate) aerial photos from zoom 12 on top of Sentinel-2 — uses more data' },
   { id: 'street', label: 'Street map', note: 'Roads, tracks and car parks (OpenStreetMap)' }
 ];
 
@@ -60,7 +60,7 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Within 10 km of the coast' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: '' }
 ];
-const DEFAULTS = { base: 'satellite', aerial: true, currentFlow: null, spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, clarity: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
+const DEFAULTS = { base: 'esri', aerial: true, currentFlow: null, spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, clarity: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
 export const layerOn = () => {
   const saved = store.get('layers', {});
   // v2: facilities (bait/tackle, servos, toilets) on by default — switch them on once for people with saved settings
@@ -68,6 +68,7 @@ export const layerOn = () => {
   if (!store.get('layersV3')) { store.set('layersV3', 1); Object.assign(saved, { tackle: false, fuel: false, toilets: false, food24: false, parking: false }); store.set('layers', saved); }
   // v4: calmer map — wind/swell animation live in the Weather view; shark history is opt-in
   if (!store.get('layersV4')) { store.set('layersV4', 1); Object.assign(saved, { windFlow: false, swellFlow: false, incidents: false }); store.set('layers', saved); }
+  if (!store.get('layersV5')) { store.set('layersV5', 1); if (!saved.base || saved.base === 'satellite') { saved.base = 'esri'; store.set('layers', saved); } }   // Satellite HD now works without a key
   return { ...DEFAULTS, ...saved };
 };
 // What is actually drawn: the Weather view swaps spots for wind, swell and buoys.
@@ -116,6 +117,8 @@ export function initMap() {
       return `https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Locate/MapServer/export?bbox=${a.x.toFixed(1)},${b.y.toFixed(1)},${b.x.toFixed(1)},${a.y.toFixed(1)}&bboxSR=3857&imageSR=3857&size=512,512&format=jpg&transparent=false&f=image`;
     }
   });
+  overlays.aerialHD = new Aerial('', { tileSize: 512, minZoom: 12, maxZoom: 19, maxNativeZoom: 19, zIndex: 2, keepBuffer: 1, updateWhenZooming: false,
+    bounds: [[-35.6, 112.9], [-13.6, 129.1]], attribution: 'Aerial photos © <a href="https://www.landgate.wa.gov.au">Landgate</a> (WA Government, SLIP)' });
   overlays.aerial = new Aerial('', { tileSize: 512, minZoom: 15, maxZoom: 19, maxNativeZoom: 19, zIndex: 2, keepBuffer: 1, updateWhenZooming: false,
     bounds: [[-35.6, 112.9], [-13.6, 129.1]], attribution: 'Aerial photos © <a href="https://www.landgate.wa.gov.au">Landgate</a> (WA Government, SLIP)' });
   baseLayers.street = L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -201,8 +204,8 @@ export function initMap() {
   if ('ResizeObserver' in window) new ResizeObserver(() => map.invalidateSize({ pan: false })).observe(document.getElementById('map'));
 }
 
-// Perth → Esperance coverage
-const COAST_BOUNDS = [[-35.3, 114.5], [-31.4, 122.3]];
+// Geraldton → Esperance coverage
+const COAST_BOUNDS = [[-35.3, 114.0], [-28.6, 122.3]];   // Geraldton to Esperance
 
 // ---- Floating controls: zoom, my location, whole coast, layers, previous view ----------
 let prevView = null, meMarker = null, meCircle = null;
@@ -248,7 +251,7 @@ function openLayersSheet() {
     const on = layerOn(), wx = isWeatherView();
     const groups = [...new Set(LAYERS.map(l => l.group))];
     return `<div class="seg seg-compact" role="radiogroup" aria-label="Base map" style="margin-bottom:10px">
-        ${BASES.map(b => `<button role="radio" data-base="${b.id}" aria-checked="${on.base === b.id}" aria-pressed="${on.base === b.id}" ${b.needsKey && !CONFIG.ESRI_API_KEY ? 'disabled title="Needs a free Esri key"' : ''}>${{ satellite: 'Satellite', esri: 'Satellite HD', street: 'Street' }[b.id]}</button>`).join('')}
+        ${BASES.map(b => `<button role="radio" data-base="${b.id}" aria-checked="${on.base === b.id}" aria-pressed="${on.base === b.id}" >${{ satellite: 'Satellite', esri: 'Satellite HD', street: 'Street' }[b.id]}</button>`).join('')}
       </div>
       ${wx ? '<p class="small notice">Weather view shows wind, swell and buoys. Tap Fishing or Spear at the top to choose your own layers.</p>' : ''}
       ${groups.map(g => `<h3 class="sheet-h3">${g}</h3>${LAYERS.filter(l => l.group === g).map(l => `
@@ -430,12 +433,15 @@ function markSelected() {
 
 function applyLayers() {
   const on = viewOn();
+  // 'Satellite HD' = Esri imagery when a key is configured, otherwise Sentinel-2 + Landgate aerial photos from zoom 12
+  const hd = on.base === 'esri' && !baseLayers.esri;
   const base = baseLayers[on.base] ? on.base : 'satellite';
   for (const [id, layer] of Object.entries(baseLayers)) {
     if (id === base) { if (!map.hasLayer(layer)) layer.addTo(map); } else map.removeLayer(layer);
   }
   document.getElementById('map').classList.toggle('osm-dark', base === 'street');
-  if (base === 'satellite' && on.aerial && !lite()) { if (!map.hasLayer(overlays.aerial)) overlays.aerial.addTo(map); } else map.removeLayer(overlays.aerial);
+  if (hd) { if (!map.hasLayer(overlays.aerialHD)) overlays.aerialHD.addTo(map); } else map.removeLayer(overlays.aerialHD);
+  if (!hd && base === 'satellite' && on.aerial && !lite()) { if (!map.hasLayer(overlays.aerial)) overlays.aerial.addTo(map); } else map.removeLayer(overlays.aerial);
   syncClarity(on);
   if (on.habitat) overlays.habitatEst.addTo(map); else map.removeLayer(overlays.habitatEst);
   for (const id of ['depth', 'habitat']) {

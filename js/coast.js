@@ -1,4 +1,4 @@
-// Coastline conditions: ~180 sample points every ~8 km from Perth to Esperance.
+// Coastline conditions: sample points every ~8 km from Geraldton to Esperance.
 // Each point knows which way the coast faces, so onshore/offshore wind and swell are
 // worked out automatically. These are CONDITION points, not verified fishing spots.
 import { CONFIG, REGIONS } from './config.js';
@@ -36,7 +36,9 @@ export async function loadCoastPoints() {
   return points;
 }
 
-const TOWN_REGION = { 'Cottesloe': 'perth', 'Fremantle': 'perth', 'Coogee': 'rockingham', 'Rockingham': 'rockingham', 'Secret Harbour': 'rockingham',
+const TOWN_REGION = { 'Kalbarri': 'geraldton', 'Horrocks': 'geraldton', 'Geraldton': 'geraldton', 'Dongara': 'geraldton', 'Port Denison': 'geraldton',
+  'Leeman': 'jurien', 'Green Head': 'jurien', 'Jurien Bay': 'jurien', 'Cervantes': 'jurien', 'Wedge Island': 'jurien',
+  'Lancelin': 'lancelin', 'Ledge Point': 'lancelin', 'Seabird': 'lancelin', 'Guilderton': 'lancelin', 'Two Rocks': 'perth', 'Yanchep': 'perth', 'Cottesloe': 'perth', 'Fremantle': 'perth', 'Coogee': 'rockingham', 'Rockingham': 'rockingham', 'Secret Harbour': 'rockingham',
   'Mandurah': 'mandurah', 'Dawesville': 'mandurah', 'Preston Beach': 'mandurah', 'Myalup': 'bunbury', 'Bunbury': 'bunbury', 'Busselton': 'busselton',
   'Dunsborough': 'busselton', 'Cape Naturaliste': 'busselton', 'Yallingup': 'margaret-river', 'Gracetown': 'margaret-river', 'Prevelly / Gnarabup': 'margaret-river',
   'Hamelin Bay': 'augusta', 'Augusta': 'augusta', 'Black Point': 'augusta', 'Windy Harbour': 'denmark', 'Walpole': 'denmark', 'Peaceful Bay': 'denmark',

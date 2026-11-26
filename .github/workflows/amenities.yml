@@ -20,7 +20,7 @@ jobs:
         run: |
           sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
           curl -sSfL --retry 3 -o au.osm.pbf https://download.geofabrik.de/australia-oceania/australia-latest.osm.pbf
-          osmium extract -b 114.5,-35.6,123.5,-31.3 au.osm.pbf -o sw.osm.pbf --overwrite
+          osmium extract -b 113.4,-35.6,124.5,-28.3 au.osm.pbf -o sw.osm.pbf --overwrite
           rm -f au.osm.pbf
           ls -la sw.osm.pbf
           echo "OSM_PBF=$PWD/sw.osm.pbf" >> "$GITHUB_ENV"

@@ -6,7 +6,7 @@ The gap-filled DINEOF product is used only if it is recent. Output: out/clarity.
 import json, os, re, sys, time, urllib.request
 from datetime import datetime, timezone
 OUT = sys.argv[1] if len(sys.argv) > 1 else "out"
-BOX = (-35.6, -31.0, 114.4, 124.5)   # lat min/max, lon min/max
+BOX = (-35.6, -28.3, 113.4, 124.5)   # lat min/max, lon min/max
 STEP = 0.04
 DATASETS = [("https://coastwatch.noaa.gov/erddap", "noaacwNPPN20VIIRSkd490Daily", 6),
             ("https://coastwatch.pfeg.noaa.gov/erddap", "nesdisVHNkd490Daily", 6),

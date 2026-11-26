@@ -16,7 +16,7 @@ from scipy import ndimage
 from scipy.spatial import cKDTree
 
 Z = 14
-REGION = (114.4, -35.6, 124.5, -31.0)
+REGION = (113.4, -35.6, 124.5, -28.3)
 MAX_M = 1000
 OUT = "data/habitat-est"
 S2 = "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2024_3857/default/g/{z}/{y}/{x}.jpg"

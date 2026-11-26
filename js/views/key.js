@@ -112,7 +112,7 @@ export function renderKey(view) {
       ${row('<div class="incident fatal">☠</div>', 'Red skull', 'Recorded fatal shark incident.')}
       ${row('<div class="incident injured">!</div>', 'Orange !', 'Recorded shark incident with injury.')}
       ${row('<div class="incident uninjured">·</div>', 'Grey dot', 'Recorded shark incident, no injury.')}
-      <p class="small muted">From the Australian Shark-Incident Database (Taronga), Perth to Esperance, records to 2022. Exact spots weren't recorded, so pins are shown just offshore from the reported place. Check <a href="https://www.sharksmart.com.au" target="_blank" rel="noopener">SharkSmart WA</a> for current sightings.</p>
+      <p class="small muted">From the Australian Shark-Incident Database (Taronga), Geraldton to Esperance, records to 2022. Exact spots weren't recorded, so pins are shown just offshore from the reported place. Check <a href="https://www.sharksmart.com.au" target="_blank" rel="noopener">SharkSmart WA</a> for current sightings.</p>
     </div>
 
     <div class="card"><h2>Water depth colours</h2>

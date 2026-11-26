@@ -50,7 +50,7 @@ function card(s, open) {
       ${s.licence ? `<p class="notice info small"><strong>🪪 Licence:</strong> ${esc(s.licence)}</p>` : ''}
       ${limitsTable(s)}
       ${s.id_tips ? `<p class="small"><strong>How to tell:</strong> ${esc(s.id_tips)}</p>` : ''}
-      ${s.group ? `<p class="small muted">Group: ${esc(s.group)}${s.region === 'north' ? ' · mostly found north of Perth' : ''}</p>` : ''}
+      ${s.group ? `<p class="small muted">Group: ${esc(s.group)}${s.region === 'north' ? ' · mostly found north of Geraldton' : ''}</p>` : ''}
       ${s.more?.length ? `<ul class="small fish-more">${s.more.map(m => `<li>${esc(m)}</li>`).join('')}</ul>` : ''}
       <p class="small muted">From the shore you don't need a licence for most fish. Fishing from a powered boat (or using one to reach a spot) needs a Recreational Fishing from Boat Licence (RFBL).</p>
       <p class="small muted">Source: ${(s.sources || []).map(x => `<a href="${esc(x.url)}" target="_blank" rel="noopener">${esc(x.name)}</a>`).join(' · ')} · checked ${esc(s.last_checked ?? '—')}.
@@ -100,11 +100,11 @@ export function renderFish(view, sub) {
 
   view.innerHTML = `${subnav('')}
     <h1>Fish library</h1>
-    <div class="notice small">${local.length} species you can meet from Perth to Esperance, plus ${all.length - local.length} mostly northern ones (pick "All of WA" or search). Extra names, groups and ID tips come from DPIRD's 2026 identification guides. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Size and bag limits are from DPIRD's Recreational fishing guide 2026 (June 2026 edition), checked 25 Nov 2026. Perth → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
+    <div class="notice small">${local.length} species you can meet from Geraldton to Esperance, plus ${all.length - local.length} mostly northern ones (pick "All of WA" or search). Extra names, groups and ID tips come from DPIRD's 2026 identification guides. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Size and bag limits are from DPIRD's Recreational fishing guide 2026 (June 2026 edition), checked 25 Nov 2026. Kalbarri → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
     <div class="filters">
       <input type="search" id="fq" placeholder="Search fish" value="${esc(query)}" aria-label="Search fish">
       <select id="ff" aria-label="Show">
-        <option value="all" ${filter === 'all' ? 'selected' : ''}>Perth → Esperance (${local.length})</option>
+        <option value="all" ${filter === 'all' ? 'selected' : ''}>Geraldton → Esperance (${local.length})</option>
         <option value="north" ${filter === 'north' ? 'selected' : ''}>All of WA, incl. the north (${all.length})</option>
         <option value="keep" ${filter === 'keep' ? 'selected' : ''}>Can keep within limits</option>
         <option value="protected" ${filter === 'protected' ? 'selected' : ''}>Protected or dangerous</option>

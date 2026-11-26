@@ -116,6 +116,7 @@ const num = v => (v == null || Number.isNaN(v) ? null : v);
 // The marine model's tide runs early on this coast: checked against the official AHO predictions for Oct–Dec 2026,
 // highs and lows come this many minutes later than the model says (median of ~150 highs/lows per port).
 const TIDE_LAG = [
+  { lat: -28.78, lng: 114.60, min: 33 },   // Geraldton (also Dongara, Jurien)
   { lat: -32.05, lng: 115.74, min: 49 },   // Fremantle (also Perth metro)
   { lat: -33.32, lng: 115.65, min: 58 },   // Bunbury
   { lat: -35.03, lng: 117.88, min: 34 },   // Albany

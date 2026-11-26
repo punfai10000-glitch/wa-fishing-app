@@ -12,7 +12,7 @@ ROOT = "Department_of_Transport-Western_Australia/WAVE-BUOYS/REALTIME/WAVE-PARAM
 NS = {"t": "http://www.unidata.ucar.edu/namespaces/thredds/InvCatalog/v1.0", "x": "http://www.w3.org/1999/xlink"}
 UA = {"User-Agent": "wa-fishing-intelligence/0.3 (hourly buoy fetch)"}
 # Perth to Esperance only
-BOX = dict(lat_min=-35.5, lat_max=-31.3, lon_min=114.5, lon_max=123.0)
+BOX = dict(lat_min=-35.5, lat_max=-28.3, lon_min=113.4, lon_max=124.5)
 VARS = {  # IMOS wave parameter names; first match wins
     "hs": ["WSSH", "WHTH", "VAVH"], "tp": ["WPPE", "WPFM"], "dir": ["WPDI", "SSWMD", "WMDS"],
     "swell_h": ["SWSH"], "swell_p": ["SWPP"], "swell_dir": ["SWPD"],

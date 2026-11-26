@@ -6,7 +6,7 @@ Writes data/zones/closures.geojson. Never overwrites a good file with an empty/p
 """
 import json, os, re, sys, time, urllib.parse, urllib.request
 BASE = "https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/DPIRD_Fisheries_Guide/MapServer"
-BBOX = "114.5,-35.6,123.5,-31.3"
+BBOX = "113.4,-35.6,124.5,-28.3"
 OUT = "data/zones/closures.geojson"
 LAYERS = {130: "burswood", 133: "esperance_jetty", 134: "greens_pool", 140: "ngari", 141: "rottnest", 144: "marmion",
           148: "shoalwater", 149: "walpole", 152: "wreck", 153: "wreck", 155: "wreck", 156: "wreck", 157: "wreck", 158: "wreck",

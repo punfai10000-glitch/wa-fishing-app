@@ -6,7 +6,7 @@ Usage: python pipeline/fetch_bom_obs.py OUTPUT_DIR   (never fails the workflow)
 import ftplib, io, json, os, sys, xml.etree.ElementTree as ET
 from datetime import datetime, timezone
 
-BOX = dict(lat_min=-35.5, lat_max=-31.3, lon_min=114.5, lon_max=123.0)
+BOX = dict(lat_min=-35.5, lat_max=-28.3, lon_min=113.4, lon_max=124.5)
 
 
 def main(outdir):

@@ -5,7 +5,7 @@ Hillarys and Esperance), 1-minute data, free and public. Output: out/tides.json 
 import json, os, sys, time, urllib.request
 from datetime import datetime, timedelta, timezone
 OUT = sys.argv[1] if len(sys.argv) > 1 else "out"
-STATIONS = {"hill": ("Hillarys", -31.8255, 115.7386), "espe": ("Esperance", -33.8709, 121.8954)}
+STATIONS = {"gpab": ("Geraldton", -28.7631, 114.5647), "hill": ("Hillarys", -31.8255, 115.7386), "espe": ("Esperance", -33.8709, 121.8954)}
 
 def main():
     os.makedirs(OUT, exist_ok=True)

@@ -9906,7 +9906,7 @@
     "feature": []
    },
    "wiki": "Hyporthodus_griseofasciatus",
-   "region": "north",
+   "region": "south",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -9942,7 +9942,7 @@
     "feature": []
    },
    "wiki": "Etelis_boweni",
-   "region": "north",
+   "region": "south",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -10239,7 +10239,7 @@
     "feature": []
    },
    "wiki": "Choerodon_cauteroma",
-   "region": "north",
+   "region": "south",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -10316,7 +10316,7 @@
     "feature": []
    },
    "wiki": "Epinephelus_rankini",
-   "region": "north",
+   "region": "south",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -10675,7 +10675,7 @@
     "feature": []
    },
    "wiki": "Plectropomus_leopardus",
-   "region": "north",
+   "region": "south",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -11252,7 +11252,7 @@
     "feature": []
    },
    "wiki": "Lethrinus_nebulosus",
-   "region": "north",
+   "region": "south",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -11290,7 +11290,7 @@
     "feature": []
    },
    "wiki": "Lethrinus_miniatus",
-   "region": "north",
+   "region": "south",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -11365,7 +11365,7 @@
     "feature": []
    },
    "wiki": "Gymnocranius_grandoculis",
-   "region": "north",
+   "region": "south",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -12193,7 +12193,7 @@
     "feature": []
    },
    "wiki": "Epinephelus_rivulatus",
-   "region": "north"
+   "region": "south"
   },
   {
    "id": "barred_javelin",
@@ -12870,7 +12870,7 @@
     "feature": []
    },
    "wiki": "Acanthocybium_solandri",
-   "region": "north"
+   "region": "south"
   },
   {
    "id": "blue_marlin",
@@ -12957,7 +12957,7 @@
     "feature": []
    },
    "wiki": "Istiophorus_platypterus",
-   "region": "north"
+   "region": "south"
   },
   {
    "id": "swordfish",

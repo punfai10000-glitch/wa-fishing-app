@@ -69,7 +69,7 @@ export function renderGuides(el) {
     ${card('protected', '🛡 Protected animals — what to do', 'All marine mammals, turtles, sea snakes, seahorses, seadragons, pipefish, seabirds and shorebirds are protected, plus many sharks and rays.', [
       'Hooked or tangled a protected animal? Cut the line as close as you safely can or untangle it, keep it in the water, and let it go.',
       'Report every interaction (catch, tangle or boat strike) to the DBCA Wildcare Helpline <a href="tel:0894749055">08 9474 9055</a>: time, place (GPS if you can), species, what happened and how it swam away. Outside state waters, report to DCCEEW (1800 920 528) within 7 days.',
-      'Protected fish you might see Perth → Esperance: white shark, grey nurse shark, whale shark, all seahorses, leafy and weedy seadragons, pipefish, smooth and black stingrays (some areas).',
+      'Protected fish you might see Geraldton → Esperance: white shark, grey nurse shark, whale shark, all seahorses, leafy and weedy seadragons, pipefish, smooth and black stingrays (some areas).',
       '<strong>Whaler sharks</strong> (bronze, dusky) longer than 700 mm interdorsal — front of the first dorsal fin to the front of the second — are protected on the West and South Coasts. Bronze whalers have no ridge between the dorsal fins and narrow hooked teeth; duskies have a ridge and broad teeth.',
       'Keep your distance: seals 50 m in the water, 100 m by boat; whales 100 m. See Learn for details.',
       'Seen whales, dolphins, turtles, seals or sea snakes? Log them in the Marine Fauna Sightings app to help DPIRD track them.'

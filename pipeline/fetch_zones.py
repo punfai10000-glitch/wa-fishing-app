@@ -12,7 +12,7 @@ from collections import Counter
 from datetime import datetime, timezone
 
 LAYER = "https://gis.environment.gov.au/gispubmap/rest/services/ogc_services/CAPAD/FeatureServer/1"
-BBOX = "114.5,-35.6,123.5,-31.3"  # xmin,ymin,xmax,ymax (WGS84) Perth -> Esperance
+BBOX = "113.4,-35.6,124.5,-28.3"  # xmin,ymin,xmax,ymax (WGS84) Geraldton/Abrolhos -> Esperance
 UA = {"User-Agent": "wa-fishing-intelligence/0.6 (weekly marine zones; github.com)"}
 FIELDS = "NAME,TYPE,TYPE_ABBR,ZONE_TYPE,IUCN,STATE,AUTHORITY"
 
@@ -128,7 +128,7 @@ def main(out="data/zones/marine-parks.geojson"):
     # created Dec 2024): outlines from DBCA Legislated Lands and Waters (DBCA-011, via SLIP)
     have = {re.sub(r"[^a-z]", "", (f["properties"]["name"] or "").lower())[:8] for f in found}
     try:
-        q = urllib.parse.urlencode({"where": "leg_category='Marine Park'", "geometry": BBOX.replace("123.5", "124.5"), "geometryType": "esriGeometryEnvelope",
+        q = urllib.parse.urlencode({"where": "leg_category='Marine Park'", "geometry": BBOX, "geometryType": "esriGeometryEnvelope",
                                     "inSR": 4326, "outFields": "leg_name", "returnGeometry": "true", "outSR": 4326, "maxAllowableOffset": 0.0003,
                                     "geometryPrecision": 5, "f": "geojson"})
         d = get(f"https://public-services.slip.wa.gov.au/public/rest/services/SLIP_Public_Services/Property_and_Planning/MapServer/15/query?{q}")

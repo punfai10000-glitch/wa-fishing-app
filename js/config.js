@@ -20,6 +20,9 @@ export const CONFIG = {
 };
 
 export const REGIONS = {
+  'geraldton': { name: 'Geraldton', bioregion: 'west_coast' },
+  'jurien': { name: 'Jurien Bay', bioregion: 'west_coast' },
+  'lancelin': { name: 'Lancelin', bioregion: 'west_coast' },
   'perth': { name: 'Perth', bioregion: 'west_coast' },
   'rockingham': { name: 'Rockingham', bioregion: 'west_coast' },
   'mandurah': { name: 'Mandurah', bioregion: 'west_coast' },
