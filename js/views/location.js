@@ -40,7 +40,7 @@ export function renderLocation(view, rawId) {
   const region = REGIONS[loc.region];
 
   const speciesHere = (loc.species_evidence || []).map(e => state.data.species.species.find(s => s.id === e.species)).filter(Boolean);
-  const rulesHere = state.data.rules.filter(r => !r.applies_to.bioregion || r.applies_to.bioregion === region?.bioregion);
+  const rulesHere = state.data.rules.filter(r => (!r.applies_to?.location || r.applies_to.location === loc.id) && (!r.applies_to?.bioregion || r.applies_to.bioregion === region?.bioregion));
 
   view.innerHTML = `
   <div>

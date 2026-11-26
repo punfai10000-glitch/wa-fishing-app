@@ -15,7 +15,7 @@ export function renderKey(view) {
       <p class="small">The <strong>funnel button</strong> on the right lets you choose what's on the map: spots, coast colour, buoys, marine parks, wind and swell animation, shark history and facilities. The <strong>layers button</strong> changes the background (satellite, street map, seabed habitat, depth).</p>
     </div>
     <div class="card"><h2>Four checks (in each spot)</h2>
-      <p class="small"><strong>Conditions</strong> rates wind, waves, tide and light only. <strong>Fish</strong> shows species recorded there — the weather can't tell us if fish are present. <strong>Safety</strong> says Not safe when wind or waves pass the draft limits; otherwise Not verified, because only you can judge it on site. <strong>Rules</strong> checks marine park zones. <strong>Data</strong> is how complete and fresh the information is.</p>
+      <p class="small"><strong>Conditions</strong> rates wind, waves, tide and light only. <strong>Fish</strong> shows species recorded there — the weather can't tell us if fish are present. <strong>Safety</strong> says Not safe when wind or waves pass the safety limits (listed under More); otherwise Not verified, because only you can judge it on site. <strong>Rules</strong> checks marine park zones. <strong>Data</strong> is how complete and fresh the information is.</p>
     </div>
     <div class="card"><h2>Scores</h2>
       <p class="small muted">Every score is out of 100 and rates the <em>conditions</em> (wind, waves, tide, light, visibility for spearfishing) at the time on the slider. It does not mean fish are there. Switch between <strong>Shore</strong> and <strong>Spear</strong> at the top of the map.</p>

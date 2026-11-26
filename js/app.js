@@ -94,6 +94,7 @@ function banners() {
   if (state.cond.fetchedAt) for (const err of state.cond.errors || []) out.push(['warn', `${err}. Affected values show as Unknown.`]);
   if (d && d.locations.some(l => l.status === 'demo')) out.push(['info', 'Early preview: spot details are still being verified. Treat locations as approximate.', 'demo']);
   if (d && d.thresholds.some(t => t.status === 'draft')) out.push(['info', 'Safety limits are drafts pending review. Always judge conditions on site.', 'draft']);
+  else if (d && d.thresholds.some(t => t.status === 'researched')) out.push(['info', 'Safety limits follow BOM, Transport WA and Recfishwest guidance, but nobody has checked them on site. Always judge conditions yourself.', 'researched']);
   const dismissed = new Set(store.get('dismissed', []));
   document.getElementById('banners').innerHTML = out
     .filter(([, , key]) => !key || !dismissed.has(key))

@@ -1,11 +1,256 @@
 {
-  "_note": "SAFETY HARD-BLOCK THRESHOLDS. Every value is DRAFT — conservative placeholders for prototype testing only. They must be reviewed against authoritative safety guidance before public launch. The app shows a warning banner while any threshold is draft.",
-  "thresholds": [
-    { "id": "shore-wind-gust", "applies_to": { "activity": "shore", "types": "*" }, "metric": "wind_gust_kmh", "max": 60, "status": "draft", "rationale": "Very strong gusts make standing on exposed structures unsafe." },
-    { "id": "shore-swell-onshore", "applies_to": { "activity": "shore", "types": "*" }, "metric": "onshore_wave_m", "max": 3.5, "status": "draft", "rationale": "Large onshore waves at beaches, groynes and jetties." },
-    { "id": "rock-swell-onshore", "applies_to": { "activity": "shore", "types": ["rock_platform"] }, "metric": "onshore_wave_m", "max": 2.0, "status": "draft", "rationale": "Rock platforms: stricter limit — waves can sweep fishers off ledges." },
-    { "id": "rock-wind-gust", "applies_to": { "activity": "shore", "types": ["rock_platform"] }, "metric": "wind_gust_kmh", "max": 45, "status": "draft", "rationale": "Rock platforms: stricter gust limit." },
-    { "id": "spear-swell", "applies_to": { "activity": "spear", "types": "*" }, "metric": "onshore_wave_m", "max": 1.5, "status": "draft", "rationale": "Shore entries and exits become dangerous in swell." },
-    { "id": "spear-wind", "applies_to": { "activity": "spear", "types": "*" }, "metric": "wind_speed_kmh", "max": 30, "status": "draft", "rationale": "Strong wind creates chop and surface drift for divers." }
-  ]
+ "_note": "SAFETY HARD-BLOCK THRESHOLDS (v2, 26 Nov 2026). Set from published BOM, WA Department of Transport and Recfishwest guidance, choosing the cautious end. NOT reviewed on site by a safety professional — users must always judge conditions themselves. Estuary spots ignore wave limits (no ocean waves).",
+ "sources": [
+  {
+   "name": "BOM — Rock fishing safety (5 weather checks)",
+   "url": "https://www.bom.gov.au/weather-and-climate/specialised-forecasts-and-observations/coasts-and-oceans/marine-weather-safety/rock-fishing-safety"
+  },
+  {
+   "name": "BOM — Marine weather hazards & warnings",
+   "url": "https://www.bom.gov.au/weather-and-climate/specialised-forecasts-and-observations/coasts-and-oceans/marine-weather-hazards"
+  },
+  {
+   "name": "WA DoT — Wave data (Hmax up to 2× Hs)",
+   "url": "https://transport.wa.gov.au/imarine/wave-data-real-time.asp"
+  },
+  {
+   "name": "WA DoT — Weather or not (wind & wave limits for small craft)",
+   "url": "https://transport.wa.gov.au/marine/recreational-boating/weather"
+  },
+  {
+   "name": "Recfishwest — Chris Dixon's rock fishing tips",
+   "url": "https://recfishwest.org.au/news/chris-dixons-tips-on-avoiding-the-dangers-of-rock-fishing/"
+  },
+  {
+   "name": "BOM (2007) Dangerous waves — long period swell (Evans)",
+   "url": "https://www.coastalconference.com/2007/papers2007/Julie%20Evans.doc"
+  },
+  {
+   "name": "Royal Life Saving WA — Rock fishing",
+   "url": "https://royallifesavingwa.com.au/your-community/your-safety/out-and-about/rock-fishing"
+  }
+ ],
+ "thresholds": [
+  {
+   "id": "shore-wind-gust",
+   "applies_to": {
+    "activity": "shore",
+    "types": "*"
+   },
+   "metric": "wind_gust_kmh",
+   "max": 60,
+   "rationale": "Very strong gusts — risk of being blown off jetties, groynes and walls",
+   "basis": [
+    "BOM strong wind warning: 25–33 knots (45–60 km/h); gusts can be 40% stronger"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "shore-wind-mean",
+   "applies_to": {
+    "activity": "shore",
+    "types": "*"
+   },
+   "metric": "wind_speed_kmh",
+   "max": 45,
+   "rationale": "Strong-wind-warning level wind",
+   "basis": [
+    "BOM strong wind warning: 25–33 knots (45–60 km/h); gusts can be 40% stronger"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "shore-wave-onshore",
+   "applies_to": {
+    "activity": "shore",
+    "types": "*"
+   },
+   "metric": "onshore_wave_m",
+   "max": 2.5,
+   "rationale": "Large waves reaching the shore — single waves can be twice this",
+   "basis": [
+    "BOM dangerous-surf thresholds (2007 study): onshore waves 3–4 m at 10 s+, or over 4 m",
+    "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "shore-wave-longperiod",
+   "applies_to": {
+    "activity": "shore",
+    "types": "*"
+   },
+   "metric": "onshore_wave_m",
+   "max": 2.0,
+   "min_period_s": 14,
+   "rationale": "Long-period swell (14 s+) — powerful surges run far up beaches and over groynes",
+   "basis": [
+    "BOM dangerous-surf thresholds (2007 study): onshore waves 3–4 m at 10 s+, or over 4 m",
+    "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "rock-wave",
+   "applies_to": {
+    "activity": "shore",
+    "types": [
+     "rock_platform",
+     "headland"
+    ]
+   },
+   "metric": "wave_m_any_dir",
+   "max": 1.5,
+   "rationale": "Rocks: waves over 1.5 m from any direction — waves wrap around headlands",
+   "basis": [
+    "Experienced rock fishers (NSW): onshore swell over 1.4 m treated as dangerous on an exposed platform",
+    "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "rock-wave-longperiod",
+   "applies_to": {
+    "activity": "shore",
+    "types": [
+     "rock_platform",
+     "headland"
+    ]
+   },
+   "metric": "wave_m_any_dir",
+   "max": 1.0,
+   "min_period_s": 13,
+   "rationale": "Rocks: long-period swell (13 s+) over 1 m — sets surge without warning",
+   "basis": [
+    "Recfishwest safety ambassador Chris Dixon: no rock fishing facing the swell when period is over 16 s or rising",
+    "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "rock-period-16",
+   "applies_to": {
+    "activity": "shore",
+    "types": [
+     "rock_platform",
+     "headland"
+    ]
+   },
+   "metric": "wave_m_any_dir",
+   "max": 0.5,
+   "min_period_s": 16,
+   "rationale": "Rocks: swell period 16 s or longer — rogue-wave conditions",
+   "basis": [
+    "Recfishwest safety ambassador Chris Dixon: no rock fishing facing the swell when period is over 16 s or rising"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "rock-wind-gust",
+   "applies_to": {
+    "activity": "shore",
+    "types": [
+     "rock_platform",
+     "headland"
+    ]
+   },
+   "metric": "wind_gust_kmh",
+   "max": 45,
+   "rationale": "Rocks: strong gusts on wet rock",
+   "basis": [
+    "BOM strong wind warning: 25–33 knots (45–60 km/h); gusts can be 40% stronger"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "rock-no-wave-data",
+   "applies_to": {
+    "activity": "shore",
+    "types": [
+     "rock_platform",
+     "headland"
+    ]
+   },
+   "metric": "wave_missing",
+   "max": 0,
+   "rationale": "Rocks: no wave forecast, so rock safety can't be checked",
+   "basis": [
+    "App rule: unknown is treated as unsafe on rocks"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "spear-wave",
+   "applies_to": {
+    "activity": "spear",
+    "types": "*"
+   },
+   "metric": "onshore_wave_m",
+   "max": 1.2,
+   "rationale": "Swell too big for safe shore entry and exit",
+   "basis": [
+    "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "spear-wave-longperiod",
+   "applies_to": {
+    "activity": "spear",
+    "types": "*"
+   },
+   "metric": "wave_m_any_dir",
+   "max": 0.8,
+   "min_period_s": 14,
+   "rationale": "Long-period swell (14 s+) — surge at entry/exit points and in caves",
+   "basis": [
+    "Recfishwest safety ambassador Chris Dixon: no rock fishing facing the swell when period is over 16 s or rising",
+    "BOM / WA DoT: the biggest waves can be up to twice the forecast (significant) wave height"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "spear-wind",
+   "applies_to": {
+    "activity": "spear",
+    "types": "*"
+   },
+   "metric": "wind_speed_kmh",
+   "max": 25,
+   "rationale": "Wind over 25 km/h — chop, drift and hard to see your float",
+   "basis": [
+    "BOM boating safety: winds over 15 knots (28 km/h) not suitable for small vessels",
+    "WA DoT 'Weather or not': over 20 knots (37 km/h) unsafe for small craft; 3 m craft safe only to 8 knots"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "spear-wind-gust",
+   "applies_to": {
+    "activity": "spear",
+    "types": "*"
+   },
+   "metric": "wind_gust_kmh",
+   "max": 40,
+   "rationale": "Gusts over 40 km/h",
+   "basis": [
+    "WA DoT 'Weather or not': over 20 knots (37 km/h) unsafe for small craft; 3 m craft safe only to 8 knots"
+   ],
+   "status": "researched"
+  },
+  {
+   "id": "spear-no-wave-data",
+   "applies_to": {
+    "activity": "spear",
+    "types": "*"
+   },
+   "metric": "wave_missing",
+   "max": 0,
+   "rationale": "No wave forecast, so diving safety can't be checked",
+   "basis": [
+    "App rule: unknown is treated as unsafe for diving"
+   ],
+   "status": "researched"
+  }
+ ]
 }

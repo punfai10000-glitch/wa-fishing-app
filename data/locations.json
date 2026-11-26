@@ -1,195 +1,483 @@
 {
-  "_note": "PILOT/DEMO DATASET. Coordinates, exposure and access below were entered from general knowledge for prototype testing ONLY. Every record has status 'demo' and must be verified (OSM + government source + site knowledge) and switched to status 'active' before public launch. Do not treat these as verified fishing spots.",
-  "locations": [
-    {
-      "id": "perth-cottesloe-groyne",
-      "name": "Cottesloe Groyne",
-      "region": "perth",
-      "type": "groyne",
-      "activities": ["shore"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [115.7510, -31.9950] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["W", "SW", "NW"], "sheltered_dirs": ["E", "NE", "SE"] },
-      "terrain": ["rock_wall", "sand"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 5 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": ["Waves can wash over the groyne in big swell."],
-      "last_verified": null
-    },
-    {
-      "id": "rockingham-woodman-point-jetty",
-      "name": "Woodman Point (Ammo Jetty area)",
-      "region": "rockingham",
-      "type": "jetty",
-      "activities": ["shore"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [115.7580, -32.1350] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["W", "NW"], "sheltered_dirs": ["E", "SE", "S"] },
-      "terrain": ["jetty", "sand", "seagrass"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 5 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": [],
-      "last_verified": null
-    },
-    {
-      "id": "mandurah-dawesville-cut",
-      "name": "Dawesville Cut",
-      "region": "mandurah",
-      "type": "estuary",
-      "activities": ["shore"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [115.6400, -32.6300] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["W", "SW", "NW"], "sheltered_dirs": ["E", "NE"] },
-      "terrain": ["rock_wall", "channel"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 5 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": ["Strong tidal flow through the channel."],
-      "last_verified": null
-    },
-    {
-      "id": "bunbury-back-beach",
-      "name": "Bunbury Back Beach",
-      "region": "bunbury",
-      "type": "beach",
-      "activities": ["shore"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [115.6350, -33.3290] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["W", "NW", "SW"], "sheltered_dirs": ["E"] },
-      "terrain": ["sand", "surf_gutter"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 3 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": [],
-      "last_verified": null
-    },
-    {
-      "id": "busselton-jetty",
-      "name": "Busselton Jetty",
-      "region": "busselton",
-      "type": "jetty",
-      "activities": ["shore"],
-      "confidence": "verified",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [115.3380, -33.6430] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["N", "NW", "NE"], "sheltered_dirs": ["S", "SW", "SE"] },
-      "terrain": ["jetty", "sand", "seagrass"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 5 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": ["Jetty access may require an entry fee."],
-      "last_verified": null
-    },
-    {
-      "id": "margaret-river-gnarabup",
-      "name": "Gnarabup",
-      "region": "margaret-river",
-      "type": "shore_reef",
-      "activities": ["shore", "spear"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [114.9930, -33.9930] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["W", "SW", "NW"], "sheltered_dirs": ["E", "NE"] },
-      "terrain": ["sand", "reef", "limestone"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 3 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": ["Exposed to Indian Ocean swell."],
-      "last_verified": null
-    },
-    {
-      "id": "denmark-ocean-beach",
-      "name": "Ocean Beach / Wilson Inlet mouth",
-      "region": "denmark",
-      "type": "estuary",
-      "activities": ["shore"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [117.3330, -35.0040] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["S", "SW", "SE"], "sheltered_dirs": ["N", "NE"] },
-      "terrain": ["sand", "surf_gutter", "channel"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 5 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": [],
-      "last_verified": null
-    },
-    {
-      "id": "albany-salmon-holes",
-      "name": "Salmon Holes",
-      "region": "albany",
-      "type": "rock_platform",
-      "activities": ["shore"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [117.9050, -35.1050] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["S", "SW", "SE"], "sheltered_dirs": ["N"] },
-      "terrain": ["granite", "rock_platform", "sand"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 10 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": ["High-risk rock fishing area. Freak waves occur without warning. Wear a lifejacket and never fish alone."],
-      "last_verified": null
-    },
-    {
-      "id": "albany-middleton-beach",
-      "name": "Middleton Beach",
-      "region": "albany",
-      "type": "beach",
-      "activities": ["shore"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [117.9160, -35.0230] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["SE", "E", "S"], "sheltered_dirs": ["W", "NW", "N"] },
-      "terrain": ["sand"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 2 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": [],
-      "last_verified": null
-    },
-    {
-      "id": "esperance-jetty",
-      "name": "Esperance Jetty",
-      "region": "esperance",
-      "type": "jetty",
-      "activities": ["shore"],
-      "confidence": "supported",
-      "status": "demo",
-      "geometry": { "type": "Point", "coordinates": [121.8910, -33.8640] },
-      "pin_precision": "approximate",
-      "exposure": { "onshore_dirs": ["S", "SE", "SW"], "sheltered_dirs": ["N"] },
-      "terrain": ["jetty", "sand"],
-      "access": { "vehicle": "2wd", "parking": true, "walk_minutes": 3 },
-      "species_evidence": [],
-      "restrictions": [],
-      "sources": ["src-own-knowledge"],
-      "safety_notes": [],
-      "last_verified": null
-    }
-  ]
+ "_note": "PILOT/DEMO DATASET. Coordinates, exposure and access below were entered from general knowledge for prototype testing ONLY. Every record has status 'demo' and must be verified (OSM + government source + site knowledge) and switched to status 'active' before public launch. Do not treat these as verified fishing spots.",
+ "locations": [
+  {
+   "id": "perth-cottesloe-groyne",
+   "name": "Cottesloe Beach groyne",
+   "region": "perth",
+   "type": "groyne",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     115.75077,
+     -31.99569
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "W",
+     "SW",
+     "NW"
+    ],
+    "sheltered_dirs": [
+     "E",
+     "NE",
+     "SE"
+    ]
+   },
+   "terrain": [
+    "rock_wall",
+    "sand"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 5
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [
+    "Waves can wash over the groyne in big swell."
+   ],
+   "last_verified": null
+  },
+  {
+   "id": "rockingham-woodman-point-jetty",
+   "name": "Woodman Point Ammo Jetty",
+   "region": "rockingham",
+   "type": "jetty",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     115.759,
+     -32.12421
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "W",
+     "NW"
+    ],
+    "sheltered_dirs": [
+     "E",
+     "SE",
+     "S"
+    ]
+   },
+   "terrain": [
+    "jetty",
+    "sand",
+    "seagrass"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 5
+   },
+   "species_evidence": [],
+   "restrictions": [
+    "rule-closure-ammo-jetty"
+   ],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [],
+   "last_verified": null
+  },
+  {
+   "id": "mandurah-dawesville-cut",
+   "name": "Dawesville Cut (channel walls)",
+   "region": "mandurah",
+   "type": "estuary",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     115.64267,
+     -32.60781
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "W",
+     "SW",
+     "NW"
+    ],
+    "sheltered_dirs": [
+     "E",
+     "NE"
+    ]
+   },
+   "terrain": [
+    "rock_wall",
+    "channel"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 5
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [
+    "Strong tidal flow through the channel."
+   ],
+   "last_verified": null
+  },
+  {
+   "id": "bunbury-back-beach",
+   "name": "Bunbury Back Beach",
+   "region": "bunbury",
+   "type": "beach",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     115.62879,
+     -33.32737
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "W",
+     "NW",
+     "SW"
+    ],
+    "sheltered_dirs": [
+     "E"
+    ]
+   },
+   "terrain": [
+    "sand",
+    "surf_gutter"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 3
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [],
+   "last_verified": null
+  },
+  {
+   "id": "busselton-jetty",
+   "name": "Busselton Jetty (base)",
+   "region": "busselton",
+   "type": "jetty",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "verified",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     115.34444,
+     -33.64385
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "N",
+     "NW",
+     "NE"
+    ],
+    "sheltered_dirs": [
+     "S",
+     "SW",
+     "SE"
+    ]
+   },
+   "terrain": [
+    "jetty",
+    "sand",
+    "seagrass"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 5
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [
+    "Jetty access may require an entry fee."
+   ],
+   "last_verified": null
+  },
+  {
+   "id": "margaret-river-gnarabup",
+   "name": "Gnarabup Beach & reef",
+   "region": "margaret-river",
+   "type": "shore_reef",
+   "activities": [
+    "shore",
+    "spear"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     114.98919,
+     -33.98354
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "W",
+     "SW",
+     "NW"
+    ],
+    "sheltered_dirs": [
+     "E",
+     "NE"
+    ]
+   },
+   "terrain": [
+    "sand",
+    "reef",
+    "limestone"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 3
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [
+    "Exposed to Indian Ocean swell."
+   ],
+   "last_verified": null
+  },
+  {
+   "id": "denmark-ocean-beach",
+   "name": "Ocean Beach (Wilson Inlet mouth), Denmark",
+   "region": "denmark",
+   "type": "beach",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     117.33128,
+     -35.02901
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "S",
+     "SW",
+     "SE"
+    ],
+    "sheltered_dirs": [
+     "N",
+     "NE"
+    ]
+   },
+   "terrain": [
+    "sand",
+    "surf_gutter",
+    "channel"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 5
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [],
+   "last_verified": null
+  },
+  {
+   "id": "albany-salmon-holes",
+   "name": "Salmon Holes (beach & rocks)",
+   "region": "albany",
+   "type": "rock_platform",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     117.96864,
+     -35.10262
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "S",
+     "SW",
+     "SE"
+    ],
+    "sheltered_dirs": [
+     "N"
+    ]
+   },
+   "terrain": [
+    "granite",
+    "rock_platform",
+    "sand"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 10
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [
+    "High-risk rock fishing area. Freak waves occur without warning. Wear a lifejacket and never fish alone.",
+    "A Type 1 lifejacket is required for anyone going onto the rocks at either end of the beach (DBCA). Many people have drowned here — Recfishwest advises fishing from the sand."
+   ],
+   "last_verified": null
+  },
+  {
+   "id": "albany-middleton-beach",
+   "name": "Middleton Beach",
+   "region": "albany",
+   "type": "beach",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     117.9217,
+     -35.01419
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "SE",
+     "E",
+     "S"
+    ],
+    "sheltered_dirs": [
+     "W",
+     "NW",
+     "N"
+    ]
+   },
+   "terrain": [
+    "sand"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 2
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [],
+   "last_verified": null
+  },
+  {
+   "id": "esperance-jetty",
+   "name": "Esperance Jetty (new jetty, opened 2021)",
+   "region": "esperance",
+   "type": "jetty",
+   "activities": [
+    "shore"
+   ],
+   "confidence": "supported",
+   "status": "demo",
+   "geometry": {
+    "type": "Point",
+    "coordinates": [
+     121.89439,
+     -33.8632
+    ]
+   },
+   "pin_precision": "checked against OpenStreetMap shoreline (26 Nov 2026)",
+   "exposure": {
+    "onshore_dirs": [
+     "S",
+     "SE",
+     "SW"
+    ],
+    "sheltered_dirs": [
+     "N"
+    ]
+   },
+   "terrain": [
+    "jetty",
+    "sand"
+   ],
+   "access": {
+    "vehicle": "2wd",
+    "parking": true,
+    "walk_minutes": 3
+   },
+   "species_evidence": [],
+   "restrictions": [],
+   "sources": [
+    "src-own-knowledge"
+   ],
+   "safety_notes": [],
+   "last_verified": null
+  }
+ ]
 }

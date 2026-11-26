@@ -11,6 +11,14 @@ function metricValue(metric, hour, loc) {
       const ew = effectiveWave(hour, loc);
       return ew ? ew.height : null;
     }
+    // Rocks & long-period checks: full height, NOT reduced for side-on/sheltered direction (waves wrap around)
+    case 'wave_m_any_dir': {
+      const h = hour.wave_height ?? hour.swell_height;
+      return h == null ? null : h;
+    }
+    // 1 when the wave forecast is missing for an ocean spot (unknown = unsafe on rocks / for diving)
+    case 'wave_missing':
+      return loc.estuary || hour.sheltered ? null : ((hour.wave_height ?? hour.swell_height) == null ? 1 : 0);
     default: return null;
   }
 }
@@ -51,10 +59,17 @@ export function checkBlocks(loc, hour, activity, ctx = {}) {
   // Safety thresholds (location type + activity specific; strictest wins)
   for (const th of (ctx.thresholds || [])) {
     if (!thresholdApplies(th, loc, activity)) continue;
+    if (th.min_period_s != null) {
+      const per = hour.wave_period ?? hour.swell_period;
+      if (per == null || per < th.min_period_s) continue;
+    }
+    if (loc.estuary && th.metric !== 'wind_gust_kmh' && th.metric !== 'wind_speed_kmh') continue;
     const v = metricValue(th.metric, hour, loc);
     if (v != null && v > th.max) {
-      const unit = th.metric.endsWith('_m') ? 'm' : 'km/h';
-      out.push({ kind: 'safety', reason: `${th.rationale} (${v.toFixed(1)} ${unit} > limit ${th.max} ${unit}${th.status === 'draft' ? ', draft limit' : ''}).` });
+      if (th.metric === 'wave_missing') { out.push({ kind: 'safety', reason: `${th.rationale}.` }); continue; }
+      const unit = th.metric.includes('_m') && !th.metric.includes('kmh') ? 'm' : 'km/h';
+      const per = th.min_period_s != null ? ` at ${Math.round(hour.wave_period ?? hour.swell_period)} s` : '';
+      out.push({ kind: 'safety', reason: `${th.rationale} (${v.toFixed(1)} ${unit}${per}; limit ${th.max} ${unit}).` });
     }
   }
 

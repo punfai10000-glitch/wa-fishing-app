@@ -14,7 +14,7 @@ export async function loadStatic() {
     json('data/locations.json'), json('data/species.json'), json('data/rules.json'),
     json('data/thresholds.json'), json('data/zones/marine-parks.geojson'), json('data/sources.json')
   ]);
-  return { locations: loc.locations, species, rules: rules.rules, ruleGuide: rules.guide, ruleLinks: rules.official_links, thresholds: thresholds.thresholds, zones, sources: sources.sources };
+  return { locations: loc.locations, species, rules: rules.rules, ruleGuide: rules.guide, ruleLinks: rules.official_links, thresholds: thresholds.thresholds, thresholdSources: thresholds.sources || [], zones, sources: sources.sources };
 }
 
 const FORECAST_VARS = ['wind_speed_10m', 'wind_direction_10m', 'wind_gusts_10m', 'precipitation', 'weather_code', 'cloud_cover', 'pressure_msl'];

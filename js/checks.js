@@ -17,10 +17,11 @@ export function fourChecks(loc, ev, hr, zones, activity) {
   const sb = (hr?.blocks || []).find(b => b.kind === 'safety');
   rows.push(['Safety', sb ? `<b class="ck poor">Not safe</b> ${esc(sb.reason)}` :
     hr?.blockKind === 'dark' ? '<b class="ck poor">Too dark</b> no spearfishing at night' :
-    `<b class="ck unknown">Not verified</b> within draft limits — check on site${loc.type === 'rock_platform' ? '; wear a lifejacket on rocks' : ''}`]);
+    `<b class="ck unknown">Not verified</b> within published safety limits — check on site${loc.type === 'rock_platform' ? '; wear a lifejacket on rocks' : ''}`]);
   // 4. Rules
   const ls = legalStatus(zones, loc);
-  rows.push(['Rules', ls.state === 'blocked' ? '<b class="ck poor">Not allowed</b> sanctuary zone' :
+  const lb = (hr?.blocks || []).find(b => b.kind === 'legal');
+  rows.push(['Rules', lb ? `<b class="ck poor">Not allowed</b> ${esc(lb.reason)}` : ls.state === 'blocked' ? '<b class="ck poor">Not allowed</b> sanctuary zone' :
     ls.state === 'ok' ? '<b class="ck good">No zone found</b> normal bag & size limits apply' :
     ls.state === 'caution' ? '<b class="ck fair">Check zone</b> inside a marine park, zones not fully mapped' : '<b class="ck unknown">Not checked</b> zone data not loaded']);
   // 5. Data confidence

@@ -6,7 +6,6 @@ import * as store from '../storage.js';
 export function renderMore(view) {
   const u = getUnits();
   const favs = store.favourites();
-  const draft = state.data.thresholds.filter(t => t.status === 'draft');
   const opt = (v, cur, label) => `<option value="${v}" ${v === cur ? 'selected' : ''}>${label}</option>`;
   view.innerHTML = `
   <div>
@@ -36,10 +35,17 @@ export function renderMore(view) {
 
     <div class="card">
       <h2>Safety limits</h2>
-      <p class="small">${draft.length} of ${state.data.thresholds.length} safety limits are <strong>drafts</strong> awaiting review against official safety guidance. Spots are blocked when these are exceeded:</p>
-      <table><thead><tr><th>Applies to</th><th>Limit</th><th>Status</th></tr></thead><tbody>
-      ${state.data.thresholds.map(t => `<tr><td>${esc(t.applies_to.activity)}${Array.isArray(t.applies_to.types) ? ' · ' + esc(t.applies_to.types.join(', ').replace('_', ' ')) : ''}</td><td>${esc(t.metric.replace(/_/g, ' '))} ≤ ${t.max}</td><td>${esc(t.status)}</td></tr>`).join('')}
+      <p class="small">A spot shows <strong>Not safe</strong> when the forecast passes any of these. They follow published BOM, Transport WA and Recfishwest guidance, choosing the cautious end — but nobody has checked them on site. <strong>Waves can be twice the forecast height.</strong> Always look at the water yourself.</p>
+      <table class="small"><thead><tr><th>Applies to</th><th>Not safe when</th></tr></thead><tbody>
+      ${state.data.thresholds.map(t => {
+        const who = t.applies_to.activity === 'spear' ? 'Spearfishing' : Array.isArray(t.applies_to.types) ? 'Rocks & headlands' : 'All shore spots';
+        const unit = /kmh/.test(t.metric) ? ' km/h' : ' m';
+        const what = t.metric === 'wave_missing' ? 'no wave forecast is available'
+          : `${{ wind_gust_kmh: 'gusts', wind_speed_kmh: 'wind', onshore_wave_m: 'waves reaching the spot', wave_m_any_dir: 'waves from any direction' }[t.metric] ?? t.metric} over ${t.max}${unit}${t.min_period_s ? ` with swell period ${t.min_period_s} s or longer` : ''}`;
+        return `<tr><td>${who}</td><td>${esc(what)}<br><span class="muted">${esc(t.rationale)}</span></td></tr>`;
+      }).join('')}
       </tbody></table>
+      <p class="small muted">Thunderstorms and night-time spearfishing are also blocked. Sources: ${(state.data.thresholdSources || []).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name)}</a>`).join(' · ')}</p>
     </div>
 
     <div class="card">

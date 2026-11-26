@@ -1,171 +1,191 @@
 {
-  "_note": "Restated in our own words from DPIRD's Recreational fishing guide 2026 and the 1 June 2026 changes, checked 25 Nov 2026. Official rules prevail.",
-  "official_links": [
-    {
-      "label": "Search official WA fishing rules (DPIRD)",
-      "url": "https://rules.fish.wa.gov.au"
-    },
-    {
-      "label": "Recreational fishing rules \u2014 DPIRD",
-      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
-    },
-    {
-      "label": "Bag and size limits \u2014 DPIRD",
-      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/recreational-bag-and-size-limits"
-    },
-    {
-      "label": "WA marine parks and zones \u2014 Explore Parks WA",
-      "url": "https://exploreparks.dbca.wa.gov.au/wa-marine-parks"
-    },
-    {
-      "label": "SharkSmart WA",
-      "url": "https://www.sharksmart.com.au/"
-    }
-  ],
-  "rules": [
-    {
-      "id": "rule-west-coast-demersal-landbased",
-      "scope": "species",
-      "applies_to": {
-        "group": "demersal_scalefish",
-        "bioregion": "west_coast",
-        "activity": [
-          "shore",
-          "spear"
-        ]
-      },
-      "kind": "bag_limit",
-      "summary": "Land-based fishers in the West Coast bioregion: combined bag limit of 2 demersal scalefish. Boat-based demersal fishing in the West Coast region is closed (boat fishing is outside this app's scope). Check DPIRD for the full list of demersal species and size limits.",
-      "effective_from": "2026-06-01",
-      "source_name": "DPIRD \u2014 New statewide finfish size and bag limits from 1 June 2026",
-      "source_url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf",
-      "last_checked": "2026-11-24",
-      "blocks": false
-    },
-    {
-      "id": "rule-south-coast-demersal-2026",
-      "scope": "species",
-      "applies_to": {
-        "group": "demersal_scalefish",
-        "bioregion": "south_coast",
-        "activity": [
-          "shore",
-          "spear"
-        ]
-      },
-      "kind": "bag_limit",
-      "summary": "South Coast bioregion (from 1 June 2026): mixed demersal scalefish bag limit of 4 per person, including no more than 1 WA dhufish, 1 western blue groper and 2 pink snapper. Pink snapper minimum size 450 mm.",
-      "effective_from": "2026-06-01",
-      "source_name": "DPIRD \u2014 New statewide finfish size and bag limits from 1 June 2026",
-      "source_url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf",
-      "last_checked": "2026-11-25",
-      "blocks": false
-    },
-    {
-      "id": "rule-protected-stingrays",
-      "scope": "species",
-      "applies_to": {
-        "activity": [
-          "shore",
-          "spear"
-        ]
-      },
-      "kind": "protected",
-      "summary": "Black stingray and smooth stingray are recreationally protected in the West Coast and South Coast bioregions \u2014 they must not be taken. Any protected species caught must be returned to the water immediately.",
-      "source_name": "DPIRD \u2014 Protected species",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25",
-      "blocks": false
-    }
-  ],
-  "guide": [
-    {
-      "id": "licences",
-      "title": "Licences",
-      "text": "You don't need a licence to fish from the shore. Exceptions: rock lobster, abalone, marron, south-west freshwater angling and net fishing need licences. Any fishing from a powered boat (including spearfishing) needs a Recreational Fishing from Boat Licence.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "gear",
-      "title": "Lines, hooks & baits",
-      "text": "From the shore you may use up to 2 lines, and rods/lines must be attended. In the West Coast bioregion, when fishing for demersal scalefish, only 1 bait or lure per line. Elsewhere (and for other fish) up to 3 baits or lures per line. Bait jigs with more than 3 hooks are illegal in WA.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "spear",
-      "title": "Spearfishing",
-      "text": "Spearfishing is allowed in most ocean waters, except some marine protected areas (sanctuary zones) and around dive wrecks. Rivers, tributaries and dams are closed to spearfishing (a hand spear may be used for estuarine cobbler in estuaries). Land-based spearfishing for WA dhufish is not permitted. Protected species (e.g. grey nurse shark, seadragons) must never be speared. Dive with a buddy, use a dive flag and consider a shark deterrent.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "measure",
-      "title": "Measuring",
-      "text": "Measure finfish from the tip of the snout to the tip of the tail.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "possession",
-      "title": "Possession limits",
-      "text": "Away from home you may hold: 10 kg of fillets plus 10 kg of large pelagic fillets (skin on), or 10 kg of fillets plus one day's bag limit of whole fish, or 2 days' bag limit of whole fish. At your home: up to 20 kg of fillets.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "landing",
-      "title": "Filleting & landing",
-      "text": "Fish carried at sea and landed must have skin attached so they can be identified (whole, gutted and gilled, trunks or skin-on fillets). Two fillets count as one fish for bag limits.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "sharks",
-      "title": "Sharks & rays",
-      "text": "Sharks and rays: combined bag limit of 3 per day. Black stingray and smooth stingray are protected in the West Coast and South Coast bioregions \u2014 release them.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "west",
-      "title": "West Coast bioregion (Perth \u2192 Augusta)",
-      "text": "Boat fishing for demersal scalefish is closed until Spring 2027. Land-based fishers can still catch demersal scalefish by line or spear (outside spawning closures), with a mixed demersal bag of 2 per person \u2014 but WA dhufish can't be speared from land. Pink snapper minimum 500 mm between Lancelin and Black Point.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "south",
-      "title": "South Coast bioregion (Denmark \u2192 Esperance)",
-      "text": "From 1 June 2026: mixed demersal bag of 4 per person, including no more than 1 WA dhufish, 1 western blue groper and 2 pink snapper (minimum 450 mm). Bight redfish, yelloweye redfish and swallowtail: 4 of each plus a mixed bag of 4 other demersals.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "crabs",
-      "title": "Crabs",
-      "text": "Take crabs by hand, blunt wire hook, drop net (max 1.5 m across, max 10 per person) or rigid scoop net. Blue swimmer crab: minimum 127 mm carapace width, bag 20. Mud crab: bag 5. Release berried (egg-carrying) and undersize crabs immediately.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    },
-    {
-      "id": "lobster",
-      "title": "Rock lobster",
-      "text": "Needs a rock lobster licence. Bag 8 per fisher per day; possession limit 24 per person.",
-      "source_name": "DPIRD Recreational fishing guide 2026",
-      "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
-      "last_checked": "2026-11-25"
-    }
-  ]
+ "_note": "Restated in our own words from DPIRD's Recreational fishing guide 2026 and the 1 June 2026 changes, checked 25 Nov 2026. Official rules prevail.",
+ "official_links": [
+  {
+   "label": "Search official WA fishing rules (DPIRD)",
+   "url": "https://rules.fish.wa.gov.au"
+  },
+  {
+   "label": "Recreational fishing rules — DPIRD",
+   "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+  },
+  {
+   "label": "Bag and size limits — DPIRD",
+   "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/recreational-bag-and-size-limits"
+  },
+  {
+   "label": "WA marine parks and zones — Explore Parks WA",
+   "url": "https://exploreparks.dbca.wa.gov.au/wa-marine-parks"
+  },
+  {
+   "label": "SharkSmart WA",
+   "url": "https://www.sharksmart.com.au/"
+  }
+ ],
+ "rules": [
+  {
+   "id": "rule-west-coast-demersal-landbased",
+   "scope": "species",
+   "applies_to": {
+    "group": "demersal_scalefish",
+    "bioregion": "west_coast",
+    "activity": [
+     "shore",
+     "spear"
+    ]
+   },
+   "kind": "bag_limit",
+   "summary": "Land-based fishers in the West Coast bioregion: combined bag limit of 2 demersal scalefish. Boat-based demersal fishing in the West Coast region is closed (boat fishing is outside this app's scope). Check DPIRD for the full list of demersal species and size limits.",
+   "effective_from": "2026-06-01",
+   "source_name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
+   "source_url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf",
+   "last_checked": "2026-11-24",
+   "blocks": false
+  },
+  {
+   "id": "rule-south-coast-demersal-2026",
+   "scope": "species",
+   "applies_to": {
+    "group": "demersal_scalefish",
+    "bioregion": "south_coast",
+    "activity": [
+     "shore",
+     "spear"
+    ]
+   },
+   "kind": "bag_limit",
+   "summary": "South Coast bioregion (from 1 June 2026): mixed demersal scalefish bag limit of 4 per person, including no more than 1 WA dhufish, 1 western blue groper and 2 pink snapper. Pink snapper minimum size 450 mm.",
+   "effective_from": "2026-06-01",
+   "source_name": "DPIRD — New statewide finfish size and bag limits from 1 June 2026",
+   "source_url": "https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/guides-and-infographics/statewide-finfish-size-bag-limits.pdf",
+   "last_checked": "2026-11-25",
+   "blocks": false
+  },
+  {
+   "id": "rule-protected-stingrays",
+   "scope": "species",
+   "applies_to": {
+    "activity": [
+     "shore",
+     "spear"
+    ]
+   },
+   "kind": "protected",
+   "summary": "Black stingray and smooth stingray are recreationally protected in the West Coast and South Coast bioregions — they must not be taken. Any protected species caught must be returned to the water immediately.",
+   "source_name": "DPIRD — Protected species",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25",
+   "blocks": false
+  },
+  {
+   "id": "rule-closure-ammo-jetty",
+   "scope": "location",
+   "kind": "closure",
+   "summary": "Woodman Point Ammo Jetty is closed (storm damage, June 2026) while a new jetty is built. Parts of John Graham Reserve are closed until late 2027. Transport WA suggests Woodman Point Groyne, Sue’s Groyne or the Omeo Wreck instead.",
+   "effective_from": "2026-06-01",
+   "effective_to": "2027-12-31",
+   "source_name": "Department of Transport WA — New Woodman Point Ammo Jetty",
+   "source_url": "https://www.transport.wa.gov.au/marine/projects-coastal-management/maritime-coastal-infrastructure-projects/new-woodman-point-ammo-jetty",
+   "last_checked": "2026-11-26",
+   "blocks": true,
+   "applies_to": {
+    "location": "rockingham-woodman-point-jetty",
+    "bioregion": "west_coast",
+    "activity": [
+     "shore",
+     "spear"
+    ]
+   }
+  }
+ ],
+ "guide": [
+  {
+   "id": "licences",
+   "title": "Licences",
+   "text": "You don't need a licence to fish from the shore. Exceptions: rock lobster, abalone, marron, south-west freshwater angling and net fishing need licences. Any fishing from a powered boat (including spearfishing) needs a Recreational Fishing from Boat Licence.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "gear",
+   "title": "Lines, hooks & baits",
+   "text": "From the shore you may use up to 2 lines, and rods/lines must be attended. In the West Coast bioregion, when fishing for demersal scalefish, only 1 bait or lure per line. Elsewhere (and for other fish) up to 3 baits or lures per line. Bait jigs with more than 3 hooks are illegal in WA.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "spear",
+   "title": "Spearfishing",
+   "text": "Spearfishing is allowed in most ocean waters, except some marine protected areas (sanctuary zones) and around dive wrecks. Rivers, tributaries and dams are closed to spearfishing (a hand spear may be used for estuarine cobbler in estuaries). Land-based spearfishing for WA dhufish is not permitted. Protected species (e.g. grey nurse shark, seadragons) must never be speared. Dive with a buddy, use a dive flag and consider a shark deterrent.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "measure",
+   "title": "Measuring",
+   "text": "Measure finfish from the tip of the snout to the tip of the tail.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "possession",
+   "title": "Possession limits",
+   "text": "Away from home you may hold: 10 kg of fillets plus 10 kg of large pelagic fillets (skin on), or 10 kg of fillets plus one day's bag limit of whole fish, or 2 days' bag limit of whole fish. At your home: up to 20 kg of fillets.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "landing",
+   "title": "Filleting & landing",
+   "text": "Fish carried at sea and landed must have skin attached so they can be identified (whole, gutted and gilled, trunks or skin-on fillets). Two fillets count as one fish for bag limits.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "sharks",
+   "title": "Sharks & rays",
+   "text": "Sharks and rays: combined bag limit of 3 per day. Black stingray and smooth stingray are protected in the West Coast and South Coast bioregions — release them.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "west",
+   "title": "West Coast bioregion (Perth → Augusta)",
+   "text": "Boat fishing for demersal scalefish is closed until Spring 2027. Land-based fishers can still catch demersal scalefish by line or spear (outside spawning closures), with a mixed demersal bag of 2 per person — but WA dhufish can't be speared from land. Pink snapper minimum 500 mm between Lancelin and Black Point.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "south",
+   "title": "South Coast bioregion (Denmark → Esperance)",
+   "text": "From 1 June 2026: mixed demersal bag of 4 per person, including no more than 1 WA dhufish, 1 western blue groper and 2 pink snapper (minimum 450 mm). Bight redfish, yelloweye redfish and swallowtail: 4 of each plus a mixed bag of 4 other demersals.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "crabs",
+   "title": "Crabs",
+   "text": "Take crabs by hand, blunt wire hook, drop net (max 1.5 m across, max 10 per person) or rigid scoop net. Blue swimmer crab: minimum 127 mm carapace width, bag 20. Mud crab: bag 5. Release berried (egg-carrying) and undersize crabs immediately.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  },
+  {
+   "id": "lobster",
+   "title": "Rock lobster",
+   "text": "Needs a rock lobster licence. Bag 8 per fisher per day; possession limit 24 per person.",
+   "source_name": "DPIRD Recreational fishing guide 2026",
+   "source_url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/",
+   "last_checked": "2026-11-25"
+  }
+ ]
 }
