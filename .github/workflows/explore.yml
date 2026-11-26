@@ -1,9 +1,0 @@
-name: explore
-on: workflow_dispatch
-jobs:
-  x:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          curl -s "https://marine-api.open-meteo.com/v1/marine?latitude=-32.06,-33.30,-35.06,-33.89&longitude=115.70,115.60,117.97,121.93&hourly=sea_level_height_msl&past_days=61&forecast_days=16&timezone=Australia%2FPerth&cell_selection=sea" | gzip | base64 -w0 > o.txt
-          echo "BEGIN"; cat o.txt; echo; echo "END"

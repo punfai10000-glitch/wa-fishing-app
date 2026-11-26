@@ -113,6 +113,21 @@ function finish(payload, locations, errors, forceStale = false) {
 
 const num = v => (v == null || Number.isNaN(v) ? null : v);
 
+// The marine model's tide runs early on this coast: checked against the official AHO predictions for Oct–Dec 2026,
+// highs and lows come this many minutes later than the model says (median of ~150 highs/lows per port).
+const TIDE_LAG = [
+  { lat: -32.05, lng: 115.74, min: 49 },   // Fremantle (also Perth metro)
+  { lat: -33.32, lng: 115.65, min: 58 },   // Bunbury
+  { lat: -35.03, lng: 117.88, min: 34 },   // Albany
+  { lat: -33.87, lng: 121.90, min: 28 }    // Esperance
+];
+export function tideLagMin(lat, lng) {
+  if (lat == null || lng == null) return 0;
+  let best = null;
+  for (const p of TIDE_LAG) { const d = Math.hypot((p.lng - lng) * Math.cos(lat * Math.PI / 180), p.lat - lat); if (!best || d < best.d) best = { d, p }; }
+  return best.p.min;
+}
+
 export function normalise(fc, mr) {
   const map = new Map();
   const add = (src, fields, type) => {
@@ -133,6 +148,16 @@ export function normalise(fc, mr) {
   add(mr, [['sea_surface_temperature', 'sst'], ['sea_level_height_msl', 'sea_level'], ['ocean_current_velocity', 'current_speed'], ['ocean_current_direction', 'current_direction']], 'modelled');
 
   const hours = [...map.values()].sort((a, b) => a.t - b.t);
+  // shift the modelled tide later to match the official tide times (see TIDE_LAG)
+  const lag = tideLagMin(mr?.latitude ?? fc?.latitude, mr?.longitude ?? fc?.longitude);
+  if (lag > 0 && lag < 60) {
+    const raw = hours.map(h => h.sea_level), f = lag / 60;
+    hours.forEach((h, i) => {
+      const a = raw[i - 1], b = raw[i];
+      if (a != null && b != null && hours[i].t - hours[i - 1].t === 3600e3) h.sea_level = +(b - (b - a) * f).toFixed(3);
+      else if (i === 0 || a == null) { h.sea_level = null; h.types.sea_level = 'unknown'; }
+    });
+  }
   // Tide trend from modelled sea level (centred difference, m/h)
   hours.forEach((h, i) => {
     const prev = hours[i - 1], next = hours[i + 1];
