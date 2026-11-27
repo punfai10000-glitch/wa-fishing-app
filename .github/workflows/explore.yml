@@ -1,0 +1,17 @@
+name: explore
+on: workflow_dispatch
+jobs:
+  x:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          for sn in VIIRSJ1_L2_OC_NRT VIIRSJ2_L2_OC_NRT VIIRSN_L2_OC_NRT OLCIS3A_L2_EFR_OC_NRT OLCIS3B_L2_EFR_OC_NRT OLCIS3A_L2_EFR_OC OLCIS3B_L2_EFR_OC; do
+            echo "== $sn"
+            curl -s "https://cmr.earthdata.nasa.gov/search/granules.json?short_name=$sn&bounding_box=113.4,-35.6,124.5,-28.3&sort_key=-start_date&page_size=6" | python3 -c "
+          import json,sys
+          d=json.load(sys.stdin)
+          for e in d['feed']['entry']:
+              print(e['producer_granule_id'], e.get('granule_size'), [l['href'] for l in e['links'] if l['href'].endswith('.nc')][:1])
+          "
+          done
+          curl -s "https://cmr.earthdata.nasa.gov/search/collections.json?keyword=OLCI%20L2%20OC%20EFR&page_size=10" | python3 -c "import json,sys;[print(c['short_name'],'|',c.get('title')) for c in json.load(sys.stdin)['feed']['entry']]"
