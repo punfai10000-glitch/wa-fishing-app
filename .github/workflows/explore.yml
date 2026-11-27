@@ -5,8 +5,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          set -x
-          curl -s --max-time 60 ftp://ftp.bom.gov.au/anon/gen/fwo/ | awk '{print $NF}' | grep '^IDW' | head -400 | tr '\n' ' ' ; echo
-          for id in IDW11160 IDW11150 IDW11170 IDW11180 IDW11190 IDW11200 IDW21033 IDW21035 IDW11165 IDW20100 IDW11100; do echo "== $id"; curl -s --max-time 30 ftp://ftp.bom.gov.au/anon/gen/fwo/$id.txt | head -40; done
-          curl -s --max-time 60 "https://cmr.earthdata.nasa.gov/search/granules.json?short_name=VIIRSN_L3m_KD_NRT&sort_key=-start_date&page_size=3" | head -c 1500; echo
-          curl -s --max-time 60 "https://cmr.earthdata.nasa.gov/search/collections.json?keyword=VIIRS%20KD%20L3m%20NRT&page_size=10" | python3 -c "import json,sys;[print(c['short_name'],c.get('title')) for c in json.load(sys.stdin)['feed']['entry']]"
+          L=$(curl -s --max-time 60 ftp://ftp.bom.gov.au/anon/gen/fwo/ | awk '{print $NF}' | grep -E '^IDW1[01][0-9]{3}\.txt$')
+          for f in $L; do echo "=== $f"; curl -s --max-time 20 ftp://ftp.bom.gov.au/anon/gen/fwo/$f | grep -v '^\s*$' | head -14; done
+          for t in J1 J2; do curl -s --max-time 60 "https://cmr.earthdata.nasa.gov/search/granules.json?short_name=VIIRS${t}_L3m_KD_NRT&sort_key=-start_date&page_size=4" | python3 -c "import json,sys;[print(e['producer_granule_id'],[l['href'] for l in e['links'] if l['href'].endswith('.nc')][:1]) for e in json.load(sys.stdin)['feed']['entry']]"; done
