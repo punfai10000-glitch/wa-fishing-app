@@ -53,7 +53,7 @@ const LAYERS = [
   { group: 'Marine conditions', id: 'wind', label: 'Wind speed labels', note: 'Forecast km/h with direction (zoom in)' },
   { group: 'Marine conditions', id: 'waves', label: 'Wave height labels', note: 'Forecast metres with direction (zoom in)' },
   { group: 'Marine conditions', id: 'sst', label: 'Sea temperature', note: 'Coloured dots with °C all along the coast (blue cold → red warm). Forecast model.' },
-  { group: 'Under the water', id: 'clarity', label: 'Water clarity (satellite)', note: 'How clear the water was on the latest satellite pass (NOAA, ~2–4 km squares, cloud gaps filled). Blue = clear, brown = murky. Right at the shore it can differ — swell and rain since then make it murkier.' },
+  { group: 'Under the water', id: 'clarity', label: 'Water clarity (satellite)', note: 'How clear the water was on the latest satellite pass (NASA or NOAA satellites, ~4 km squares, cloud gaps filled). Blue = clear, brown = murky. Right at the shore it can differ — swell and rain since then make it murkier.' },
   { group: 'Under the water', id: 'habitat', label: 'Seabed habitat', note: 'Reef, seagrass and sand where mapped (Seamap Australia); patchy near shore' },
   { group: 'Under the water', id: 'depth', label: 'Water depth (colour bands)', note: 'Detailed near shore where Transport WA surveyed (zoom in); general depth when zoomed out. Tap the water for the depth in metres. Not for navigation.' },
   { group: 'Facilities', id: 'tackle', label: 'Tackle & bait shops', note: '' },
@@ -781,7 +781,7 @@ function syncClarity(on) {
     if (clarityLayer?._key !== ck) {
       clarityLayer?.remove();
       const im = clarityImage(state.clarity, state.coast?.points || []);
-      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 1, pane: 'clarity', className: 'clarity-img', attribution: 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
+      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 1, pane: 'clarity', className: 'clarity-img', attribution: /NASA/.test(state.clarity?.dataset || '') ? 'Water clarity: NASA OB.DAAC (VIIRS Kd490)' : 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
       clarityLayer._key = ck;
     }
     if (!map.hasLayer(clarityLayer)) clarityLayer.addTo(map);

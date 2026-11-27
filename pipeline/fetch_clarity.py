@@ -2,6 +2,9 @@
 Source: NOAA CoastWatch ERDDAP, public domain (US Government). Takes the last 6 days of the near-real-time
 VIIRS products and keeps the most recent cloud-free value per cell (~4 km grid), Perth -> Esperance.
 The gap-filled DINEOF product is used only if it is recent. Output: out/clarity.json.
+If the GitHub secrets EARTHDATA_USER / EARTHDATA_PASS are set, NASA OB.DAAC's near-real-time VIIRS (NOAA-20 and
+NOAA-21) Kd490 4 km daily maps are tried too (usually 1-2 days old instead of NOAA ERDDAP's 1-3 weeks); NASA data
+are free to use with credit to NASA OB.DAAC. The freshest source wins.
 """
 import json, os, re, sys, time, urllib.request
 from datetime import datetime, timezone
@@ -54,9 +57,79 @@ def fetch(base, ds, days):
             "lat0": lats[0], "lon0": lons[0], "dlat": (lats[-1] - lats[0]) / (len(lats) - 1), "dlon": (lons[-1] - lons[0]) / (len(lons) - 1),
             "ny": len(lats), "nx": len(lons), "kd490": grid, "valid": len(valid)}
 
+CMR = "https://cmr.earthdata.nasa.gov/search/granules.json"
+
+def fetch_nasa(days=5):
+    user, pw = os.environ.get("EARTHDATA_USER"), os.environ.get("EARTHDATA_PASS")
+    if not user or not pw:
+        print("NASA: EARTHDATA_USER / EARTHDATA_PASS not set - skipped"); return None
+    import requests, netCDF4, numpy as np, tempfile
+    # .netrc lets requests log in again on each redirect host (urs.earthdata.nasa.gov) without leaking the password elsewhere
+    netrc = os.path.expanduser("~/.netrc")
+    with open(netrc, "w") as f: f.write(f"machine urs.earthdata.nasa.gov login {user} password {pw}\n")
+    os.chmod(netrc, 0o600)
+    since = datetime.fromtimestamp(time.time() - days * 86400, timezone.utc).strftime("%Y-%m-%dT00:00:00Z")
+    files = []
+    for sn in ("VIIRSJ1_L3m_KD_NRT", "VIIRSJ2_L3m_KD_NRT"):
+        r = requests.get(CMR, params={"short_name": sn, "temporal": f"{since},", "page_size": 50, "sort_key": "start_date"}, timeout=60).json()
+        for e in r["feed"]["entry"]:
+            gid = e.get("producer_granule_id", "")
+            if ".DAY." in gid and ".4km." in gid:
+                href = next((l["href"] for l in e["links"] if l["href"].endswith(".nc") and l["href"].startswith("https")), None)
+                if href: files.append((e["time_start"], gid, href))
+    files.sort()
+    print("NASA granules:", [g for _, g, _ in files])
+    if not files: return None
+    lat_ax = lon_ax = grid = when = None
+    s = requests.Session()
+    for t0, gid, href in files:                      # oldest first: later days overwrite earlier ones
+        try:
+            resp = s.get(href, timeout=300)
+            if resp.status_code != 200 or resp.content[:4] not in (b"\x89HDF", b"CDF\x01", b"CDF\x02"):
+                print("  ", gid, "download failed", resp.status_code, resp.url[:80]); continue
+            with tempfile.NamedTemporaryFile(suffix=".nc") as tmp:
+                tmp.write(resp.content); tmp.flush()
+                nc = netCDF4.Dataset(tmp.name)
+                lat, lon = nc["lat"][:], nc["lon"][:]
+                ia = np.where((lat >= BOX[0]) & (lat <= BOX[1]))[0]; io = np.where((lon >= BOX[2]) & (lon <= BOX[3]))[0]
+                kd = nc["Kd_490"][ia.min():ia.max() + 1, io.min():io.max() + 1]
+                la, lo = lat[ia.min():ia.max() + 1], lon[io.min():io.max() + 1]
+                nc.close()
+            if la[0] > la[-1]: kd, la = kd[::-1], la[::-1]
+            kd = np.ma.filled(kd.astype("f4"), np.nan)
+            if grid is None:
+                lat_ax, lon_ax = la, lo
+                grid = np.full(kd.shape, np.nan, "f4"); when = np.full(kd.shape, "", object)
+            ok = np.isfinite(kd) & (kd > 0) & (kd < 10)
+            grid[ok] = kd[ok]; when[ok] = t0
+            print("  ", gid, "cells", int(ok.sum()))
+        except Exception as ex:
+            print("  ", gid, "failed:", ex)
+    os.remove(netrc)
+    if grid is None: return None
+    valid = sorted(w for w in when.ravel() if w)
+    if len(valid) < 300: return None
+    vals = [None if not np.isfinite(v) else round(float(v), 3) for v in grid.ravel()]
+    return {"date": valid[len(valid) // 2], "newest": valid[-1], "dataset": "NASA VIIRS NOAA-20/21 L3m Kd490 4km NRT",
+            "source": "NASA OB.DAAC VIIRS NOAA-20/NOAA-21 near-real-time Kd490 (4 km daily)",
+            "lat0": float(lat_ax[0]), "lon0": float(lon_ax[0]), "dlat": float((lat_ax[-1] - lat_ax[0]) / (len(lat_ax) - 1)),
+            "dlon": float((lon_ax[-1] - lon_ax[0]) / (len(lon_ax) - 1)), "ny": len(lat_ax), "nx": len(lon_ax), "kd490": vals, "valid": len(valid)}
+
 def main():
     os.makedirs(OUT, exist_ok=True)
+    # NASA maps change once a day: if the published file is NASA's and under 6 h old, keep it (saves ~150 MB of downloads an hour)
+    try:
+        prev = json.load(open(f"{OUT}/clarity.json"))
+        if prev.get("dataset", "").startswith("NASA") and time.time() * 1000 - prev.get("generated_at", 0) < 6 * 3600e3:
+            print("clarity: NASA file from", prev["newest"], "is recent - kept"); return
+    except Exception:
+        pass
     best = None
+    try:
+        r = fetch_nasa()
+        if r: print("NASA median date", r["date"], "newest", r["newest"], "valid", r["valid"]); best = r
+    except Exception as e:
+        print("NASA failed:", e)
     for base, ds, days in DATASETS:
         try:
             r = fetch(base, ds, days)

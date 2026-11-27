@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
-      - run: pip install netCDF4
+      - run: pip install netCDF4 requests numpy
       - name: Start from the last published files (a source that fails this hour keeps its previous data)
         run: |
           mkdir -p out
@@ -28,6 +28,9 @@ jobs:
       - run: python pipeline/fetch_bom_warnings.py out || echo "BOM warnings failed"
       - run: python pipeline/fetch_tides.py out || echo "tides failed"
       - run: python pipeline/fetch_clarity.py out || echo "clarity failed"
+        env:
+          EARTHDATA_USER: ${{ secrets.EARTHDATA_USER }}
+          EARTHDATA_PASS: ${{ secrets.EARTHDATA_PASS }}
       - run: python pipeline/fetch_coast_forecast.py out || echo "coast forecast failed"
       - run: ls -la out && test -n "$(ls out/*.json 2>/dev/null)"
       - name: Publish to live-data branch (single commit, no history growth)
