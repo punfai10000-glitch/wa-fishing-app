@@ -200,12 +200,41 @@ def fetch_fine(days=3):
     if np.isfinite(kd).sum() < 500: return None
     return {"kd": kd, "when": when, "sea": (seacnt > landcnt) & mask.ravel(), "ny": ny, "nx": nx, "lat0": lat0, "lon0": lon0}
 
+def ocean_connected(sea, lat0, lon0):
+    """Keep sea cells joined to the open ocean, or to a mapped river/estuary (OSM water areas). Drops inland lakes
+    (Bibra Lake, North Lake...), whose water the satellite also sees but nobody fishes for clarity."""
+    import numpy as np
+    from scipy import ndimage
+    import shapely
+    from shapely.geometry import Polygon
+    ny, nx = sea.shape
+    lab, n = ndimage.label(sea, structure=np.ones((3, 3)))
+    if n == 0: return sea
+    sizes = np.bincount(lab.ravel())
+    keep = sizes >= 2000; keep[0] = False                    # the open ocean is one huge piece
+    cw = json.load(open(os.path.join(os.path.dirname(__file__), "..", "data", "coastline.json")))
+    for w in cw.get("water", []):
+        r = w.get("rings")
+        if not r or len(r[0]) < 4: continue
+        poly = Polygon(r[0], r[1:])
+        x0, y0, x1, y1 = poly.bounds
+        j0, j1 = max(0, int((x0 - lon0) / FINE_D)), min(nx - 1, int((x1 - lon0) / FINE_D))
+        i0, i1 = max(0, int((y0 - lat0) / FINE_D)), min(ny - 1, int((y1 - lat0) / FINE_D))
+        if j1 < j0 or i1 < i0: continue
+        ii, jj = np.mgrid[i0:i1 + 1, j0:j1 + 1]
+        inside = shapely.contains_xy(poly, lon0 + (jj + 0.5) * FINE_D, lat0 + (ii + 0.5) * FINE_D)
+        keep[np.unique(lab[ii[inside], jj[inside]])] = True
+    keep[0] = False
+    out = keep[lab]
+    print("sea pieces", n, "kept", int(keep.sum()), "cells", int(sea.sum()), "->", int(out.sum()))
+    return out
+
 def finish_fine(F, coarse):
     """Fill every near-coast SEA cell: 1 km value if seen, else the mean of seen cells within ~2 km (q=1),
     else the 4 km map (q=2). Land cells are never drawn."""
     import numpy as np
     ny, nx = F["ny"], F["nx"]
-    kd = F["kd"].reshape(ny, nx).copy(); sea = F["sea"].reshape(ny, nx)
+    kd = F["kd"].reshape(ny, nx).copy(); sea = ocean_connected(F["sea"].reshape(ny, nx), F["lat0"], F["lon0"])
     kd[~sea] = np.nan
     q = np.where(np.isfinite(kd), 0, 9).astype("i1")
     wh = np.where(np.isfinite(kd), F["when"].reshape(ny, nx), np.nan)

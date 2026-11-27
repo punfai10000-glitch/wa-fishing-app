@@ -15,7 +15,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
-      - run: pip install netCDF4 requests numpy
+      - run: pip install netCDF4 requests numpy scipy shapely
       - name: Start from the last published files (a source that fails this hour keeps its previous data)
         run: |
           mkdir -p out
