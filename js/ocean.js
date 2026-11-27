@@ -53,9 +53,29 @@ export const CLARITY_BANDS = [
 ];
 export const clarityBand = kd => CLARITY_BANDS.find(b => kd < b.max);
 
-// nearest valid satellite cell within ~6 km (the cell right at the shore is often missing)
+// nearest valid satellite cell: the ~1 km near-coast grid first (within ~2 km), then the 4 km map (within ~6 km)
+function fineIndex(f) {
+  if (!f._map) { f._map = new Map(); f.idx.forEach((k, n) => f._map.set(k, n)); }
+  return f._map;
+}
 export function clarityAt(c, lat, lng) {
   if (!c?.kd490) return null;
+  const f = c.fine;
+  if (f?.idx?.length) {
+    const m = fineIndex(f), i0 = Math.floor((lat - f.lat0) / f.d), j0 = Math.floor((lng - f.lon0) / f.d);
+    for (let r = 0; r <= 2; r++) {
+      let hit = null;
+      for (let di = -r; di <= r; di++) for (let dj = -r; dj <= r; dj++) {
+        if (Math.max(Math.abs(di), Math.abs(dj)) !== r) continue;
+        const n = m.get((i0 + di) * f.nx + (j0 + dj));
+        if (n != null && (hit == null || f.age_h[n] < f.age_h[hit])) hit = n;
+      }
+      if (hit != null) {
+        const date = new Date(Date.parse(f.newest) - f.age_h[hit] * 3600e3);
+        return { kd: f.kd[hit], band: clarityBand(f.kd[hit]), date, ageDays: (Date.now() - date) / 864e5, fine: true };
+      }
+    }
+  }
   const i0 = Math.round((lat - c.lat0) / c.dlat), j0 = Math.round((lng - c.lon0) / c.dlon);
   let best = null;
   for (let r = 0; r <= 2 && !best; r++)
@@ -75,6 +95,7 @@ export function clarityAt(c, lat, lng) {
 // Picture of the satellite cells near the coast only (offshore water isn't useful for shore fishing or diving and
 // just hides the map). Crisp squares, one colour per band — clear water is see-through, murky water stands out.
 export function clarityImage(c, coastPts = [], maxKm = 12) {
+  if (c.fine?.idx?.length) return clarityImageFine(c, coastPts, maxKm);
   const S = 6;   // screen pixels per satellite cell in the picture (kept crisp)
   const cv = document.createElement('canvas'); cv.width = c.nx * S; cv.height = c.ny * S;
   const ctx = cv.getContext('2d');
@@ -99,4 +120,47 @@ export function clarityImage(c, coastPts = [], maxKm = 12) {
   const lats = [c.lat0, c.lat0 + c.dlat * (c.ny - 1)], lons = [c.lon0, c.lon0 + c.dlon * (c.nx - 1)];
   const hl = Math.abs(c.dlat) / 2, hw = Math.abs(c.dlon) / 2;
   return { url: cv.toDataURL(), bounds: [[Math.min(...lats) - hl, Math.min(...lons) - hw], [Math.max(...lats) + hl, Math.max(...lons) + hw]] };
+}
+
+// ~1 km picture: one pixel per near-coast cell (drawn crisp, see .clarity-img CSS). Where the 1 km grid has no clear
+// pixel (cloud), the 4 km cell shows through, fainter, so gaps are still covered but read as less exact.
+function clarityImageFine(c, coastPts, maxKm) {
+  const f = c.fine, cv = document.createElement('canvas'); cv.width = f.nx; cv.height = f.ny;
+  const ctx = cv.getContext('2d');
+  const have = new Uint8Array(f.nx * f.ny); for (const k of f.idx) have[k] = 1;
+  const near = nearCoastFn(coastPts, maxKm);
+  const span = Math.round(Math.abs(c.dlat) / f.d);
+  for (let i = 0; i < c.ny; i++) for (let j = 0; j < c.nx; j++) {
+    const v = c.kd490[i * c.nx + j]; if (v == null) continue;
+    const lat = c.lat0 + i * c.dlat, lon = c.lon0 + j * c.dlon;
+    if (!near(lon, lat)) continue;
+    const fi0 = Math.round((lat - Math.abs(c.dlat) / 2 - f.lat0) / f.d), fj0 = Math.round((lon - Math.abs(c.dlon) / 2 - f.lon0) / f.d);
+    // only where the 1 km grid has nothing at all in this 4 km cell (a partly filled cell is usually coast/land)
+    let any = false;
+    for (let a = 0; a < span && !any; a++) for (let d = 0; d < span; d++) {
+      const fi = fi0 + a, fj = fj0 + d;
+      if (fi >= 0 && fj >= 0 && fi < f.ny && fj < f.nx && have[fi * f.nx + fj]) { any = true; break; }
+    }
+    if (any) continue;
+    const b = clarityBand(v); ctx.globalAlpha = b.alpha * 0.45; ctx.fillStyle = b.color;
+    ctx.fillRect(fj0, f.ny - fi0 - span, span, span);
+  }
+  f.idx.forEach((k, n) => {
+    const i = Math.floor(k / f.nx), j = k % f.nx, b = clarityBand(f.kd[n]);
+    ctx.globalAlpha = b.alpha; ctx.fillStyle = b.color; ctx.fillRect(j, f.ny - 1 - i, 1, 1);
+  });
+  return { url: cv.toDataURL(), bounds: [[f.lat0, f.lon0], [f.lat0 + f.ny * f.d, f.lon0 + f.nx * f.d]], fine: true };
+}
+
+function nearCoastFn(coastPts, maxKm) {
+  const grid = new Map(), cell = 0.1, key = (x, y) => `${Math.floor(x / cell)},${Math.floor(y / cell)}`;
+  for (const p of coastPts) { const [x, y] = p.geometry ? p.geometry.coordinates : p; const k = key(x, y); (grid.get(k) || grid.set(k, []).get(k)).push([x, y]); }
+  const r = Math.ceil(maxKm / 111 / cell) + 1;
+  return (x, y) => {
+    if (!grid.size) return true;
+    const cx = Math.floor(x / cell), cy = Math.floor(y / cell), k = Math.cos(y * Math.PI / 180);
+    for (let a = -r; a <= r; a++) for (let b = -r; b <= r; b++) for (const [px, py] of grid.get(`${cx + a},${cy + b}`) || [])
+      if (Math.hypot((px - x) * k, py - y) * 111 <= maxKm) return true;
+    return false;
+  };
 }

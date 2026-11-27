@@ -128,7 +128,7 @@ export function renderKey(view) {
     <div class="card"><h2>Water clarity (satellite)</h2>
       <p class="small">Layers → "Water clarity (satellite)". Satellites measure how quickly light fades in the water (called Kd490). The app turns that into a rough diving visibility. The legend shows the date of the satellite pass — the services sometimes run a week or two behind, and the app leans less on old passes.</p>
       ${CLARITY_BANDS.map(b => row(sw(b.color), `${b.label} — about ${b.vis}`, { vclear: 'Blue-water days: great for spearfishing and sight-fishing.', clear: 'Good diving visibility.', ok: 'Fine for most diving; fish shy less.', murky: 'Short visibility — stay close to your buddy; sharks are harder to see.', vmurky: 'River plumes and stirred-up water after storms.' }[b.key])).join('')}
-      <p class="small muted">The squares are 2–4 km wide, so right at the shore it can be different. Big swell, strong onshore wind or rain since the satellite pass make the water murkier — the card's "Visibility" line already allows for that.</p>
+      <p class="small muted">Near the coast the squares are about 1 km (fainter 4 km squares fill cloud gaps), so right at the shore it can still be different. Big swell, strong onshore wind or rain since the satellite pass make the water murkier — the card's "Visibility" line already allows for that.</p>
     </div>
 
     <div class="card"><h2>Measured tide</h2>
