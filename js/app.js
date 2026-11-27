@@ -9,10 +9,10 @@ import { initSheet, closeSheet } from './sheet.js';
 import { renderLocation } from './views/location.js';
 import { loadCoastPoints, loadCoastConditions, nearestCoastPoint } from './coast.js';
 import { loadBuoys, loadBomObs } from './buoys.js';
-import { loadBomWarnings } from './bomwarn.js';
+import { loadBomWarnings, warningsAt, loadLiveStatus } from './bomwarn.js';
 import { loadTides, loadClarity, clarityAt } from './ocean.js';
-import { loadTargets } from './targets.js';
-import { zoneHitsFor } from './zones.js';
+import { loadTargets, seasonGuide, guideCovers } from './targets.js';
+import { zoneHitsFor, legalStatus } from './zones.js';
 import { loadOsmSpots } from './osmspots.js';
 import { setCoastPoints } from './amenities.js';
 
@@ -48,7 +48,7 @@ export function evalFor(loc, activity = state.activity) {
     const n = nearestCoastPoint(loc.geometry.coordinates[1], loc.geometry.coordinates[0], 15);
     if (n && state.coast.byId[n.p.id]?.length) { src = state.coast; id = n.p.id; }
   }
-  const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}|${id}`;
+  const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}|${id}|${state.bomWarn?.fetched_at || ''}`;
   if (!state.evalCache.has(key)) {
     // satellite water clarity for this spot (used by the spearfishing visibility estimate)
     if (state.clarity && loc._satFor !== state.clarity.date) {
@@ -57,7 +57,10 @@ export function evalFor(loc, activity = state.activity) {
     }
     state.evalCache.set(key, evaluate(loc, src.byId[id], activity, {
       thresholds: state.data.thresholds, rules: state.data.rules, zones: state.data.zones,
-      staleSources: state.cond.stale ? 1 : 0, sunFn, species: state.species || null,
+      staleSources: (state.cond.stale ? 1 : 0) + (Object.values(state.liveStatus?.sources || {}).some(v => v.critical && v.state !== 'ok') ? 1 : 0), sunFn, species: state.species || null,
+      seasonFn: (l, m, sp) => seasonGuide(l, m, sp, activity),
+      warningsFn: (l, t) => warningsAt(state.bomWarn, l.geometry.coordinates[1], l.geometry.coordinates[0], t),
+      legalFn: (l, a) => legalStatus(state.data.zones, l, a),
       zoneHits: l => zoneHitsFor(state.data.zones, l)
     }));
   }
@@ -70,7 +73,7 @@ export function visibleLocations({ ignoreRegion = false } = {}) {
   return all.filter(l =>
     (ignoreRegion || !state.region || l.region === state.region) &&
     (!state.favOnly || favs.has(l.id)) &&
-    (!state.species || (l.species_evidence || []).some(e => e.species === state.species))
+    (!state.species || (l.species_evidence || []).some(e => e.species === state.species) || guideCovers(l, state.species, state.activity))
   );
 }
 
@@ -102,6 +105,17 @@ function banners() {
   if (state.cond.fetchedAt && state.cond.stale) out.push(['warn', `Forecast data is out of date (updated ${fmtAge(state.cond.fetchedAt)}). Scores have lower confidence.`]);
   if (!state.loading && !state.cond.fetchedAt && !state.coast?.fetchedAt) out.push(['danger', 'Forecast data could not be loaded. Conditions and scores are Unknown.', null, 'retry']);
   if (state.cond.fetchedAt) for (const err of state.cond.errors || []) out.push(['warn', `${err}. Affected values show as Unknown.`]);
+  // hourly live data: per-source age from status.json (the hourly job keeps old files when a source fails)
+  const ls = state.liveStatus;
+  if (ls) {
+    const runAge = (Date.now() - Date.parse(ls.generated_at)) / 3600e3;
+    const NAMES = { coast_forecast: 'coast forecast', bom_warnings: 'BOM wind warnings', bom_obs: 'BOM measured wind', buoys: 'wave buoys', tides: 'measured tide', clarity: 'water clarity' };
+    if (runAge > 3) out.push(['warn', `Live data hasn't updated for ${Math.round(runAge)} hours (the hourly job may be paused). Measured values and warnings may be out of date.`]);
+    else {
+      const bad = Object.entries(ls.sources || {}).filter(([, v]) => v.state !== 'ok');
+      if (bad.length) out.push(['warn', `Out of date: ${bad.map(([k, v]) => `${NAMES[k] || k} (${v.age_h == null ? 'failed' : Math.round(v.age_h) + ' h old'})`).join(', ')}. Those values may not match conditions now.`]);
+    }
+  }
   if (d && d.locations.some(l => l.status === 'demo')) out.push(['info', 'Early preview: spot details are still being verified. Treat locations as approximate.', 'demo']);
   if (d && d.thresholds.some(t => t.status === 'draft')) out.push(['info', 'Safety limits are drafts pending review. Always judge conditions on site.', 'draft']);
   else if (d && d.thresholds.some(t => t.status === 'researched')) out.push(['info', 'Safety limits follow BOM, Transport WA and Recfishwest guidance, but nobody has checked them on site. Always judge conditions yourself.', 'researched']);
@@ -176,13 +190,15 @@ async function refreshConditions(force = false) {
   state.loading = false;
   rerender();
   // Coastline + measured buoys load after the main spots so the app is usable sooner
-  const [coast, buoys, bom, tides, clarity, bomWarn] = await Promise.all([loadCoastConditions(force), loadBuoys(force), loadBomObs(force), loadTides(), loadClarity(), loadBomWarnings()]);
+  const [coast, buoys, bom, tides, clarity, bomWarn, liveStatus] = await Promise.all([loadCoastConditions(force), loadBuoys(force), loadBomObs(force), loadTides(), loadClarity(), loadBomWarnings(), loadLiveStatus()]);
   state.coast = { points: state.coast.points, ...coast };
   state.buoys = buoys;
   state.bom = bom;
   state.tides = tides;
   state.clarity = clarity;
   state.bomWarn = bomWarn;
+  state.liveStatus = liveStatus;
+  banners();
   rerender();
 }
 

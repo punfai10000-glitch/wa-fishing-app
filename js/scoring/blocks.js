@@ -94,8 +94,11 @@ export function checkBlocks(loc, hour, activity, ctx = {}) {
     out.push({ kind: 'safety', reason: 'Thunderstorm forecast in this hour.' });
   }
 
-  // Official warnings covering the location
-  for (const w of (ctx.warnings || [])) out.push({ kind: 'safety', reason: w.title });
+  // Official BOM marine wind warnings for this coastal zone that day: Gale or worse = not safe, Strong Wind = take care
+  for (const w of (ctx.warnings || [])) {
+    const severe = !/^Strong Wind/i.test(w.type);
+    out.push({ kind: severe ? 'safety' : 'caution', reason: `BOM ${w.type} Warning for the ${w.zone}${severe ? '' : ' — pick a sheltered spot'}` });
+  }
 
   // Spearfishing only in daylight
   if (activity === 'spear' && ctx.sun && ctx.sun.sunrise && ctx.sun.sunset) {

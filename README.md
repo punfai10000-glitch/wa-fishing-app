@@ -4,7 +4,7 @@ A free, non-commercial, mobile-first web app for **land-based shore fishing and 
 
 > Scores rate environmental conditions only. They are **not** a guarantee of fish or of safety. Official DPIRD rules always prevail.
 
-## Status: v0.22 (27 Nov 2026) — limited testing only
+## Status: v0.23 (27 Nov 2026) — limited testing only
 
 The table that used to be here was the v0.5 checklist (24–25 Nov) and is long out of date. Current state:
 
@@ -13,16 +13,17 @@ The table that used to be here was the v0.5 checklist (24–25 Nov) and is long 
 | Map, spot cards (Good / OK / Take care / Not safe / Not allowed), 48 h time slider, Forecast page with place search | ✅ Working |
 | Coverage | ✅ Geraldton & Abrolhos → Esperance (extended 27 Nov; northern data fills in as the workflows re-run) |
 | Forecasts (Open-Meteo wind, waves, swell, currents, sea temp, tide) | ✅ Working. Tide timing corrected against the official AHO tables |
-| Measured data, hourly (DoT buoys, BOM stations, Hillarys/Esperance/Geraldton tide gauges, satellite water clarity, BOM marine wind warnings) | ✅ Running. Clarity is ~2 days old (NASA VIIRS), NOAA as backup |
-| Marine park zones and DPIRD fishing orders | ✅ Loaded weekly. South Coast parks traced from DBCA maps (±100 m near shore). ❌ Western Bight & Mirning zones not in the app |
+| Measured data, hourly (DoT buoys, BOM stations, Hillarys/Esperance/Geraldton tide gauges, satellite water clarity, BOM marine wind warnings) | ✅ Running. Clarity is ~2 days old (NASA VIIRS), NOAA as backup. Each hour `status.json` records every source's data age; the app warns when one is out of date and the run fails (GitHub emails the owner) if the coast forecast or BOM warnings are stale |
+| Marine park zones and DPIRD fishing orders | ✅ Loaded weekly. South Coast parks traced from DBCA maps (±100 m near shore). ❌ Western Bight & Mirning zones not in the app. Where rules can't be confirmed (zones didn't load, park zones not mapped, edge of a traced zone) a spot is never shown as "Good time to go" or as a best stretch |
 | Seabed habitat | ✅ Seamap + a dotted satellite estimate within 1 km of shore (~80% right for sand vs reef/weed) |
 | Depth | ✅ DoT surveys at z14 where surveyed; GEBCO elsewhere |
-| Satellite map | ✅ Sentinel-2 + Landgate aerial photos ("Satellite HD", from zoom 12). Esri key optional |
+| Satellite map | ✅ Esri World Imagery ("Satellite HD", referrer-restricted key) |
 | Fish library (331 species) + How-to guides | ✅ All limits from DPIRD's 2026 guide + 1 June 2026 statewide sheet (incl. Abrolhos). 6 species not named in DPIRD's tables show a check-first note |
 | Facilities, OSM spots, shoreline | ✅ Weekly from OpenStreetMap |
 | Diary, catch measuring, offline cache | ✅ Working (stored on the phone only) |
-| Unit tests (`npm test`) | ✅ 11 passing |
-| **Hand-checked spots** | ⚠️ The 10 starter spots are still `demo` — need checking on site |
+| Scoring | Missing factors count as a neutral 50 at full weight (not dropped); no wind or wave forecast = Unknown, never Good. Target species use the regional seasonal guide (labelled, not catch data). BOM Gale+ warnings = Not safe, Strong Wind = take care |
+| Unit tests (`npm test`) | ✅ 21 passing (incl. `tests/audit.test.js`) |
+| **Hand-checked spots** | ⚠️ The 10 starter spots are still `demo`. They are listed as "not yet checked", not ranked. Desk checks: `docs/location-checks.md` |
 | **Safety thresholds** | ⚠️ Calibrated against forecasts, not yet against real trips — needs diary reality-checks |
 | Reddit links | ⚠️ Need a free Reddit key (optional) |
 
@@ -75,14 +76,24 @@ OpenStreetMap doesn't record which servos sell bait, so the app says "bait not c
 3. Paste the key into `ESRI_API_KEY` in `js/config.js`. This key is a public, restricted key, not a secret.
 
 ## Curating locations (for you and helpers)
-Edit `data/locations.json` through a pull request. Every location needs:
-- coordinates checked against OpenStreetMap or satellite imagery
-- `exposure` directions
-- `access`
-- `sources`
-- `last_verified` (today's date)
+A spot is ranked on the Forecast page only when its `status` is `active`. To get there:
+1. **Desk checks:** run `python pipeline/check_locations.py`. It writes `docs/location-checks.md` with automatic checks for each spot:
+   - the pin is on the shoreline or river
+   - there's an OpenStreetMap fishing spot nearby
+   - which zones and closures cover it
+   - the required fields are filled
+   - there's an official or open source for the spot itself
 
-Change `status` from `demo` to `active` only once all of these are verified. Re-check every location yearly. The app flags any location not re-checked in 12 months.
+   Fix every ✗.
+2. **On site (👣):** confirm these for each spot, and add a photo or note as the source:
+   - where people actually fish from (move the pin if needed)
+   - access, parking and the walk
+   - which wind and swell directions hit it
+   - the bottom type
+   - hazards (king waves, slippery rock, rips, boats)
+   - signs (closures, sanctuaries)
+3. Fill `safety_notes` and `sources` (links to DBCA / DPIRD / council pages, not fishing forums), and set `last_verified` to today.
+4. Change `status` from `demo` to `active`. Re-check every location yearly; the app flags any location not re-checked in 12 months.
 
 Never copy text or spot lists from fishing websites or forums. Use them only as leads to check.
 

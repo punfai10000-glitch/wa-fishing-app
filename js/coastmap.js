@@ -259,7 +259,9 @@ export function refreshCoastMap() {
       .filter(x => x.r && !x.r.blocked && x.r.score != null && x.r.score >= 70)
       // only where this activity is actually allowed (no spearfishing in estuaries, sanctuaries, Rottnest…)
       .filter(x => !(act === 'spear' && (x.p.estuary || riverWaterAt(x.p.geometry.coordinates[1], x.p.geometry.coordinates[0], 0.3)))
-        && legalStatus(state.data.zones, x.p, act, { t }).state !== 'blocked')
+        && (ls => ls.state === 'ok' || (ls.state === 'caution' && !ls.unverified))(legalStatus(state.data.zones, x.p, act, { t })))
+      // never advertise a stretch with a warning on it (BOM warning, rules unconfirmed, near a limit)
+      .filter(x => !x.r.cautions?.length)
       .sort((a, b) => b.r.score - a.r.score);
     const picked = [];
     const px = x => map.latLngToContainerPoint([x.p.geometry.coordinates[1], x.p.geometry.coordinates[0]]);
@@ -321,9 +323,9 @@ function openBestSheet(p, r) {
     .map(l => ({ l, d: km(l), h: hourAt(evalFor(l), t) })).filter(x => x.h).sort((a, b) => (b.h.blocked ? -1 : b.h.score ?? -1) - (a.h.blocked ? -1 : a.h.score ?? -1)).slice(0, 6);
   const body = openSheet(`
     <p class="small" style="margin-top:0">This is the best-scoring <strong>stretch of coast</strong> (about 8 km${p.near ? ` near ${esc(p.near)}` : ''}) for ${act === 'spear' ? 'spearfishing' : 'shore fishing'} at ${t === Math.floor(Date.now() / HOUR) * HOUR ? 'this hour' : esc(fmtDateTime(t))}. The score rates the conditions along the whole stretch, and only stretches where ${act === 'spear' ? 'spearfishing' : 'fishing'} is allowed are picked — choose an actual spot below and check its rules.</p>
-    <div class="row" style="gap:8px;align-items:center;margin:6px 0"><span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score}</span>${chanceIcon(r.score, act, false)}</div>
+    <div class="row" style="gap:8px;align-items:center;margin:6px 0"><span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score ?? ''}</span>${chanceIcon(r.score, act, false)}</div>
     <h3 class="sheet-h3">Spots along this stretch</h3>
-    ${near.length ? `<ul class="plain">${near.map(({ l, d, h }) => `<li><button class="linklike" data-loc="${esc(l.id)}">${esc(l.name)}</button> <span class="small muted">${d.toFixed(1)} km</span> ${h.blocked ? blockPill(h.blockKind) : `<span class="pill ${band(h.score)}">${h.score}</span>`}</li>`).join('')}</ul>`
+    ${near.length ? `<ul class="plain">${near.map(({ l, d, h }) => `<li><button class="linklike" data-loc="${esc(l.id)}">${esc(l.name)}</button> <span class="small muted">${d.toFixed(1)} km</span> ${h.blocked ? blockPill(h.blockKind) : `<span class="pill ${band(h.score)}">${h.score ?? "?"}</span>`}</li>`).join('')}</ul>`
       : '<p class="small muted">No mapped spots on this stretch — tap the coast to check an exact point.</p>'}
     <p class="small muted">Spot scores can differ from the stretch score: each spot's own exposure to wind and swell is taken into account.</p>`,
     { title: `★ Best for ${act === 'spear' ? 'spearfishing' : 'fishing'} · ${r.score}`, state: 'half' });
@@ -452,7 +454,7 @@ function spotsNear(lat, lng, maxKm = 30, n = 6) {
 }
 function spotsListHTML(list) {
   if (!list.length) return '<p class="small muted">No mapped fishing spots within 30 km.</p>';
-  return `<ul class="plain">${list.map(({ l, d, h }) => `<li><button class="linklike" data-loc="${esc(l.id)}">${esc(l.name)}</button> <span class="small muted">${d < 1 ? Math.round(d * 1000) + ' m' : d.toFixed(1) + ' km'}</span> ${!h ? '' : h.blocked ? blockPill(h.blockKind) : `<span class="pill ${band(h.score)}">${BAND_LABEL[band(h.score)]} ${h.score}</span>`}</li>`).join('')}</ul>`;
+  return `<ul class="plain">${list.map(({ l, d, h }) => `<li><button class="linklike" data-loc="${esc(l.id)}">${esc(l.name)}</button> <span class="small muted">${d < 1 ? Math.round(d * 1000) + ' m' : d.toFixed(1) + ' km'}</span> ${!h ? '' : h.blocked ? blockPill(h.blockKind) : `<span class="pill ${band(h.score)}">${BAND_LABEL[band(h.score)]} ${h.score ?? ""}</span>`}</li>`).join('')}</ul>`;
 }
 // (uses body.onclick, not addEventListener: the sheet body element is reused, so handlers must not pile up)
 function wireSpotLinks(body, extra = null) {

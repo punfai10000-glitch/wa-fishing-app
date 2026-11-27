@@ -50,3 +50,12 @@ export function warningHTML(data, lat, lng, t) {
   return `<div class="notice danger bom-warn"><strong>⚠ BOM ${esc(worst.type)} Warning</strong> ${today ? 'today' : 'that day'} for ${esc([...new Set(ws.map(w => w.zone))].join(' and '))}.
     Wind and seas can be dangerous for small boats, kayaks and rock fishing. <a href="${esc(data.link || 'https://www.bom.gov.au/wa/warnings/')}" target="_blank" rel="noopener">Full warning on BOM ↗</a></div>`;
 }
+
+// Per-source data age written by pipeline/check_freshness.py each hour
+export async function loadLiveStatus() {
+  if (!CONFIG.GITHUB_REPO) return null;
+  try {
+    const r = await fetch(`https://raw.githubusercontent.com/${CONFIG.GITHUB_REPO}/live-data/status.json?t=${Math.floor(Date.now() / 300000)}`);
+    return r.ok ? await r.json() : null;
+  } catch { return null; }
+}

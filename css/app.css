@@ -611,3 +611,5 @@ details.guide summary { cursor:pointer; list-style:none; } details.guide summary
 
 /* swell line labels: "〰 1.8 m · 13 s SW" */
 .swell-lbl { position: absolute; left: 0; top: 0; white-space: nowrap; font: 700 10.5px/1 system-ui, sans-serif; padding: 2px 4px; border-radius: 4px; background: rgba(11,18,32,.85); border: 1px solid currentColor; }
+
+.list-h { font-size: 1rem; margin: 14px 0 6px; }
