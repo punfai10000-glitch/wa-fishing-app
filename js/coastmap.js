@@ -19,7 +19,7 @@ import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuar
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass, exposureOf } from './scoring/geo.js';
 import { esc, typeTag, chanceIcon, blockPill, currentLine, bestTimeText } from './ui.js';
-import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge , freshness, waveWords } from './units.js';
+import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge , freshness, waveWords, fmtClock } from './units.js';
 
 let map, coastLayer, arrowLayer, buoyLayer, incidentLayer, bestLayer;
 let incidents = null;
@@ -548,6 +548,23 @@ function tapHTML(loc, where, sh, exact) {
     </details>`;
 }
 
+// High and low tides in the next 24 h from the hourly model tide (already shifted to the official tables' timing),
+// with a parabola through the 3 hours around each turn for a time between the hours.
+function tideTurns(ev, t) {
+  const hs = (ev?.hourly || []).filter(x => x.hour?.sea_level != null && x.t >= t - 3600e3 && x.t <= t + 26 * 3600e3);
+  const out = [];
+  for (let i = 1; i < hs.length - 1; i++) {
+    const a = hs[i - 1].hour.sea_level, b = hs[i].hour.sea_level, c = hs[i + 1].hour.sea_level;
+    const high = b > a && b >= c, low = b < a && b <= c;
+    if (!high && !low) continue;
+    const den = a - 2 * b + c, off = den ? 0.5 * (a - c) / den : 0;   // -0.5..0.5 h
+    const tt = hs[i].t + Math.max(-0.5, Math.min(0.5, off)) * 3600e3;
+    if (tt >= t) out.push({ t: tt, high });
+  }
+  return out;
+}
+const dayWordShort = (x, t) => new Date(x + 8 * 3600e3).getUTCDate() === new Date(t + 8 * 3600e3).getUTCDate() ? '' : 'tmrw ';
+
 // The 5-line answer for beginners: plain words, one line per thing that matters. Numbers stay in "More detail".
 function glanceHTML(loc, h, vis, legal, ev, t, rs, rp, pillFor) {
   const rows = [];
@@ -567,6 +584,8 @@ function glanceHTML(loc, h, vis, legal, ev, t, rs, rp, pillFor) {
       rows.push(['🌊', 'Waves', wh == null ? 'No forecast' : `${fmtHeight(wh)} — ${waveWords(wh)}${per != null && per >= 12 ? ' · <strong>long swell: surges further up the beach and rocks than it looks</strong>' : ''}`]);
     } else rows.push(['🌊', 'Waves', 'Sheltered river/estuary water — no ocean swell']);
   }
+  const tides = tideTurns(ev, t);
+  if (tides.length) rows.push(['🌗', 'Tide', `${h?.tide_rate == null ? '' : h.tide_rate > 0.005 ? 'Rising · ' : h.tide_rate < -0.005 ? 'Falling · ' : 'Slack · '}${tides.slice(0, 2).map(x => `${x.high ? 'high' : 'low'} ${dayWordShort(x.t, t)}${fmtClock(x.t)}`).join(', ')}<br><span class="small muted">From the tide model, timed against the official AHO tables — about ±30 min</span>`]);
   rows.push(['👁', 'Water', vis ? `${vis.score >= 70 ? 'Clear' : vis.score >= 45 ? 'Average' : 'Murky'}${vis.sat ? ` — satellite: ${vis.sat.band.vis} visibility` : ' (estimate)'}` : 'Unknown']);
   rows.push(['🕐', 'Best time', bestTimeText(ev, t).replace('Best time in the next 24 h: ', '') || '—']);
   const extra = legal.zones?.filter(z => z.active && /✗/.test((z.details || []).join(' ')) || z.type === 'species' && z.active).length || 0;
