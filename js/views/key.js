@@ -77,8 +77,8 @@ export function renderKey(view) {
     <div class="card"><h2>Condition icons (when you open a spot)</h2>
       <p class="small muted">The map stays clean — this icon appears in the pop-up when you tap a spot or anywhere on the coast. It's based on the conditions score, not on fish. Which fish are likely is the separate "Fish" line.</p>
       ${row(chanceIcon(90, 'shore', false, false), '80–100', 'Big fish: great conditions.')}
-      ${row(chanceIcon(70, 'shore', false, false), '60–80', 'Medium fish: good conditions.')}
-      ${row(chanceIcon(50, 'shore', false, false), '40–60', 'Small fish: so-so conditions.')}
+      ${row(chanceIcon(70, 'shore', false, false), '70–80', 'Medium fish: good conditions.')}
+      ${row(chanceIcon(50, 'shore', false, false), '40–70', 'Small fish: fair conditions.')}
       ${row(chanceIcon(20, 'shore', false, false), '0–40', 'Feather: poor conditions — probably not worth the trip.')}
       ${row(chanceIcon(90, 'spear', false, false), 'Spear mode', 'Same sizes, with a spear through the fish.')}
       <p class="small muted">No icon is shown when the spot is Not allowed, Not safe or Too dark — the status label says it instead.</p>

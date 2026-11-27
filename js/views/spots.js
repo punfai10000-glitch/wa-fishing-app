@@ -21,7 +21,7 @@ function nowLine(ev) {
   if (hr.blocked) {
     const ns = hr.blockKind === 'legal' ? null : nextSafe(ev, now);
     const what = { legal: '⛔ Not allowed here', dark: '🌙 Too dark now', safety: '🚫 Not safe now' }[hr.blockKind] || '🚫 Not safe now';
-    return `<div class="small"><strong>${what}</strong>${ns ? ` · safer: <strong>${whenText(ns.start, ns.end)}</strong> (about ${ns.score})` : hr.blockKind === 'legal' ? '' : ' · no safer time in the forecast yet'}</div>`;
+    return `<div class="small"><strong>${what}</strong>${ns ? ` · ${hr.blockKind === 'dark' ? 'next OK daylight time' : 'safer'}: <strong>${whenText(ns.start, ns.end)}</strong> (about ${ns.score})` : hr.blockKind === 'legal' ? '' : ' · no safer time in the forecast yet'}</div>`;
   }
   return `<div class="small"><strong>Now: ${hr.score == null ? "Unknown (no wind/wave forecast)" : `${BAND_LABEL[band(hr.score)]} ${hr.score}`}</strong>${hr.cautions?.length ? ' · ⚠ take care' : ''} · ${bestTimeText(ev, now)}</div>`;
 }
@@ -50,7 +50,7 @@ export function renderSpots(view) {
                 <h3>${esc(l.name)} ${favs.has(l.id) ? '<span aria-label="favourite">★</span>' : ''}</h3>
                 <div class="muted small">${d != null ? `${d.toFixed(1)} km away · ` : ''}${esc(REGIONS[l.region]?.name ?? l.region)} · ${esc(TYPE_LABELS[l.type] ?? l.type)}${l.osm ? ' · <span class="tag">OpenStreetMap — not yet checked</span>' : l.status === 'demo' ? ' · <span class="tag demo">starter spot — not yet checked</span>' : ''}</div>
               </div>
-              <span class="spacer"></span>${pill(ev)}
+              <span class="spacer"></span><div style="text-align:right">${ev.blocked ? '' : '<div class="small muted" style="white-space:nowrap">best, next 24 h</div>'}${pill(ev)}</div>
             </div>
             ${nowLine(ev)}
             ${ev.explanation && !ev.blocked ? `<p class="why">${plainify(esc(ev.explanation))}</p>` : ''}

@@ -29,7 +29,12 @@ export function plainify(html) {
     for (const [re, plain] of TERMS) {
       if (used.has(plain)) continue;
       const m = part.match(re);
-      if (m) { used.add(plain); part = part.replace(re, `${m[0]} <span class="plain-word">(${plain})</span>`); }
+      if (!m) continue;
+      const before = part.slice(0, m.index);
+      if ((before.match(/\(/g) || []).length > (before.match(/\)/g) || []).length) continue;
+      if (part[m.index + m[0].length] === '/') continue;   // "offshore/sheltered": a note would split the pair   // already inside "( … )": would garble it
+      used.add(plain);
+      part = part.slice(0, m.index) + `${m[0]} <span class="plain-word">(${plain})</span>` + part.slice(m.index + m[0].length);
     }
     return part;
   }).join('');

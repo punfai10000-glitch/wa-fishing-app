@@ -366,16 +366,16 @@ export function openSpotSheet(loc) {
   const parts = () => {
     const ev = evalFor(loc), hr = hourRow(ev), t = selectedTime();
     const ls = legalStatus(state.data.zones, loc, state.activity, { t });
-    const tg = ls.state === 'blocked' ? [] : likelyTargets(loc, hr?.hour, state.activity, { max: 3, zones: state.data.zones }).filter(x => x.level === 'good' || x.level === 'possible');
+    const tg = ls.state === 'blocked' || ev.applicable === false ? [] : likelyTargets(loc, hr?.hour, state.activity, { max: 3, zones: state.data.zones }).filter(x => x.level === 'good' || x.level === 'possible');
     const v = verdict(ev, hr, ls, state.activity, t, warningsAt(state.bomWarn, lat, lng, t));
     const warnBox = warningHTML(state.bomWarn, lat, lng, t);
     const top = `
       <div class="small muted">${esc(REGIONS[loc.region]?.name ?? loc.region ?? '')} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)} · ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'} · <strong>${timeLabel() === 'Now' ? 'now' : esc(timeLabel())}</strong></div>
       ${warnBox}
       ${verdictHTML(v)}
-      <div class="ticks">${tick(ls.state === 'blocked' ? 'no' : ls.state === 'caution' ? 'care' : 'yes', 'Allowed?', ls.state === 'blocked' ? 'No' : ls.state === 'caution' ? 'Yes, extra rules' : 'Yes')}
+      ${ev.applicable === false ? '' : `<div class="ticks">${tick(ls.state === 'blocked' ? 'no' : ls.state === 'caution' ? 'care' : 'yes', 'Allowed?', ls.state === 'blocked' ? 'No' : ls.state === 'caution' ? 'Yes, extra rules' : 'Yes')}
         ${tick(!hr ? 'unknown' : hr.blockKind === 'safety' ? 'no' : hr.blockKind === 'dark' ? 'no' : hr.cautions?.length ? 'care' : 'yes', 'Safe?', !hr ? '?' : hr.blockKind === 'safety' ? 'No' : hr.blockKind === 'dark' ? 'Dark' : hr.cautions?.length ? 'Take care' : 'Within limits')}
-        ${tick(!hr || hr.blocked || hr.score == null ? 'unknown' : band(hr.score) === 'good' ? 'yes' : band(hr.score) === 'fair' ? 'care' : 'no', 'Conditions', !hr || hr.blocked || hr.score == null ? '—' : `${BAND_LABEL[band(hr.score)]} ${hr.score}`)}</div>
+        ${tick(!hr || hr.blocked || hr.score == null ? 'unknown' : band(hr.score) === 'good' ? 'yes' : band(hr.score) === 'fair' ? 'care' : 'no', 'Conditions', !hr || hr.blocked || hr.score == null ? '—' : `${BAND_LABEL[band(hr.score)]} ${hr.score}`)}</div>`}
       ${ev.applicable === false ? '' : hourStrip(ev, t)}
       ${ev.applicable === false || ls.state === 'blocked' ? '' : `<div class="small">⏱ ${bestTimeText(ev, t)}</div>`}
       ${tg.length ? `<div class="small">🎯 Fish likely around now: ${esc(tg.map(x => x.name).join(', '))}</div>` : ''}`;

@@ -52,7 +52,7 @@ const fishSvg = (w, fill, spear) => `<svg viewBox="0 0 32 20" width="${w}" heigh
 const FEATHER = `<svg viewBox="0 0 24 24" width="24" height="24" aria-hidden="true"><path d="M20 3C12 4 6 9 5 17l-1.5 4" fill="none" stroke="#cbd5e1" stroke-width="1.6" stroke-linecap="round"/><path d="M20 3c-1 7-5 12-13 14c1-6 5-11 13-14z" fill="#e2e8f0" stroke="#94a3b8" stroke-width="1"/><path d="M9 12l3 1M11 9l3 1.2M14 6.5l2.5 1" stroke="#94a3b8" stroke-width=".9" stroke-linecap="round"/></svg>`;
 export const CHANCE_TIERS = [
   { min: 80, key: 'big', label: 'Great conditions', icon: s => fishSvg(46, '#2fbf71', s) },
-  { min: 60, key: 'medium', label: 'Good conditions', icon: s => fishSvg(34, '#56b4e9', s) },
+  { min: 70, key: 'medium', label: 'Good conditions', icon: s => fishSvg(34, '#56b4e9', s) },
   { min: 40, key: 'small', label: 'Fair conditions', icon: s => fishSvg(24, '#8fb8d8', s) },
   { min: 0, key: 'feather', label: 'Poor conditions', icon: () => FEATHER }
 ];

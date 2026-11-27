@@ -8,7 +8,7 @@ import { degToCompass } from '../scoring/geo.js';
 import { band } from '../scoring/score.js';
 import * as store from '../storage.js';
 import { visibilityEstimate } from '../scoring/score.js';
-import { rememberLiveSpot, accessCard, fillAccessFor, measuredCard } from './live.js';
+import { rememberLiveSpot, accessCard, fillAccessFor } from './live.js';
 import { nearestBuoy, nearestStation } from '../buoys.js';
 import { tideCheck } from '../ocean.js';
 import { nearestCoastPoint } from '../coast.js';
@@ -97,9 +97,8 @@ export function renderLocation(view, rawId) {
       <div class="card"><h2>What might be biting</h2>
         ${(() => { if ((ev.current?.blocks || []).some(b => b.kind === 'legal') || legalStatus(state.data.zones, loc, state.activity).state === 'blocked') return `<p class="small">${state.activity === 'spear' ? 'Spearfishing isn\'t allowed here, so no spearfishing targets. Switch to <strong>Fishing</strong> at the top to see what line fishers might catch.' : 'Fishing isn\'t allowed here, so no species suggestions.'}</p>`;
           const tg = likelyTargets(loc, ev.current?.hour, state.activity, { max: 6, zones: state.data.zones }); return tg.length ? `<table class="checks small">${tg.map(t => `<tr><th><a href="#/fish/${encodeURIComponent(t.id)}">${esc(t.name)}</a></th><td><b class="ck ${{ good: 'good', possible: 'fair', unlikely: 'unknown', closed: 'poor' }[t.level]}">${LEVEL_LABEL[t.level]}</b> ${esc(t.reasons.join(' · '))}${t.why ? `<br><span class="muted">${esc(t.why)}</span>` : ''}</td></tr>`).join('')}</table>` : '<p class="small muted">No common target species listed for this kind of spot.</p>'; })()}
-        <p class="small muted">Seasonal guide from general WA angling knowledge — season, habitat, time of day and sea state for this kind of spot. Not based on catch reports, so treat it as a starting point. Sources: ${(targetsData()?.sources || []).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name.split(' — ')[0])}</a>`).join(' · ')}</p>
+        <p class="small muted">Seasonal guide from general WA angling knowledge — season, habitat, time of day and sea state for this kind of spot. Not based on catch reports, so treat it as a starting point. Sources: ${(targetsData()?.sources || []).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name.split(' — ')[0].replace(/^(DPIRD|WA Government|Recfishwest)\b.*/, '$1'))} (${esc((s.name.split(' — ')[1] || s.name).split(' (')[0].replace(/^./, c => c.toUpperCase()))})</a>`).join(' · ')}</p>
       </div>`; })()}
-    ${measuredCard(loc)}
     <div class="card">
       <h2>Legal status</h2>
       ${legalHTML(legalStatus(state.data.zones, loc, state.activity), { small: false })}
@@ -162,7 +161,7 @@ function liveReadings(loc) {
     out.wind = `<span class="small">Measured: ${esc(ns.s.wind_dir ?? '')} ${fmtWind(ns.s.wind_kmh)}${ns.s.gust_kmh != null ? `, gusts ${fmtWind(ns.s.gust_kmh)}` : ''} — ${esc(ns.s.site)} station, ${ns.d.toFixed(0)} km, ${age(st)}</span> ${typeTag('measured')}`;
   const nb = loc.estuary ? null : nearestBuoy(state.buoys, lat, lng, 80);
   const bt = nb && Date.parse(nb.b.time);
-  if (bt && Date.now() - bt < 6 * 3600e3)
+  if (bt && Date.now() - bt < 3 * 3600e3)
     out.waves = `<span class="small">Measured offshore: ${fmtHeight(nb.b.hs)}${nb.b.tp != null ? ` @ ${Math.round(nb.b.tp)} s` : ''} — ${esc(nb.b.site)} buoy, ${nb.d.toFixed(0)} km, ${age(bt)} (usually smaller at the shore)</span> ${typeTag('measured')}`;
   else if (bt) out.waves = `<span class="small muted">${esc(nb.b.site)} buoy: last reading ${age(bt)} — the buoy feed is delayed, so the forecast is used</span>`;
   const tc = tideCheck(state.tides, lat, lng, (la, ln) => { const p = nearestCoastPoint(la, ln, 30); return p ? state.coast.byId?.[p.p.id] : null; });

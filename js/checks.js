@@ -29,6 +29,7 @@ export function fourChecks(loc, ev, hr, zones, activity) {
   const curNote = cw && (cw.key === 'moderate' || cw.key === 'strong') ? ` · <b class="cur-${cw.key}">${cw.label} current</b> ${hr.hour.current_speed.toFixed(1)} km/h — ${esc(cw.note)}` : '';
   rows.push(['Safety', sb ? `<b class="ck poor">Not safe</b> ${esc(sb.reason)}` :
     hr?.blockKind === 'dark' ? '<b class="ck poor">Too dark</b> no spearfishing at night' :
+    hr?.cautions?.length ? `<b class="ck fair">Take care</b> ${esc(hr.cautions[0].reason)}${loc.type === 'rock_platform' ? '; wear a lifejacket on rocks' : ''}${curNote}` :   // same as the card's "Safe?" line
     `<b class="ck unknown">Not verified</b> within published safety limits — check on site${loc.type === 'rock_platform' ? '; wear a lifejacket on rocks' : ''}${curNote}`]);
   // 4. Rules
   const ls = legalStatus(zones, loc, activity, { t: hr?.hour?.t });
@@ -39,7 +40,7 @@ export function fourChecks(loc, ev, hr, zones, activity) {
     ls.state === 'ok' ? `<b class="ck good">Allowed</b> ${esc(ls.text)}` : '<b class="ck unknown">Not checked</b> zone data not loaded']);
   // 5. Data confidence
   const c = ev.confidence?.level;
-  rows.push(['Data', `<b class="ck ${c === 'high' ? 'good' : c === 'medium' ? 'fair' : 'unknown'}">${{ high: 'High', medium: 'Moderate', low: 'Low' }[c] ?? 'Unknown'} confidence</b>`]);
+  rows.push(['Data', `<b class="ck ${c === 'high' ? 'good' : c === 'medium' ? 'fair' : 'unknown'}">${{ high: 'High', medium: 'Medium', low: 'Low' }[c] ?? 'Unknown'} confidence</b>`]);
   return `<table class="checks small">${rows.map(([k, v]) => `<tr><th>${k}</th><td>${v}</td></tr>`).join('')}</table>
     <div class="small muted">Fish = season, habitat and time of day for this kind of spot — not catch reports. Good conditions don't mean safe access or permission to fish.</div>`;
 }
