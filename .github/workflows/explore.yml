@@ -1,0 +1,12 @@
+name: explore
+on: workflow_dispatch
+jobs:
+  x:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          set -x
+          curl -s --max-time 60 ftp://ftp.bom.gov.au/anon/gen/fwo/ | awk '{print $NF}' | grep '^IDW' | head -400 | tr '\n' ' ' ; echo
+          for id in IDW11160 IDW11150 IDW11170 IDW11180 IDW11190 IDW11200 IDW21033 IDW21035 IDW11165 IDW20100 IDW11100; do echo "== $id"; curl -s --max-time 30 ftp://ftp.bom.gov.au/anon/gen/fwo/$id.txt | head -40; done
+          curl -s --max-time 60 "https://cmr.earthdata.nasa.gov/search/granules.json?short_name=VIIRSN_L3m_KD_NRT&sort_key=-start_date&page_size=3" | head -c 1500; echo
+          curl -s --max-time 60 "https://cmr.earthdata.nasa.gov/search/collections.json?keyword=VIIRS%20KD%20L3m%20NRT&page_size=10" | python3 -c "import json,sys;[print(c['short_name'],c.get('title')) for c in json.load(sys.stdin)['feed']['entry']]"
