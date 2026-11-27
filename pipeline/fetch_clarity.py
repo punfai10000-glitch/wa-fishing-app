@@ -259,7 +259,7 @@ def finish_fine(F, coarse):
     have = np.where(np.isfinite(flat))[0]
     seen = wf[have][qf[have] == 0]
     newest = seen.max() if seen.size else time.time()
-    return {"lat0": F["lat0"], "lon0": F["lon0"], "d": FINE_D, "ny": ny, "nx": nx, "idx": have.tolist(),
+    return {"v": 2, "lat0": F["lat0"], "lon0": F["lon0"], "d": FINE_D, "ny": ny, "nx": nx, "idx": have.tolist(),
             "kd": [round(float(x), 3) for x in flat[have]], "q": qf[have].tolist(),
             "age_h": [int(round((newest - w) / 3600)) for w in wf[have]],
             "newest": datetime.fromtimestamp(newest, timezone.utc).isoformat(timespec="seconds"),
@@ -270,7 +270,7 @@ def main():
     # NASA maps change once a day: if the published file is NASA's and under 6 h old, keep it (saves ~150 MB of downloads an hour)
     try:
         prev = json.load(open(f"{OUT}/clarity.json"))
-        if prev.get("dataset", "").startswith("NASA") and (prev.get("fine") or {}).get("q") and time.time() * 1000 - prev.get("generated_at", 0) < 6 * 3600e3:
+        if prev.get("dataset", "").startswith("NASA") and (prev.get("fine") or {}).get("v") == 2 and time.time() * 1000 - prev.get("generated_at", 0) < 6 * 3600e3:
             print("clarity: NASA file from", prev["newest"], "is recent - kept"); return
     except Exception:
         pass
