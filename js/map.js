@@ -627,7 +627,7 @@ function clarityLegend(show) {
   el.dataset.k = key;
   const when = `${d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}${age ? ` (${age} day${age === 1 ? '' : 's'} ago)` : ' (today)'}`;
   el.innerHTML = `<strong class="small">How far you can see underwater</strong><div class="hab-key">${CLARITY_BANDS.map(b => `<span><i style="background:${b.color};opacity:${b.alpha}"></i>${b.vis} · ${b.label.toLowerCase()}</span>`).join('')}</div>
-    <span class="small muted">${fine ? `Satellite ${when}. Small squares ≈ 1 km. Faint big squares = 4 km where cloud hid the coast.` : `Satellite ${when}. Squares ≈ 4 km.`} Blank = no data. Swell and rain since then make it murkier.</span>`;
+    <span class="small muted">${fine ? `Satellite ${when}. Squares ≈ 1 km. Fainter squares = filled in where cloud hid the water.` : `Satellite ${when}. Squares ≈ 4 km.`} Blank = no data. Swell and rain since then make it murkier.</span>`;
 }
 
 function buildLegend() {

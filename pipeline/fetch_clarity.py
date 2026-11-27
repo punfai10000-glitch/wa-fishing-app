@@ -6,7 +6,8 @@ If the GitHub secrets EARTHDATA_USER / EARTHDATA_PASS are set, NASA OB.DAAC's ne
 NOAA-21) Kd490 4 km daily maps are tried too (usually 1-2 days old instead of NOAA ERDDAP's 1-3 weeks); NASA data
 are free to use with credit to NASA OB.DAAC. The freshest source wins.
 """
-import json, os, re, sys, time, urllib.request
+import json, os, re, sys, time, urllib.request, warnings
+warnings.filterwarnings("ignore", category=RuntimeWarning)
 from datetime import datetime, timezone
 OUT = sys.argv[1] if len(sys.argv) > 1 else "out"
 BOX = (-35.6, -28.3, 113.4, 124.5)   # lat min/max, lon min/max
@@ -117,7 +118,8 @@ def fetch_nasa(days=5):
 
 FINE_D = 0.01            # ~1 km cells (VIIRS level-2 pixels are ~750 m)
 FINE_KM = 12             # only near the coast (offshore water isn't useful from the shore)
-BAD_FLAGS = {"ATMFAIL", "LAND", "HIGLINT", "HILT", "HISATZEN", "CLDICE", "HISOLZEN", "NAVFAIL", "MAXAERITER", "LOWLW", "ATMWARN"}
+# ATMWARN / LOWLW are kept: near the coast they flag most pixels, and the Kd490 there is still usable
+BAD_FLAGS = {"ATMFAIL", "LAND", "HIGLINT", "HILT", "HISATZEN", "CLDICE", "HISOLZEN", "NAVFAIL", "MAXAERITER"}
 
 def coast_mask(lat0, lon0, ny, nx):
     import numpy as np
@@ -155,6 +157,7 @@ def fetch_fine(days=3):
     ny, nx = int((BOX[1] - BOX[0]) / FINE_D) + 1, int((BOX[3] - BOX[2]) / FINE_D) + 1
     mask = coast_mask(lat0, lon0, ny, nx)
     kd = np.full(ny * nx, np.nan, "f4"); when = np.zeros(ny * nx, "f8")
+    seacnt = np.zeros(ny * nx); landcnt = np.zeros(ny * nx)   # land/sea mask from the LAND flag (works under cloud too)
     s = requests.Session()
     for t0, gid, href in files:                      # oldest first: newer passes overwrite
         try:
@@ -167,13 +170,20 @@ def fetch_fine(days=3):
                 g, nav = nc["geophysical_data"], nc["navigation_data"]
                 fl = g["l2_flags"]
                 names, masks = fl.flag_meanings.split(), np.atleast_1d(fl.flag_masks)
-                bad = 0
+                bad = 0; landbit = 0
                 for n, mk in zip(names, masks):
                     if n in BAD_FLAGS: bad |= int(mk)
+                    if n == "LAND": landbit = int(mk)
                 v = np.ma.filled(g["Kd_490"][:].astype("f4"), np.nan)
-                ok = np.isfinite(v) & (v > 0) & (v < 10) & ((np.asarray(fl[:]).astype("i8") & bad) == 0)
-                la, lo = nav["latitude"][:][ok], nav["longitude"][:][ok]; v = v[ok]
+                flv = np.asarray(fl[:]).astype("i8")
+                laall, loall = np.asarray(nav["latitude"][:]), np.asarray(nav["longitude"][:])
+                ok = np.isfinite(v) & (v > 0) & (v < 10) & ((flv & bad) == 0)
+                la, lo = laall[ok], loall[ok]; v = v[ok]
                 nc.close()
+            ia = ((laall - lat0) / FINE_D).astype(int); ja = ((loall - lon0) / FINE_D).astype(int)
+            inb = (ia >= 0) & (ia < ny) & (ja >= 0) & (ja < nx)
+            ka = ia[inb] * nx + ja[inb]; isl = (flv[inb] & landbit) != 0
+            landcnt += np.bincount(ka[isl], None, ny * nx); seacnt += np.bincount(ka[~isl], None, ny * nx)
             i = ((la - lat0) / FINE_D).astype(int); j = ((lo - lon0) / FINE_D).astype(int)
             inb = (i >= 0) & (i < ny) & (j >= 0) & (j < nx)
             i, j, v = i[inb], j[inb], v[inb]
@@ -187,20 +197,51 @@ def fetch_fine(days=3):
             print("  ", gid, "failed:", ex)
     try: os.remove(netrc)
     except OSError: pass
-    have = np.where(np.isfinite(kd))[0]
-    if have.size < 500: return None
-    newest = when[have].max()
-    return {"lat0": lat0, "lon0": lon0, "d": FINE_D, "ny": ny, "nx": nx, "idx": have.tolist(),
-            "kd": [round(float(x), 3) for x in kd[have]], "age_h": [int(round((newest - w) / 3600)) for w in when[have]],
+    if np.isfinite(kd).sum() < 500: return None
+    return {"kd": kd, "when": when, "sea": (seacnt > landcnt) & mask.ravel(), "ny": ny, "nx": nx, "lat0": lat0, "lon0": lon0}
+
+def finish_fine(F, coarse):
+    """Fill every near-coast SEA cell: 1 km value if seen, else the mean of seen cells within ~2 km (q=1),
+    else the 4 km map (q=2). Land cells are never drawn."""
+    import numpy as np
+    ny, nx = F["ny"], F["nx"]
+    kd = F["kd"].reshape(ny, nx).copy(); sea = F["sea"].reshape(ny, nx)
+    kd[~sea] = np.nan
+    q = np.where(np.isfinite(kd), 0, 9).astype("i1")
+    wh = np.where(np.isfinite(kd), F["when"].reshape(ny, nx), np.nan)
+    for step in range(2):                                   # grow seen cells into small gaps, 1 cell per step
+        pad = np.pad(kd, 1, constant_values=np.nan)
+        stack = np.stack([pad[1 + a:ny + 1 + a, 1 + b:nx + 1 + b] for a in (-1, 0, 1) for b in (-1, 0, 1)])
+        with np.errstate(all="ignore"): m = np.nanmean(stack, axis=0)
+        fill = sea & ~np.isfinite(kd) & np.isfinite(m)
+        padw = np.pad(wh, 1, constant_values=np.nan)
+        with np.errstate(all="ignore"): mw = np.nanmin(np.stack([padw[1 + a:ny + 1 + a, 1 + b:nx + 1 + b] for a in (-1, 0, 1) for b in (-1, 0, 1)]), axis=0)
+        kd[fill] = m[fill]; q[fill] = 1; wh[fill] = mw[fill]
+    if coarse:                                              # 4 km map for what's left
+        ii, jj = np.where(sea & ~np.isfinite(kd))
+        la, lo = F["lat0"] + (ii + 0.5) * FINE_D, F["lon0"] + (jj + 0.5) * FINE_D
+        ci = np.rint((la - coarse["lat0"]) / coarse["dlat"]).astype(int); cj = np.rint((lo - coarse["lon0"]) / coarse["dlon"]).astype(int)
+        okc = (ci >= 0) & (ci < coarse["ny"]) & (cj >= 0) & (cj < coarse["nx"])
+        g = np.array([np.nan if x is None else x for x in coarse["kd490"]], "f4")
+        vals = np.full(ii.size, np.nan, "f4"); vals[okc] = g[ci[okc] * coarse["nx"] + cj[okc]]
+        got = np.isfinite(vals); kd[ii[got], jj[got]] = vals[got]; q[ii[got], jj[got]] = 2
+        wh[ii[got], jj[got]] = datetime.fromisoformat(coarse["newest"].replace("Z", "+00:00")).timestamp()
+    flat, qf, wf = kd.ravel(), q.ravel(), wh.ravel()
+    have = np.where(np.isfinite(flat))[0]
+    seen = wf[have][qf[have] == 0]
+    newest = seen.max() if seen.size else time.time()
+    return {"lat0": F["lat0"], "lon0": F["lon0"], "d": FINE_D, "ny": ny, "nx": nx, "idx": have.tolist(),
+            "kd": [round(float(x), 3) for x in flat[have]], "q": qf[have].tolist(),
+            "age_h": [int(round((newest - w) / 3600)) for w in wf[have]],
             "newest": datetime.fromtimestamp(newest, timezone.utc).isoformat(timespec="seconds"),
-            "source": "NASA OB.DAAC VIIRS NOAA-20/NOAA-21 level-2 near-real-time Kd490 (~750 m pixels, binned to ~1 km)"}
+            "source": "NASA OB.DAAC VIIRS NOAA-20/NOAA-21 level-2 near-real-time Kd490 (~750 m pixels, binned to ~1 km); gaps filled from neighbours (q=1) and the 4 km map (q=2)"}
 
 def main():
     os.makedirs(OUT, exist_ok=True)
     # NASA maps change once a day: if the published file is NASA's and under 6 h old, keep it (saves ~150 MB of downloads an hour)
     try:
         prev = json.load(open(f"{OUT}/clarity.json"))
-        if prev.get("dataset", "").startswith("NASA") and prev.get("fine") and time.time() * 1000 - prev.get("generated_at", 0) < 6 * 3600e3:
+        if prev.get("dataset", "").startswith("NASA") and (prev.get("fine") or {}).get("q") and time.time() * 1000 - prev.get("generated_at", 0) < 6 * 3600e3:
             print("clarity: NASA file from", prev["newest"], "is recent - kept"); return
     except Exception:
         pass
@@ -222,8 +263,11 @@ def main():
         if age <= 30 and (not best or r["newest"] > best["newest"]): best = r
     if not best: sys.exit(1)
     try:
-        fine = fetch_fine()
-        if fine: best["fine"] = fine; print("fine cells", len(fine["idx"]), "newest", fine["newest"])
+        F = fetch_fine()
+        if F:
+            fine = finish_fine(F, best)
+            best["fine"] = fine
+            print("fine cells", len(fine["idx"]), "seen", fine["q"].count(0), "filled near", fine["q"].count(1), "from 4 km", fine["q"].count(2), "newest", fine["newest"])
     except Exception as e:
         print("NASA level-2 failed:", e)
     best["generated_at"] = int(time.time() * 1000)

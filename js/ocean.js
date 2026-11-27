@@ -95,7 +95,7 @@ export function clarityAt(c, lat, lng) {
 // Picture of the satellite cells near the coast only (offshore water isn't useful for shore fishing or diving and
 // just hides the map). Crisp squares, one colour per band — clear water is see-through, murky water stands out.
 export function clarityImage(c, coastPts = [], maxKm = 12) {
-  if (c.fine?.idx?.length) return clarityImageFine(c, coastPts, maxKm);
+  if (c.fine?.idx?.length && c.fine.q) return clarityImageFine(c);
   const S = 6;   // screen pixels per satellite cell in the picture (kept crisp)
   const cv = document.createElement('canvas'); cv.width = c.nx * S; cv.height = c.ny * S;
   const ctx = cv.getContext('2d');
@@ -122,32 +122,16 @@ export function clarityImage(c, coastPts = [], maxKm = 12) {
   return { url: cv.toDataURL(), bounds: [[Math.min(...lats) - hl, Math.min(...lons) - hw], [Math.max(...lats) + hl, Math.max(...lons) + hw]] };
 }
 
-// ~1 km picture: one pixel per near-coast cell (drawn crisp, see .clarity-img CSS). Where the 1 km grid has no clear
-// pixel (cloud), the 4 km cell shows through, fainter, so gaps are still covered but read as less exact.
-function clarityImageFine(c, coastPts, maxKm) {
+// ~1 km picture: one pixel per near-coast SEA cell (drawn crisp, see .clarity-img CSS). The pipeline already filled
+// cloud gaps: q=1 from neighbouring 1 km cells, q=2 from the 4 km map — drawn fainter so they read as less exact.
+// Land cells are never in the grid, so nothing is painted over the land.
+function clarityImageFine(c) {
   const f = c.fine, cv = document.createElement('canvas'); cv.width = f.nx; cv.height = f.ny;
   const ctx = cv.getContext('2d');
-  const have = new Uint8Array(f.nx * f.ny); for (const k of f.idx) have[k] = 1;
-  const near = nearCoastFn(coastPts, maxKm);
-  const span = Math.round(Math.abs(c.dlat) / f.d);
-  for (let i = 0; i < c.ny; i++) for (let j = 0; j < c.nx; j++) {
-    const v = c.kd490[i * c.nx + j]; if (v == null) continue;
-    const lat = c.lat0 + i * c.dlat, lon = c.lon0 + j * c.dlon;
-    if (!near(lon, lat)) continue;
-    const fi0 = Math.round((lat - Math.abs(c.dlat) / 2 - f.lat0) / f.d), fj0 = Math.round((lon - Math.abs(c.dlon) / 2 - f.lon0) / f.d);
-    // only where the 1 km grid has nothing at all in this 4 km cell (a partly filled cell is usually coast/land)
-    let any = false;
-    for (let a = 0; a < span && !any; a++) for (let d = 0; d < span; d++) {
-      const fi = fi0 + a, fj = fj0 + d;
-      if (fi >= 0 && fj >= 0 && fi < f.ny && fj < f.nx && have[fi * f.nx + fj]) { any = true; break; }
-    }
-    if (any) continue;
-    const b = clarityBand(v); ctx.globalAlpha = b.alpha * 0.45; ctx.fillStyle = b.color;
-    ctx.fillRect(fj0, f.ny - fi0 - span, span, span);
-  }
+  const fade = [1, 0.8, 0.5];
   f.idx.forEach((k, n) => {
     const i = Math.floor(k / f.nx), j = k % f.nx, b = clarityBand(f.kd[n]);
-    ctx.globalAlpha = b.alpha; ctx.fillStyle = b.color; ctx.fillRect(j, f.ny - 1 - i, 1, 1);
+    ctx.globalAlpha = b.alpha * (fade[f.q?.[n] ?? 0] ?? 1); ctx.fillStyle = b.color; ctx.fillRect(j, f.ny - 1 - i, 1, 1);
   });
   return { url: cv.toDataURL(), bounds: [[f.lat0, f.lon0], [f.lat0 + f.ny * f.d, f.lon0 + f.nx * f.d]], fine: true };
 }
