@@ -46,6 +46,13 @@ export function checkBlocks(loc, hour, activity, ctx = {}) {
     }
   }
 
+  // Legal: places open to the public in daylight only (e.g. Garden Island — Defence land)
+  const sun = ctx.sun;
+  for (const z of hits) {
+    if (z.daylight_only && sun && (hour.t + 3600e3 <= sun.sunrise || hour.t >= sun.sunset))
+      out.push({ kind: 'legal', reason: `${z.name} — open to the public in daylight only. Visitors must leave before dark.` });
+  }
+
   // Legal: spearfishing is prohibited in all inland waters, creeks, estuaries and rivers (DPIRD)
   if (loc.estuary && activity === 'spear') out.push({ kind: 'legal', reason: 'Spearfishing is banned in WA rivers, estuaries, creeks and inland waters.' });
 

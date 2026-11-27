@@ -129,6 +129,10 @@ export function legalStatus(zones, loc, activity = 'shore', { t } = {}) {
   const me = v[activity] || v.shore;
   const park = hits.find(h => h.zone_type === 'marine_park');
   const parkCovered = park && (zones.covers_parks || []).some(n => (park.name || '').toLowerCase().includes(n.toLowerCase()));
+  // daylight-only places (Garden Island): closed to the public after dark
+  const sun = window.SunCalc && t != null ? window.SunCalc.getTimes(new Date(`${new Date(t + 8 * 3600e3).toISOString().slice(0, 10)}T12:00:00+08:00`), loc.geometry.coordinates[1], loc.geometry.coordinates[0]) : null;
+  const dl = sun && hits.find(h => h.daylight_only);
+  if (dl && (t < +sun.sunrise || t > +sun.sunset)) for (const a of ['shore', 'spear']) if (allow[a]) { allow[a] = false; Object.assign(v[a], { ok: false, why: `${dl.name} — open to the public in daylight only. Visitors must leave before dark.`, link: dl.link }); why[a] = v[a].why; }
   const base = { notes, allow, why, zones: zonesHere, park: park?.name || null };
   if (!me.ok) return { ...base, state: 'blocked', text: me.why, link: me.link };
   const close = nearZonesFor(zones, loc)[0];
