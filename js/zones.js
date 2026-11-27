@@ -129,17 +129,21 @@ export function legalStatus(zones, loc, activity = 'shore', { t } = {}) {
   const me = v[activity] || v.shore;
   const park = hits.find(h => h.zone_type === 'marine_park');
   const parkCovered = park && (zones.covers_parks || []).some(n => (park.name || '').toLowerCase().includes(n.toLowerCase()));
+  // daylight-only places (Garden Island): closed to the public after dark
+  const sun = window.SunCalc && t != null ? window.SunCalc.getTimes(new Date(`${new Date(t + 8 * 3600e3).toISOString().slice(0, 10)}T12:00:00+08:00`), loc.geometry.coordinates[1], loc.geometry.coordinates[0]) : null;
+  const dl = sun && hits.find(h => h.daylight_only);
+  if (dl && (t < +sun.sunrise || t > +sun.sunset)) for (const a of ['shore', 'spear']) if (allow[a]) { allow[a] = false; Object.assign(v[a], { ok: false, why: `${dl.name} — open to the public in daylight only. Visitors must leave before dark.`, link: dl.link }); why[a] = v[a].why; }
   const base = { notes, allow, why, zones: zonesHere, park: park?.name || null };
   if (!me.ok) return { ...base, state: 'blocked', text: me.why, link: me.link };
   const close = nearZonesFor(zones, loc)[0];
-  if (close) return { ...base, state: 'caution', text: `Only about ${close.dist} m from the ${close.name} (no fishing). Its line in the app is traced from the official map and can be out by ~100 m — check the signs and the DBCA map before you fish here.`, link: close.link };
+  if (close) return { ...base, state: 'caution', unverified: true, text: `Only about ${close.dist} m from the ${close.name} (no fishing). Its line in the app is traced from the official map and can be out by ~100 m — check the signs and the DBCA map before you fish here.`, link: close.link };
   const special = zonesHere.find(z => z.type === 'restricted' || z.type === 'special_purpose' || z.type === 'general_use' && (z.details || []).some(d => d.startsWith('✗')));
   if (special) return { ...base, state: 'caution', text: `${special.name} — ${special.note}`, link: special.link };
   if (park && /nature reserve/i.test(park.park_type || '') && !parkCovered)
     return { ...base, state: 'ok', text: `Next to ${park.name} Nature Reserve (islands). Normal fishing rules apply in the water; landing on the islands may be restricted — check DBCA.`, link: 'https://exploreparks.dbca.wa.gov.au/' };
   const pn = park && PARK_NOTES.find(n => n.re.test(park.name || ''));
-  if (park && !parkCovered && pn) return { ...base, state: pn.state, text: pn.text, link: pn.link };
-  if (park && !parkCovered) return { ...base, state: 'caution', text: `Inside ${park.name}. Its zones aren't in the app yet — check the DBCA zoning map before fishing.`, link: 'https://exploreparks.dbca.wa.gov.au/' };
+  if (park && !parkCovered && pn) return { ...base, state: pn.state, unverified: pn.state === 'caution', text: pn.text, link: pn.link };
+  if (park && !parkCovered) return { ...base, state: 'caution', unverified: true, text: `Inside ${park.name}. Its zones aren't in the app yet — check the DBCA zoning map before fishing.`, link: 'https://exploreparks.dbca.wa.gov.au/' };
   if (park) return { ...base, state: 'ok', text: `Inside ${park.name}, outside its sanctuary zones. Normal fishing rules apply.${/mamang|wudjari/i.test(park.name || '') ? ' (Zones here are traced from the DBCA map — check signs near any boundary.)' : ''}` };
   const active = zonesHere.filter(z => z.active && (z.type === 'species' || z.type === 'gear'));
   if (active.length) return { ...base, state: 'caution', text: 'Not in a marine park or sanctuary, but extra rules apply here (below).' };

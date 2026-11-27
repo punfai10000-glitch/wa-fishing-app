@@ -3,7 +3,7 @@ export const CONFIG = {
   // Esri World Imagery via a free ArcGIS Location Platform account.
   // Paste a REFERRER-RESTRICTED public API key here (locked to your GitHub Pages domain).
   // Leave empty to fall back to the OpenStreetMap standard map.
-  ESRI_API_KEY: '',
+  ESRI_API_KEY: 'AAPTaHkTJ8oIBfcrklGSim4UbdQ..z6jalGOOiT9sa8aBlN2H5xbXU0S2FWcVxJ05bfQ_lenkOMSexHGzmOWCLSCecHSj2L1cGXHQlvyASDkG4jCnNN2nWQXvgbnb5DTneUe02p-PwK3sezuwrLN3isXC8SiTJYmg4aXs-kKsiaivdXf_5WIYajc7IX_5Shjvh-qRlGPQ94jVy9fEV-JV0wZVECz49D53XvCjSoFpsvMucBUYitSjNntwHoj3-zdV9ZhU7V1IBpZ5JlHVXBM.AT1_2I9lTig6',   // public key, Basemaps only, referrer-locked to punfai10000-glitch.github.io, expires ~Nov 2027
 
   // Refresh forecasts when cached data is older than this.
   REFRESH_MINUTES: 60,

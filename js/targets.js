@@ -71,3 +71,30 @@ export function likelyTargets(loc, hour, activity, { max = 4, zones = null } = {
 }
 
 export const LEVEL_LABEL = { good: 'Good chance', possible: 'Possible', unlikely: 'Unlikely now', closed: 'Closed season' };
+
+// Season factor for the score when a target species is picked (used only where the spot has no curated evidence).
+// From the regional seasonal guide above — general WA angling guidance, not catch data, and labelled as such.
+export function seasonGuide(loc, month, speciesId, activity = null) {
+  if (!data || !loc || !speciesId) return null;
+  const area = areaOf(loc.region);
+  const sp = data.targets.find(x => x.id === speciesId && (!activity || x.activity === activity)) || data.targets.find(x => x.id === speciesId);
+  if (!area || !sp || !sp.areas.includes(area)) return null;
+  const hab = Math.max(0, ...[loc.type, ...(loc.terrain || [])].map(h => sp.habitat[h] ?? 0));
+  if (sp.closed && sp.closed.months.includes(month) && sp.closed.regions.includes(loc.region)) return { score: 0, detail: `${sp.name}: closed season here` };
+  if (hab < 0.5) return { score: 20, detail: `${sp.name}: not its usual habitat (seasonal guide)` };
+  const present = sp.present_by_area?.[area] ?? sp.present ?? [], peak = sp.peak_by_area?.[area] ?? sp.peak ?? [];
+  const base = peak.includes(month) && present.includes(month) ? 100 : present.includes(month) ? 70 : 20;
+  const label = base === 100 ? 'peak season' : base === 70 ? 'in season' : 'out of season';
+  return { score: Math.round(base * (0.6 + 0.4 * hab)), detail: `${sp.name}: ${label} (seasonal guide, not catch data)` };
+}
+
+// Is this species in the guide for this spot (right area and habitat)?
+export function guideCovers(loc, speciesId, activity) {
+  if (!data) return false;
+  const area = areaOf(loc.region);
+  const sp = data.targets.find(x => x.id === speciesId && x.activity === activity);
+  if (!sp || !area || !sp.areas.includes(area)) return false;
+  return Math.max(0, ...[loc.type, ...(loc.terrain || [])].map(h => sp.habitat[h] ?? 0)) >= 0.5;
+}
+
+export function guideSpecies(activity) { return data ? data.targets.filter(x => x.activity === activity) : []; }

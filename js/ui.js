@@ -58,7 +58,7 @@ export const CHANCE_TIERS = [
 ];
 export function chanceTier(score) { return score == null ? null : CHANCE_TIERS.find(t => score >= t.min); }
 export function chanceIcon(score, activity = 'shore', blocked = false, showLabel = true) {
-  if (blocked) { const k = typeof blocked === 'string' ? blocked : 'safety'; return `<span class="chance blocked blk-${k}">${BLOCK_ICON[k]} <span class="small">${BLOCK_LABEL[k]}</span></span>`; }
+  if (blocked) { const k = typeof blocked === 'string' ? blocked : 'safety'; return `<span class="chance blocked blk-${k}">${BLOCK_ICON[k]}${showLabel ? ` <span class="small">${BLOCK_LABEL[k]}</span>` : ''}</span>`; }
   const t = chanceTier(score);
   if (!t) return '';
   return `<span class="chance ${t.key}" title="${t.label}">${t.icon(activity === 'spear')}${showLabel ? `<span class="small">${t.label}</span>` : ''}</span>`;

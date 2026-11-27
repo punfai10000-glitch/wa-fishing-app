@@ -28,7 +28,7 @@ export function nextSafe(ev, t) {
 }
 
 /** { cls, icon, title, text } — the one-line answer */
-export function verdict(ev, hr, ls, activity, t) {
+export function verdict(ev, hr, ls, activity, t, warns = []) {
   const act = activity === 'spear' ? 'spearfishing' : 'fishing';
   if (!ev || ev.applicable === false) return { cls: 'na', icon: '–', title: `Not a ${act} spot`, text: 'Switch between Fishing and Spear at the top.' };
   if (ls?.state === 'blocked' || hr?.blockKind === 'legal') {
@@ -42,7 +42,14 @@ export function verdict(ev, hr, ls, activity, t) {
     return { cls: hr.blockKind === 'dark' ? 'dark' : 'unsafe', icon: hr.blockKind === 'dark' ? '🌙' : '🚫', title: hr.blockKind === 'dark' ? 'Too dark now' : 'Not safe at this time',
       text: why, next: ns ? `${hr.blockKind === 'dark' ? 'Next daylight time that is OK' : 'Safer time'}: <strong>${whenText(ns.start, ns.end)}</strong> (score about ${ns.score}${ns.careful ? ', take care' : ''})` : 'No safer time in the forecast yet — check again later.' };
   }
-  const s = hr.score ?? 0;
+  // no wind/wave forecast for this hour: say so, never 'Good' or 'Poor 0'
+  if (hr.score == null) return { cls: 'unknown', icon: '?', title: 'Unknown — not enough forecast data', text: hr.result?.unknownReason || 'Wind or wave forecast missing for this hour, so the app can\'t check it\'s safe. Check BOM before you go.' };
+  // rules can't be confirmed here: never 'Good time to go', whatever the conditions
+  if (ls?.state === 'unchecked') return { cls: 'care', icon: '⚠', title: `Rules not checked (conditions ${hr.score})`, text: 'The marine park zone map didn\'t load, so the app can\'t confirm fishing is allowed here. Check the DPIRD and DBCA rules first.' };
+  const s = hr.score;
+  const c0 = hr.cautions?.[0];
+  if (c0 && /zone|Marine park/i.test(c0.reason)) return { cls: 'care', icon: '⚠', title: `Check the zone rules first (conditions ${BAND_LABEL[band(s)]} ${s})`, text: c0.reason };
+  if (c0 && /^BOM/.test(c0.reason)) return { cls: 'care', icon: '⚠', title: `BOM wind warning — take care (${BAND_LABEL[band(s)]} ${s})`, text: c0.reason + '. Wind and seas can be dangerous for small boats, kayaks and rock fishing.' };
   if (hr.cautions?.length) return { cls: 'care', icon: '⚠', title: `Allowed — take care (${BAND_LABEL[band(s)]} ${s})`, text: hr.cautions[0].reason + '. For experienced people, with a buddy.' };
   if (s >= 70) return { cls: 'go', icon: '✅', title: `Good time to go (${s})`, text: 'Allowed, within the safety limits, good conditions. Still look at the water before you go in.' };
   if (s >= 40) return { cls: 'ok', icon: '👌', title: `OK, not ideal (${s})`, text: 'Allowed and within the safety limits, but conditions are only fair.' };

@@ -208,7 +208,7 @@ dialog li { margin-bottom: 8px; }
 .flow .glyph { display: block; font-size: 18px; line-height: 1; animation: drift 1.6s linear infinite; text-shadow: 0 0 3px rgba(0,0,0,.9); }
 .flow.wind .glyph { color: #ffffff; }
 .flow.wave .glyph { color: #4fd1ff; }
-.flow-lbl { position: absolute; left: 24px; top: 20px; font: 700 10px/1 system-ui, sans-serif; padding: 1px 3px; border-radius: 4px; background: rgba(11,18,32,.8); }
+.flow-lbl { position: absolute; left: 34px; top: 22px; white-space: nowrap; font: 700 10px/1 system-ui, sans-serif; padding: 1px 3px; border-radius: 4px; background: rgba(11,18,32,.8); }
 .flow-lbl.wind { color: #fff; } .flow-lbl.wave { color: #4fd1ff; }
 @keyframes drift { 0% { transform: translateX(-8px); opacity: 0; } 25% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateX(10px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .flow .glyph { animation: none; } }
@@ -591,6 +591,28 @@ details.guide summary { cursor:pointer; list-style:none; } details.guide summary
 .habitat-legend.clarity-legend { left: 10px; right: auto; top: 140px !important; max-width: 240px; }
 @media (max-width: 700px) { .habitat-legend.clarity-legend { top: 150px !important; max-width: 200px; font-size: .9em; } }
 .hab-dots { display:inline-block; width:14px; height:10px; vertical-align:middle; background: repeating-conic-gradient(#8c2814 0 25%, rgba(140,40,20,.35) 0 50%) 0 0/4px 4px; border-radius:2px; }
+.key-pin { display:flex; flex-direction:column; align-items:center; gap:2px; } .key-pin .mk-sub { transform:none; }
+/* Learn: symbols must fit their 92–112 px column */
+.key-sym .pill { white-space: normal; text-align: center; line-height: 1.2; max-width: 100%; }
+@media (max-width: 420px) { .key-sym .pill { font-size: 12px; padding: 3px 7px; } }
+
+/* Early-version notes chip (under the map mode switch) */
+#notes-slot { flex: 1 1 100%; display: flex; }
+.notes-chip { position: relative; }
+.notes-chip > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 18px;
+  background: rgba(15, 23, 42, .82); border: 1px solid var(--line); color: var(--text); font-size: .85rem; font-weight: 600; backdrop-filter: blur(6px); }
+.notes-chip > summary::-webkit-details-marker { display: none; }
+.notes-chip > summary::after { content: '▾'; margin-left: 6px; opacity: .7; }
+.notes-chip[open] > summary::after { content: '▴'; }
+.notes-panel { position: absolute; top: 42px; left: 0; width: min(92vw, 380px); background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 14px; box-shadow: 0 8px 24px rgba(0,0,0,.4); font-size: .88rem; line-height: 1.4; z-index: 5; }
+.notes-panel p { margin: 0 0 8px; }
+.notes-panel .btn { width: 100%; min-height: 44px; }
+
+/* swell line labels: "〰 1.8 m · 13 s SW" */
+.swell-lbl { position: absolute; left: 0; top: 0; white-space: nowrap; font: 700 10.5px/1 system-ui, sans-serif; padding: 2px 4px; border-radius: 4px; background: rgba(11,18,32,.85); border: 1px solid currentColor; }
+
+.list-h { font-size: 1rem; margin: 14px 0 6px; }
 
 /* Time bar: long labels ("Dark now — showing spearfishing from …") wrap onto their own line instead of
    squashing the slider; the bar sits above the map credits so they no longer overlap it. */

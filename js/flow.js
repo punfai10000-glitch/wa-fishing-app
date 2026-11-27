@@ -199,6 +199,11 @@ function windColor(kmh) {
   return 'rgba(255,140,110,0.95)';
 }
 
+// swell height colour (m) — matches waveColor() in coastmap.js and the map legend
+function swellRGB(m) {
+  return m < 0.5 ? [126, 226, 200] : m < 1 ? [163, 230, 53] : m < 1.5 ? [250, 204, 21] : m < 2.5 ? [251, 146, 60] : [248, 113, 113];
+}
+
 function drawSwell(ts) {
   const z = map.getZoom();
   if (z < 7) return;
@@ -219,14 +224,16 @@ function drawSwell(ts) {
     const px = -dy, py = dx;
     const len = (16 + Math.min(4, sw.height) * 8) * scale;  // crest length grows with height
     const period = Math.max(5, sw.period || 9);
-    const travel = 90 * scale;
-    const crests = 3;
+    // spacing between crests follows the real wavelength (∝ period²): 8 s swell packs tight, 15 s spreads out
+    const gap = Math.min(70, Math.max(18, period * period * 0.28)) * scale;
+    const crests = 3, travel = gap * crests;
+    const [r, gg, b] = swellRGB(sw.height);                    // same colours as the wave-height labels
     for (let i = 0; i < crests; i++) {
       const phase = ((ts / 1000) / (period / 2.5) + i / crests) % 1;  // longer period = slower, steadier
       const cx = pt.x - dx * travel * (1 - phase) + dx * 25 * scale;
       const cy = pt.y - dy * travel * (1 - phase) + dy * 25 * scale;
       const a = Math.sin(phase * Math.PI);                  // fade in, then out at the shore
-      g.strokeStyle = `rgba(120,220,255,${(0.15 + 0.75 * a).toFixed(2)})`;
+      g.strokeStyle = `rgba(${r},${gg},${b},${(0.2 + 0.75 * a).toFixed(2)})`;
       g.lineWidth = 1 + Math.min(3, sw.height) * 0.9 * a;
       g.beginPath();
       g.moveTo(cx - px * len / 2, cy - py * len / 2);

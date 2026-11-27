@@ -1,4 +1,5 @@
 import { state, evalFor, getLoc } from '../app.js';
+import { warningHTML } from '../bomwarn.js';
 import { REGIONS, TYPE_LABELS } from '../config.js';
 import { esc, pill, windowText, confText, typeTag, chanceIcon, blockPill } from '../ui.js';
 import { BAND_LABEL } from '../scoring/score.js';
@@ -65,6 +66,7 @@ export function renderLocation(view, rawId) {
       <button class="icon-btn" id="fav" aria-pressed="${fav}" aria-label="${fav ? 'Remove from favourites' : 'Add to favourites'}">${fav ? '★' : '☆'}</button>
     </div>
 
+    ${warningHTML(state.bomWarn, loc.geometry.coordinates[1], loc.geometry.coordinates[0], Date.now())}
     ${isRock ? '<div class="notice danger"><strong>Rock fishing danger.</strong> Waves can sweep people off rocks without warning. Wear a lifejacket, never fish alone, and never turn your back on the sea.</div>' : ''}
     ${(loc.safety_notes || []).map(n => `<div class="notice">${esc(n)}</div>`).join('')}
     ${primary.currentBlocks?.length ? `<div class="notice danger"><strong>${{ legal: 'Not allowed right now:', safety: 'Not safe right now:', dark: 'Too dark right now:' }[primary.current?.blockKind] || 'Not available right now:'}</strong><ul>${primary.currentBlocks.map(b => `<li>${esc(b.reason)}</li>`).join('')}</ul></div>` : ''}

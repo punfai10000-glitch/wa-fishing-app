@@ -26,6 +26,11 @@ export async function loadStatic() {
     const sc = await json('data/zones/south-coast.geojson');
     if (sc?.features?.length && zones) { zones.features = [...sc.features, ...(zones.features || [])]; zones.covers_parks = [...(zones.covers_parks || []), ...(sc.covers_parks || [])]; }
   } catch { /* not there: those parks keep the 'check the map' caution */ }
+  // Access rules that aren't marine park zones (Garden Island: Defence land, daylight only, causeway closed)
+  try {
+    const ac = await json('data/zones/access.geojson');
+    if (ac?.features?.length && zones) zones.features = [...ac.features, ...(zones.features || [])];
+  } catch { /* optional */ }
   return { locations: loc.locations, species, rules: rules.rules, ruleGuide: rules.guide, ruleLinks: rules.official_links, thresholds: thresholds.thresholds, thresholdSources: thresholds.sources || [], zones, sources: sources.sources };
 }
 

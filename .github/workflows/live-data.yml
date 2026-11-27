@@ -18,7 +18,7 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-python@v6
         with: { python-version: '3.12' }
-      - run: pip install netCDF4
+      - run: pip install netCDF4 requests numpy
       - name: Start from the last published files (a source that fails this hour keeps its previous data)
         run: |
           mkdir -p out
@@ -26,12 +26,19 @@ jobs:
             for f in $(git ls-tree --name-only FETCH_HEAD); do git show "FETCH_HEAD:$f" > "out/$f"; done
           fi
           ls out || true
-      - run: python pipeline/fetch_buoys.py out || echo "buoys failed"
-      - run: python pipeline/fetch_bom_obs.py out || echo "BOM failed"
-      - run: python pipeline/fetch_tides.py out || echo "tides failed"
-      - run: python pipeline/fetch_clarity.py out || echo "clarity failed"
-      - run: python pipeline/fetch_coast_forecast.py out || echo "coast forecast failed"
+      - run: python pipeline/fetch_buoys.py out || echo "::warning::buoys fetch failed — last good file kept"
+      - run: python pipeline/fetch_bom_obs.py out || echo "::warning::BOM fetch failed — last good file kept"
+      - run: python pipeline/fetch_bom_warnings.py out || echo "::warning::BOM warnings fetch failed — last good file kept"
+      - run: python pipeline/fetch_tides.py out || echo "::warning::tides fetch failed — last good file kept"
+      - run: python pipeline/fetch_clarity.py out || echo "::warning::clarity fetch failed — last good file kept"
+        env:
+          EARTHDATA_USER: ${{ secrets.EARTHDATA_USER }}
+          EARTHDATA_PASS: ${{ secrets.EARTHDATA_PASS }}
+      - run: python pipeline/fetch_coast_forecast.py out || echo "::warning::coast forecast fetch failed — last good file kept"
       - run: ls -la out && test -n "$(ls out/*.json 2>/dev/null)"
+      - name: Check every source's data age (writes status.json; a stale critical source fails the run AFTER publishing)
+        run: |
+          python pipeline/check_freshness.py out && echo "FRESH_RC=0" >> $GITHUB_ENV || echo "FRESH_RC=1" >> $GITHUB_ENV
       - name: Publish to live-data branch (single commit, no history growth)
         run: |
           cd out
@@ -41,3 +48,5 @@ jobs:
           git add *.json
           git commit -qm "Live data $(date -u +%FT%TZ)"
           git push -qf "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" live-data
+      - name: Fail the run if critical live data is stale (GitHub emails the repo owner)
+        run: test "$FRESH_RC" = "0"

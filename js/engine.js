@@ -48,6 +48,8 @@ export function blockKindOf(blocks) {
   return 'dark';
 }
 
+const cautionRank = c => /zone|Marine park/i.test(c.reason) ? 0 : /^BOM/.test(c.reason) ? 1 : 2;
+
 export function evaluate(loc, hours, activity, ctx = {}) {
   const now = ctx.now ?? Date.now();
   if (!loc.activities.includes(activity)) return { applicable: false, activity };
@@ -56,6 +58,10 @@ export function evaluate(loc, hours, activity, ctx = {}) {
   }
   if (loc.estuary) hours = hours.map(h => ({ ...h, wave_height: null, swell_height: null, wave_period: null, swell_period: null, wind_wave_height: null, sheltered: true }));
   const legalUnchecked = !ctx.zones?.loaded;
+  // rules that can't be confirmed (zone map not loaded, park zones not mapped, edge of a traced zone): never 'Good to go'
+  const lsNow = legalUnchecked ? null : ctx.legalFn?.(loc, activity);
+  const legalNote = legalUnchecked ? 'Marine park zones not loaded — can\'t confirm fishing is allowed here'
+    : lsNow?.unverified ? `Check the zone map before fishing: ${lsNow.text}` : null;
   addVisibilityContext(hours, loc);   // spear score + species targets (squid needs clear water)
   const sunCache = new Map();
   const hourly = hours.map(h => {
@@ -63,9 +69,12 @@ export function evaluate(loc, hours, activity, ctx = {}) {
     if (!sunCache.has(dk)) sunCache.set(dk, sunFor(loc, h.t, ctx.sunFn));
     const sun = sunCache.get(dk);
     if (sun) h.light = (Math.abs(h.t + 1800e3 - sun.sunrise) <= 5400e3 || Math.abs(h.t + 1800e3 - sun.sunset) <= 5400e3) ? 'twilight' : (h.t > sun.sunrise && h.t < sun.sunset ? 'day' : 'night');
-    const result = scoreHour(loc, h, activity, { species: ctx.species });
-    const all = checkBlocks(loc, h, activity, { thresholds: ctx.thresholds, rules: ctx.rules, sun: sunCache.get(dk), zoneHits: ctx.zoneHits?.(loc) ?? [] });
-    const blocks = all.filter(b => b.kind !== 'caution'), cautions = blocks.some(b => b.kind === 'safety') ? [] : all.filter(b => b.kind === 'caution');
+    const result = scoreHour(loc, h, activity, { species: ctx.species, seasonFn: ctx.seasonFn });
+    const all = checkBlocks(loc, h, activity, { thresholds: ctx.thresholds, rules: ctx.rules, sun: sunCache.get(dk), zoneHits: ctx.zoneHits?.(loc) ?? [],
+      warnings: ctx.warningsFn?.(loc, h.t) ?? [] });
+    if (legalNote) all.push({ kind: 'caution', reason: legalNote });
+    const blocks = all.filter(b => b.kind !== 'caution'), cautions = blocks.some(b => b.kind === 'safety') ? [] : all.filter(b => b.kind === 'caution')
+      .sort((a, b) => cautionRank(a) - cautionRank(b));
     return { t: h.t, hour: h, result, score: result.score, blocks, cautions, blocked: blocks.length > 0, blockKind: blockKindOf(blocks) };
   });
 

@@ -1,3 +1,5 @@
+import { boxes } from './declutter.js';
+import { warningHTML, warningsAt } from './bomwarn.js';
 import { CONFIG, REGIONS, TYPE_LABELS } from './config.js';
 import { state, evalFor, visibleLocations } from './app.js';
 import * as store from './storage.js';
@@ -33,7 +35,7 @@ const overlays = {};
 // ---- Base maps ------------------------------------------------------------
 const BASES = [
   { id: 'satellite', label: 'Satellite (Sentinel-2, free)', note: '10 m imagery — reef, weed and sand show in clear shallow water' },
-  { id: 'esri', label: 'Satellite HD', note: 'Esri World Imagery (needs ESRI_API_KEY in config.js)' },
+  { id: 'esri', label: 'Satellite HD', note: CONFIG.ESRI_API_KEY ? 'Sharp Esri World Imagery (Maxar and others) at every zoom — uses more data' : 'Sharp WA Government (Landgate) aerial photos from zoom 12 on top of Sentinel-2 — uses more data' },
   { id: 'street', label: 'Street map', note: 'Roads, tracks and car parks (OpenStreetMap)' }
 ].filter(b => b.id !== 'esri' || CONFIG.ESRI_API_KEY);   // without an Esri key, "HD" was just Satellite + the aerial photos below: one switch is enough
 
@@ -46,12 +48,12 @@ const LAYERS = [
   { group: 'Rules & hazards', id: 'incidents', label: 'Past shark incidents', note: 'Australian Shark-Incident Database (Taronga). Skull = fatal, ! = injury, grey = no injury.' },
   { group: 'Marine conditions', id: 'buoys', label: 'Wave buoys (measured)', note: 'Transport WA buoys; green < 1 h old, orange 1–3 h, red older' },
   { group: 'Marine conditions', id: 'windFlow', label: 'Wind animation', note: 'Forecast — streaks follow the wind (white light → red strong)' },
-  { group: 'Marine conditions', id: 'swellFlow', label: 'Swell lines', note: 'Forecast — lines roll toward the shore (zoom in)' },
+  { group: 'Marine conditions', id: 'swellFlow', label: 'Swell lines', note: 'Forecast — coloured by height, spaced by period, labelled e.g. 1.8 m · 13 s SW (zoom in)' },
   { group: 'Marine conditions', id: 'currentFlow', label: 'Water movement (currents)', note: 'Forecast — streaks follow the ocean current: green slow, yellow moderate, orange strong, red too strong to dive. On by default in Spear. Offshore drift only — rips near the beach are too small for any forecast.' },
   { group: 'Marine conditions', id: 'wind', label: 'Wind speed labels', note: 'Forecast km/h with direction (zoom in)' },
   { group: 'Marine conditions', id: 'waves', label: 'Wave height labels', note: 'Forecast metres with direction (zoom in)' },
   { group: 'Marine conditions', id: 'sst', label: 'Sea temperature', note: 'Coloured dots with °C all along the coast (blue cold → red warm). Forecast model.' },
-  { group: 'Under the water', id: 'clarity', label: 'Water clarity (satellite)', note: 'How clear the water was on the latest satellite pass (NOAA, ~2–4 km squares, cloud gaps filled). Blue = clear, brown = murky. Right at the shore it can differ — swell and rain since then make it murkier.' },
+  { group: 'Under the water', id: 'clarity', label: 'Water clarity (satellite)', note: 'How clear the water was on the latest satellite pass (NASA or NOAA satellites, ~4 km squares, cloud gaps filled). Blue = clear, brown = murky. Right at the shore it can differ — swell and rain since then make it murkier.' },
   { group: 'Under the water', id: 'habitat', label: 'Seabed habitat', note: 'Reef, seagrass and sand where mapped (Seamap Australia); patchy near shore' },
   { group: 'Under the water', id: 'depth', label: 'Water depth (colour bands)', note: 'Detailed near shore where Transport WA surveyed (zoom in); general depth when zoomed out. Tap the water for the depth in metres. Not for navigation.' },
   { group: 'Facilities', id: 'tackle', label: 'Tackle & bait shops', note: '' },
@@ -60,7 +62,7 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Within 10 km of the coast' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: '' }
 ];
-const DEFAULTS = { base: 'satellite', aerial: true, currentFlow: null, spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, clarity: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
+const DEFAULTS = { base: 'esri', aerial: true, currentFlow: null, spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, clarity: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
 export const layerOn = () => {
   const saved = store.get('layers', {});
   // v2: facilities (bait/tackle, servos, toilets) on by default — switch them on once for people with saved settings
@@ -68,7 +70,7 @@ export const layerOn = () => {
   if (!store.get('layersV3')) { store.set('layersV3', 1); Object.assign(saved, { tackle: false, fuel: false, toilets: false, food24: false, parking: false }); store.set('layers', saved); }
   // v4: calmer map — wind/swell animation live in the Weather view; shark history is opt-in
   if (!store.get('layersV4')) { store.set('layersV4', 1); Object.assign(saved, { windFlow: false, swellFlow: false, incidents: false }); store.set('layers', saved); }
-  if (!store.get('layersV5')) { store.set('layersV5', 1); }
+  if (!store.get('layersV5')) { store.set('layersV5', 1); if (!saved.base || saved.base === 'satellite') { saved.base = 'esri'; store.set('layers', saved); } }
   // v6: "Satellite HD" (without an Esri key) merged into Satellite + the sharp aerial photos switch
   if (!store.get('layersV6')) { store.set('layersV6', 1); if (saved.base === 'esri' && !CONFIG.ESRI_API_KEY) { saved.base = 'satellite'; saved.aerial = true; } store.set('layers', saved); }
   return { ...DEFAULTS, ...saved };
@@ -365,9 +367,11 @@ export function openSpotSheet(loc) {
     const ev = evalFor(loc), hr = hourRow(ev), t = selectedTime();
     const ls = legalStatus(state.data.zones, loc, state.activity, { t });
     const tg = ls.state === 'blocked' ? [] : likelyTargets(loc, hr?.hour, state.activity, { max: 3, zones: state.data.zones }).filter(x => x.level === 'good' || x.level === 'possible');
-    const v = verdict(ev, hr, ls, state.activity, t);
+    const v = verdict(ev, hr, ls, state.activity, t, warningsAt(state.bomWarn, lat, lng, t));
+    const warnBox = warningHTML(state.bomWarn, lat, lng, t);
     const top = `
       <div class="small muted">${esc(REGIONS[loc.region]?.name ?? loc.region ?? '')} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)} · ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'} · <strong>${timeLabel() === 'Now' ? 'now' : esc(timeLabel())}</strong></div>
+      ${warnBox}
       ${verdictHTML(v)}
       <div class="ticks">${tick(ls.state === 'blocked' ? 'no' : ls.state === 'caution' ? 'care' : 'yes', 'Allowed?', ls.state === 'blocked' ? 'No' : ls.state === 'caution' ? 'Yes, extra rules' : 'Yes')}
         ${tick(!hr ? 'unknown' : hr.blockKind === 'safety' ? 'no' : hr.blockKind === 'dark' ? 'no' : hr.cautions?.length ? 'care' : 'yes', 'Safe?', !hr ? '?' : hr.blockKind === 'safety' ? 'No' : hr.blockKind === 'dark' ? 'Dark' : hr.cautions?.length ? 'Take care' : 'Within limits')}
@@ -492,6 +496,8 @@ export function refreshMap() {
   // Declutter: checked spots first, then the best-scoring OSM spots; skip a pin that would overlap one
   // already placed (zoom in to see more). Bigger fish = better score, so the best ones win.
   const placed = [];
+  const pinsLL = [];   // where pins ended up — the coast labels (arrows, sea temp, best stretch, buoys) keep clear of them
+  state.pinsPlaced = pinsLL;
   const cand = visibleLocations()
     .filter(loc => !loc.osm || (zoom >= (lite() ? 13 : 12) && bounds.contains([loc.geometry.coordinates[1], loc.geometry.coordinates[0]])))
     .map(loc => { const ev = evalFor(loc); return { loc, ev, hr: hourRow(ev) }; })
@@ -504,8 +510,9 @@ export function refreshMap() {
       if (!t || !(t.level === 'good' || t.level === 'possible')) continue;
     }
     const pt = map.latLngToContainerPoint([loc.geometry.coordinates[1], loc.geometry.coordinates[0]]);
-    if (loc.osm && zoom < 16 && placed.some(q => Math.abs(q.x - pt.x) < 44 && Math.abs(q.y - pt.y) < 56)) continue;
+    if ((loc.osm ? zoom < 16 : zoom < 12) && placed.some(q => Math.abs(q.x - pt.x) < 40 && Math.abs(q.y - pt.y) < 40 + (on.sst ? 16 : 0))) continue;
     placed.push(pt);
+    pinsLL.push([loc.geometry.coordinates[1], loc.geometry.coordinates[0], loc.osm ? 30 : 38, !!(on.sst && ev?.current?.hour)]);
     const [lng, lat] = loc.geometry.coordinates;
     // the pin shows the score at the hour on the time slider (so it changes as you scrub / press play)
     const cls = ev.applicable === false ? 'na' : !hr ? 'unknown' : hr.blocked ? `blocked blk-${hr.blockKind || 'safety'}` : hr.score != null ? band(hr.score) : 'unknown';
@@ -527,13 +534,19 @@ export function refreshMap() {
     // names on the water when zoomed in, so you can see exactly which zone you are looking at
     if (map.getZoom() >= 13) {
       const vb = map.getBounds();
+      const zroom = boxes(2);
+      for (const [la, ln, d, sub] of pinsLL) { const q = map.latLngToContainerPoint([la, ln]); zroom.add(q.x, q.y, d, d); if (sub) zroom.add(q.x, q.y + d / 2 + 9, 52, 16); }
       for (const f of state.data.zones.features) {
         const p = f.properties || {};
         if (!['sanctuary', 'restricted', 'permit', 'special_purpose'].includes(p.zone_type)) continue;
         const c = labelPoint(f.geometry); if (!c || !vb.contains(c)) continue;
         const ic = p.zone_type === 'sanctuary' || (p.prohibits || []).length > 1 ? '⛔' : p.zone_type === 'permit' ? '🔱✓' : '⚠';
         const short = p.name.replace(/\s*\((Ngari Capes|Marmion|Shoalwater Islands) Marine Park\)/, '').replace(/\s*\(Rottnest Island\)/, '');
-        L.marker(c, { interactive: false, keyboard: false, icon: L.divIcon({ className: `zone-label zl-${p.zone_type}`, html: `<span>${ic} ${esc(short)}</span>`, iconSize: [160, 20], iconAnchor: [80, 10] }) }).addTo(zoneLabels);
+        // keep zone names clear of spot pins and of each other (nudge up/down, or skip — the zone is still drawn and tappable)
+        const q = map.latLngToContainerPoint(c), w = Math.min(170, 18 + short.length * 6.2);
+        const o = zroom.place(q.x, q.y, w, 20, [[0, 0], [0, -26], [0, 26], [0, -52], [0, 52]]);
+        if (!o) continue;
+        L.marker(c, { interactive: false, keyboard: false, icon: L.divIcon({ className: `zone-label zl-${p.zone_type}`, html: `<span>${ic} ${esc(short)}</span>`, iconSize: [160, 20], iconAnchor: [80 - o[0], 10 - o[1]] }) }).addTo(zoneLabels);
       }
     }
   }
@@ -769,7 +782,7 @@ function syncClarity(on) {
     if (clarityLayer?._key !== ck) {
       clarityLayer?.remove();
       const im = clarityImage(state.clarity, state.coast?.points || []);
-      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 1, pane: 'clarity', className: 'clarity-img', attribution: 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
+      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 1, pane: 'clarity', className: 'clarity-img', attribution: /NASA/.test(state.clarity?.dataset || '') ? 'Water clarity: NASA OB.DAAC (VIIRS Kd490)' : 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
       clarityLayer._key = ck;
     }
     if (!map.hasLayer(clarityLayer)) clarityLayer.addTo(map);

@@ -9,6 +9,12 @@ export const WEIGHTS = {
   spear: { wind: 20, waves: 30, visibility: 25, tide: 10, sst: 10, season: 5 }
 };
 
+// Without these an hour can't be called safe or good: the score is Unknown instead of a guess
+export const CRITICAL = { shore: ['wind', 'waves'], spear: ['wind', 'waves'] };
+// A missing non-critical factor counts as this (middle of the scale) at its FULL weight, so unknowns pull a
+// score towards 'fair' instead of being dropped (dropping them let two good factors make a 90+ score)
+export const NEUTRAL = 50;
+
 export const IMPORTANT = {
   shore: ['wind', 'waves', 'tide'],
   spear: ['wind', 'waves', 'tide', 'visibility']
@@ -78,11 +84,15 @@ function lightFactor(hour) {
   return { score, detail: label };
 }
 
-function seasonFactor(loc, month, species) {
+function seasonFactor(loc, month, species, seasonFn) {
+  // 1) curated per-spot evidence (best), 2) the regional seasonal guide (data/targets.json), else Unknown
   const ev = (loc.species_evidence || []).filter(e => !species || e.species === species);
-  if (!ev.length) return null;
-  const inSeason = ev.some(e => (e.months || []).includes(month));
-  return { score: inSeason ? 100 : 50, detail: inSeason ? 'in season (curated evidence)' : 'outside recorded season' };
+  if (ev.length) {
+    const inSeason = ev.some(e => (e.months || []).includes(month));
+    return { score: inSeason ? 100 : 50, detail: inSeason ? 'in season (curated evidence)' : 'outside recorded season', type: 'curated' };
+  }
+  const g = seasonFn ? seasonFn(loc, month, species) : null;
+  return g ? { ...g, type: 'guide' } : null;
 }
 
 const TERRAIN_FIT = {
@@ -147,13 +157,14 @@ export function visibilityEstimate(hour, loc) {
 const LABELS = { light: 'Light (sun)', wind: 'Wind', waves: 'Waves & swell', tide: 'Tide', season: 'Season', terrain: 'Terrain', access: 'Access', sst: 'Sea temperature', visibility: 'Underwater visibility' };
 
 // hour: normalised hourly record; types: { field: 'forecast'|'modelled'|... }
-export function scoreHour(loc, hour, activity, { species = null } = {}) {
+export function scoreHour(loc, hour, activity, { species = null, seasonFn = null } = {}) {
   const month = new Date(hour.t).getMonth() + 1;
   const raw = {
     wind: windFactor(hour, loc, activity),
-    waves: loc.estuary || hour.sheltered ? undefined : wavesFactor(hour, loc, activity),   // rivers/estuaries: no ocean waves, so not 'unknown'
+    // estuaries and rivers: ocean wave forecasts don't apply there (not 'unknown')
+    waves: loc.estuary ? undefined : wavesFactor(hour, loc, activity),
     tide: tideFactor(hour),
-    season: species ? seasonFactor(loc, month, species) : undefined,
+    season: species ? seasonFactor(loc, month, species, seasonFn) : undefined,
     light: activity === 'shore' ? lightFactor(hour) : undefined,
     sst: activity === 'spear' ? sstFactor(hour) : undefined,
     visibility: activity === 'spear' && !loc.estuary ? visFactor(hour, loc) : undefined
@@ -170,14 +181,17 @@ export function scoreHour(loc, hour, activity, { species = null } = {}) {
     const f = raw[id];
     if (f == null) {
       missing.push(id);
-      factors.push({ id, label: LABELS[id], score: null, weight: w, detail: 'Unknown', type: 'unknown' });
+      sum += NEUTRAL * w; wsum += w;
+      factors.push({ id, label: LABELS[id], score: null, weight: w, detail: `Unknown — counted as ${NEUTRAL}`, type: 'unknown' });
       continue;
     }
     sum += f.score * w; wsum += w;
-    factors.push({ id, label: LABELS[id], score: Math.round(f.score), weight: w, detail: f.detail, type: typeOf[id] || 'forecast' });
+    factors.push({ id, label: LABELS[id], score: Math.round(f.score), weight: w, detail: f.detail, type: f.type || typeOf[id] || 'forecast' });
   }
-  // Neutral missing-data treatment: weighted mean of known factors only.
-  const score = wsum > 0 ? Math.round(sum / wsum) : null;
+  // No wind or wave forecast: safety can't be judged, so no score at all (shown as Unknown, never as Good)
+  const critMissing = CRITICAL[activity].filter(id => missing.includes(id));
+  const score = critMissing.length || wsum === 0 ? null : Math.round(sum / wsum);
+  if (critMissing.length) return { score, factors, missing, unknownReason: `No ${critMissing.join(' or ')} forecast for this hour — can't check it's safe` };
   return { score, factors, missing };
 }
 
@@ -196,12 +210,15 @@ export function explain(result, activity) {
   const known = result.factors.filter(f => f.score != null && !['season'].includes(f.id));
   const pos = [...known].sort((a, b) => b.score - a.score).slice(0, 2).filter(f => f.score >= 60);
   const neg = [...known].sort((a, b) => a.score - b.score).slice(0, 2).filter(f => f.score < 60);
-  const plain = { modelled: 'forecast', calculated: 'sun times', estimated: 'estimate', curated: 'checked info' };
+  const plain = { modelled: 'forecast', calculated: 'sun times', estimated: 'estimate', curated: 'checked info', guide: 'seasonal guide, not catch data' };
   const tag = f => `${f.label.toLowerCase()} ${f.detail} (${plain[f.type] || f.type})`;
   const parts = [];
   if (pos.length) parts.push('Helping: ' + pos.map(tag).join('; '));
   if (neg.length) parts.push('Holding back: ' + neg.map(tag).join('; '));
+  const season = result.factors.find(f => f.id === 'season' && f.score != null);
+  if (season) parts.push(`Target species: ${season.detail}`);
   const unknown = result.factors.filter(f => f.score == null).map(f => f.label.toLowerCase());
-  if (unknown.length) parts.push('Unknown: ' + unknown.join(', '));
+  if (unknown.length) parts.push('Unknown (counted as middling): ' + unknown.join(', '));
+  if (result.unknownReason) parts.unshift(result.unknownReason);
   return parts.join('. ') + '.';
 }
