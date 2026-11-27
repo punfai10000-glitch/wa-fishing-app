@@ -48,12 +48,12 @@ const LAYERS = [
   { group: 'Rules & hazards', id: 'incidents', label: 'Past shark incidents', note: 'Australian Shark-Incident Database (Taronga). Skull = fatal, ! = injury, grey = no injury.' },
   { group: 'Marine conditions', id: 'buoys', label: 'Wave buoys (measured)', note: 'Transport WA buoys; green < 1 h old, orange 1–3 h, red older' },
   { group: 'Marine conditions', id: 'windFlow', label: 'Wind animation', note: 'Forecast — streaks follow the wind (white light → red strong)' },
-  { group: 'Marine conditions', id: 'swellFlow', label: 'Swell lines', note: 'Forecast — coloured by height, spaced by period, labelled e.g. 1.8 m · 13 s SW (zoom in)' },
+  { group: 'Marine conditions', id: 'swellFlow', label: 'Swell lines', note: 'Forecast — sea tinted by swell height, slow crests show its direction, labels e.g. 1.8 m · 13 s SW (zoom in)' },
   { group: 'Marine conditions', id: 'currentFlow', label: 'Water movement (currents)', note: 'Forecast — streaks follow the ocean current: green slow, yellow moderate, orange strong, red too strong to dive. On by default in Spear. Offshore drift only — rips near the beach are too small for any forecast.' },
   { group: 'Marine conditions', id: 'wind', label: 'Wind speed labels', note: 'Forecast km/h with direction (zoom in)' },
   { group: 'Marine conditions', id: 'waves', label: 'Wave height labels', note: 'Forecast metres with direction (zoom in)' },
   { group: 'Marine conditions', id: 'sst', label: 'Sea temperature', note: 'Coloured dots with °C all along the coast (blue cold → red warm). Forecast model.' },
-  { group: 'Under the water', id: 'clarity', label: 'Water clarity (satellite)', note: 'How clear the water was on the latest satellite pass (NASA or NOAA satellites, ~4 km squares, cloud gaps filled). Blue = clear, brown = murky. Right at the shore it can differ — swell and rain since then make it murkier.' },
+  { group: 'Under the water', id: 'clarity', label: 'Water clarity (satellite)', note: 'How far you could see underwater on the latest satellite pass (NASA, ~1 km squares near the coast; 4 km where cloud hid it). Blue = clear, red = murky. Right at the shore it can differ — swell and rain since then make it murkier.' },
   { group: 'Under the water', id: 'habitat', label: 'Seabed habitat', note: 'Reef, seagrass and sand where mapped (Seamap Australia); patchy near shore' },
   { group: 'Under the water', id: 'depth', label: 'Water depth (colour bands)', note: 'Detailed near shore where Transport WA surveyed (zoom in); general depth when zoomed out. Tap the water for the depth in metres. Not for navigation.' },
   { group: 'Facilities', id: 'tackle', label: 'Tackle & bait shops', note: '' },
@@ -621,12 +621,14 @@ function clarityLegend(show) {
   if (!el) { el = document.createElement('div'); el.id = 'clarity-legend'; el.className = 'habitat-legend clarity-legend'; document.getElementById('habitat-legend')?.after(el); }
   el.hidden = !show;
   if (!show || !state.clarity) return;
-  const d = new Date(state.clarity.date), age = Math.round((Date.now() - d) / 864e5);
-  const key = `${state.clarity.date}`;
+  const fine = state.clarity.fine;
+  const d = new Date(fine?.newest || state.clarity.date), age = Math.max(0, Math.round((Date.now() - d) / 864e5));
+  const key = `${state.clarity.date}|${fine?.newest || ''}`;
   if (el.dataset.k === key) return;
   el.dataset.k = key;
-  el.innerHTML = `<strong class="small">Water clarity (satellite)</strong><div class="hab-key">${CLARITY_BANDS.map(b => `<span><i style="background:${b.color};opacity:${b.alpha}"></i>${b.label} · ${b.vis}</span>`).join('')}</div>
-    <span class="small muted">Each square ≈ 4 km, within ~12 km of the coast. Satellite pass ${d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })} (${age} day${age === 1 ? '' : 's'} old) — the water may have changed since. Blank = cloud or no data.</span>`;
+  const when = `${d.toLocaleDateString('en-AU', { day: 'numeric', month: 'short' })}${age ? ` (${age} day${age === 1 ? '' : 's'} ago)` : ' (today)'}`;
+  el.innerHTML = `<strong class="small">How far you can see underwater</strong><div class="hab-key">${CLARITY_BANDS.map(b => `<span><i style="background:${b.color};opacity:${b.alpha}"></i>${b.vis} · ${b.label.toLowerCase()}</span>`).join('')}</div>
+    <span class="small muted">${fine ? `Satellite ${when}. Squares ≈ 1 km. Fainter squares = filled in where cloud hid the water.` : `Satellite ${when}. Squares ≈ 4 km.`} Blank = no data. Swell and rain since then make it murkier.</span>`;
 }
 
 function buildLegend() {
@@ -778,11 +780,11 @@ export function openGuide() {
 function syncClarity(on) {
   // satellite clarity picture (rebuilt when a new satellite day arrives)
   if (on.clarity && state.clarity && !lite()) {
-    const ck = `${state.clarity.date}|${state.coast?.points?.length || 0}`;
+    const ck = `${state.clarity.date}|${state.clarity.fine?.newest || ''}|${state.coast?.points?.length || 0}`;
     if (clarityLayer?._key !== ck) {
       clarityLayer?.remove();
       const im = clarityImage(state.clarity, state.coast?.points || []);
-      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 1, pane: 'clarity', className: 'clarity-img', attribution: /NASA/.test(state.clarity?.dataset || '') ? 'Water clarity: NASA OB.DAAC (VIIRS Kd490)' : 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
+      clarityLayer = window.L.imageOverlay(im.url, im.bounds, { opacity: 1, pane: 'clarity', className: 'clarity-img', interactive: false, attribution: /NASA/.test(state.clarity?.dataset || '') ? 'Water clarity: NASA OB.DAAC (VIIRS Kd490)' : 'Water clarity: NOAA CoastWatch (VIIRS/OLCI Kd490)' });
       clarityLayer._key = ck;
     }
     if (!map.hasLayer(clarityLayer)) clarityLayer.addTo(map);

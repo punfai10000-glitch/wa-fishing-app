@@ -28,6 +28,9 @@ const df = new Intl.DateTimeFormat('en-AU', { weekday: 'short', day: 'numeric', 
 const dtf = new Intl.DateTimeFormat('en-AU', { weekday: 'short', hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Australia/Perth' });
 
 export const fmtHour = t => tf.format(new Date(t)).replace(' ', '').toLowerCase();
+const cf = new Intl.DateTimeFormat('en-AU', { hour: 'numeric', minute: '2-digit', hour12: true, timeZone: 'Australia/Perth' });
+// clock time rounded to 10 minutes (for tides: the model is only good to about ±30 min)
+export const fmtClock = t => cf.format(new Date(Math.round(t / 600e3) * 600e3)).replace(' ', '').toLowerCase();
 export const fmtDay = t => df.format(new Date(t));
 export const fmtDateTime = t => dtf.format(new Date(t));
 

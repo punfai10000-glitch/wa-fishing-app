@@ -32,7 +32,7 @@ SOURCES = {
     'bom_obs': ('bom_obs.json', lambda d: newest(d.get('stations'), 'time'), 3, False),
     'buoys': ('buoys.json', lambda d: newest(d.get('buoys'), 'time'), 6, False),
     'tides': ('tides.json', lambda d: max((ts(s['hourly'][-1][0]) for s in d.get('stations', []) if s.get('hourly')), default=None), 6, False),
-    'clarity': ('clarity.json', lambda d: ts(d.get('newest')), 24 * 10, False),
+    'clarity': ('clarity.json', lambda d: max([x for x in (ts(d.get('newest')), ts((d.get('fine') or {}).get('newest'))) if x], default=None), 24 * 10, False),
 }
 
 def main(outdir):

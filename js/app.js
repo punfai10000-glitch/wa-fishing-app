@@ -51,9 +51,9 @@ export function evalFor(loc, activity = state.activity) {
   const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}|${id}|${state.bomWarn?.fetched_at || ''}`;
   if (!state.evalCache.has(key)) {
     // satellite water clarity for this spot (used by the spearfishing visibility estimate)
-    if (state.clarity && loc._satFor !== state.clarity.date) {
+    if (state.clarity && loc._satFor !== (state.clarity.fine?.newest || state.clarity.date)) {
       const [lng, lat] = loc.geometry.coordinates;
-      loc.sat = loc.estuary ? null : clarityAt(state.clarity, loc.sea?.[0] ?? lat, loc.sea?.[1] ?? lng); loc._satFor = state.clarity.date;
+      loc.sat = loc.estuary ? null : clarityAt(state.clarity, loc.sea?.[0] ?? lat, loc.sea?.[1] ?? lng); loc._satFor = state.clarity.fine?.newest || state.clarity.date;
     }
     state.evalCache.set(key, evaluate(loc, src.byId[id], activity, {
       thresholds: state.data.thresholds, rules: state.data.rules, zones: state.data.zones,
