@@ -1,6 +1,6 @@
 // Offline support: cache the app shell; network-first for data and forecasts.
 // Map tiles are deliberately NOT cached (Esri terms prohibit offline tile export).
-const VERSION = 'wafi-v42';
+const VERSION = 'wafi-v43';
 // depth and seabed tiles never change between monthly data updates: serve them from the phone instantly
 const TILES = 'wafi-tiles-' + new Date().toISOString().slice(0, 7);
 const SHELL = [

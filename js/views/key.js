@@ -41,7 +41,7 @@ export function renderKey(view) {
       <p class="small"><strong>Conditions</strong> rates wind, waves, tide and light only. <strong>Fish</strong> lists species likely for this kind of spot at this time of year and day (a seasonal guide, not catch reports). <strong>Safety</strong> says Not safe when wind or waves pass the safety limits (listed under More); otherwise Not verified, because only you can judge it on site. <strong>Rules</strong> checks marine park zones. <strong>Data</strong> is how complete and fresh the information is.</p>
     </div>
     <div class="card"><h2>Scores</h2>
-      <p class="small muted">Every score is out of 100 and rates the <em>conditions</em> (wind, waves, tide, light, visibility for spearfishing) at the time on the slider. It does not mean fish are there. Switch between <strong>Shore</strong> and <strong>Spear</strong> at the top of the map.</p>
+      <p class="small muted">Every score is out of 100 and rates the <em>conditions</em> (wind, waves, tide, light, visibility for spearfishing) at the time on the slider. It does not mean fish are there. Switch between <strong>Fishing</strong>, <strong>Spear</strong> and <strong>Weather</strong> at the top of the map.</p>
       ${row('<span class="pill good">Good 70+</span>', 'Good (70 to 100)', 'Light wind, manageable waves, moving tide — a nice day to be out. Higher is better.')}
       ${row('<span class="pill fair">Fair 40–69</span>', 'Fair (40 to 69)', 'You can fish, but something isn\'t ideal — e.g. a bit windy or choppy.')}
       ${row('<span class="pill poor">Poor &lt;40</span>', 'Poor (under 40)', 'Rough, windy or messy. Probably not worth the trip — try another spot or time.')}
@@ -76,13 +76,13 @@ export function renderKey(view) {
 
     <div class="card"><h2>Condition icons (when you open a spot)</h2>
       <p class="small muted">The map stays clean — this icon appears in the pop-up when you tap a spot or anywhere on the coast. It's based on the conditions score, not on fish. Which fish are likely is the separate "Fish" line.</p>
-      ${row(chanceIcon(90), '80–100', 'Big fish: great conditions.')}
-      ${row(chanceIcon(70), '60–80', 'Medium fish: good conditions.')}
-      ${row(chanceIcon(50), '40–60', 'Small fish: so-so conditions.')}
-      ${row(chanceIcon(20), '0–40', 'Feather: poor conditions — probably not worth the trip.')}
-      ${row(chanceIcon(90, 'spear'), 'Spear mode', 'Same sizes, with a spear through the fish.')}
-      ${row(chanceIcon(null, 'shore', 'legal'), 'Not allowed', 'Against the rules at this spot.')}
-      ${row(chanceIcon(null, 'shore', 'safety'), 'Not safe', 'Too rough or stormy right now.')}
+      ${row(chanceIcon(90, 'shore', false, false), '80–100', 'Big fish: great conditions.')}
+      ${row(chanceIcon(70, 'shore', false, false), '60–80', 'Medium fish: good conditions.')}
+      ${row(chanceIcon(50, 'shore', false, false), '40–60', 'Small fish: so-so conditions.')}
+      ${row(chanceIcon(20, 'shore', false, false), '0–40', 'Feather: poor conditions — probably not worth the trip.')}
+      ${row(chanceIcon(90, 'spear', false, false), 'Spear mode', 'Same sizes, with a spear through the fish.')}
+      ${row(chanceIcon(null, 'shore', 'legal', false), 'Not allowed', 'Against the rules at this spot.')}
+      ${row(chanceIcon(null, 'shore', 'safety', false), 'Not safe', 'Too rough or stormy right now.')}
     </div>
 
     <div class="card"><h2>Wind &amp; waves</h2>
