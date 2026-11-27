@@ -208,7 +208,7 @@ dialog li { margin-bottom: 8px; }
 .flow .glyph { display: block; font-size: 18px; line-height: 1; animation: drift 1.6s linear infinite; text-shadow: 0 0 3px rgba(0,0,0,.9); }
 .flow.wind .glyph { color: #ffffff; }
 .flow.wave .glyph { color: #4fd1ff; }
-.flow-lbl { position: absolute; left: 24px; top: 20px; font: 700 10px/1 system-ui, sans-serif; padding: 1px 3px; border-radius: 4px; background: rgba(11,18,32,.8); }
+.flow-lbl { position: absolute; left: 34px; top: 22px; white-space: nowrap; font: 700 10px/1 system-ui, sans-serif; padding: 1px 3px; border-radius: 4px; background: rgba(11,18,32,.8); }
 .flow-lbl.wind { color: #fff; } .flow-lbl.wave { color: #4fd1ff; }
 @keyframes drift { 0% { transform: translateX(-8px); opacity: 0; } 25% { opacity: 1; } 80% { opacity: 1; } 100% { transform: translateX(10px); opacity: 0; } }
 @media (prefers-reduced-motion: reduce) { .flow .glyph { animation: none; } }
@@ -591,3 +591,4 @@ details.guide summary { cursor:pointer; list-style:none; } details.guide summary
 .habitat-legend.clarity-legend { left: 10px; right: auto; top: 140px !important; max-width: 240px; }
 @media (max-width: 700px) { .habitat-legend.clarity-legend { top: 150px !important; max-width: 200px; font-size: .9em; } }
 .hab-dots { display:inline-block; width:14px; height:10px; vertical-align:middle; background: repeating-conic-gradient(#8c2814 0 25%, rgba(140,40,20,.35) 0 50%) 0 0/4px 4px; border-radius:2px; }
+.key-pin { display:flex; flex-direction:column; align-items:center; gap:2px; } .key-pin .mk-sub { transform:none; }

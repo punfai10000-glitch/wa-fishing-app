@@ -1,3 +1,4 @@
+import { boxes } from './declutter.js';
 import { CONFIG, REGIONS, TYPE_LABELS } from './config.js';
 import { state, evalFor, visibleLocations } from './app.js';
 import * as store from './storage.js';
@@ -491,6 +492,8 @@ export function refreshMap() {
   // Declutter: checked spots first, then the best-scoring OSM spots; skip a pin that would overlap one
   // already placed (zoom in to see more). Bigger fish = better score, so the best ones win.
   const placed = [];
+  const pinsLL = [];   // where pins ended up — the coast labels (arrows, sea temp, best stretch, buoys) keep clear of them
+  state.pinsPlaced = pinsLL;
   const cand = visibleLocations()
     .filter(loc => !loc.osm || (zoom >= (lite() ? 13 : 12) && bounds.contains([loc.geometry.coordinates[1], loc.geometry.coordinates[0]])))
     .map(loc => { const ev = evalFor(loc); return { loc, ev, hr: hourRow(ev) }; })
@@ -503,8 +506,9 @@ export function refreshMap() {
       if (!t || !(t.level === 'good' || t.level === 'possible')) continue;
     }
     const pt = map.latLngToContainerPoint([loc.geometry.coordinates[1], loc.geometry.coordinates[0]]);
-    if (loc.osm && zoom < 16 && placed.some(q => Math.abs(q.x - pt.x) < 44 && Math.abs(q.y - pt.y) < 56)) continue;
+    if ((loc.osm ? zoom < 16 : zoom < 12) && placed.some(q => Math.abs(q.x - pt.x) < 40 && Math.abs(q.y - pt.y) < 40 + (on.sst ? 16 : 0))) continue;
     placed.push(pt);
+    pinsLL.push([loc.geometry.coordinates[1], loc.geometry.coordinates[0], loc.osm ? 30 : 38, !!(on.sst && ev?.current?.hour)]);
     const [lng, lat] = loc.geometry.coordinates;
     // the pin shows the score at the hour on the time slider (so it changes as you scrub / press play)
     const cls = ev.applicable === false ? 'na' : !hr ? 'unknown' : hr.blocked ? `blocked blk-${hr.blockKind || 'safety'}` : hr.score != null ? band(hr.score) : 'unknown';
@@ -526,13 +530,19 @@ export function refreshMap() {
     // names on the water when zoomed in, so you can see exactly which zone you are looking at
     if (map.getZoom() >= 13) {
       const vb = map.getBounds();
+      const zroom = boxes(2);
+      for (const [la, ln, d, sub] of pinsLL) { const q = map.latLngToContainerPoint([la, ln]); zroom.add(q.x, q.y, d, d); if (sub) zroom.add(q.x, q.y + d / 2 + 9, 52, 16); }
       for (const f of state.data.zones.features) {
         const p = f.properties || {};
         if (!['sanctuary', 'restricted', 'permit', 'special_purpose'].includes(p.zone_type)) continue;
         const c = labelPoint(f.geometry); if (!c || !vb.contains(c)) continue;
         const ic = p.zone_type === 'sanctuary' || (p.prohibits || []).length > 1 ? '⛔' : p.zone_type === 'permit' ? '🔱✓' : '⚠';
         const short = p.name.replace(/\s*\((Ngari Capes|Marmion|Shoalwater Islands) Marine Park\)/, '').replace(/\s*\(Rottnest Island\)/, '');
-        L.marker(c, { interactive: false, keyboard: false, icon: L.divIcon({ className: `zone-label zl-${p.zone_type}`, html: `<span>${ic} ${esc(short)}</span>`, iconSize: [160, 20], iconAnchor: [80, 10] }) }).addTo(zoneLabels);
+        // keep zone names clear of spot pins and of each other (nudge up/down, or skip — the zone is still drawn and tappable)
+        const q = map.latLngToContainerPoint(c), w = Math.min(170, 18 + short.length * 6.2);
+        const o = zroom.place(q.x, q.y, w, 20, [[0, 0], [0, -26], [0, 26], [0, -52], [0, 52]]);
+        if (!o) continue;
+        L.marker(c, { interactive: false, keyboard: false, icon: L.divIcon({ className: `zone-label zl-${p.zone_type}`, html: `<span>${ic} ${esc(short)}</span>`, iconSize: [160, 20], iconAnchor: [80 - o[0], 10 - o[1]] }) }).addTo(zoneLabels);
       }
     }
   }

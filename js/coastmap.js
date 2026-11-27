@@ -12,6 +12,7 @@ import { nearest } from './amenities.js';
 import { nearestBuoy } from './buoys.js';
 import { loadPointConditions } from './data.js';
 import { legalStatus, legalHTML, bannedAt } from './zones.js';
+import { boxes } from './declutter.js';
 import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
 import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes, placeIncident } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
@@ -103,6 +104,10 @@ export function refreshCoastMap() {
 
   const pts = state.coast.points;
   const hasData = state.coast.fetchedAt != null;
+  // label placement: spot pins first, then buoys, best-stretch labels, wave and wind arrows, sea temperature
+  const room = boxes(2);
+  const cp = (lat, lng) => map.latLngToContainerPoint([lat, lng]);
+  for (const [la, ln, d, sub] of state.pinsPlaced || []) { const q = cp(la, ln); room.add(q.x, q.y, d, d); if (sub) room.add(q.x, q.y + d / 2 + 9, 52, 16); }
   if (on.coast && pts.length) {
     const sh = shoreData();
     const rows = pts.map(p => hasData ? hourAt(evalFor(p), t) : null);
@@ -194,6 +199,11 @@ export function refreshCoastMap() {
   const note = document.getElementById('flow-note');
   if (note) note.hidden = !(flowPausedByDevice() && (on.windFlow || on.swellFlow || on.currentFlow));
 
+  const buoyOff = new Map();
+  if (on.buoys && state.buoys?.buoys) for (const b of state.buoys.buoys) {   // buoys are measurements: they claim space before arrows and labels
+    const q = cp(b.lat, b.lon);
+    buoyOff.set(b, room.place(q.x, q.y + 4, 42, 44, [[0, 0], [44, 0], [-44, 0], [0, 48], [0, -48], [44, 44], [-44, 44], [88, 0], [-88, 0], [0, 96]]) || [0, 0]);
+  }
   if ((on.wind || on.waves) && hasData && pts.length && map.getZoom() >= 8) {
     const z = map.getZoom();
     const every = z >= 11 ? 1 : z >= 9 ? 2 : z >= 7 ? 4 : 7;
@@ -204,12 +214,15 @@ export function refreshCoastMap() {
       if (!h) return;
       const [lng, lat] = p.geometry.coordinates;
       if (!bounds.contains([lat, lng])) return;
-      if (on.wind && h.wind_speed != null && h.wind_direction != null) {
-        arrowLayer.addLayer(arrowMarker([lat, lng], (h.wind_direction + 180) % 360, 'wind', Math.min(1.6, 0.7 + h.wind_speed / 40), `${Math.round(h.wind_speed)}`));
-      }
       const wh = h.wave_height ?? h.swell_height, wd = h.wave_direction ?? h.swell_direction;
       if (on.waves && wh != null && wd != null && p.sea) {
-        arrowLayer.addLayer(arrowMarker([p.sea[0], p.sea[1]], (wd + 180) % 360, 'wave', Math.min(1.7, 0.7 + wh / 2.5), `${wh.toFixed(1)} m`, waveColor(wh)));
+        const q = cp(p.sea[0], p.sea[1]);
+        if (room.place(q.x + 14, q.y + 6, 78, 40)) arrowLayer.addLayer(arrowMarker([p.sea[0], p.sea[1]], (wd + 180) % 360, 'wave', Math.min(1.7, 0.7 + wh / 2.5), `${wh.toFixed(1)} m`, waveColor(wh)));
+      }
+      if (on.wind && h.wind_speed != null && h.wind_direction != null) {
+        const q = cp(lat, lng);
+        const o = room.place(q.x + 12, q.y + 6, 72, 40, [[0, 0], [-56, 0], [0, -40], [0, 40], [-56, -40]]);
+        if (o) arrowLayer.addLayer(arrowMarker([lat, lng], (h.wind_direction + 180) % 360, 'wind', Math.min(1.6, 0.7 + h.wind_speed / 40), `${Math.round(h.wind_speed)} km/h`, null, o));
       }
     });
   }
@@ -223,8 +236,11 @@ export function refreshCoastMap() {
       const h = hourAt(evalFor(p), t)?.hour;
       if (h?.sst == null || !bounds.contains(p.sea)) return;
       const off = [p.sea[0] + (p.sea[0] - p.geometry.coordinates[1]) * 0.8, p.sea[1] + (p.sea[1] - p.geometry.coordinates[0]) * 0.8];
+      const q = cp(off[0], off[1]);
+      const o = room.place(q.x, q.y, 36, 20, [[0, 0], [0, 22], [0, -22], [38, 0], [-38, 0]]);
+      if (!o) return;
       arrowLayer.addLayer(window.L.marker(off, { pane: 'arrows', interactive: false, keyboard: false,
-        icon: window.L.divIcon({ className: 'sst-dot', html: `<span style="background:${sstColor(h.sst)}">${h.sst.toFixed(0)}°</span>`, iconSize: [34, 20], iconAnchor: [17, 10] }) }));
+        icon: window.L.divIcon({ className: 'sst-dot', html: `<span style="background:${sstColor(h.sst)}">${h.sst.toFixed(0)}°</span>`, iconSize: [34, 20], iconAnchor: [17 - o[0], 10 - o[1]] }) }));
     });
   }
 
@@ -241,16 +257,18 @@ export function refreshCoastMap() {
     const px = x => map.latLngToContainerPoint([x.p.geometry.coordinates[1], x.p.geometry.coordinates[0]]);
     for (const x of ranked) { // spread them out: >= 40 km apart AND far enough apart on screen not to overlap
       const q = px(x);
-      if (picked.every(y => Math.hypot(y.p.geometry.coordinates[0] - x.p.geometry.coordinates[0], y.p.geometry.coordinates[1] - x.p.geometry.coordinates[1]) * 100 > 40
-        && (Math.abs(y.q.x - q.x) > 140 || Math.abs(y.q.y - q.y) > 44))) picked.push({ ...x, q });
+      if (picked.every(y => Math.hypot(y.p.geometry.coordinates[0] - x.p.geometry.coordinates[0], y.p.geometry.coordinates[1] - x.p.geometry.coordinates[1]) * 100 > 40)) {
+        const o = room.place(q.x, q.y - 20, 156, 26, [[0, 0], [0, -30], [90, -6], [-90, -6], [0, 40]]);
+        if (o) picked.push({ ...x, q, o });
+      }
       if (picked.length === 3) break;
     }
-    for (const { p, r } of picked) {
+    for (const { p, r, o } of picked) {
       // tapping the label opens the SAME stretch and score it shows (it used to fall through to the map
       // and report a different point)
       const lbl = act === 'spear' ? 'Best for spearfishing' : 'Best for fishing';
       L.marker([p.geometry.coordinates[1], p.geometry.coordinates[0]], { keyboard: true, zIndexOffset: 1500, title: `${lbl} at the chosen time`,
-        icon: L.divIcon({ className: 'best-pin', html: `<span>★ ${lbl} ${r.score}</span>`, iconSize: [150, 28], iconAnchor: [75, 34] }) })
+        icon: L.divIcon({ className: 'best-pin', html: `<span>★ ${lbl} ${r.score}</span>`, iconSize: [150, 28], iconAnchor: [75 - o[0], 34 - o[1]] }) })
         .on('click', () => openBestSheet(p, r)).addTo(bestLayer);
     }
   }
@@ -271,7 +289,8 @@ export function refreshCoastMap() {
   if (on.buoys && state.buoys?.buoys) {
     for (const b of state.buoys.buoys) {
       const fr = freshness(Date.parse(b.time));
-      const icon = L.divIcon({ className: 'mk-wrap', html: `<div class="buoy ${fr.cls}" aria-hidden="true">${b.hs != null ? b.hs.toFixed(1) : '?'}<small>m</small><em>${esc(fmtAge(Date.parse(b.time)).replace(' ago', ''))}</em></div>`, iconSize: [40, 48], iconAnchor: [20, 20] });
+      const [ox, oy] = buoyOff.get(b) || [0, 0];
+      const icon = L.divIcon({ className: 'mk-wrap', html: `<div class="buoy ${fr.cls}" aria-hidden="true">${b.hs != null ? b.hs.toFixed(1) : '?'}<small>m</small><em>${esc(fmtAge(Date.parse(b.time)).replace(' ago', ''))}</em></div>`, iconSize: [40, 48], iconAnchor: [20 - ox, 20 - oy] });
       L.marker([b.lat, b.lon], { icon, title: `${b.site} buoy`, keyboard: true, zIndexOffset: 900 })
         .bindPopup(buoyHTML(b)).addTo(buoyLayer);
     }
@@ -315,14 +334,14 @@ function placedIncidents() {
   return list;
 }
 
-function arrowMarker(latlng, toDeg, kind, scale, label, color = null) {
+function arrowMarker(latlng, toDeg, kind, scale, label, color = null, o = [0, 0]) {
   const c = color ? `color:${color};` : '';
   return window.L.marker(latlng, {
     pane: 'arrows', interactive: false, keyboard: false,
     icon: window.L.divIcon({
       className: 'arrow-wrap',
       html: `<div class="flow ${kind}" style="${c}transform:rotate(${toDeg - 90}deg) scale(${scale.toFixed(2)})"><span class="glyph">➤</span></div><span class="flow-lbl ${kind}" style="${c}">${label}</span>`,
-      iconSize: [34, 34], iconAnchor: [17, 17]
+      iconSize: [34, 34], iconAnchor: [17 - o[0], 17 - o[1]]
     })
   });
 }
