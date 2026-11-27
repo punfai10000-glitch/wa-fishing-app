@@ -99,22 +99,26 @@ def main(outdir):
     os.makedirs(outdir, exist_ok=True)
     files = list(crawl(ROOT))
     print("found", len(files), "files")
-    # group by parent folder (site) and keep the newest file name per site
+    # group by parent folder (site). A site has many files and the newest-sounding file name is not always the one
+    # with the newest readings (that left some buoys a day old), so read the newest few and keep the latest reading.
     by_site = {}
     for up, name in files:
-        site = site_key(up)
-        if site not in by_site or name > by_site[site][1]:
-            by_site[site] = (up, name)
+        by_site.setdefault(site_key(up), []).append((name, up))
     print("buoy sites:", len(by_site), sorted(by_site)[:40])
     buoys, cutoff = [], datetime.now(timezone.utc) - timedelta(days=3)
-    for site, (up, name) in sorted(by_site.items()):
-        try:
-            with tempfile.NamedTemporaryFile(suffix=".nc", delete=False) as tmp:
-                tmp.write(get(f"{BASE}/fileServer/{up}", binary=True))
-            vals = latest_values(tmp.name)
-            os.unlink(tmp.name)
-        except Exception as ex:
-            print("fail", site, ex); continue
+    for site, cands in sorted(by_site.items()):
+        vals = None
+        print(site, len(cands), "files, newest names:", [n for n, _ in sorted(cands, reverse=True)[:4]])
+        for name, up in sorted(cands, reverse=True)[:4]:
+            try:
+                with tempfile.NamedTemporaryFile(suffix=".nc", delete=False) as tmp:
+                    tmp.write(get(f"{BASE}/fileServer/{up}", binary=True))
+                v = latest_values(tmp.name)
+                os.unlink(tmp.name)
+            except Exception as ex:
+                print("fail", site, name, ex); continue
+            if v and v["lat"] is not None and (vals is None or v["time"] > vals["time"]):
+                vals = v
         if not vals or vals["lat"] is None:
             continue
         if not (BOX["lat_min"] <= vals["lat"] <= BOX["lat_max"] and BOX["lon_min"] <= vals["lon"] <= BOX["lon_max"]):

@@ -8,6 +8,9 @@ import { band } from '../scoring/score.js';
 import * as store from '../storage.js';
 import { visibilityEstimate } from '../scoring/score.js';
 import { rememberLiveSpot, accessCard, fillAccessFor, measuredCard } from './live.js';
+import { nearestBuoy, nearestStation } from '../buoys.js';
+import { tideCheck } from '../ocean.js';
+import { nearestCoastPoint } from '../coast.js';
 import { legalStatus, legalHTML } from '../zones.js';
 import { fourChecks } from '../checks.js';
 import { likelyTargets, LEVEL_LABEL, targetsData } from '../targets.js';
@@ -22,7 +25,7 @@ function scoreBox(title, ev) {
   const now = !c ? pill(ev) : c.blocked ? blockPill(c.blockKind) : c.score == null ? pill(ev) : `<span class="pill ${band(c.score)}">${BAND_LABEL[band(c.score)]} ${c.score}</span>`;
   return `<div class="scorebox">
     <div class="muted small">${title}</div>
-    <div style="margin:6px 0"><span class="small muted">Now:</span> ${now} ${chanceIcon(c?.score ?? ev.score, state.activity, (c ? c.blocked : ev.band === 'blocked') && ((c?.blockKind ?? ev.blockKind) || true))}</div>
+    <div style="margin:6px 0"><span class="small muted">Now:</span> ${now} ${(c ? c.blocked : ev.band === 'blocked') ? '' : chanceIcon(c?.score ?? ev.score, state.activity, false)}</div>
     <div class="small">${esc(windowText(ev))}</div>
     <div>${confText(ev.confidence)}</div>
   </div>`;
@@ -42,6 +45,9 @@ export function renderLocation(view, rawId) {
   const spearH = spear.current?.hour;
   const vis = spearH || h.t ? visibilityEstimate(spearH || h, loc) : null;   // shore-only spots still get the water clarity
   const isRock = loc.type === 'rock_platform';
+  const live = liveReadings(loc);
+  // the spot's own forecast, or the hourly coast file it falls back to (see evalFor)
+  const fcAt = state.cond.byId?.[loc.id]?.length ? state.cond.fetchedAt : (loc.tap && state.tapCond ? state.tapCond.fetchedAt : state.coast.fetchedAt || state.cond.fetchedAt);
   const region = REGIONS[loc.region];
 
   const speciesHere = (loc.species_evidence || []).map(e => state.data.species.species.find(s => s.id === e.species)).filter(Boolean);
@@ -73,20 +79,22 @@ export function renderLocation(view, rawId) {
     <div class="card">
       <h2>Conditions now</h2>
       <dl class="kv">
-        <dt>Wind</dt><dd>${h.wind_speed == null ? val(null) : `${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}, gusts ${fmtWind(h.wind_gust)} ${typeTag(t.wind_speed)}`}</dd>
-        <dt>Waves</dt><dd>${h.wave_height == null ? val(null) : `${fmtHeight(h.wave_height)} from ${degToCompass(h.wave_direction) ?? '?'}, ${h.wave_period != null ? Math.round(h.wave_period) + ' s' : '? s'} ${typeTag(t.wave_height)}`}</dd>
+        <dt>Wind</dt><dd>${h.wind_speed == null ? val(null) : `${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}, gusts ${fmtWind(h.wind_gust)} ${typeTag(t.wind_speed)}`}${live.wind ? `<br>${live.wind}` : ''}</dd>
+        ${loc.estuary ? `<dt>Waves &amp; swell</dt><dd>Sheltered river / estuary — no ocean waves ${typeTag('na')}</dd>` : `
+        <dt>Waves</dt><dd>${h.wave_height == null ? val(null) : `${fmtHeight(h.wave_height)} from ${degToCompass(h.wave_direction) ?? '?'}, ${h.wave_period != null ? Math.round(h.wave_period) + ' s' : '? s'} ${typeTag(t.wave_height)}`}${live.waves ? `<br>${live.waves}` : ''}</dd>
         <dt>Swell</dt><dd>${h.swell_height == null ? val(null) : `${fmtHeight(h.swell_height)} from ${degToCompass(h.swell_direction) ?? '?'}, ${h.swell_period != null ? Math.round(h.swell_period) + ' s' : '? s'} ${typeTag(t.swell_height)}`}</dd>
-        <dt>Wind waves</dt><dd>${val(h.wind_wave_height, fmtHeight, t.wind_wave_height)}</dd>
-        <dt>Tide</dt><dd>${h.tide_rate == null ? val(null) : `${h.tide_rate > 0.005 ? 'Rising' : h.tide_rate < -0.005 ? 'Falling' : 'Slack'} ${typeTag('modelled')}`}</dd>
+        <dt>Wind waves</dt><dd>${val(h.wind_wave_height, fmtHeight, t.wind_wave_height)}</dd>`}
+        <dt>Tide</dt><dd>${h.tide_rate == null ? val(null) : `${h.tide_rate > 0.005 ? 'Rising' : h.tide_rate < -0.005 ? 'Falling' : 'Slack'} ${typeTag('modelled')}`}${live.tide ? `<br>${live.tide}` : ''}</dd>
         <dt>Sea temp</dt><dd>${val(h.sst, fmtTemp, t.sst)}</dd>
-        <dt>Visibility</dt><dd>${vis ? `${vis.label[0].toUpperCase() + vis.label.slice(1)} ${typeTag('estimated')} <span class="muted small">${vis.sat ? 'satellite water clarity, adjusted for swell, wind &amp; rain since' : 'from recent swell, wind &amp; rain — not measured'}</span>` : `Unknown ${typeTag('unknown')}`}</dd>
+        <dt>Visibility</dt><dd>${vis ? `${vis.label[0].toUpperCase() + vis.label.slice(1)} ${typeTag('estimated')} <span class="muted small">${vis.sat ? 'satellite water clarity, adjusted for swell, wind &amp; rain since' : 'from recent swell, wind &amp; rain — not measured'}</span>` : loc.estuary ? `River / estuary water — not estimated ${typeTag('na')}` : `Unknown ${typeTag('unknown')}`}</dd>
       </dl>
-      <p class="muted small" style="margin:8px 0 0">${state.cond.fetchedAt ? `Forecast updated ${fmtAge(state.cond.fetchedAt)} (${fmtDateTime(state.cond.fetchedAt)})` : 'No forecast loaded'}</p>
+      <p class="muted small" style="margin:8px 0 0">${fcAt ? `Forecast updated ${fmtAge(fcAt)} (${fmtDateTime(fcAt)})` : 'No forecast loaded'}${live.checked ? ` · live readings checked ${fmtAge(live.checked)}` : ''}</p>
     </div>
 
     ${(() => { const ev = evalFor(loc); return ev?.applicable === false ? '' : `<div class="card loc-checks"><h2>Right now — four checks</h2>${fourChecks(loc, ev, ev.current, state.data.zones, state.activity)}</div>
       <div class="card"><h2>What might be biting</h2>
-        ${(() => { const tg = likelyTargets(loc, ev.current?.hour, state.activity, { max: 6, zones: state.data.zones }); return tg.length ? `<table class="checks small">${tg.map(t => `<tr><th><a href="#/fish/${encodeURIComponent(t.id)}">${esc(t.name)}</a></th><td><b class="ck ${{ good: 'good', possible: 'fair', unlikely: 'unknown', closed: 'poor' }[t.level]}">${LEVEL_LABEL[t.level]}</b> ${esc(t.reasons.join(' · '))}${t.why ? `<br><span class="muted">${esc(t.why)}</span>` : ''}</td></tr>`).join('')}</table>` : '<p class="small muted">No common target species listed for this kind of spot.</p>'; })()}
+        ${(() => { if ((ev.current?.blocks || []).some(b => b.kind === 'legal') || legalStatus(state.data.zones, loc, state.activity).state === 'blocked') return `<p class="small">${state.activity === 'spear' ? 'Spearfishing isn\'t allowed here, so no spearfishing targets. Switch to <strong>Fishing</strong> at the top to see what line fishers might catch.' : 'Fishing isn\'t allowed here, so no species suggestions.'}</p>`;
+          const tg = likelyTargets(loc, ev.current?.hour, state.activity, { max: 6, zones: state.data.zones }); return tg.length ? `<table class="checks small">${tg.map(t => `<tr><th><a href="#/fish/${encodeURIComponent(t.id)}">${esc(t.name)}</a></th><td><b class="ck ${{ good: 'good', possible: 'fair', unlikely: 'unknown', closed: 'poor' }[t.level]}">${LEVEL_LABEL[t.level]}</b> ${esc(t.reasons.join(' · '))}${t.why ? `<br><span class="muted">${esc(t.why)}</span>` : ''}</td></tr>`).join('')}</table>` : '<p class="small muted">No common target species listed for this kind of spot.</p>'; })()}
         <p class="small muted">Seasonal guide from general WA angling knowledge — season, habitat, time of day and sea state for this kind of spot. Not based on catch reports, so treat it as a starting point. Sources: ${(targetsData()?.sources || []).map(s => `<a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.name.split(' — ')[0])}</a>`).join(' · ')}</p>
       </div>`; })()}
     ${measuredCard(loc)}
@@ -138,6 +146,26 @@ export function renderLocation(view, rawId) {
     e.currentTarget.setAttribute('aria-pressed', String(on));
     e.currentTarget.textContent = on ? '★' : '☆';
   });
+}
+
+// Real measurements near the spot (weather station, wave buoy, tide gauge) from the hourly live-data files.
+// Shown under the forecast line, with their age, so "now" always has the freshest real reading when there is one.
+function liveReadings(loc) {
+  const [lng, lat] = loc.geometry.coordinates;
+  const out = { checked: state.bom?.generated_at ? Date.parse(state.bom.generated_at) : null };
+  const age = t => { const h = (Date.now() - t) / 3600e3; return h < 1 ? `${Math.max(1, Math.round(h * 60))} min ago` : `${Math.round(h)} h ago`; };
+  const ns = nearestStation(state.bom, lat, lng, 40);
+  const st = ns && Date.parse(ns.s.time);
+  if (st && Date.now() - st < 3 * 3600e3)
+    out.wind = `<span class="small">Measured: ${esc(ns.s.wind_dir ?? '')} ${fmtWind(ns.s.wind_kmh)}${ns.s.gust_kmh != null ? `, gusts ${fmtWind(ns.s.gust_kmh)}` : ''} — ${esc(ns.s.site)} station, ${ns.d.toFixed(0)} km, ${age(st)}</span> ${typeTag('measured')}`;
+  const nb = loc.estuary ? null : nearestBuoy(state.buoys, lat, lng, 80);
+  const bt = nb && Date.parse(nb.b.time);
+  if (bt && Date.now() - bt < 6 * 3600e3)
+    out.waves = `<span class="small">Measured offshore: ${fmtHeight(nb.b.hs)}${nb.b.tp != null ? ` @ ${Math.round(nb.b.tp)} s` : ''} — ${esc(nb.b.site)} buoy, ${nb.d.toFixed(0)} km, ${age(bt)} (usually smaller at the shore)</span> ${typeTag('measured')}`;
+  else if (bt) out.waves = `<span class="small muted">${esc(nb.b.site)} buoy: last reading ${age(bt)} — the buoy feed is delayed, so the forecast is used</span>`;
+  const tc = tideCheck(state.tides, lat, lng, (la, ln) => { const p = nearestCoastPoint(la, ln, 30); return p ? state.coast.byId?.[p.p.id] : null; });
+  if (tc && tc.ageH < 3) out.tide = `<span class="small">Measured: ${tc.trend > 0.015 ? 'rising' : tc.trend < -0.015 ? 'falling' : 'about steady'} — ${esc(tc.station)} gauge, ${Math.round(tc.km)} km</span> ${typeTag('measured')}`;
+  return out;
 }
 
 function sun(loc) {

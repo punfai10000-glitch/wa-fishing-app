@@ -77,8 +77,20 @@ export function renderKey(view) {
       ${row(chanceIcon(50), '40–60', 'Small fish: so-so conditions.')}
       ${row(chanceIcon(20), '0–40', 'Feather: poor conditions — probably not worth the trip.')}
       ${row(chanceIcon(90, 'spear'), 'Spear mode', 'Same sizes, with a spear through the fish.')}
-      ${row(chanceIcon(null, 'shore', 'legal'), 'Not allowed', 'Against the rules at this spot.')}
-      ${row(chanceIcon(null, 'shore', 'safety'), 'Not safe', 'Too rough or stormy right now.')}
+      <p class="small muted">No icon is shown when the spot is Not allowed, Not safe or Too dark — the status label says it instead.</p>
+    </div>
+
+    <div class="card"><h2>Warning symbols</h2>
+      <p class="small muted">Every warning sign the app uses, in one place.</p>
+      ${row('<span style="font-size:1.4rem">⛔</span>', 'Not allowed', 'Against the rules for the activity you picked (e.g. spearfishing in a river). The box below it says which activity — line fishing may still be fine.')}
+      ${row('<span style="font-size:1.4rem">⚠</span>', 'Not safe / take care / special rules', 'On a grey <strong>Not safe</strong> label: wind or waves are over the safety limit right now. On an orange line: allowed, but take care (close to a limit) or extra rules apply here (read the box).')}
+      ${row('<span style="font-size:1.4rem">🌙</span>', 'Too dark', 'Spearfishing is only rated in daylight.')}
+      ${row('<span style="font-size:1.4rem">🚫</span>', 'Not safe at this time', 'Shown on the spot card with the next safer time underneath.')}
+      ${row('<div class="incident injured">!</div>', 'Orange ! on the map', 'A recorded shark incident with injury (shark history layer).')}
+      ${row('<span class="tag measured">live measured</span>', 'Live measured', 'A real reading from a wave buoy, weather station or tide gauge, updated about hourly.')}
+      ${row('<span class="tag forecast">forecast</span>', 'Forecast', 'From a weather/ocean computer model (Open-Meteo), refreshed about hourly.')}
+      ${row('<span class="tag na">not applicable</span>', 'Not applicable', 'Doesn\'t apply here — e.g. ocean waves and swell inside a river or estuary.')}
+      ${row('<span class="tag unknown">unknown</span>', 'Unknown', 'The data source has no value for this place or hour.')}
     </div>
 
     <div class="card"><h2>Wind &amp; waves</h2>

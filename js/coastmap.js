@@ -534,7 +534,10 @@ function buildTimeBar() {
 
 function updateTimeLabel() {
   const el = document.getElementById('tb-label');
-  if (el) el.textContent = (autoJumped && offset ? '🌙 Dark now — spearfishing from ' : '') + (offset === 0 ? 'Now' : fmtDateTime(selectedTime())) + (state.coast.fetchedAt ? '' : ' · loading coast…');
+  if (!el) return;
+  const dark = autoJumped && offset;
+  el.textContent = (dark ? '🌙 Dark now — showing spearfishing from ' : '') + (offset === 0 ? 'Now' : fmtDateTime(selectedTime())) + (state.coast.fetchedAt ? '' : ' · loading coast…');
+  el.classList.toggle('long', el.textContent.length > 16);   // long text gets its own line so the slider keeps its width
 }
 
 // ---- Windy animated view (official embed, free with logo visible) -----------

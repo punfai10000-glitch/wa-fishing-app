@@ -151,12 +151,12 @@ export function scoreHour(loc, hour, activity, { species = null } = {}) {
   const month = new Date(hour.t).getMonth() + 1;
   const raw = {
     wind: windFactor(hour, loc, activity),
-    waves: wavesFactor(hour, loc, activity),
+    waves: loc.estuary || hour.sheltered ? undefined : wavesFactor(hour, loc, activity),   // rivers/estuaries: no ocean waves, so not 'unknown'
     tide: tideFactor(hour),
     season: species ? seasonFactor(loc, month, species) : undefined,
     light: activity === 'shore' ? lightFactor(hour) : undefined,
     sst: activity === 'spear' ? sstFactor(hour) : undefined,
-    visibility: activity === 'spear' ? visFactor(hour, loc) : undefined
+    visibility: activity === 'spear' && !loc.estuary ? visFactor(hour, loc) : undefined
   };
   const types = hour.types || {};
   const typeOf = { light: 'calculated', wind: types.wind_speed, waves: types.wave_height ?? types.swell_height, tide: types.tide_rate, sst: types.sst, season: 'curated', terrain: 'curated', access: 'curated', visibility: 'estimated' };

@@ -56,7 +56,7 @@ export function evalFor(loc, activity = state.activity) {
     }
     state.evalCache.set(key, evaluate(loc, src.byId[id], activity, {
       thresholds: state.data.thresholds, rules: state.data.rules, zones: state.data.zones,
-      staleSources: state.cond.stale ? 1 : 0, sunFn, species: state.species || null,
+      staleSources: (src === state.cond ? state.cond.stale : !src.fetchedAt || Date.now() - src.fetchedAt > 4 * 3600e3) ? 1 : 0, sunFn, species: state.species || null,
       zoneHits: l => zoneHitsFor(state.data.zones, l)
     }));
   }

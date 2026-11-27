@@ -72,7 +72,7 @@ async function fromLiveFile(pts, allowStale = false) {
     const r = await fetch(`https://raw.githubusercontent.com/${CONFIG.GITHUB_REPO}/live-data/coast_forecast.json?t=${Math.floor(Date.now() / 600000)}`);
     if (!r.ok) return null;
     const d = await r.json();
-    const old = Date.now() - Date.parse(d.generated_at) > 3 * 3600e3;
+    const old = Date.now() - Date.parse(d.generated_at) > 4 * 3600e3;   // GitHub often runs the hourly job 1–2 h late
     if (old && !allowStale) return null;   // stale: ask Open-Meteo directly first
     const byId = {};
     const obj = (vars, arrs, [la, ln]) => arrs ? { latitude: la, longitude: ln, hourly: Object.fromEntries([['time', d.time], ...vars.map((v, i) => [v, arrs[i]])]) } : undefined;

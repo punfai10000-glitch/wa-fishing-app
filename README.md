@@ -17,7 +17,7 @@ The table that used to be here was the v0.5 checklist (24–25 Nov) and is long 
 | Marine park zones and DPIRD fishing orders | ✅ Loaded weekly. South Coast parks traced from DBCA maps (±100 m near shore). ❌ Western Bight & Mirning zones not in the app |
 | Seabed habitat | ✅ Seamap + a dotted satellite estimate within 1 km of shore (~80% right for sand vs reef/weed) |
 | Depth | ✅ DoT surveys at z14 where surveyed; GEBCO elsewhere |
-| Satellite map | ✅ Sentinel-2 + Landgate aerial photos ("Satellite HD", from zoom 12). Esri key optional |
+| Satellite map | ✅ Sentinel-2 + Landgate aerial photos from zoom 12 ("Sharp aerial photos" switch). Esri key optional (adds a "Satellite HD" choice) |
 | Fish library (331 species) + How-to guides | ⚠️ 101 species have no size/bag limit in the app yet (they link to rules.fish.wa.gov.au) |
 | Facilities, OSM spots, shoreline | ✅ Weekly from OpenStreetMap |
 | Diary, catch measuring, offline cache | ✅ Working (stored on the phone only) |
@@ -55,7 +55,7 @@ Run the tests with `npm test` (requires Node 18+).
 If a job fails, open it in the Actions tab, copy the red error lines and send them to Claude.
 
 ## Live data: measured wave buoys + BOM weather stations (free, hourly)
-`.github/workflows/live-data.yml` runs `pipeline/fetch_buoys.py` every hour. It reads the latest DoT buoy readings from AODN and force-pushes a single small `buoys.json` to a branch called `live-data`, so the repo history doesn't grow. The app reads it from `raw.githubusercontent.com/<owner>/<repo>/live-data/buoys.json`. Set `GITHUB_REPO` in `js/config.js` if you rename the repo.
+`.github/workflows/live-data.yml` runs twice an hour (GitHub often delays scheduled runs) and fetches buoys, BOM weather stations, tide gauges, satellite water clarity and the coast forecast. It reads the latest DoT buoy readings from AODN and force-pushes a single small `buoys.json` to a branch called `live-data`, so the repo history doesn't grow. The app reads it from `raw.githubusercontent.com/<owner>/<repo>/live-data/buoys.json`. Set `GITHUB_REPO` in `js/config.js` if you rename the repo.
 
 To start it: **Actions → Live data (measured buoys) → Run workflow**. If it fails, open the run log and send it to Claude. The script was tested on sample files but not yet against the live AODN server.
 
@@ -69,7 +69,7 @@ The app never queries OpenStreetMap from people's phones, because that would bre
 OpenStreetMap doesn't record which servos sell bait, so the app says "bait not confirmed".
 
 ## Optional: Esri imagery
-"Satellite HD" works with no setup: it adds Landgate's free WA aerial photos from zoom 12. If you prefer Esri imagery:
+Sharp aerial photos work with no setup: the "Sharp aerial photos" switch adds Landgate's free WA aerial photos from zoom 12. If you also want Esri imagery (shown as a "Satellite HD" choice):
 1. Create a free ArcGIS Location Platform account at https://location.arcgis.com. Leave pay-as-you-go **off**, so you can never be billed.
 2. Create an API key with the basemap privilege, and **restrict its referrer** to `https://<user>.github.io/*`.
 3. Paste the key into `ESRI_API_KEY` in `js/config.js`. This key is a public, restricted key, not a secret.

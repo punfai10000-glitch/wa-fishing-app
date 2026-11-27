@@ -155,7 +155,10 @@ export function legalHTML(ls, { small = true } = {}) {
   const zoneBox = z => `<div class="zone-rules${z.seasonal && !z.active ? ' inactive' : ''}"><strong>${esc(z.name)}</strong>${z.seasonal ? ` <span class="pill ${z.active ? 'blk-legal' : 'good'}">${z.active ? 'Closed now' : 'Open now'}</span>` : ''}
       ${z.details.length ? `<ul>${z.details.map(d => `<li class="${d.startsWith('✗') ? 'no' : d.startsWith('✓') ? 'yes' : ''}">${esc(d)}</li>`).join('')}</ul>` : `<div>${esc(z.note)}</div>`}
       ${z.link ? `<a href="${esc(z.link)}" target="_blank" rel="noopener">${z.approx ? 'Official zoning map & plan ↗' : 'Read the official order ↗'}</a>` : ''}</div>`;
-  const head = { blocked: '⛔ Not allowed here', caution: '⚠ Special rules here', ok: '✓ Rules check' }[ls.state];
+  // name the activity that is banned, so "Not allowed" never sits above "Line fishing ✓ Allowed"
+  const banned = ['shore', 'spear'].filter(a => !ls.allow[a]);
+  const blockedHead = banned.length === 2 ? '⛔ No fishing allowed here' : banned.length === 1 ? `⛔ ${ACT[banned[0]]} not allowed here` : '⛔ Not allowed here';
+  const head = { blocked: blockedHead, caution: '⚠ Special rules here', ok: '✓ Rules check' }[ls.state];
   return `<div class="notice legal-box ${small ? 'small' : ''} ${ls.state === 'blocked' ? 'danger' : ls.state === 'ok' ? 'info' : 'warn'}">
     <div class="legal-head"><strong>${head}</strong></div>
     ${yn('shore')}${yn('spear')}

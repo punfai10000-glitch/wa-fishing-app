@@ -20,7 +20,9 @@ export function fourChecks(loc, ev, hr, zones, activity) {
   rows.push(['Fish', tg.length ? [good.length ? `<b class="ck good">Good chance</b> ${esc(good.map(t => t.name).join(', '))}` : '',
       poss.length ? `<b class="ck fair">Possible</b> ${esc(poss.map(t => t.name).join(', '))}` : '',
       closed.length ? `<b class="ck poor">Closed</b> ${esc(closed.map(t => t.name).join(', '))}` : ''].filter(Boolean).join('<br>') + ' <span class="muted">· seasonal guide</span>'
-    : legalBlocked ? '<b class="ck poor">—</b> no fishing allowed here, so no species suggestions' : '<b class="ck unknown">Nothing in season</b> for this kind of spot — seasonal guide']);
+    : legalBlocked ? (activity === 'spear' && legalStatus(zones, loc, 'shore', { t: hr?.hour?.t }).state !== 'blocked'
+        ? '<b class="ck poor">—</b> spearfishing isn\'t allowed here (line fishing is) — switch to <strong>Fishing</strong> at the top for species'
+        : '<b class="ck poor">—</b> no fishing allowed here, so no species suggestions') : '<b class="ck unknown">Nothing in season</b> for this kind of spot — seasonal guide']);
   // 3. Safety
   const sb = (hr?.blocks || []).find(b => b.kind === 'safety');
   const cw = activity === 'spear' && !loc.estuary ? currentWords(hr?.hour?.current_speed) : null;

@@ -33,13 +33,13 @@ const overlays = {};
 // ---- Base maps ------------------------------------------------------------
 const BASES = [
   { id: 'satellite', label: 'Satellite (Sentinel-2, free)', note: '10 m imagery — reef, weed and sand show in clear shallow water' },
-  { id: 'esri', label: 'Satellite HD', note: 'Sharp WA Government (Landgate) aerial photos from zoom 12 on top of Sentinel-2 — uses more data' },
+  { id: 'esri', label: 'Satellite HD', note: 'Esri World Imagery (needs ESRI_API_KEY in config.js)' },
   { id: 'street', label: 'Street map', note: 'Roads, tracks and car parks (OpenStreetMap)' }
-];
+].filter(b => b.id !== 'esri' || CONFIG.ESRI_API_KEY);   // without an Esri key, "HD" was just Satellite + the aerial photos below: one switch is enough
 
 // ---- Overlays ---------------------------------------------------------------
 const LAYERS = [
-  { group: 'Background', id: 'aerial', label: 'Sharp aerial photos when zoomed in', note: 'WA Government (Landgate) aerial photos from zoom 15 — reefs, rocks and tracks in detail. Photos are at least about a year old. Turn off to save data.' },
+  { group: 'Background', id: 'aerial', label: 'Sharp aerial photos when zoomed in', note: 'WA Government (Landgate) aerial photos on top of the satellite map once you zoom in a little — reefs, rocks and tracks in detail. Photos are at least about a year old. Turn off to save data.' },
   { group: 'Fishing', id: 'spots', label: 'Fishing spots & scores', note: 'Checked spots plus OpenStreetMap spots (zoom in for more)' },
   { group: 'Fishing', id: 'coast', label: 'Coast colour (conditions)', note: 'Conditions every ~8 km of coast at the chosen time — tap the coast for details' },
   { group: 'Rules & hazards', id: 'zones', label: 'Marine parks, sanctuaries & closures', note: 'Red = no fishing, orange = special rules, green = spearfishing area, purple dashed = special purpose zone (fishing allowed, extra care), purple dotted = gear or species rules (official DPIRD orders and DBCA zoning maps). Tap inside any zone for exactly what is allowed.' },
@@ -60,7 +60,7 @@ const LAYERS = [
   { group: 'Facilities', id: 'food24', label: '24/7 food', note: 'Within 10 km of the coast' },
   { group: 'Facilities', id: 'parking', label: 'Car parks near the coast', note: '' }
 ];
-const DEFAULTS = { base: 'esri', aerial: true, currentFlow: null, spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, clarity: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
+const DEFAULTS = { base: 'satellite', aerial: true, currentFlow: null, spots: true, coast: true, buoys: true, food24: false, parking: false, incidents: false, windFlow: false, swellFlow: false, wind: false, waves: false, sst: false, clarity: false, habitat: false, depth: false, zones: true, tackle: false, fuel: false, toilets: false };
 export const layerOn = () => {
   const saved = store.get('layers', {});
   // v2: facilities (bait/tackle, servos, toilets) on by default — switch them on once for people with saved settings
@@ -68,7 +68,9 @@ export const layerOn = () => {
   if (!store.get('layersV3')) { store.set('layersV3', 1); Object.assign(saved, { tackle: false, fuel: false, toilets: false, food24: false, parking: false }); store.set('layers', saved); }
   // v4: calmer map — wind/swell animation live in the Weather view; shark history is opt-in
   if (!store.get('layersV4')) { store.set('layersV4', 1); Object.assign(saved, { windFlow: false, swellFlow: false, incidents: false }); store.set('layers', saved); }
-  if (!store.get('layersV5')) { store.set('layersV5', 1); if (!saved.base || saved.base === 'satellite') { saved.base = 'esri'; store.set('layers', saved); } }   // Satellite HD now works without a key
+  if (!store.get('layersV5')) { store.set('layersV5', 1); }
+  // v6: "Satellite HD" (without an Esri key) merged into Satellite + the sharp aerial photos switch
+  if (!store.get('layersV6')) { store.set('layersV6', 1); if (saved.base === 'esri' && !CONFIG.ESRI_API_KEY) { saved.base = 'satellite'; saved.aerial = true; } store.set('layers', saved); }
   return { ...DEFAULTS, ...saved };
 };
 // What is actually drawn: the Weather view swaps spots for wind, swell and buoys.
@@ -433,15 +435,14 @@ function markSelected() {
 
 function applyLayers() {
   const on = viewOn();
-  // 'Satellite HD' = Esri imagery when a key is configured, otherwise Sentinel-2 + Landgate aerial photos from zoom 12
-  const hd = on.base === 'esri' && !baseLayers.esri;
+  // Satellite = Sentinel-2, plus Landgate aerial photos from zoom 12 when "Sharp aerial photos" is on
   const base = baseLayers[on.base] ? on.base : 'satellite';
   for (const [id, layer] of Object.entries(baseLayers)) {
     if (id === base) { if (!map.hasLayer(layer)) layer.addTo(map); } else map.removeLayer(layer);
   }
   document.getElementById('map').classList.toggle('osm-dark', base === 'street');
-  if (hd) { if (!map.hasLayer(overlays.aerialHD)) overlays.aerialHD.addTo(map); } else map.removeLayer(overlays.aerialHD);
-  if (!hd && base === 'satellite' && on.aerial && !lite()) { if (!map.hasLayer(overlays.aerial)) overlays.aerial.addTo(map); } else map.removeLayer(overlays.aerial);
+  map.removeLayer(overlays.aerial);
+  if (base === 'satellite' && on.aerial && !lite()) { if (!map.hasLayer(overlays.aerialHD)) overlays.aerialHD.addTo(map); } else map.removeLayer(overlays.aerialHD);
   syncClarity(on);
   if (on.habitat) overlays.habitatEst.addTo(map); else map.removeLayer(overlays.habitatEst);
   for (const id of ['depth', 'habitat']) {

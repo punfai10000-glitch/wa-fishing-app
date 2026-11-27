@@ -1,7 +1,10 @@
 name: Live data (measured buoys + weather stations)
 on:
   schedule:
-    - cron: '17 * * * *'   # hourly (GitHub may delay runs)
+    # twice an hour: GitHub often delays or skips scheduled runs, so a second slot keeps the data
+    # at most about an hour old. Free for public repositories.
+    - cron: '17 * * * *'
+    - cron: '47 * * * *'
   workflow_dispatch:
 permissions:
   contents: write

@@ -21,7 +21,7 @@ export function pill(ev) {
 
 // Plain-English labels: measured = live reading; forecast = weather/ocean model forecast
 // (ECMWF, Météo-France etc. via Open-Meteo); estimate = our rule of thumb; astronomical = sun/moon tables.
-const TAG_LABEL = { measured: 'live measured', forecast: 'forecast', modelled: 'forecast', estimated: 'estimate', calculated: 'astronomical', curated: 'checked info', unknown: 'unknown' };
+const TAG_LABEL = { measured: 'live measured', forecast: 'forecast', modelled: 'forecast', estimated: 'estimate', calculated: 'astronomical', curated: 'checked info', na: 'not applicable', unknown: 'unknown' };
 export const typeTag = t => `<span class="tag ${esc(t)}">${esc(TAG_LABEL[t] || t || 'unknown')}</span>`;
 
 export function confText(c) {

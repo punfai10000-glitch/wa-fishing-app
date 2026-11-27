@@ -54,7 +54,7 @@ export function renderLive(view, rawId) {
       <h1 style="margin:4px 0 10px">${esc(loc.name)}</h1>
       <div class="row wrap">
         <div><div class="muted small">Right now</div>${ev.current ? (ev.current.blocked ? blockPill(ev.current.blockKind, true) : `<span class="pill ${band(ev.current.score)} big">${BAND_LABEL[band(ev.current.score)]} ${ev.current.score ?? ''}</span>`) : '<span class="pill unknown big">Unknown</span>'}</div>
-        <div><div class="muted small">Next 24 h</div>${pill(ev)} ${ev.applicable === false ? '' : chanceIcon(ev.score, state.activity, ev.band === 'blocked' && (ev.blockKind || true))}<div class="small">${esc(windowText(ev))}</div></div>
+        <div><div class="muted small">Next 24 h</div>${pill(ev)} ${ev.applicable === false || ev.band === 'blocked' ? '' : chanceIcon(ev.score, state.activity, false)}<div class="small">${esc(windowText(ev))}</div></div>
       </div>
       ${ev.currentBlocks?.length ? `<div class="notice danger small" style="margin-top:10px">${ev.currentBlocks.map(b => esc(b.reason)).join('<br>')}</div>` : ''}
       <div style="margin-top:8px">${confText(ev.confidence)}</div>
