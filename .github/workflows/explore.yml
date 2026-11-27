@@ -1,0 +1,21 @@
+name: explore
+on: workflow_dispatch
+jobs:
+  x:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          Q='[out:json][timeout:60];(way["landuse"="military"](-32.30,115.62,-32.10,115.75);relation["landuse"="military"](-32.30,115.62,-32.10,115.75);way["military"](-32.30,115.62,-32.10,115.75);relation["military"](-32.30,115.62,-32.10,115.75);way["name"~"Causeway",i](-32.30,115.62,-32.10,115.78);way["place"="island"]["name"="Garden Island"](-32.30,115.62,-32.10,115.75);relation["place"="island"]["name"="Garden Island"](-32.30,115.62,-32.10,115.75);way["seamark:type"="restricted_area"](-32.32,115.60,-32.10,115.78);relation["seamark:type"="restricted_area"](-32.32,115.60,-32.10,115.78););out geom;'
+          for u in https://overpass-api.de/api/interpreter https://overpass.kumi.systems/api/interpreter; do curl -s --max-time 120 --data-urlencode "data=$Q" $u > o.json && python3 -c "import json;json.load(open('o.json'))" && break; done
+          python3 - <<'PY'
+          import json
+          d=json.load(open('o.json'))
+          out=[]
+          for e in d['elements']:
+              t=e.get('tags',{})
+              if e['type']=='way': g=[[round(p['lon'],5),round(p['lat'],5)] for p in e['geometry']]; geo=[g]
+              else: geo=[[[round(p['lon'],5),round(p['lat'],5)] for p in m['geometry']] for m in e.get('members',[]) if m.get('geometry') and m.get('role') in ('outer','')]
+              print(e['type'],e['id'],t.get('name'),t.get('landuse'),t.get('military'),t.get('seamark:type'),t.get('place'),t.get('highway'),'pts',sum(len(x) for x in geo))
+              out.append({'type':e['type'],'id':e['id'],'tags':t,'geo':geo})
+          print('JSON>>'+json.dumps(out,separators=(',',':')))
+          PY

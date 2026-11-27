@@ -220,6 +220,13 @@ export function refreshCoastMap() {
         const q = cp(p.sea[0], p.sea[1]);
         if (room.place(q.x + 14, q.y + 6, 78, 40)) arrowLayer.addLayer(arrowMarker([p.sea[0], p.sea[1]], (wd + 180) % 360, 'wave', Math.min(1.7, 0.7 + wh / 2.5), `${wh.toFixed(1)} m`, waveColor(wh)));
       }
+      // swell lines: say exactly what each set of lines is — height, period and where it comes from
+      const sh = h.swell_height, sp = h.swell_period, sd = h.swell_direction;
+      if (on.swellFlow && sh != null && sd != null && p.sea && z >= 9) {
+        const q = cp(p.sea[0], p.sea[1]);
+        const o = room.place(q.x - 10, q.y + 30, 92, 18, [[0, 0], [0, 22], [-60, 0], [60, 0], [0, -46]]);
+        if (o) arrowLayer.addLayer(swellLabel([p.sea[0], p.sea[1]], sh, sp, sd, o));
+      }
       if (on.wind && h.wind_speed != null && h.wind_direction != null) {
         const q = cp(lat, lng);
         const o = room.place(q.x + 12, q.y + 6, 72, 40, [[0, 0], [-56, 0], [0, -40], [0, 40], [-56, -40]]);
@@ -344,6 +351,15 @@ function arrowMarker(latlng, toDeg, kind, scale, label, color = null, o = [0, 0]
       html: `<div class="flow ${kind}" style="${c}transform:rotate(${toDeg - 90}deg) scale(${scale.toFixed(2)})"><span class="glyph">➤</span></div><span class="flow-lbl ${kind}" style="${c}">${label}</span>`,
       iconSize: [34, 34], iconAnchor: [17 - o[0], 17 - o[1]]
     })
+  });
+}
+
+function swellLabel(latlng, m, per, from, o) {
+  const txt = `〰 ${m.toFixed(1)} m${per != null ? ` · ${Math.round(per)} s` : ''} ${comp(from)}`;
+  return window.L.marker(latlng, {
+    pane: 'arrows', interactive: false, keyboard: false,
+    icon: window.L.divIcon({ className: 'arrow-wrap', html: `<span class="swell-lbl" style="color:${waveColor(m)}" title="Swell ${m.toFixed(1)} m, ${per != null ? Math.round(per) + ' s apart, ' : ''}from the ${comp(from)}">${txt}</span>`,
+      iconSize: [92, 18], iconAnchor: [56 - o[0], -12 - o[1]] })
   });
 }
 
