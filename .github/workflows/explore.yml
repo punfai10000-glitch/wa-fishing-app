@@ -1,9 +1,0 @@
-name: explore
-on: workflow_dispatch
-jobs:
-  x:
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          for f in IDW11130 IDW11140; do echo "=== $f"; curl -s --max-time 20 ftp://ftp.bom.gov.au/anon/gen/fwo/$f.txt | grep -v '^\s*$' | head -120; done
-          curl -sIL --max-time 60 https://obdaac-tea.earthdatacloud.nasa.gov/ob-cumulus-prod-public/JPSS1_VIIRS.20261125.L3m.DAY.KD.Kd_490.4km.NRT.nc | grep -iE "^HTTP|^location|content-length" 

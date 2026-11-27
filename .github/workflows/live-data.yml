@@ -25,6 +25,7 @@ jobs:
           ls out || true
       - run: python pipeline/fetch_buoys.py out || echo "buoys failed"
       - run: python pipeline/fetch_bom_obs.py out || echo "BOM failed"
+      - run: python pipeline/fetch_bom_warnings.py out || echo "BOM warnings failed"
       - run: python pipeline/fetch_tides.py out || echo "tides failed"
       - run: python pipeline/fetch_clarity.py out || echo "clarity failed"
       - run: python pipeline/fetch_coast_forecast.py out || echo "coast forecast failed"

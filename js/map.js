@@ -1,4 +1,5 @@
 import { boxes } from './declutter.js';
+import { warningHTML, warningsAt } from './bomwarn.js';
 import { CONFIG, REGIONS, TYPE_LABELS } from './config.js';
 import { state, evalFor, visibleLocations } from './app.js';
 import * as store from './storage.js';
@@ -364,9 +365,11 @@ export function openSpotSheet(loc) {
     const ev = evalFor(loc), hr = hourRow(ev), t = selectedTime();
     const ls = legalStatus(state.data.zones, loc, state.activity, { t });
     const tg = ls.state === 'blocked' ? [] : likelyTargets(loc, hr?.hour, state.activity, { max: 3, zones: state.data.zones }).filter(x => x.level === 'good' || x.level === 'possible');
-    const v = verdict(ev, hr, ls, state.activity, t);
+    const v = verdict(ev, hr, ls, state.activity, t, warningsAt(state.bomWarn, lat, lng, t));
+    const warnBox = warningHTML(state.bomWarn, lat, lng, t);
     const top = `
       <div class="small muted">${esc(REGIONS[loc.region]?.name ?? loc.region ?? '')} · ${esc(TYPE_LABELS[loc.type] ?? loc.type)} · ${state.activity === 'spear' ? 'spearfishing' : 'shore fishing'} · <strong>${timeLabel() === 'Now' ? 'now' : esc(timeLabel())}</strong></div>
+      ${warnBox}
       ${verdictHTML(v)}
       <div class="ticks">${tick(ls.state === 'blocked' ? 'no' : ls.state === 'caution' ? 'care' : 'yes', 'Allowed?', ls.state === 'blocked' ? 'No' : ls.state === 'caution' ? 'Yes, extra rules' : 'Yes')}
         ${tick(!hr ? 'unknown' : hr.blockKind === 'safety' ? 'no' : hr.blockKind === 'dark' ? 'no' : hr.cautions?.length ? 'care' : 'yes', 'Safe?', !hr ? '?' : hr.blockKind === 'safety' ? 'No' : hr.blockKind === 'dark' ? 'Dark' : hr.cautions?.length ? 'Take care' : 'Within limits')}

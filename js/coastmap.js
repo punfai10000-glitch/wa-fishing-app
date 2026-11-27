@@ -1,5 +1,6 @@
 // Coastline conditions layer, animated wind/wave arrows, time slider with play,
 // tap-anywhere spot reports, measured buoy markers and the Windy animated view.
+import { warningHTML, warningsAt } from './bomwarn.js';
 import { openSheet } from './sheet.js';
 import { depthAt, depthText } from './depth.js';
 import { state, evalFor } from './app.js';
@@ -501,7 +502,8 @@ function tapHTML(loc, where, sh, exact) {
   return `
     <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br>
     ${where ? `<span class="small">${esc(where)}</span><br>` : ''}
-    ${verdictHTML(verdict(state.activity === 'spear' ? spear : shore, state.activity === 'spear' ? rp : rs, legal, state.activity, t))}
+    ${warningHTML(state.bomWarn, lat, lng, t)}
+    ${verdictHTML(verdict(state.activity === 'spear' ? spear : shore, state.activity === 'spear' ? rp : rs, legal, state.activity, t, warningsAt(state.bomWarn, lat, lng, t)))}
     ${hourStrip(state.activity === 'spear' ? spear : shore, t)}
     <div class="small" id="pop-depth">Depth: checking…</div>
     <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>

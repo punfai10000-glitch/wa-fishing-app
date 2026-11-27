@@ -28,7 +28,7 @@ export function nextSafe(ev, t) {
 }
 
 /** { cls, icon, title, text } — the one-line answer */
-export function verdict(ev, hr, ls, activity, t) {
+export function verdict(ev, hr, ls, activity, t, warns = []) {
   const act = activity === 'spear' ? 'spearfishing' : 'fishing';
   if (!ev || ev.applicable === false) return { cls: 'na', icon: '–', title: `Not a ${act} spot`, text: 'Switch between Fishing and Spear at the top.' };
   if (ls?.state === 'blocked' || hr?.blockKind === 'legal') {
@@ -43,6 +43,10 @@ export function verdict(ev, hr, ls, activity, t) {
       text: why, next: ns ? `${hr.blockKind === 'dark' ? 'Next daylight time that is OK' : 'Safer time'}: <strong>${whenText(ns.start, ns.end)}</strong> (score about ${ns.score}${ns.careful ? ', take care' : ''})` : 'No safer time in the forecast yet — check again later.' };
   }
   const s = hr.score ?? 0;
+  // BOM marine wind warning for this coast that day: the model can miss it, so it overrides a good score
+  const bw = warns.find(w => !/^Strong Wind/i.test(w.type)) || warns[0];
+  if (bw && !/^Strong Wind/i.test(bw.type)) return { cls: 'unsafe', icon: '🚫', title: `Not safe — BOM ${bw.type} Warning`, text: `BOM has a ${bw.type} Warning for the ${bw.zone} that day. Stay off rocks, jetties and exposed beaches.` };
+  if (bw) return { cls: 'care', icon: '⚠', title: `BOM Strong Wind Warning — take care (${s})`, text: `The forecast here looks ${s >= 70 ? 'good' : s >= 40 ? 'fair' : 'poor'}, but BOM has a Strong Wind Warning for the ${bw.zone} that day. Pick a sheltered spot and check the water before you go.` };
   if (hr.cautions?.length) return { cls: 'care', icon: '⚠', title: `Allowed — take care (${BAND_LABEL[band(s)]} ${s})`, text: hr.cautions[0].reason + '. For experienced people, with a buddy.' };
   if (s >= 70) return { cls: 'go', icon: '✅', title: `Good time to go (${s})`, text: 'Allowed, within the safety limits, good conditions. Still look at the water before you go in.' };
   if (s >= 40) return { cls: 'ok', icon: '👌', title: `OK, not ideal (${s})`, text: 'Allowed and within the safety limits, but conditions are only fair.' };

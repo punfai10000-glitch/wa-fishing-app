@@ -9,6 +9,7 @@ import { initSheet, closeSheet } from './sheet.js';
 import { renderLocation } from './views/location.js';
 import { loadCoastPoints, loadCoastConditions, nearestCoastPoint } from './coast.js';
 import { loadBuoys, loadBomObs } from './buoys.js';
+import { loadBomWarnings } from './bomwarn.js';
 import { loadTides, loadClarity, clarityAt } from './ocean.js';
 import { loadTargets } from './targets.js';
 import { zoneHitsFor } from './zones.js';
@@ -175,12 +176,13 @@ async function refreshConditions(force = false) {
   state.loading = false;
   rerender();
   // Coastline + measured buoys load after the main spots so the app is usable sooner
-  const [coast, buoys, bom, tides, clarity] = await Promise.all([loadCoastConditions(force), loadBuoys(force), loadBomObs(force), loadTides(), loadClarity()]);
+  const [coast, buoys, bom, tides, clarity, bomWarn] = await Promise.all([loadCoastConditions(force), loadBuoys(force), loadBomObs(force), loadTides(), loadClarity(), loadBomWarnings()]);
   state.coast = { points: state.coast.points, ...coast };
   state.buoys = buoys;
   state.bom = bom;
   state.tides = tides;
   state.clarity = clarity;
+  state.bomWarn = bomWarn;
   rerender();
 }
 
