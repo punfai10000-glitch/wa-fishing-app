@@ -14,7 +14,7 @@ import { nearestBuoy, nearestStation } from './buoys.js';
 import { loadPointConditions } from './data.js';
 import { legalStatus, legalHTML, bannedAt } from './zones.js';
 import { boxes } from './declutter.js';
-import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
+import { initFlow, setFlowData, flowPausedByDevice, swellCss, SWELL_STOPS, SWELL_TICKS } from './flow.js';
 import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes, placeIncident } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
 import { degToCompass, exposureOf } from './scoring/geo.js';
@@ -190,15 +190,26 @@ export function refreshCoastMap() {
       const [lng, lat] = p.geometry.coordinates;
       if (h.wind_speed != null && h.wind_direction != null) wind.push({ lat, lng, speed: h.wind_speed, from: h.wind_direction });
       const sh = h.swell_height ?? h.wave_height, sd = h.swell_direction ?? h.wave_direction;
-      if (p.sea && sh != null && sd != null) swell.push({ lat: p.sea[0], lng: p.sea[1], height: sh, from: sd, period: h.swell_period ?? h.wave_period });
+      if (p.sea && sh != null && sd != null) swell.push({ lat: p.sea[0], lng: p.sea[1], slat: lat, slng: lng, height: sh, from: sd, period: h.swell_period ?? h.wave_period });
       if (p.sea && h.current_speed != null && h.current_direction != null) currents.push({ lat: p.sea[0], lng: p.sea[1], speed: h.current_speed, to: h.current_direction });
     }
     // currents only over water: use the coastline to test each grid cell
     const seaTest = (la, ln) => { const n = nearestShore(la, ln, 30); return !!n && !n.onLand && !riverWaterAt(la, ln, 0); };
-    // swell field: open sea too (no shoreline within 30 km = offshore here, since it's only drawn near the forecast points)
-    const swellSea = (la, ln) => { const n = nearestShore(la, ln, 30); return n ? !n.onLand && !riverWaterAt(la, ln, 0) : true; };
-    setFlowData(wind, swell, { wind: on.windFlow, swell: on.swellFlow, current: on.currentFlow, currents, seaTest, swellSea });
+    // swell field: sea only. Every point is checked against the real coastline (the swell is only drawn within ~45 km
+    // of the offshore forecast points, so the coast is always within reach); unknown = land, never painted
+    const swellSea = (la, ln) => {
+      const n = nearestShore(la, ln, 80);
+      if (n) return !n.onLand && !riverWaterAt(la, ln, 0);
+      // over 80 km from any coastline: open ocean if it lies on the SEA side of the nearest forecast point (far inland is behind it)
+      let best = null;
+      for (const q of swell) { const d = (q.lat - la) ** 2 + ((q.lng - ln) * Math.cos(la * Math.PI / 180)) ** 2; if (!best || d < best.d) best = { d, q }; }
+      if (!best) return false;
+      const { q } = best;
+      return (la - q.slat) * (q.lat - q.slat) + (ln - q.slng) * (q.lng - q.slng) > 0;
+    };
+    setFlowData(wind, swell, { wind: on.windFlow, swell: on.swellFlow, current: on.currentFlow, currents, seaTest, swellSea, swellSeaFine: swellSea });
   } else setFlowData([], [], {});
+  swellScale(on.swellFlow && hasData && pts.length && map.getZoom() >= 6);
   const note = document.getElementById('flow-note');
   if (note) note.hidden = !(flowPausedByDevice() && (on.windFlow || on.swellFlow || on.currentFlow));
 
@@ -655,7 +666,22 @@ function buildWindy() {
 }
 
 // colour scales shared with the map key: waves green (small) -> red (big); sea temperature blue (cold) -> red (warm)
-export function waveColor(m) { return m < 0.5 ? '#7ee2c8' : m < 1 ? '#a3e635' : m < 1.5 ? '#facc15' : m < 2.5 ? '#fb923c' : '#f87171'; }
+// Windy-style colour bar under the map while swell is shown: "m  0.5  1  1.5  2  3  4  6" on the same colours
+function swellScale(visible) {
+  const el = document.getElementById('swell-scale');
+  if (!el) return;
+  el.hidden = !visible;
+  if (!visible || el.dataset.built) return;
+  const max = SWELL_STOPS[SWELL_STOPS.length - 1][0];
+  // evenly spaced ticks (like Windy), so the small sizes that matter from shore get room
+  const pos = m => { const i = SWELL_TICKS.indexOf(m); return ((i + 1) / (SWELL_TICKS.length + 1)) * 100; };
+  const stops = [[0, 0], ...SWELL_TICKS.map(m => [m, pos(m)]), [max + 2, 100]];
+  const grad = stops.map(([m, p]) => `${swellCss(m)} ${p.toFixed(1)}%`).join(', ');
+  el.innerHTML = `<span class="ss-unit">m</span><div class="ss-bar" style="background:linear-gradient(90deg, ${grad})">${SWELL_TICKS.map(m => `<span style="left:${pos(m).toFixed(1)}%">${m}</span>`).join('')}</div>`;
+  el.dataset.built = '1';
+}
+
+export function waveColor(m) { return swellCss(m); }   // same Windy-style scale as the swell field and colour bar
 export function sstColor(c) {
   const stops = [[14, [70, 110, 230]], [17, [60, 180, 230]], [19, [80, 200, 140]], [21, [240, 200, 70]], [24, [240, 90, 60]]];
   if (c <= stops[0][0]) return `rgb(${stops[0][1]})`;

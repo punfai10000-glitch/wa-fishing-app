@@ -48,7 +48,7 @@ const LAYERS = [
   { group: 'Rules & hazards', id: 'incidents', label: 'Past shark incidents', note: 'Australian Shark-Incident Database (Taronga). Skull = fatal, ! = injury, grey = no injury.' },
   { group: 'Marine conditions', id: 'buoys', label: 'Wave buoys (measured)', note: 'Transport WA buoys; green < 1 h old, orange 1–3 h, red older' },
   { group: 'Marine conditions', id: 'windFlow', label: 'Wind animation', note: 'Forecast — streaks follow the wind (white light → red strong)' },
-  { group: 'Marine conditions', id: 'swellFlow', label: 'Swell lines', note: 'Forecast — sea tinted by swell height, slow crests show its direction, labels e.g. 1.8 m · 13 s SW (zoom in)' },
+  { group: 'Marine conditions', id: 'swellFlow', label: 'Swell lines', note: 'Forecast — sea coloured by swell height (scale bar at the bottom), white streaks move the way the swell travels, labels e.g. 1.8 m · 13 s SW (zoom in)' },
   { group: 'Marine conditions', id: 'currentFlow', label: 'Water movement (currents)', note: 'Forecast — streaks follow the ocean current: green slow, yellow moderate, orange strong, red too strong to dive. On by default in Spear. Offshore drift only — rips near the beach are too small for any forecast.' },
   { group: 'Marine conditions', id: 'wind', label: 'Wind speed labels', note: 'Forecast km/h with direction (zoom in)' },
   { group: 'Marine conditions', id: 'waves', label: 'Wave height labels', note: 'Forecast metres with direction (zoom in)' },

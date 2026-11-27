@@ -11,8 +11,11 @@ export async function loadShore() {
     const d = await (await fetch('data/coastline.json')).json();
     const segs = [], grid = new Map();
     d.lines.forEach((L, li) => {
+      // a closed loop with no area (e.g. A→B→A, a rock mapped as a line) has no land side: it made the sea around it read as land
+      if (L.length < 3 || (L[0][0] === L[L.length - 1][0] && L[0][1] === L[L.length - 1][1] &&
+          Math.abs(L.reduce((a, q, i) => i ? a + (L[i - 1][0] * q[1] - q[0] * L[i - 1][1]) : 0, 0)) < 1e-11)) return;
       for (let i = 0; i < L.length - 1; i++) {
-        const s = { a: L[i], b: L[i + 1], li, i };
+        const s = { a: L[i], b: L[i + 1], li, i, n: L.length - 1, closed: L[0][0] === L[L.length - 1][0] && L[0][1] === L[L.length - 1][1] };
         const id = segs.push(s) - 1;
         const x0 = Math.min(s.a[0], s.b[0]), x1 = Math.max(s.a[0], s.b[0]);
         const y0 = Math.min(s.a[1], s.b[1]), y1 = Math.max(s.a[1], s.b[1]);
@@ -30,7 +33,10 @@ export async function loadShore() {
       for (const [x, y] of r) { if (x < x0) x0 = x; if (x > x1) x1 = x; if (y < y0) y0 = y; if (y > y1) y1 = y; }
       return { ...w, bbox: [x0, y0, x1, y1] };
     });
-    shore = { lines: d.lines, segs, grid, water, source: d.source, precise: d.precise === true };
+    // coastline pieces that join end-to-start (an island split into several lines): link them so corner tests work at joins
+    const pk = q => `${q[0]}|${q[1]}`, firstSeg = new Map(), lastSeg = new Map();
+    segs.forEach((sg, id) => { if (sg.i === 0) firstSeg.set(pk(sg.a), id); if (sg.i === sg.n - 1) lastSeg.set(pk(sg.b), id); });
+    shore = { lines: d.lines, segs, grid, water, source: d.source, precise: d.precise === true, firstSeg, lastSeg };
   } catch { shore = { lines: [], segs: [], grid: new Map(), water: [], source: null, precise: false }; }
   return shore;
 }
@@ -53,13 +59,28 @@ export function nearestShore(lat, lng, maxKm = 25) {
         const t = Math.max(0, Math.min(1, ((px - ax) * vx + (py - ay) * vy) / ((vx * vx + vy * vy) || 1e-18)));
         const cx = ax + t * vx, cy = ay + t * vy;
         const d = Math.hypot(px - cx, py - cy) * 111;
-        if (!best || d < best.km) best = { km: d, cx: cx / k, cy, cross: vx * (py - ay) - vy * (px - ax), vx, vy };
+        if (!best || d < best.km) best = { km: d, cx: cx / k, cy, cross: vx * (py - ay) - vy * (px - ax), vx, vy, id, t, px, py, k };
       }
     }
     // once we have a hit, one more ring is enough to be sure it's the closest
     if (best && ring * G * 111 * k > best.km + G * 111) break;
   }
   if (!best || best.km > maxKm) return null;
+  // Nearest point is a CORNER (end of a segment): the side test against one segment can be wrong there (e.g. the open
+  // sea off an island's tip read as land). Use both segments meeting at the corner instead.
+  if (best.t <= 0 || best.t >= 1) {
+    const s0 = shore.segs[best.id], pk = q => `${q[0]}|${q[1]}`;
+    const nb = best.t <= 0 ? (s0.i > 0 ? best.id - 1 : s0.closed ? best.id + s0.n - 1 : shore.lastSeg?.get(pk(s0.a)) ?? null)
+      : (s0.i < s0.n - 1 ? best.id + 1 : s0.closed ? best.id - s0.n + 1 : shore.firstSeg?.get(pk(s0.b)) ?? null);
+    if (nb != null && shore.segs[nb]) {
+      const [s1, s2] = best.t <= 0 ? [shore.segs[nb], s0] : [s0, shore.segs[nb]];   // s1 comes into the corner, s2 leaves it
+      const K = best.k, V = best.t <= 0 ? s0.a : s0.b, vx0 = V[0] * K, vy0 = V[1];
+      const d1 = [(s1.b[0] - s1.a[0]) * K, s1.b[1] - s1.a[1]], d2 = [(s2.b[0] - s2.a[0]) * K, s2.b[1] - s2.a[1]];
+      const X = [best.px - vx0, best.py - vy0];
+      const c1 = d1[0] * X[1] - d1[1] * X[0], c2 = d2[0] * X[1] - d2[1] * X[0], turn = d1[0] * d2[1] - d1[1] * d2[0];
+      best.cross = (turn > 0 ? (c1 > 0 && c2 > 0) : (c1 > 0 || c2 > 0)) ? 1 : -1;   // land on the left: a left-turning (convex) corner holds land only inside both edges
+    }
+  }
   // sea is on the RIGHT of the segment direction: rotate (vx,vy) by -90deg
   const sx = best.vy, sy = -best.vx;
   const seaBearing = (Math.atan2(sx, sy) * 180 / Math.PI + 360) % 360;

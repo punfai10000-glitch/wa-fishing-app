@@ -630,3 +630,10 @@ details.guide summary { cursor:pointer; list-style:none; } details.guide summary
 #tb-label.long { flex-basis: 100%; order: 3; text-align: left; white-space: normal; padding-left: 44px; }
 .timebar-wrap { bottom: calc(var(--tabbar-h) + var(--safe-b) + 20px) !important; }
 .legend-box { bottom: calc(var(--tabbar-h) + var(--safe-b) + 100px) !important; }
+
+/* Swell colour bar (Windy-style), sits just above the time bar while swell is on */
+.swell-scale { display: flex; align-items: center; gap: 6px; margin: 0 0 6px; max-width: 520px; pointer-events: none; }
+.swell-scale[hidden] { display: none; }
+.swell-scale .ss-unit { font: 700 11px/1 system-ui, sans-serif; color: #fff; background: rgba(11,18,32,.85); border-radius: 4px; padding: 4px 5px; }
+.swell-scale .ss-bar { position: relative; flex: 1; height: 18px; border-radius: 9px; box-shadow: 0 1px 4px rgba(0,0,0,.5); }
+.swell-scale .ss-bar span { position: absolute; top: 50%; transform: translate(-50%, -50%); font: 700 10.5px/1 system-ui, sans-serif; color: #fff; text-shadow: 0 0 2px #000, 0 0 3px #000; }

@@ -11,7 +11,7 @@ let grid = null;                // screen-space wind vectors every CELL px
 let particles = [];
 let cgrid = null, cparticles = [];   // ocean currents (sea cells only)
 let seaTest = null;                  // (lat,lng) => true when the point is water (from the coastline data)
-let swellSea = null;
+let swellSea = null, swellSeaFine = null;
 let lastFrame = 0;
 const CELL = 20;
 const MAX_KM = 70;              // don't draw wind further than this from any forecast point
@@ -45,6 +45,7 @@ export function setFlowData(wind, swell, opts) {
   currentSamples = opts?.currents || [];
   seaTest = opts?.seaTest || null;
   swellSea = opts?.swellSea || seaTest;
+  swellSeaFine = opts?.swellSeaFine || swellSea;
   show = { wind: !!opts?.wind, swell: !!opts?.swell, current: !!opts?.current };
   if (!map) return;
   buildGrid(); seed();
@@ -203,17 +204,28 @@ function windColor(kmh) {
   return 'rgba(255,140,110,0.95)';
 }
 
-// swell height colour (m) — matches waveColor() in coastmap.js and the map legend
-function swellRGB(m) {
-  return m < 0.5 ? [126, 226, 200] : m < 1 ? [163, 230, 53] : m < 1.5 ? [250, 204, 21] : m < 2.5 ? [251, 146, 60] : [248, 113, 113];
+// ---- swell colours (Windy-style wave scale), shared with the map arrows, labels and the colour bar ------------
+export const SWELL_STOPS = [[0, [42, 72, 150]], [0.5, [38, 120, 200]], [1, [30, 170, 190]], [1.5, [50, 190, 120]],
+  [2, [180, 205, 60]], [2.5, [240, 185, 45]], [3, [240, 125, 45]], [4, [215, 60, 60]], [6, [165, 60, 170]]];
+export const SWELL_TICKS = [0.5, 1, 1.5, 2, 3, 4, 6];   // labels on the colour bar
+export function swellRGBsmooth(m) {
+  if (m <= SWELL_STOPS[0][0]) return SWELL_STOPS[0][1];
+  for (let i = 1; i < SWELL_STOPS.length; i++) if (m <= SWELL_STOPS[i][0]) {
+    const [a, ca] = SWELL_STOPS[i - 1], [b, cb] = SWELL_STOPS[i], f = (m - a) / (b - a);
+    return ca.map((v, k) => Math.round(v + (cb[k] - v) * f));
+  }
+  return SWELL_STOPS[SWELL_STOPS.length - 1][1];
 }
+export const swellCss = m => `rgb(${swellRGBsmooth(m).join(',')})`;
 
-// ---- swell, Windy-style: a smooth colour field (swell height) over the sea + slow crest particles -------------
-let sgrid = null, sparticles = [], fieldCanvas = null;
-const SWELL_KM = 45;
+// ---- swell, Windy-style: an opaque colour field (swell height) over the SEA ONLY + moving white streaks ---------
+// The field is worked out on a coarse grid (every CELL px) and then refined to FINE px along the coast, where every
+// pixel is tested against the real coastline — so the colour stops at the beach instead of spilling onto land.
+let sgrid = null, sparticles = [], fieldCanvas = null, fine = null;
+const SWELL_KM = 200, FADE_FROM = 90, FINE = 5, ALPHA = 150;   // open ocean: drawn up to 200 km out, fading after 90 km
 function buildSwellGrid() {
-  sgrid = null; fieldCanvas = null;
-  if (!show.swell || !map || !swellSamples.length || map.getZoom() < 7) return;
+  sgrid = null; fieldCanvas = null; fine = null;
+  if (!show.swell || !map || !swellSamples.length || map.getZoom() < 6) return;
   const s = map.getSize();
   const cols = Math.ceil(s.x / CELL) + 1, rows = Math.ceil(s.y / CELL) + 1;
   const g = new Array(cols * rows);
@@ -230,72 +242,77 @@ function buildSwellGrid() {
       su += Math.sin(a) * w; sv += Math.cos(a) * w; sh += p.height * w; sp += (p.period || 9) * w; sw += w;
     }
     g[r * cols + c] = sw && dmin <= SWELL_KM && (!swellSea || swellSea(ll.lat, ll.lng))
-      ? { u: su / sw, v: sv / sw, h: sh / sw, p: sp / sw } : null;
+      ? { u: su / sw, v: sv / sw, h: sh / sw, p: sp / sw, d: dmin } : null;
   }
   sgrid = { cols, rows, g };
-  // colour field: one pixel per grid cell, scaled up with smoothing -> soft gradients like Windy's wave layer
-  fieldCanvas = document.createElement('canvas'); fieldCanvas.width = cols; fieldCanvas.height = rows;
-  const fx = fieldCanvas.getContext('2d'), img = fx.createImageData(cols, rows);
-  g.forEach((e, n) => {
-    if (!e) return;
+  // fine field: open-sea pixels interpolate the 4 grid nodes around them; pixels between sea and land nodes
+  // (the coastline runs through that square) are tested one by one against the coastline
+  const fw = Math.ceil(s.x / FINE), fh = Math.ceil(s.y / FINE), ratio = FINE / CELL;
+  fine = { w: fw, h: fh, e: new Array(fw * fh) };
+  fieldCanvas = document.createElement('canvas'); fieldCanvas.width = fw; fieldCanvas.height = fh;
+  const fx = fieldCanvas.getContext('2d'), img = fx.createImageData(fw, fh);
+  const node = (c, r) => (c >= 0 && r >= 0 && c < cols && r < rows ? g[r * cols + c] : null);
+  for (let j = 0; j < fh; j++) for (let i = 0; i < fw; i++) {
+    const gx = (i + 0.5) * ratio, gy = (j + 0.5) * ratio, c = Math.floor(gx), r = Math.floor(gy), tx = gx - c, ty = gy - r;
+    const q = [[node(c, r), (1 - tx) * (1 - ty)], [node(c + 1, r), tx * (1 - ty)], [node(c, r + 1), (1 - tx) * ty], [node(c + 1, r + 1), tx * ty]];
+    const sea = q.filter(([e]) => e);
+    if (!sea.length) continue;
+    if (sea.length < 4) {   // coast (or edge of the forecast area) in this square: test this exact pixel
+      if (!swellSeaFine) continue;
+      const ll = map.containerPointToLatLng([(i + 0.5) * FINE, (j + 0.5) * FINE]);
+      if (!swellSeaFine(ll.lat, ll.lng)) continue;
+    }
+    const wsum = sea.reduce((a, [, w]) => a + w, 0) || 1;
+    const mix = key => sea.reduce((a, [e, w]) => a + e[key] * (w || 0.25), 0) / (wsum || 1);
+    const e = { u: mix('u'), v: mix('v'), h: mix('h'), p: mix('p'), d: mix('d') };
+    fine.e[j * fw + i] = e;
     const [R, G, B] = swellRGBsmooth(e.h);
-    img.data.set([R, G, B, 70], n * 4);
-  });
+    const fade = Math.max(0, Math.min(1, 1 - (e.d - FADE_FROM) / (SWELL_KM - FADE_FROM)));   // soft outer edge, no blocks
+    img.data.set([R, G, B, Math.round(ALPHA * fade)], (j * fw + i) * 4);
+  }
   fx.putImageData(img, 0, 0);
 }
 function swellAt(x, y) {
-  if (!sgrid) return null;
-  const c = Math.round(x / CELL), r = Math.round(y / CELL);
-  if (c < 0 || r < 0 || c >= sgrid.cols || r >= sgrid.rows) return null;
-  return sgrid.g[r * sgrid.cols + c];
+  if (!fine) return null;
+  const i = Math.floor(x / FINE), j = Math.floor(y / FINE);
+  if (i < 0 || j < 0 || i >= fine.w || j >= fine.h) return null;
+  return fine.e[j * fine.w + i] || null;
 }
-// smooth version of the band colours, so the field blends instead of stepping
-function swellRGBsmooth(m) {
-  const stops = [[0.25, [126, 226, 200]], [0.75, [163, 230, 53]], [1.25, [250, 204, 21]], [2, [251, 146, 60]], [3, [248, 113, 113]]];
-  if (m <= stops[0][0]) return stops[0][1];
-  for (let i = 1; i < stops.length; i++) if (m <= stops[i][0]) {
-    const [a, ca] = stops[i - 1], [b, cb] = stops[i], f = (m - a) / (b - a);
-    return ca.map((v, k) => Math.round(v + (cb[k] - v) * f));
+function newSwellParticle(s) {
+  for (let t = 0; t < 8; t++) {
+    const x = Math.random() * s.x, y = Math.random() * s.y;
+    if (swellAt(x, y)) return { x, y, age: 0, max: 90 + Math.random() * 90 };
   }
-  return stops[stops.length - 1][1];
+  return { x: -99, y: -99, age: 0, max: 1 };
 }
 function seedSwell() {
   sparticles = [];
-  if (!sgrid) return;
-  const s = map.getSize(), n = Math.min(160, Math.round(s.x * s.y / 7000));   // sparse on purpose: calm to look at
-  for (let i = 0; i < n * 4 && sparticles.length < n; i++) {
-    const q = { x: Math.random() * s.x, y: Math.random() * s.y };
-    if (swellAt(q.x, q.y)) sparticles.push({ ...q, age: Math.floor(Math.random() * 200), max: 160 + Math.random() * 120 });
-  }
+  if (!fine) return;
+  const s = map.getSize(), n = Math.min(450, Math.round(s.x * s.y / 900));
+  for (let i = 0; i < n; i++) { const p = newSwellParticle(s); p.age = Math.floor(Math.random() * p.max); sparticles.push(p); }
 }
 
 function drawSwell() {
-  if (!sgrid) return;
+  if (!fine) return;
   const s = map.getSize(), g = ctx2;
   if (fieldCanvas) {
     g.save(); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
-    g.drawImage(fieldCanvas, -CELL / 2, -CELL / 2, sgrid.cols * CELL, sgrid.rows * CELL); g.restore();
+    g.drawImage(fieldCanvas, 0, 0, fine.w * FINE, fine.h * FINE); g.restore();
   }
   if (reduced()) return;
-  const zs = Math.min(1.5, Math.max(0.8, (map.getZoom() - 6) / 3));
+  // white streaks moving the way the swell travels, like Windy's wave animation: longer + faster for longer periods
+  const zs = Math.min(1.6, Math.max(0.8, (map.getZoom() - 6) / 3));
   g.lineCap = 'round';
   for (const p of sparticles) {
     const e = swellAt(p.x, p.y);
-    if (!e || ++p.age > p.max) {             // respawn somewhere on the sea
-      for (let t = 0; t < 6; t++) { p.x = Math.random() * s.x; p.y = Math.random() * s.y; if (swellAt(p.x, p.y)) break; }
-      p.age = 0; continue;
-    }
-    const n = Math.hypot(e.u, e.v) || 1, dx = e.u / n, dy = -e.v / n;   // travel direction on screen
-    const speed = (0.12 + e.p * 0.012) * zs;                            // slow: a long-period swell glides
+    if (!e || ++p.age > p.max) { Object.assign(p, newSwellParticle(s)); continue; }
+    const n = Math.hypot(e.u, e.v) || 1, dx = e.u / n, dy = -e.v / n;
+    const speed = (0.35 + e.p * 0.04) * zs;
     p.x += dx * speed; p.y += dy * speed;
-    const a = Math.sin(Math.PI * p.age / p.max);                        // fade in and out
-    const len = (7 + Math.min(3, e.h) * 5) * zs, px = -dy, py = dx;
-    g.strokeStyle = `rgba(255,255,255,${(0.15 + 0.55 * a).toFixed(2)})`;
-    g.lineWidth = 1 + Math.min(3, e.h) * 0.6;
-    g.beginPath();
-    g.moveTo(p.x - px * len / 2, p.y - py * len / 2);
-    g.quadraticCurveTo(p.x + dx * len * 0.25, p.y + dy * len * 0.25, p.x + px * len / 2, p.y + py * len / 2);
-    g.stroke();
+    const a = Math.sin(Math.PI * p.age / p.max), len = (6 + e.p * 0.9) * zs;
+    g.strokeStyle = `rgba(255,255,255,${(0.75 * a).toFixed(2)})`;
+    g.lineWidth = 1.2 + Math.min(3, e.h) * 0.3;
+    g.beginPath(); g.moveTo(p.x - dx * len, p.y - dy * len); g.lineTo(p.x, p.y); g.stroke();
   }
 }
 
