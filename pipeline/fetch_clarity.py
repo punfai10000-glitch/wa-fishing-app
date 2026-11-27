@@ -115,12 +115,92 @@ def fetch_nasa(days=5):
             "lat0": float(lat_ax[0]), "lon0": float(lon_ax[0]), "dlat": float((lat_ax[-1] - lat_ax[0]) / (len(lat_ax) - 1)),
             "dlon": float((lon_ax[-1] - lon_ax[0]) / (len(lon_ax) - 1)), "ny": len(lat_ax), "nx": len(lon_ax), "kd490": vals, "valid": len(valid)}
 
+FINE_D = 0.01            # ~1 km cells (VIIRS level-2 pixels are ~750 m)
+FINE_KM = 12             # only near the coast (offshore water isn't useful from the shore)
+BAD_FLAGS = {"ATMFAIL", "LAND", "HIGLINT", "HILT", "HISATZEN", "CLDICE", "HISOLZEN", "NAVFAIL", "MAXAERITER", "LOWLW", "ATMWARN"}
+
+def coast_mask(lat0, lon0, ny, nx):
+    import numpy as np
+    pts = json.load(open(os.path.join(os.path.dirname(__file__), "..", "data", "coast.json")))["points"]
+    m = np.zeros((ny, nx), bool)
+    ri = int(FINE_KM / 111 / FINE_D) + 1
+    for p in pts:
+        i0, j0 = int((p["lat"] - lat0) / FINE_D), int((p["lng"] - lon0) / FINE_D)
+        k = np.cos(np.radians(p["lat"]))
+        rj = int(ri / max(k, 0.5)) + 1
+        ii, jj = np.mgrid[max(0, i0 - ri):min(ny, i0 + ri + 1), max(0, j0 - rj):min(nx, j0 + rj + 1)]
+        d = np.hypot((ii - i0) * FINE_D * 111, (jj - j0) * FINE_D * 111 * k)
+        m[ii[d <= FINE_KM], jj[d <= FINE_KM]] = True
+    return m
+
+def fetch_fine(days=3):
+    """~1 km Kd490 near the coast from NASA's VIIRS level-2 swaths (NOAA-20 and NOAA-21), newest clear pixel per cell."""
+    user, pw = os.environ.get("EARTHDATA_USER"), os.environ.get("EARTHDATA_PASS")
+    if not user or not pw: return None
+    import requests, netCDF4, numpy as np, tempfile
+    netrc = os.path.expanduser("~/.netrc")
+    with open(netrc, "w") as f: f.write(f"machine urs.earthdata.nasa.gov login {user} password {pw}\n")
+    os.chmod(netrc, 0o600)
+    since = datetime.fromtimestamp(time.time() - days * 86400, timezone.utc).strftime("%Y-%m-%dT00:00:00Z")
+    files = []
+    for sn in ("VIIRSJ1_L2_OC_NRT", "VIIRSJ2_L2_OC_NRT"):
+        r = requests.get(CMR, params={"short_name": sn, "temporal": f"{since},", "bounding_box": f"{BOX[2]},{BOX[0]},{BOX[3]},{BOX[1]}",
+                                      "page_size": 50, "sort_key": "start_date"}, timeout=60).json()
+        for e in r["feed"]["entry"]:
+            href = next((l["href"] for l in e["links"] if l["href"].endswith(".nc") and l["href"].startswith("https")), None)
+            if href: files.append((e["time_start"], e["producer_granule_id"], href))
+    files.sort()
+    print("NASA L2 granules:", len(files))
+    lat0, lon0 = BOX[0], BOX[2]
+    ny, nx = int((BOX[1] - BOX[0]) / FINE_D) + 1, int((BOX[3] - BOX[2]) / FINE_D) + 1
+    mask = coast_mask(lat0, lon0, ny, nx)
+    kd = np.full(ny * nx, np.nan, "f4"); when = np.zeros(ny * nx, "f8")
+    s = requests.Session()
+    for t0, gid, href in files:                      # oldest first: newer passes overwrite
+        try:
+            resp = s.get(href, timeout=600)
+            if resp.status_code != 200 or resp.content[:4] != b"\x89HDF":
+                print("  ", gid, "download failed", resp.status_code); continue
+            with tempfile.NamedTemporaryFile(suffix=".nc") as tmp:
+                tmp.write(resp.content); tmp.flush()
+                nc = netCDF4.Dataset(tmp.name)
+                g, nav = nc["geophysical_data"], nc["navigation_data"]
+                fl = g["l2_flags"]
+                names, masks = fl.flag_meanings.split(), np.atleast_1d(fl.flag_masks)
+                bad = 0
+                for n, mk in zip(names, masks):
+                    if n in BAD_FLAGS: bad |= int(mk)
+                v = np.ma.filled(g["Kd_490"][:].astype("f4"), np.nan)
+                ok = np.isfinite(v) & (v > 0) & (v < 10) & ((np.asarray(fl[:]).astype("i8") & bad) == 0)
+                la, lo = nav["latitude"][:][ok], nav["longitude"][:][ok]; v = v[ok]
+                nc.close()
+            i = ((la - lat0) / FINE_D).astype(int); j = ((lo - lon0) / FINE_D).astype(int)
+            inb = (i >= 0) & (i < ny) & (j >= 0) & (j < nx)
+            i, j, v = i[inb], j[inb], v[inb]
+            keep = mask[i, j]; idx = (i * nx + j)[keep]; v = v[keep]
+            if not idx.size: print("  ", gid, "no coastal cells"); continue
+            sums = np.bincount(idx, v, ny * nx); cnt = np.bincount(idx, None, ny * nx)
+            got = cnt > 0
+            kd[got] = sums[got] / cnt[got]; when[got] = datetime.fromisoformat(t0.replace("Z", "+00:00")).timestamp()
+            print("  ", gid, "coastal cells", int(got.sum()))
+        except Exception as ex:
+            print("  ", gid, "failed:", ex)
+    try: os.remove(netrc)
+    except OSError: pass
+    have = np.where(np.isfinite(kd))[0]
+    if have.size < 500: return None
+    newest = when[have].max()
+    return {"lat0": lat0, "lon0": lon0, "d": FINE_D, "ny": ny, "nx": nx, "idx": have.tolist(),
+            "kd": [round(float(x), 3) for x in kd[have]], "age_h": [int(round((newest - w) / 3600)) for w in when[have]],
+            "newest": datetime.fromtimestamp(newest, timezone.utc).isoformat(timespec="seconds"),
+            "source": "NASA OB.DAAC VIIRS NOAA-20/NOAA-21 level-2 near-real-time Kd490 (~750 m pixels, binned to ~1 km)"}
+
 def main():
     os.makedirs(OUT, exist_ok=True)
     # NASA maps change once a day: if the published file is NASA's and under 6 h old, keep it (saves ~150 MB of downloads an hour)
     try:
         prev = json.load(open(f"{OUT}/clarity.json"))
-        if prev.get("dataset", "").startswith("NASA") and time.time() * 1000 - prev.get("generated_at", 0) < 6 * 3600e3:
+        if prev.get("dataset", "").startswith("NASA") and prev.get("fine") and time.time() * 1000 - prev.get("generated_at", 0) < 6 * 3600e3:
             print("clarity: NASA file from", prev["newest"], "is recent - kept"); return
     except Exception:
         pass
@@ -141,6 +221,11 @@ def main():
         # the satellite services sometimes lag by a week or two: keep the freshest one up to 30 days old
         if age <= 30 and (not best or r["newest"] > best["newest"]): best = r
     if not best: sys.exit(1)
+    try:
+        fine = fetch_fine()
+        if fine: best["fine"] = fine; print("fine cells", len(fine["idx"]), "newest", fine["newest"])
+    except Exception as e:
+        print("NASA level-2 failed:", e)
     best["generated_at"] = int(time.time() * 1000)
     json.dump(best, open(f"{OUT}/clarity.json", "w"), separators=(",", ":"))
 
