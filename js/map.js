@@ -35,7 +35,7 @@ const overlays = {};
 // ---- Base maps ------------------------------------------------------------
 const BASES = [
   { id: 'satellite', label: 'Satellite (Sentinel-2, free)', note: '10 m imagery — reef, weed and sand show in clear shallow water' },
-  { id: 'esri', label: 'Satellite HD', note: 'Sharp WA Government (Landgate) aerial photos from zoom 12 on top of Sentinel-2 — uses more data' },
+  { id: 'esri', label: 'Satellite HD', note: CONFIG.ESRI_API_KEY ? 'Sharp Esri World Imagery (Maxar and others) at every zoom — uses more data' : 'Sharp WA Government (Landgate) aerial photos from zoom 12 on top of Sentinel-2 — uses more data' },
   { id: 'street', label: 'Street map', note: 'Roads, tracks and car parks (OpenStreetMap)' }
 ];
 
