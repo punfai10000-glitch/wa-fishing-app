@@ -10,15 +10,15 @@ import { tideCheck, tideCheckText } from './ocean.js';
 import { plainify } from './plain.js';
 import { nearestCoastPoint } from './coast.js';
 import { nearest } from './amenities.js';
-import { nearestBuoy } from './buoys.js';
+import { nearestBuoy, nearestStation } from './buoys.js';
 import { loadPointConditions } from './data.js';
 import { legalStatus, legalHTML, bannedAt } from './zones.js';
 import { boxes } from './declutter.js';
 import { initFlow, setFlowData, flowPausedByDevice } from './flow.js';
 import { loadShore, shoreData, offshorePoint, nearestShore, riverWaterAt, estuaryNotes, placeIncident } from './shore.js';
 import { band, BAND_LABEL, visibilityEstimate } from './scoring/score.js';
-import { degToCompass } from './scoring/geo.js';
-import { esc, typeTag, chanceIcon, blockPill, currentLine } from './ui.js';
+import { degToCompass, exposureOf } from './scoring/geo.js';
+import { esc, typeTag, chanceIcon, blockPill, currentLine, bestTimeText } from './ui.js';
 import { fmtWind, fmtHeight, fmtTemp, fmtDateTime, fmtAge , freshness, waveWords } from './units.js';
 
 let map, coastLayer, arrowLayer, buoyLayer, incidentLayer, bestLayer;
@@ -195,7 +195,9 @@ export function refreshCoastMap() {
     }
     // currents only over water: use the coastline to test each grid cell
     const seaTest = (la, ln) => { const n = nearestShore(la, ln, 30); return !!n && !n.onLand && !riverWaterAt(la, ln, 0); };
-    setFlowData(wind, swell, { wind: on.windFlow, swell: on.swellFlow, current: on.currentFlow, currents, seaTest });
+    // swell field: open sea too (no shoreline within 30 km = offshore here, since it's only drawn near the forecast points)
+    const swellSea = (la, ln) => { const n = nearestShore(la, ln, 30); return n ? !n.onLand && !riverWaterAt(la, ln, 0) : true; };
+    setFlowData(wind, swell, { wind: on.windFlow, swell: on.swellFlow, current: on.currentFlow, currents, seaTest, swellSea });
   } else setFlowData([], [], {});
   const note = document.getElementById('flow-note');
   if (note) note.hidden = !(flowPausedByDevice() && (on.windFlow || on.swellFlow || on.currentFlow));
@@ -517,27 +519,60 @@ function tapHTML(loc, where, sh, exact) {
   const legal = legalStatus(state.data.zones, loc, state.activity, { t });
   const pillFor = r => !r ? '<span class="pill unknown">Unknown</span>' : r.blocked ? blockPill(r.blockKind) : `<span class="pill ${band(r.score)}">${BAND_LABEL[band(r.score)]} ${r.score ?? ''}</span>`;
   const gmaps = `https://www.google.com/maps/dir/?api=1&destination=${lat.toFixed(6)},${lng.toFixed(6)}`;
+  const ev = state.activity === 'spear' ? spear : shore;
+  const hr = state.activity === 'spear' ? rp : rs;
+  // the verdict already says it when a BOM warning drives it: don't show the same warning twice
+  const bomInVerdict = [...(hr?.cautions || []), ...(hr?.blocks || [])].some(b => /^BOM/.test(b.reason));
   return `
-    <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)}</span><br>
-    ${where ? `<span class="small">${esc(where)}</span><br>` : ''}
-    ${warningHTML(state.bomWarn, lat, lng, t)}
-    ${verdictHTML(verdict(state.activity === 'spear' ? spear : shore, state.activity === 'spear' ? rp : rs, legal, state.activity, t, warningsAt(state.bomWarn, lat, lng, t)))}
-    ${hourStrip(state.activity === 'spear' ? spear : shore, t)}
-    <div class="small" id="pop-depth">Depth: checking…</div>
-    <span class="small muted">${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)} ${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
-    <div class="row" style="margin:8px 0;gap:6px"><div><div class="small muted">Shore</div>${pillFor(rs)}</div><div><div class="small muted">Spear</div>${pillFor(rp)}</div></div>
-    <div style="margin:4px 0">${legalHTML(legal)}</div>
-    ${[rs, rp].flatMap(r => r?.blocks ?? []).filter(b => b.kind !== 'legal').map(b => `<div class="small warn-text">⚠ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
-    ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · ${loc.estuary ? 'Sheltered water (no ocean swell)' : `Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''}`} · Tide ${h.tide_rate == null ? '?' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
-      ${!loc.estuary ? currentLine(h) : ''}
-      <div class="small">Visibility: ${vis ? vis.label : 'unknown'} ${vis?.sat ? '' : '(estimate)'} · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>
-      <div class="small muted">${exact ? (loc.estuary ? 'Wind forecast for this exact point; tide from the nearest ocean point.' : 'Forecast for this exact point (waves read ~1 km out to sea in front of it).') : 'Loading the forecast for this exact point… showing the nearest coast area for now.'}</div>` : '<div class="small muted">Loading forecast for this point…</div>'}
-    ${buoy && !loc.estuary ? `<div class="small" style="margin-top:4px"><strong>Measured:</strong> ${esc(buoy.b.site)} buoy ${buoy.d.toFixed(0)} km away — ${fmtHeight(buoy.b.hs)}${buoy.b.tp != null ? ` @ ${Math.round(buoy.b.tp)} s` : ''}, ${fmtAge(Date.parse(buoy.b.time))}</div>` : ''}
-    ${(loc.safety_notes || []).filter(n => !/^Spearfishing is banned/.test(n)).map(n => `<div class="small">⚠ ${esc(n)}</div>`).join('')}
-    <div class="small" id="pop-nearby" style="margin-top:4px">Nearby: loading…</div>
-    <h3 class="sheet-h3">Nearest fishing spots</h3>${spotsListHTML(spotsNear(lat, lng, 15, 4))}
-    <p class="small muted" style="margin:6px 0 0">Not a checked fishing spot — check access, cliffs and private land before you go.</p>
-    <p style="margin:6px 0 0"><a href="${gmaps}" target="_blank" rel="noopener">Directions here ↗</a> · <a href="#/live/${encodeURIComponent(loc.id)}">Live summary →</a></p>`;
+    ${where ? `<div class="small">${esc(where)}</div>` : ''}
+    ${bomInVerdict ? '' : warningHTML(state.bomWarn, lat, lng, t)}
+    ${verdictHTML(verdict(ev, state.activity === 'spear' ? rp : rs, legal, state.activity, t, warningsAt(state.bomWarn, lat, lng, t)))}
+    ${glanceHTML(loc, h, vis, legal, ev, t, rs, rp, pillFor)}
+    ${hourStrip(ev, t)}
+    <p class="glance-links"><a href="${gmaps}" target="_blank" rel="noopener">Directions ↗</a> · <a href="#/live/${encodeURIComponent(loc.id)}">Live summary →</a>${bomInVerdict ? ` · <a href="${esc(state.bomWarn?.link || 'https://www.bom.gov.au/wa/warnings/')}" target="_blank" rel="noopener">BOM warning ↗</a>` : ''}</p>
+    <details class="more-detail">
+      <summary>More detail — depth, tide, current, measured buoy, rules, nearby</summary>
+      <span class="small muted">${lat.toFixed(5)}, ${lng.toFixed(5)} · ${t === Math.floor(Date.now() / HOUR) * HOUR ? 'Now' : fmtDateTime(t)}${loc.estuary ? '' : ` · water faces ${degToCompass(loc.facing)}`}</span>
+      <div class="small" id="pop-depth">Depth: checking…</div>
+      <div style="margin:4px 0">${legalHTML(legal)}</div>
+      ${[rs, rp].flatMap(r => r?.blocks ?? []).filter(b => b.kind !== 'legal').map(b => `<div class="small warn-text">⚠ ${esc(b.reason)}</div>`).filter((v, i, a) => a.indexOf(v) === i).join('')}
+      ${h ? `<div class="small">Wind ${degToCompass(h.wind_direction) ?? ''} ${fmtWind(h.wind_speed)}${h.wind_gust != null ? ` (gusts ${fmtWind(h.wind_gust)})` : ''} · ${loc.estuary ? 'Sheltered water (no ocean swell)' : `Waves ${fmtHeight(h.wave_height)}${h.wave_period != null ? ` @ ${Math.round(h.wave_period)} s` : ''}`} · Tide ${h.tide_rate == null ? 'unknown' : h.tide_rate > 0.005 ? 'rising' : h.tide_rate < -0.005 ? 'falling' : 'slack'} · Sea ${fmtTemp(h.sst)}</div>
+        ${!loc.estuary ? currentLine(h) : ''}
+        <div class="small">Visibility: ${vis ? vis.label : 'unknown'} ${vis?.sat ? '' : '(estimate)'} · Moon ${moonName(moon.phase)} (${Math.round(moon.fraction * 100)}%)</div>
+        <div class="small muted">${exact ? (loc.estuary ? 'Wind forecast for this exact point; tide from the nearest ocean point.' : 'Forecast for this exact point (waves read ~1 km out to sea in front of it).') : 'Loading the forecast for this exact point… showing the nearest coast area for now.'}</div>` : '<div class="small muted">Forecast loading…</div>'}
+      ${buoy && !loc.estuary ? `<div class="small" style="margin-top:4px"><strong>Measured:</strong> ${esc(buoy.b.site)} buoy ${buoy.d.toFixed(0)} km away — ${fmtHeight(buoy.b.hs)}${buoy.b.tp != null ? ` @ ${Math.round(buoy.b.tp)} s` : ''}, ${fmtAge(Date.parse(buoy.b.time))}</div>` : ''}
+      ${(loc.safety_notes || []).filter(n => !/^Spearfishing is banned/.test(n)).map(n => `<div class="small">⚠ ${esc(n)}</div>`).join('')}
+      <div class="small" id="pop-nearby" style="margin-top:4px">Nearby: loading…</div>
+      <h3 class="sheet-h3">Nearest fishing spots</h3>${spotsListHTML(spotsNear(lat, lng, 15, 4))}
+      <p class="small muted" style="margin:6px 0 0">Not a checked fishing spot — check access, cliffs and private land before you go.</p>
+    </details>`;
+}
+
+// The 5-line answer for beginners: plain words, one line per thing that matters. Numbers stay in "More detail".
+function glanceHTML(loc, h, vis, legal, ev, t, rs, rp, pillFor) {
+  const rows = [];
+  rows.push(['🎣', 'Scores', `<span class="glance-pills">Shore ${pillFor(rs)} Spear ${pillFor(rp)}</span>`]);
+  if (h) {
+    const exp = exposureOf(h.wind_direction, loc.exposure);
+    const sp = h.wind_speed;
+    const strength = sp == null ? 'unknown' : sp < 10 ? 'Light' : sp < 20 ? 'Moderate' : sp < 30 ? 'Fresh' : 'Strong';
+    const dirWords = exp === 'sheltered' ? 'blowing off the land — calmer at the shore' : exp === 'onshore' ? 'blowing onto the shore — choppier' : exp === 'cross' ? 'blowing along the shore' : '';
+    // forecast wind is often off near the coast: show what a BOM station nearby is MEASURING right now
+    const st = Math.abs(t - Date.now()) < 2 * 3600e3 ? nearestStation(state.bom, loc.geometry.coordinates[1], loc.geometry.coordinates[0], 40) : null;
+    const meas = st && st.s.wind_kmh != null && Date.now() - Date.parse(st.s.time) < 3 * 3600e3
+      ? `<br><span class="small muted">Measured now at ${esc(st.s.site)} (${st.d.toFixed(0)} km): ${Math.round(st.s.wind_kmh)} km/h${st.s.gust_kmh != null ? `, gusts ${Math.round(st.s.gust_kmh)}` : ''} · forecast ${Math.round(sp)} km/h${st.s.wind_kmh > sp * 1.4 && st.s.wind_kmh - sp >= 8 ? ' — <strong>windier than forecast</strong>' : ''}</span>` : '';
+    rows.push(['💨', 'Wind', sp == null ? 'No forecast' : `${strength}${dirWords ? `, ${dirWords}` : ''}${h.wind_gust != null && h.wind_gust > 40 ? ' · <strong>gusty</strong>' : ''}${meas}`]);
+    if (!loc.estuary) {
+      const wh = h.wave_height ?? h.swell_height, per = h.wave_period ?? h.swell_period;
+      rows.push(['🌊', 'Waves', wh == null ? 'No forecast' : `${fmtHeight(wh)} — ${waveWords(wh)}${per != null && per >= 12 ? ' · <strong>long swell: surges further up the beach and rocks than it looks</strong>' : ''}`]);
+    } else rows.push(['🌊', 'Waves', 'Sheltered river/estuary water — no ocean swell']);
+  }
+  rows.push(['👁', 'Water', vis ? `${vis.score >= 70 ? 'Clear' : vis.score >= 45 ? 'Average' : 'Murky'}${vis.sat ? ` — satellite: ${vis.sat.band.vis} visibility` : ' (estimate)'}` : 'Unknown']);
+  rows.push(['🕐', 'Best time', bestTimeText(ev, t).replace('Best time in the next 24 h: ', '') || '—']);
+  const extra = legal.zones?.filter(z => z.active && /✗/.test((z.details || []).join(' ')) || z.type === 'species' && z.active).length || 0;
+  rows.push(['⚖️', 'Rules', legal.state === 'blocked' ? `<strong>Not allowed here</strong>` : legal.state === 'unchecked' ? 'Not checked — see the official rules'
+    : `${legal.allow.shore ? 'Fishing ✓' : 'Fishing ✗'} · ${legal.allow.spear ? 'Spear ✓' : 'Spear ✗'}${extra ? ` · ${extra} extra rule${extra > 1 ? 's' : ''} (see More detail)` : ''}${legal.unverified ? ' · <strong>check the zone map</strong>' : ''}`]);
+  return `<ul class="glance">${rows.map(([ic, k, v]) => `<li><span class="g-ic" aria-hidden="true">${ic}</span><span class="g-k">${k}</span><span class="g-v">${v}</span></li>`).join('')}</ul>`;
 }
 
 async function fillNearby(root, coords) {

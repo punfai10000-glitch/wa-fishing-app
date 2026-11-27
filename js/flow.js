@@ -11,6 +11,7 @@ let grid = null;                // screen-space wind vectors every CELL px
 let particles = [];
 let cgrid = null, cparticles = [];   // ocean currents (sea cells only)
 let seaTest = null;                  // (lat,lng) => true when the point is water (from the coastline data)
+let swellSea = null;
 let lastFrame = 0;
 const CELL = 20;
 const MAX_KM = 70;              // don't draw wind further than this from any forecast point
@@ -43,6 +44,7 @@ export function setFlowData(wind, swell, opts) {
   swellSamples = swell || [];
   currentSamples = opts?.currents || [];
   seaTest = opts?.seaTest || null;
+  swellSea = opts?.swellSea || seaTest;
   show = { wind: !!opts?.wind, swell: !!opts?.swell, current: !!opts?.current };
   if (!map) return;
   buildGrid(); seed();
@@ -89,6 +91,7 @@ function makeGrid(samples, maxKm, maskFn) {
   return { cols, rows, g };
 }
 function buildGrid() {
+  buildSwellGrid();
   const vec = (lat, lng, spd, toDeg) => { const a = toDeg * Math.PI / 180; return { lat, lng, u: spd * Math.sin(a), v: spd * Math.cos(a) }; };
   grid = show.wind || !show.current ? makeGrid(windSamples.map(w => vec(w.lat, w.lng, w.speed, w.from + 180)), MAX_KM) : null;
   cgrid = show.current ? makeGrid(currentSamples.map(w => vec(w.lat, w.lng, w.speed, w.to)), 25, seaTest) : null;
@@ -121,6 +124,7 @@ function seed() {
   const s = map.getSize();
   if (grid) { const n = Math.min(2500, Math.round(s.x * s.y / 1500)); for (let i = 0; i < n; i++) particles.push(newParticle(s)); }
   if (cgrid) { const n = Math.min(1100, Math.round(s.x * s.y / 2200)); for (let i = 0; i < n; i++) cparticles.push(newParticle(s)); }
+  seedSwell();
 }
 function newParticle(s) {
   return { x: Math.random() * s.x, y: Math.random() * s.y, age: Math.floor(Math.random() * 80), max: 50 + Math.random() * 50 };
@@ -149,7 +153,7 @@ function frame(ts) {
   if (show.wind) drawWind(s);
   if (show.current) drawCurrent(s);
   ctx2.clearRect(0, 0, s.x, s.y);
-  if (show.swell) drawSwell(ts);
+  if (show.swell) drawSwell();
 }
 
 function speedPx() { // km/h -> px per frame, a little faster when zoomed in
@@ -204,42 +208,94 @@ function swellRGB(m) {
   return m < 0.5 ? [126, 226, 200] : m < 1 ? [163, 230, 53] : m < 1.5 ? [250, 204, 21] : m < 2.5 ? [251, 146, 60] : [248, 113, 113];
 }
 
-function drawSwell(ts) {
-  const z = map.getZoom();
-  if (z < 7) return;
-  const scale = Math.min(1.6, (z - 6) / 3 + 0.6);
-  const ms = map.getSize();
-  const minGap = 110;                                    // px between swell sources so lines don't merge
-  const used = [];
-  const g = ctx2;
-  g.lineCap = 'round';
-  for (const sw of swellSamples) {
-    if (sw.height == null || sw.from == null) continue;
-    const pt = map.latLngToContainerPoint([sw.lat, sw.lng]);
-    if (pt.x < -80 || pt.y < -80 || pt.x > ms.x + 80 || pt.y > ms.y + 80) continue;
-    if (used.some(u => Math.hypot(u.x - pt.x, u.y - pt.y) < minGap)) continue;
-    used.push(pt);
-    const to = (sw.from + 180) * Math.PI / 180;
-    const dx = Math.sin(to), dy = -Math.cos(to);           // travel direction on screen
-    const px = -dy, py = dx;
-    const len = (16 + Math.min(4, sw.height) * 8) * scale;  // crest length grows with height
-    const period = Math.max(5, sw.period || 9);
-    // spacing between crests follows the real wavelength (∝ period²): 8 s swell packs tight, 15 s spreads out
-    const gap = Math.min(70, Math.max(18, period * period * 0.28)) * scale;
-    const crests = 3, travel = gap * crests;
-    const [r, gg, b] = swellRGB(sw.height);                    // same colours as the wave-height labels
-    for (let i = 0; i < crests; i++) {
-      const phase = ((ts / 1000) / (period / 2.5) + i / crests) % 1;  // longer period = slower, steadier
-      const cx = pt.x - dx * travel * (1 - phase) + dx * 25 * scale;
-      const cy = pt.y - dy * travel * (1 - phase) + dy * 25 * scale;
-      const a = Math.sin(phase * Math.PI);                  // fade in, then out at the shore
-      g.strokeStyle = `rgba(${r},${gg},${b},${(0.2 + 0.75 * a).toFixed(2)})`;
-      g.lineWidth = 1 + Math.min(3, sw.height) * 0.9 * a;
-      g.beginPath();
-      g.moveTo(cx - px * len / 2, cy - py * len / 2);
-      g.quadraticCurveTo(cx + dx * len * 0.2, cy + dy * len * 0.2, cx + px * len / 2, cy + py * len / 2);
-      g.stroke();
+// ---- swell, Windy-style: a smooth colour field (swell height) over the sea + slow crest particles -------------
+let sgrid = null, sparticles = [], fieldCanvas = null;
+const SWELL_KM = 45;
+function buildSwellGrid() {
+  sgrid = null; fieldCanvas = null;
+  if (!show.swell || !map || !swellSamples.length || map.getZoom() < 7) return;
+  const s = map.getSize();
+  const cols = Math.ceil(s.x / CELL) + 1, rows = Math.ceil(s.y / CELL) + 1;
+  const g = new Array(cols * rows);
+  for (let r = 0; r < rows; r++) for (let c = 0; c < cols; c++) {
+    const ll = map.containerPointToLatLng([c * CELL, r * CELL]);
+    const k = Math.cos(ll.lat * Math.PI / 180);
+    let su = 0, sv = 0, sh = 0, sp = 0, sw = 0, dmin = 1e9;
+    for (const p of swellSamples) {
+      if (p.height == null || p.from == null) continue;
+      const d = Math.hypot((p.lng - ll.lng) * k, p.lat - ll.lat) * 111;
+      if (d < dmin) dmin = d;
+      if (d > SWELL_KM * 1.5) continue;
+      const w = 1 / Math.max(1, d) ** 2, a = (p.from + 180) * Math.PI / 180;
+      su += Math.sin(a) * w; sv += Math.cos(a) * w; sh += p.height * w; sp += (p.period || 9) * w; sw += w;
     }
+    g[r * cols + c] = sw && dmin <= SWELL_KM && (!swellSea || swellSea(ll.lat, ll.lng))
+      ? { u: su / sw, v: sv / sw, h: sh / sw, p: sp / sw } : null;
+  }
+  sgrid = { cols, rows, g };
+  // colour field: one pixel per grid cell, scaled up with smoothing -> soft gradients like Windy's wave layer
+  fieldCanvas = document.createElement('canvas'); fieldCanvas.width = cols; fieldCanvas.height = rows;
+  const fx = fieldCanvas.getContext('2d'), img = fx.createImageData(cols, rows);
+  g.forEach((e, n) => {
+    if (!e) return;
+    const [R, G, B] = swellRGBsmooth(e.h);
+    img.data.set([R, G, B, 70], n * 4);
+  });
+  fx.putImageData(img, 0, 0);
+}
+function swellAt(x, y) {
+  if (!sgrid) return null;
+  const c = Math.round(x / CELL), r = Math.round(y / CELL);
+  if (c < 0 || r < 0 || c >= sgrid.cols || r >= sgrid.rows) return null;
+  return sgrid.g[r * sgrid.cols + c];
+}
+// smooth version of the band colours, so the field blends instead of stepping
+function swellRGBsmooth(m) {
+  const stops = [[0.25, [126, 226, 200]], [0.75, [163, 230, 53]], [1.25, [250, 204, 21]], [2, [251, 146, 60]], [3, [248, 113, 113]]];
+  if (m <= stops[0][0]) return stops[0][1];
+  for (let i = 1; i < stops.length; i++) if (m <= stops[i][0]) {
+    const [a, ca] = stops[i - 1], [b, cb] = stops[i], f = (m - a) / (b - a);
+    return ca.map((v, k) => Math.round(v + (cb[k] - v) * f));
+  }
+  return stops[stops.length - 1][1];
+}
+function seedSwell() {
+  sparticles = [];
+  if (!sgrid) return;
+  const s = map.getSize(), n = Math.min(160, Math.round(s.x * s.y / 7000));   // sparse on purpose: calm to look at
+  for (let i = 0; i < n * 4 && sparticles.length < n; i++) {
+    const q = { x: Math.random() * s.x, y: Math.random() * s.y };
+    if (swellAt(q.x, q.y)) sparticles.push({ ...q, age: Math.floor(Math.random() * 200), max: 160 + Math.random() * 120 });
+  }
+}
+
+function drawSwell() {
+  if (!sgrid) return;
+  const s = map.getSize(), g = ctx2;
+  if (fieldCanvas) {
+    g.save(); g.imageSmoothingEnabled = true; g.imageSmoothingQuality = 'high';
+    g.drawImage(fieldCanvas, -CELL / 2, -CELL / 2, sgrid.cols * CELL, sgrid.rows * CELL); g.restore();
+  }
+  if (reduced()) return;
+  const zs = Math.min(1.5, Math.max(0.8, (map.getZoom() - 6) / 3));
+  g.lineCap = 'round';
+  for (const p of sparticles) {
+    const e = swellAt(p.x, p.y);
+    if (!e || ++p.age > p.max) {             // respawn somewhere on the sea
+      for (let t = 0; t < 6; t++) { p.x = Math.random() * s.x; p.y = Math.random() * s.y; if (swellAt(p.x, p.y)) break; }
+      p.age = 0; continue;
+    }
+    const n = Math.hypot(e.u, e.v) || 1, dx = e.u / n, dy = -e.v / n;   // travel direction on screen
+    const speed = (0.12 + e.p * 0.012) * zs;                            // slow: a long-period swell glides
+    p.x += dx * speed; p.y += dy * speed;
+    const a = Math.sin(Math.PI * p.age / p.max);                        // fade in and out
+    const len = (7 + Math.min(3, e.h) * 5) * zs, px = -dy, py = dx;
+    g.strokeStyle = `rgba(255,255,255,${(0.15 + 0.55 * a).toFixed(2)})`;
+    g.lineWidth = 1 + Math.min(3, e.h) * 0.6;
+    g.beginPath();
+    g.moveTo(p.x - px * len / 2, p.y - py * len / 2);
+    g.quadraticCurveTo(p.x + dx * len * 0.25, p.y + dy * len * 0.25, p.x + px * len / 2, p.y + py * len / 2);
+    g.stroke();
   }
 }
 
@@ -269,5 +325,5 @@ function drawStatic() {
       ctx.stroke();
     }
   }
-  if (show.swell) drawSwell(1500);
+  if (show.swell) { ctx2.clearRect(0, 0, s.x, s.y); drawSwell(); }
 }
