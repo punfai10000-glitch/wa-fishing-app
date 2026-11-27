@@ -1,5 +1,5 @@
 {
- "_note": "Size and bag limits from DPIRD's Recreational fishing guide 2026 (June 2026 Edition 2) bag & size limit tables, checked 25 Nov 2026. Species not named in the guide's tables fall under 'all other finfish' (30 per day in total, no minimum size). Official rules always prevail. Extra ID names, groups, flathead and lobster/crab details from the DPIRD ID, protected species, flathead, rock lobster, crabbing and catch care guides (2025–26), paraphrased. Species marked \"limits not entered\" are in DPIRD's ID guide but their own limits aren't in the app yet.",
+ "_note": "Size and bag limits from DPIRD's Recreational fishing guide 2026 (June 2026 Edition 2) bag & size limit tables, checked 27 Nov 2026 (plus the 1 June 2026 statewide limits sheet). Species not named in the guide's tables fall under 'all other finfish' (30 per day in total, no minimum size). Official rules always prevail. Extra ID names, groups, flathead and lobster/crab details from the DPIRD ID, protected species, flathead, rock lobster, crabbing and catch care guides (2025–26), paraphrased. Species marked \"limits not entered\" are in DPIRD's ID guide but their own limits aren't in the app yet.",
  "id_questions": [
   {
    "id": "shape",
@@ -410,19 +410,29 @@
    "status": "limits",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
-     "min_size": "500 mm (Lancelin to Black Point)",
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "500 mm Lancelin–Black Point; 410 mm Lancelin–Kalbarri",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Cockburn & Warnbro Sounds: closed to pink snapper 1 Aug – 31 Jan."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "410 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "450 mm",
      "bag": 2,
      "note": "Demersal: South Coast total 4 per day."
     }
    ],
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -436,7 +446,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "limits_verified": true,
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
@@ -474,19 +484,29 @@
    "status": "limits",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Spearfishing for WA dhufish is not permitted."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 1,
      "note": "Demersal: South Coast total 4 per day."
     }
    ],
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -500,7 +520,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "spear_banned_landbased": true,
    "limits_verified": true,
    "group": "Inshore demersal (bottom fish, 20–250 m)",
@@ -719,19 +739,29 @@
    "status": "limits",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "500 mm",
      "bag": 1,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "500 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "500 mm",
      "bag": 1,
      "note": "Demersal: South Coast total 4 per day."
     }
    ],
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -745,7 +775,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "limits_verified": true,
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
@@ -2136,13 +2166,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: South Coast total 4 per day."
@@ -2150,6 +2186,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -2163,7 +2203,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -2199,13 +2239,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day."
@@ -2213,6 +2259,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -2226,7 +2276,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -2261,13 +2311,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day."
@@ -2275,6 +2331,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -2288,7 +2348,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -2322,13 +2382,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "350 mm",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "350 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "350 mm",
      "bag": 4,
      "note": "South Coast: 4 bight redfish, PLUS the mixed demersal bag of 4 other demersal fish."
@@ -2336,6 +2402,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -2349,7 +2419,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -2380,13 +2450,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "South Coast: 4 swallowtail, PLUS the mixed demersal bag of 4 other demersal fish."
@@ -2394,6 +2470,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -2407,7 +2487,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -2440,13 +2520,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "400 mm",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "400 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "400 mm",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day."
@@ -2454,6 +2540,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -2467,7 +2557,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -2500,13 +2590,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day."
@@ -2514,6 +2610,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -2527,7 +2627,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-27",
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -3434,13 +3534,19 @@
    "category": "unconfirmed",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Boarfish may be taken during the West Coast demersal closure."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day."
@@ -3449,11 +3555,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-25"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "samsonfish",
@@ -5059,13 +5169,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. Rockcods: limit applies to each species."
@@ -5074,11 +5190,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "banded_seaperch",
@@ -5107,13 +5227,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. Rockcods: limit applies to each species."
@@ -5122,11 +5248,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "barber_perch",
@@ -5153,13 +5283,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods/seaperches: limit applies to each species."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. Rockcods/seaperches: limit applies to each species."
@@ -5168,11 +5304,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "butterfly_perch",
@@ -5199,13 +5339,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods/seaperches: limit applies to each species."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. Rockcods/seaperches: limit applies to each species."
@@ -5214,11 +5360,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "giant_boarfish",
@@ -5248,13 +5398,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Boarfish may be taken during the West Coast demersal closure."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. Boarfish may be taken during the West Coast demersal closure."
@@ -5263,11 +5419,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "yellowspotted_boarfish",
@@ -5297,13 +5457,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Boarfish may be taken during the West Coast demersal closure."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. Boarfish may be taken during the West Coast demersal closure."
@@ -5312,11 +5478,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "john_dory",
@@ -5343,13 +5513,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. May be taken during the West Coast demersal closure."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. May be taken during the West Coast demersal closure."
@@ -5358,11 +5534,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "mirror_dory",
@@ -5388,13 +5568,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. May be taken during the West Coast demersal closure."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. May be taken during the West Coast demersal closure."
@@ -5403,11 +5589,15 @@
    "limits_verified": true,
    "sources": [
     {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
     }
    ],
-   "last_checked": "2026-11-26"
+   "last_checked": "2026-11-27"
   },
   {
    "id": "hapuku",
@@ -5435,13 +5625,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day."
@@ -5449,6 +5645,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -5462,7 +5662,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "group": "Offshore demersal (deeper than ~250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -5494,13 +5694,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day."
@@ -5508,6 +5714,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -5521,7 +5731,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "group": "Offshore demersal (deeper than ~250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -5551,13 +5761,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day."
@@ -5565,6 +5781,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -5578,7 +5798,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "group": "Offshore demersal (deeper than ~250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -5609,13 +5829,19 @@
    "category": "demersal",
    "limits": [
     {
-     "where": "West Coast (Perth–Augusta)",
+     "where": "West Coast (Kalbarri–Augusta)",
      "min_size": "No minimum",
      "bag": 2,
      "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
     },
     {
-     "where": "South Coast (Denmark–Esperance)",
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "South Coast (Black Point–Esperance)",
      "min_size": "No minimum",
      "bag": 4,
      "note": "Demersal: South Coast total 4 per day. South Coast: 4 yelloweye redfish PLUS the mixed demersal bag of 4."
@@ -5623,6 +5849,10 @@
    ],
    "limits_verified": true,
    "sources": [
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
@@ -5636,7 +5866,7 @@
      "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/"
     }
    ],
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
@@ -9882,14 +10112,41 @@
    "aka": [],
    "group": "Offshore demersal (deeper than ~250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Rockcods: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -9918,14 +10175,41 @@
    "aka": [],
    "group": "Offshore demersal (deeper than ~250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -9954,14 +10238,41 @@
    "aka": [],
    "group": "Offshore demersal (deeper than ~250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -9990,14 +10301,41 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Pearl perch: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Pearl perch: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10026,14 +10364,41 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Foxfish and pigfish: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Foxfish and pigfish: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10062,14 +10427,41 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Foxfish and pigfish: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Foxfish and pigfish: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10100,14 +10492,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "400 mm",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tuskfish (incl. baldchin groper): limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "400 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "400 mm",
+     "bag": 2,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tuskfish (incl. baldchin groper): limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10137,13 +10556,21 @@
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "protected",
    "limits": [],
-   "limits_verified": false,
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10165,7 +10592,7 @@
    },
    "wiki": "Cheilinus_undulatus",
    "region": "north",
-   "protection": "Totally protected in WA — release it immediately and carefully. Report it if it is hurt.",
+   "protection": "Totally protected in WA — you may not take or keep it. Release it straight away with as little handling as possible.",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -10179,14 +10606,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tuskfish (incl. baldchin groper): limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tuskfish (incl. baldchin groper): limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10215,14 +10669,41 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tuskfish (incl. baldchin groper): limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tuskfish (incl. baldchin groper): limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10254,14 +10735,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tuskfish (incl. baldchin groper): limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tuskfish (incl. baldchin groper): limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10292,14 +10800,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Rockcods: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10331,14 +10866,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Rockcods: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10371,14 +10933,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum (no maximum size)",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum (no maximum size)",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum (no maximum size)",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Rockcods: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10411,14 +11000,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "400 mm (no maximum size)",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "400 mm (no maximum size)",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "400 mm (no maximum size)",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Rockcods: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10450,14 +11066,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Rockcods: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10490,14 +11133,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Rockcods: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10526,14 +11196,41 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Rockcods: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Rockcods: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10565,13 +11262,21 @@
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "protected",
    "limits": [],
-   "limits_verified": false,
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10593,7 +11298,7 @@
    },
    "wiki": "Epinephelus_tukula",
    "region": "north",
-   "protection": "Totally protected in WA — release it immediately and carefully. Report it if it is hurt.",
+   "protection": "Totally protected in WA — you may not take or keep it. Release it straight away with as little handling as possible.",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -10609,13 +11314,21 @@
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "protected",
    "limits": [],
-   "limits_verified": false,
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10637,7 +11350,7 @@
    },
    "wiki": "Epinephelus_lanceolatus",
    "region": "north",
-   "protection": "Totally protected in WA — release it immediately and carefully. Report it if it is hurt.",
+   "protection": "Totally protected in WA — you may not take or keep it. Release it straight away with as little handling as possible.",
    "more": [
     "Demersal fish get barotrauma (bulging eyes, stomach out of the mouth) when pulled up from depth — especially baldchin groper, and dhufish from deeper than ~20 m. If you must release one, send it back down on a release weight (you must carry one when line fishing for demersals from a boat). Don't vent it, and stop once you have your bag."
    ]
@@ -10651,14 +11364,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "450 mm",
+     "bag": 1,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Coral trout: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "450 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "450 mm",
+     "bag": 1,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Coral trout: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10689,14 +11429,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "450 mm",
+     "bag": 1,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Coral trout: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "450 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "450 mm",
+     "bag": 1,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Coral trout: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10725,14 +11492,41 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10764,14 +11558,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Coronation trout: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Coronation trout: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10802,14 +11623,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10840,14 +11688,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "450 mm",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "450 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "450 mm",
+     "bag": 2,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10879,14 +11754,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10918,14 +11820,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10957,14 +11886,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -10996,14 +11952,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11034,14 +12017,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11072,14 +12082,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11113,14 +12150,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "300 mm",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Emperors and seabream: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "300 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "300 mm",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Emperors and seabream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11151,14 +12215,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "300 mm",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Emperors and seabream: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "300 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "300 mm",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Emperors and seabream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11189,14 +12280,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Emperors and seabream: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Emperors and seabream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11228,14 +12346,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "400 mm",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Emperors and seabream: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "400 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "400 mm",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Emperors and seabream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11266,14 +12411,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "300 mm",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Emperors and seabream: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "300 mm",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "300 mm",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Emperors and seabream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11302,14 +12474,41 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Emperors and seabream: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Emperors and seabream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11341,14 +12540,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Emperors and seabream: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Emperors and seabream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11379,14 +12605,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Emperors and seabream: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Emperors and seabream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11417,14 +12670,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11453,14 +12733,41 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11492,14 +12799,41 @@
    ],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "West Coast (Kalbarri–Augusta)",
+     "min_size": "No minimum",
+     "bag": 2,
+     "note": "Demersal: West Coast total 2 per day. Boat fishing for demersal scalefish closed until Spring 2027; land-based (line or spear) is open. Tropical snappers: limit applies to each species."
+    },
+    {
+     "where": "Abrolhos Islands",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Demersal: Abrolhos total 1 per day. Possession limit at the Abrolhos: 5 kg of fillets (+5 kg large pelagic fillets, skin on) or one day's bag of whole fish."
+    },
+    {
+     "where": "Other bioregions (South Coast, Gascoyne, North)",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Demersal: total 4 per day outside the West Coast and Abrolhos. Tropical snappers: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11528,14 +12862,29 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not named in the guide tables, so probably 'all other finfish' (30 per day, no minimum). Check with DPIRD before keeping."
+    }
+   ],
    "limits_verified": false,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11564,14 +12913,29 @@
    "aka": [],
    "group": "Inshore demersal (bottom fish, 20–250 m)",
    "status": "limits",
-   "limits": [],
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not named in the guide tables, so probably 'all other finfish' (30 per day, no minimum). Check with DPIRD before keeping."
+    }
+   ],
    "limits_verified": false,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11600,14 +12964,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes. Whiting (other than King George): limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11631,14 +13010,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes. Whiting (other than King George): limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11663,14 +13057,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes. Garfish: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11694,14 +13103,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Bonito and albacore: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11725,14 +13149,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Trevally and queenfish: limit applies to each species (silver trevally 250 mm)."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11754,14 +13193,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Trevally and queenfish: limit applies to each species (silver trevally 250 mm)."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11783,14 +13237,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Dart: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11812,14 +13281,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Bonito and albacore: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11841,14 +13325,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Goatfish are not named in the guide tables, so probably 'all other finfish' (30 per day, no minimum)."
+    }
+   ],
    "limits_verified": false,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11873,14 +13372,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Sweetlips: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11902,14 +13416,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes. Mullet: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11931,14 +13460,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes. Mullet: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11960,14 +13504,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 30,
+     "note": "All other finfish: max 30 per day in total. No minimum sizes. Mullet: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -11991,14 +13550,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 2,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12023,14 +13597,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 4,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12055,14 +13644,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 4,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12084,14 +13688,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Wrasse and parrotfish: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12113,14 +13732,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not named in the guide tables, so probably 'all other finfish' (30 per day, no minimum)."
+    }
+   ],
    "limits_verified": false,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12142,14 +13776,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 2,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12173,14 +13822,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Nearshore/estuarine: max 16 per day in total. Counts as nearshore, not demersal."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12204,14 +13868,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Javelinfish: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12233,14 +13912,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "550 mm (max 800 mm)",
+     "bag": 2,
+     "note": "Nearshore/estuarine: max 16 per day in total. Must be landed whole. Possession limit away from home: 2 whole fish or 4 fillets."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12264,14 +13958,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "700 mm",
+     "bag": 2,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12296,14 +14005,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 4,
+     "note": "Nearshore/estuarine: max 16 per day in total. Threadfins other than king threadfin: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12328,14 +14052,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "450 mm",
+     "bag": 2,
+     "note": "Nearshore/estuarine: max 16 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12359,14 +14098,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Catfish and cobbler (estuary cobbler 430 mm)."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12390,14 +14144,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Javelinfish: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12421,14 +14190,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 30 per day",
+     "note": "Not named in the guide tables ('all other finfish', 30 per day). Toadfish flesh and organs are highly toxic — never eat it."
+    }
+   ],
    "limits_verified": false,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12452,14 +14236,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 6,
+     "note": "Nearshore/estuarine: max 16 per day in total. Bream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12483,14 +14282,29 @@
    ],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "300 mm",
+     "bag": 6,
+     "note": "Nearshore/estuarine: max 16 per day in total. Bream: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12512,14 +14326,29 @@
    "aka": [],
    "group": "Nearshore & estuarine",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "250 mm",
+     "bag": 8,
+     "note": "Nearshore/estuarine: max 16 per day in total. Flounder: limit applies to each species."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12543,14 +14372,29 @@
    ],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12574,14 +14418,29 @@
    ],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12605,14 +14464,29 @@
    ],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "750 mm",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12634,14 +14508,29 @@
    "aka": [],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12663,14 +14552,29 @@
    "aka": [],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12694,14 +14598,29 @@
    ],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12725,14 +14644,29 @@
    ],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "500 mm",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12757,14 +14691,29 @@
    ],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "500 mm",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12789,14 +14738,29 @@
    ],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "750 mm",
+     "bag": 1,
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12821,14 +14785,29 @@
    ],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "500 mm",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12850,14 +14829,29 @@
    "aka": [],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "900 mm",
+     "bag": "Part of 3 per day",
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12879,14 +14873,29 @@
    "aka": [],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Large pelagic: max 3 per day in total. Billfish: 1 of each species per day."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12908,14 +14917,29 @@
    "aka": [],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Large pelagic: max 3 per day in total. Billfish: 1 of each species per day."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12937,14 +14961,29 @@
    "aka": [],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Large pelagic: max 3 per day in total. Billfish: 1 of each species per day."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12966,14 +15005,29 @@
    "aka": [],
    "group": "Pelagic (open water)",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 1,
+     "note": "Large pelagic: max 3 per day in total."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -12995,14 +15049,29 @@
    "aka": [],
    "group": "Sharks & rays",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (separate from the large pelagic limit). Whaler sharks in the West and South Coast: maximum 700 mm interdorsal length (front of first dorsal fin to the back of the second)."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13024,14 +15093,29 @@
    "aka": [],
    "group": "Sharks & rays",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (separate from the large pelagic limit). Whaler sharks in the West and South Coast: maximum 700 mm interdorsal length (front of first dorsal fin to the back of the second)."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13053,14 +15137,29 @@
    "aka": [],
    "group": "Sharks & rays",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "Part of 3 per day",
+     "note": "Sharks and rays: max 3 per day in total (separate from the large pelagic limit). Whaler sharks in the West and South Coast: maximum 700 mm interdorsal length (front of first dorsal fin to the back of the second)."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13171,14 +15270,29 @@
    ],
    "group": "Crustaceans",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "120 mm carapace width",
+     "bag": 5,
+     "note": "Mud crabs: 5 per day all species combined (boat limit 10 with 2+ licensed fishers). Green mud crab 150 mm."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13202,14 +15316,29 @@
    ],
    "group": "Crustaceans",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "150 mm carapace width",
+     "bag": 5,
+     "note": "Mud crabs: 5 per day all species combined (boat limit 10 with 2+ licensed fishers). Brown mud crab 120 mm."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13231,14 +15360,29 @@
    "aka": [],
    "group": "Molluscs",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 15,
+     "note": "Squid, cuttlefish and octopus combined: 15 per day (boat limit 30 with 2+ licensed fishers)."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "shore"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13263,14 +15407,29 @@
    ],
    "group": "Freshwater",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": 8,
+     "note": "Catfish and cobbler: nearshore/estuarine 16 per day total; in fresh water the freshwater total of 4 per day applies."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13294,14 +15453,29 @@
    ],
    "group": "Freshwater",
    "status": "limits",
-   "limits": [],
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "250 mm?",
+     "bag": 4,
+     "note": "Freshwater: 4 per day total. The guide gives 250 mm for sooty grunter; it does not say whether this covers the western species."
+    }
+   ],
    "limits_verified": false,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13323,14 +15497,29 @@
    "aka": [],
    "group": "Freshwater",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "9 litres",
+     "note": "Freshwater prawns (cherabin): 9 litres per day."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
@@ -13354,14 +15543,29 @@
    ],
    "group": "Freshwater",
    "status": "limits",
-   "limits": [],
-   "limits_verified": false,
+   "limits": [
+    {
+     "where": "All bioregions",
+     "min_size": "No minimum",
+     "bag": "No limit (pest)",
+     "note": "Pest species: no bag or boat limit. Don't return them to the water; humanely kill them."
+    }
+   ],
+   "limits_verified": true,
    "activities": [
     "boat"
    ],
    "id_tips": "Declared pest — do not release it alive or move it between waters. Report it to DPIRD.",
-   "last_checked": "2026-11-26",
+   "last_checked": "2026-11-27",
    "sources": [
+    {
+     "name": "DPIRD Recreational fishing guide 2026 (June 2026 Edition 2), bag & size limit tables",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
+    {
+     "name": "DPIRD New statewide finfish size and bag limits from 1 June 2026 (PF003-26)",
+     "url": "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/"
+    },
     {
      "name": "DPIRD Recreational fishing identification guide (2026)",
      "url": "https://library.dpird.wa.gov.au/fr_fop/"

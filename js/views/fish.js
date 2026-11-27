@@ -21,7 +21,7 @@ function statusBadge(s) {
   if (s.status === 'protected') return '<span class="pill poor">Protected — release</span>';
   if (s.pest || s.category === 'pest') return '<span class="pill blocked">Pest — don\'t release</span>';
   return s.limits_verified === false
-    ? '<span class="pill fair">Can keep — exact limit being added</span>'
+    ? '<span class="pill fair">Can keep — limit not confirmed</span>'
     : '<span class="pill good">Keep within limits</span>';
 }
 
@@ -29,7 +29,7 @@ function limitsTable(s) {
   if (s.status === 'protected' || s.status === 'danger') return `<p class="notice danger small">${esc(s.protection)}</p>`;
   if (!s.limits?.length) return '<p class="small notice">This fish\'s size and bag limit isn\'t in the app yet — check <a href="https://rules.fish.wa.gov.au" target="_blank" rel="noopener">rules.fish.wa.gov.au</a> or the Recfishwest app before you keep one. If unsure, release it.</p>';
   const pending = s.limits_verified === false
-    ? `<p class="notice small">This fish's own size and bag limit is still being added. Until then the group limit below applies — and the species limit can be stricter.</p>` : '';
+    ? `<p class="notice small">This fish isn't named in DPIRD's bag and size tables, so the limit below is our best reading. Check <a href="https://rules.fish.wa.gov.au" target="_blank" rel="noopener">rules.fish.wa.gov.au</a> before you keep one.</p>` : '';
   return `${pending}<table class="small"><thead><tr><th>Where</th><th>Min size</th><th>Daily bag</th></tr></thead><tbody>
     ${s.limits.map(l => `<tr><td>${esc(l.where)}${l.note ? `<br><span class="muted">${esc(l.note)}</span>` : ''}</td><td>${esc(l.min_size)}</td><td>${esc(l.bag)}</td></tr>`).join('')}
   </tbody></table>`;
@@ -100,7 +100,7 @@ export function renderFish(view, sub) {
 
   view.innerHTML = `${subnav('')}
     <h1>Fish library</h1>
-    <div class="notice small">${local.length} species you can meet from Geraldton to Esperance, plus ${all.length - local.length} mostly northern ones (pick "All of WA" or search). Extra names, groups and ID tips come from DPIRD's 2026 identification guides. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Size and bag limits are from DPIRD's Recreational fishing guide 2026 (June 2026 edition), checked 25 Nov 2026. Kalbarri → Augusta is the West Coast bioregion; Denmark → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
+    <div class="notice small">${local.length} species you can meet from Geraldton to Esperance, plus ${all.length - local.length} mostly northern ones (pick "All of WA" or search). Extra names, groups and ID tips come from DPIRD's 2026 identification guides. Photos from iNaturalist and Wikimedia Commons (credit under each photo). Size and bag limits are from DPIRD's Recreational fishing guide 2026 (June 2026 edition), checked 27 Nov 2026 against the guide and DPIRD's 1 June 2026 statewide limits sheet. Kalbarri → Augusta is the West Coast bioregion (the Abrolhos Islands have their own, lower demersal limits); east of Augusta (Black Point) → Esperance is the South Coast. If DPIRD changes a rule, the official rule applies.</div>
     <div class="filters">
       <input type="search" id="fq" placeholder="Search fish" value="${esc(query)}" aria-label="Search fish">
       <select id="ff" aria-label="Show">
