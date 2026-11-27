@@ -6,7 +6,7 @@ jobs:
     steps:
       - run: |
           Q='[out:json][timeout:60];(way["landuse"="military"](-32.30,115.62,-32.10,115.75);relation["landuse"="military"](-32.30,115.62,-32.10,115.75);way["military"](-32.30,115.62,-32.10,115.75);relation["military"](-32.30,115.62,-32.10,115.75);way["name"~"Causeway",i](-32.30,115.62,-32.10,115.78);way["place"="island"]["name"="Garden Island"](-32.30,115.62,-32.10,115.75);relation["place"="island"]["name"="Garden Island"](-32.30,115.62,-32.10,115.75);way["seamark:type"="restricted_area"](-32.32,115.60,-32.10,115.78);relation["seamark:type"="restricted_area"](-32.32,115.60,-32.10,115.78););out geom;'
-          for u in https://overpass-api.de/api/interpreter https://overpass.kumi.systems/api/interpreter; do curl -s --max-time 120 --data-urlencode "data=$Q" $u > o.json && python3 -c "import json;json.load(open('o.json'))" && break; done
+          for u in https://overpass-api.de/api/interpreter https://overpass.private.coffee/api/interpreter https://maps.mail.ru/osm/tools/overpass/api/interpreter https://overpass.kumi.systems/api/interpreter; do curl -s --max-time 150 -A 'wa-fishing-app (github.com/punfai10000-glitch/wa-fishing-app)' --data-urlencode "data=$Q" $u > o.json; head -c 200 o.json; echo; python3 -c "import json;json.load(open('o.json'))" && break; done
           python3 - <<'PY'
           import json
           d=json.load(open('o.json'))
