@@ -4,7 +4,7 @@ A free, non-commercial, mobile-first web app for **land-based shore fishing and 
 
 > Scores rate environmental conditions only. They are **not** a guarantee of fish or of safety. Official DPIRD rules always prevail.
 
-## Status: v0.20 (27 Nov 2026) — limited testing only
+## Status: v0.22 (27 Nov 2026) — limited testing only
 
 The table that used to be here was the v0.5 checklist (24–25 Nov) and is long out of date. Current state:
 
@@ -13,7 +13,7 @@ The table that used to be here was the v0.5 checklist (24–25 Nov) and is long 
 | Map, spot cards (Good / OK / Take care / Not safe / Not allowed), 48 h time slider, Forecast page with place search | ✅ Working |
 | Coverage | ✅ Geraldton & Abrolhos → Esperance (extended 27 Nov; northern data fills in as the workflows re-run) |
 | Forecasts (Open-Meteo wind, waves, swell, currents, sea temp, tide) | ✅ Working. Tide timing corrected against the official AHO tables |
-| Measured data, hourly (DoT buoys, BOM stations, Hillarys/Esperance/Geraldton tide gauges, satellite water clarity, BOM marine wind warnings) | ✅ Running. Clarity is 1–3 weeks old because NOAA's free feed lags |
+| Measured data, hourly (DoT buoys, BOM stations, Hillarys/Esperance/Geraldton tide gauges, satellite water clarity, BOM marine wind warnings) | ✅ Running. Clarity is ~2 days old (NASA VIIRS), NOAA as backup |
 | Marine park zones and DPIRD fishing orders | ✅ Loaded weekly. South Coast parks traced from DBCA maps (±100 m near shore). ❌ Western Bight & Mirning zones not in the app |
 | Seabed habitat | ✅ Seamap + a dotted satellite estimate within 1 km of shore (~80% right for sand vs reef/weed) |
 | Depth | ✅ DoT surveys at z14 where surveyed; GEBCO elsewhere |
