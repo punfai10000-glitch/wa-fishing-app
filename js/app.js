@@ -108,12 +108,15 @@ function banners() {
   const shown = out.filter(([, , key]) => !key || !dismissed.has(key));
   const urgent = shown.filter(([cls]) => cls !== 'info'), info = shown.filter(([cls]) => cls === 'info');
   document.getElementById('banners').innerHTML =
-    urgent.map(([cls, msg, key, act]) => `<div class="banner ${cls}"><span>${esc(msg)}</span>${act === 'retry' ? '<button data-retry class="btn ghost">Retry</button>' : ''}${key ? `<button data-dismiss="${key}" aria-label="Dismiss">✕</button>` : ''}</div>`).join('') +
-    (info.length ? `<details class="banner info banner-fold"><summary>ℹ Early version — ${info.length} note${info.length > 1 ? 's' : ''} (tap)</summary>${info.map(([, msg]) => `<p>${esc(msg)}</p>`).join('')}
-      <button data-dismiss="${info.map(i => i[2]).join(',')}" class="btn ghost">Got it, hide</button></details>` : '');
+    urgent.map(([cls, msg, key, act]) => `<div class="banner ${cls}"><span>${esc(msg)}</span>${act === 'retry' ? '<button data-retry class="btn ghost">Retry</button>' : ''}${key ? `<button data-dismiss="${key}" aria-label="Dismiss">✕</button>` : ''}</div>`).join('');
+  // "Early version" notes: a chip under the Fishing/Spear/Weather switch — the very top edge of an iPhone screen is hard to tap
+  const slot = document.getElementById('notes-slot');
+  if (slot) slot.innerHTML = info.length ? `<details class="notes-chip"><summary>ℹ Early version · ${info.length} note${info.length > 1 ? 's' : ''}</summary>
+      <div class="notes-panel">${info.map(([, msg]) => `<p>${esc(msg)}</p>`).join('')}
+      <button data-dismiss="${info.map(i => i[2]).join(',')}" class="btn">Got it, hide</button></div></details>` : '';
 }
 
-document.getElementById('banners').addEventListener('click', e => {
+for (const id of ['banners', 'notes-slot']) document.getElementById(id)?.addEventListener('click', e => {
   if (e.target.closest('[data-retry]')) { e.target.closest('[data-retry]').textContent = 'Retrying…'; refreshConditions(true); return; }
   const k = e.target.closest('[data-dismiss]')?.dataset.dismiss;
   if (!k) return;

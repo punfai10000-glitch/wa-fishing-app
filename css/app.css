@@ -595,3 +595,16 @@ details.guide summary { cursor:pointer; list-style:none; } details.guide summary
 /* Learn: symbols must fit their 92–112 px column */
 .key-sym .pill { white-space: normal; text-align: center; line-height: 1.2; max-width: 100%; }
 @media (max-width: 420px) { .key-sym .pill { font-size: 12px; padding: 3px 7px; } }
+
+/* Early-version notes chip (under the map mode switch) */
+#notes-slot { flex: 1 1 100%; display: flex; }
+.notes-chip { position: relative; }
+.notes-chip > summary { list-style: none; cursor: pointer; display: inline-flex; align-items: center; min-height: 36px; padding: 0 14px; border-radius: 18px;
+  background: rgba(15, 23, 42, .82); border: 1px solid var(--line); color: var(--text); font-size: .85rem; font-weight: 600; backdrop-filter: blur(6px); }
+.notes-chip > summary::-webkit-details-marker { display: none; }
+.notes-chip > summary::after { content: '▾'; margin-left: 6px; opacity: .7; }
+.notes-chip[open] > summary::after { content: '▴'; }
+.notes-panel { position: absolute; top: 42px; left: 0; width: min(92vw, 380px); background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+  padding: 10px 14px; box-shadow: 0 8px 24px rgba(0,0,0,.4); font-size: .88rem; line-height: 1.4; z-index: 5; }
+.notes-panel p { margin: 0 0 8px; }
+.notes-panel .btn { width: 100%; min-height: 44px; }
