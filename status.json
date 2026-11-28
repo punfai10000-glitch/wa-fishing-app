@@ -1,0 +1,53 @@
+{
+ "generated_at": "2026-11-28T17:05:55+00:00",
+ "sources": {
+  "coast_forecast": {
+   "file": "coast_forecast.json",
+   "max_age_h": 3,
+   "critical": true,
+   "data_time": "2026-11-28T17:05:55+00:00",
+   "age_h": 0.0,
+   "state": "ok"
+  },
+  "bom_warnings": {
+   "file": "bom_warnings.json",
+   "max_age_h": 3,
+   "critical": true,
+   "data_time": "2026-11-28T17:04:20+00:00",
+   "age_h": 0.0,
+   "state": "ok"
+  },
+  "bom_obs": {
+   "file": "bom_obs.json",
+   "max_age_h": 3,
+   "critical": false,
+   "data_time": "2026-11-28T16:50:00+00:00",
+   "age_h": 0.3,
+   "state": "ok"
+  },
+  "buoys": {
+   "file": "buoys.json",
+   "max_age_h": 6,
+   "critical": false,
+   "data_time": "2026-11-28T15:00:00+00:00",
+   "age_h": 2.1,
+   "state": "ok"
+  },
+  "tides": {
+   "file": "tides.json",
+   "max_age_h": 6,
+   "critical": false,
+   "data_time": "2026-11-28T17:00:00+00:00",
+   "age_h": 0.1,
+   "state": "ok"
+  },
+  "clarity": {
+   "file": "clarity.json",
+   "max_age_h": 240,
+   "critical": false,
+   "data_time": "2026-11-28T07:06:01+00:00",
+   "age_h": 10.0,
+   "state": "ok"
+  }
+ }
+}
