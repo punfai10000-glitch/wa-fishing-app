@@ -135,8 +135,10 @@ export function legalStatus(zones, loc, activity = 'shore', { t } = {}) {
   if (dl && (t < +sun.sunrise || t > +sun.sunset)) for (const a of ['shore', 'spear']) if (allow[a]) { allow[a] = false; Object.assign(v[a], { ok: false, why: `${dl.name} — open to the public in daylight only. Visitors must leave before dark.`, link: dl.link }); why[a] = v[a].why; }
   const base = { notes, allow, why, zones: zonesHere, park: park?.name || null };
   if (!me.ok) return { ...base, state: 'blocked', text: me.why, link: me.link };
-  const close = nearZonesFor(zones, loc)[0];
-  if (close) return { ...base, state: 'caution', unverified: true, text: `Only about ${close.dist} m from the ${close.name} (no fishing). Its line in the app is traced from the official map and can be out by ~100 m — check the signs and the DBCA map before you fish here.`, link: close.link };
+  // only warn about a nearby traced edge if that zone bans what you're doing
+  const close = nearZonesFor(zones, loc).find(z => z.zone_type === 'sanctuary' || (z.prohibits || []).includes(activity));
+  const what = c => c.zone_type === 'sanctuary' || ['shore', 'spear'].every(a => (c.prohibits || []).includes(a)) ? 'no fishing' : (c.prohibits || []).includes('spear') ? 'no spearfishing' : 'no line fishing';
+  if (close) return { ...base, state: 'caution', unverified: true, text: `Only about ${close.dist} m from the ${close.name} (${what(close)}). Its line in the app is traced from the official map and can be out by ~100 m — check the signs and the DBCA map before you fish here.`, link: close.link };
   const special = zonesHere.find(z => z.type === 'restricted' || z.type === 'special_purpose' || z.type === 'general_use' && (z.details || []).some(d => d.startsWith('✗')));
   if (special) return { ...base, state: 'caution', text: `${special.name} — ${special.note}`, link: special.link };
   if (park && /nature reserve/i.test(park.park_type || '') && !parkCovered)
