@@ -10,23 +10,28 @@ jobs:
           pip install -q requests
           python - <<'PY'
           import json, time, requests
-          Q = """[out:json][timeout:120];
-          (relation["boundary"="administrative"]["admin_level"="6"]["name"~"^City of (Cockburn|Fremantle|Kwinana)$"];)->.r;
-          .r out geom;
-          way["man_made"="pier"](-32.135,115.745,-32.115,115.775); out geom tags;"""
-          for u in 2*["https://overpass-api.de/api/interpreter","https://overpass.kumi.systems/api/interpreter","https://overpass.private.coffee/api/interpreter"]:
-              try:
-                  r = requests.post(u, data={"data": Q}, timeout=180, headers={"User-Agent": "wa-fishing-intelligence/0.6 (one-off boundary extract via GitHub Actions)"}); r.raise_for_status(); d = r.json(); break
-              except Exception as e: print("fail", u, e); time.sleep(20)
+          UA = {"User-Agent": "wa-fishing-intelligence/0.6 (one-off boundary extract via GitHub Actions)"}
           out = []
-          for el in d["elements"]:
-              if el["type"] == "relation":
-                  ways = [{"role": m.get("role"), "g": [[round(p["lon"],6), round(p["lat"],6)] for p in m.get("geometry", [])]} for m in el["members"] if m["type"] == "way"]
-                  out.append({"type": "relation", "name": el["tags"].get("name"), "ways": ways})
-              else:
-                  out.append({"type": "way", "id": el["id"], "tags": el.get("tags", {}), "g": [[round(p["lon"],6), round(p["lat"],6)] for p in el.get("geometry", [])]})
+          for base in ["https://geo.abs.gov.au/arcgis/rest/services/ASGS2021/LGA/MapServer/0/query",
+                       "https://geo.abs.gov.au/arcgis/rest/services/ASGS2024/LGA/MapServer/0/query"]:
+              try:
+                  r = requests.get(base, params={"where": "STATE_NAME_2021='Western Australia'" if "2021" in base else "1=1",
+                      "geometry": "115.6,-32.35,115.85,-31.95", "geometryType": "esriGeometryEnvelope", "inSR": 4326, "spatialRel": "esriSpatialRelIntersects",
+                      "outFields": "*", "returnGeometry": "true", "outSR": 4326, "f": "geojson"}, headers=UA, timeout=120)
+                  print(base, r.status_code, r.text[:200] if r.status_code != 200 else "")
+                  g = r.json()
+                  if g.get("features"):
+                      out.append({"type": "abs", "src": base, "fc": g}); print("abs features", [list(f["properties"].items())[:3] for f in g["features"]]); break
+              except Exception as e: print("fail", base, e)
+          Q = 'way["man_made"="pier"](-32.135,115.745,-32.115,115.775); out geom tags;'
+          for u in 3*["https://overpass-api.de/api/interpreter","https://overpass.private.coffee/api/interpreter"]:
+              try:
+                  r = requests.post(u, data={"data": "[out:json][timeout:60];" + Q}, timeout=90, headers=UA); r.raise_for_status()
+                  for el in r.json()["elements"]:
+                      out.append({"type": "way", "id": el["id"], "tags": el.get("tags", {}), "g": [[round(p["lon"],6), round(p["lat"],6)] for p in el.get("geometry", [])]})
+                  print("piers", [(o["tags"].get("name"), len(o["g"])) for o in out if o["type"]=="way"]); break
+              except Exception as e: print("fail", u, e); time.sleep(15)
           json.dump(out, open("/tmp/lga.json", "w"))
-          print("elements", [(o["type"], o.get("name") or o["tags"].get("name")) for o in out])
           PY
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout --orphan explore-out; git rm -rq --cached . ; cp /tmp/lga.json lga.json; git add lga.json; git commit -qm out; git push -f origin explore-out
