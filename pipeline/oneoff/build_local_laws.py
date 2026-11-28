@@ -5,6 +5,10 @@
    "Spearfishing ... is prohibited in Cockburn waterways and beaches. Fines will apply").
    Built as the OSM coastline inside the City's mainland boundary (ABS ASGS 2021 LGA), widened 200 m each side
    with flat ends so it doesn't spill into Fremantle or Kwinana. Rottnest, Carnac and Garden Island excluded.
+3. DPIRD year-round area closures not in the order layers (West Coast bioregion page, checked 29 Nov 2026):
+   Lake Clifton (no fishing), Yallingup Reef observation area (400 m radius of the Yallingup Brook mouth: only squid,
+   cuttlefish, rock lobster and blue swimmer crab may be taken), Heirisson Island lakes (no fishing), Hamelin Bay
+   (rays and skates protected). Shapes from OpenStreetMap via Nominatim (pipeline/oneoff/osm_places.geojson).
 2. Woodman Point Ammo Jetty - closed to the public while it is rebuilt (approximate corridor; jetty geometry
    was not available, ~250 m west from the shore, 40 m wide).
 """
@@ -68,10 +72,33 @@ JETTY = {
 }
 jetty = box(jx0 - 250 / KX, -32.12425 - 20 / KY, jx0 + 10 / KX, -32.12425 + 20 / KY)
 
+osm = {f['properties']['name']: shape(f['geometry']) for f in json.load(open('pipeline/oneoff/osm_places.geojson'))['features']}
+DP = "https://www.dpird.wa.gov.au/individuals/recreational-fishing/recreational-fishing-rules/west-coast-bioregion/"
+mouth = osm['Yallingup Brook'].coords[-1] if osm['Yallingup Brook'].coords[-1][0] < osm['Yallingup Brook'].coords[0][0] else osm['Yallingup Brook'].coords[0]
+yal = transform(to_ll, transform(to_m, __import__('shapely.geometry', fromlist=['Point']).Point(mouth)).buffer(400, 32))
+closed = closures = json.load(open('data/zones/closures.geojson'))['features']
+hamelin = [shape(f['geometry']) for f in closures if f['properties'].get('name', '').startswith('Hamelin Bay Recreation Zone')]
+EXTRA = [
+  ({"local_law_id": "lake-clifton", "name": "Lake Clifton (closed to all fishing)", "zone_type": "sanctuary", "prohibits": ["shore", "spear"],
+    "note": "Lake Clifton is closed to all fishing (DPIRD year-round closure). It protects the living thrombolites.",
+    "details": ["\u2717 No fishing of any kind"], "link": DP, "source": "DPIRD West Coast bioregion rules; lake outline OpenStreetMap"}, osm['Lake Clifton']),
+  ({"local_law_id": "yallingup-reef-oa", "name": "Yallingup Reef observation area (400 m around Yallingup Brook mouth)", "zone_type": "restricted", "prohibits": ["shore", "spear"],
+    "note": "Within 400 m of the Yallingup Brook mouth you may only take squid, cuttlefish, rock lobster and blue swimmer crabs. No finfish by line or spear; all shellfish, reef-top animals, seahorses and sea plants are protected.",
+    "details": ["\u2713 Squid, cuttlefish, rock lobster and blue swimmer crabs only", "\u2717 No finfish (line or spear)", "\u2717 Shellfish, reef-top animals, crustaceans, seahorses and sea plants are protected"],
+    "link": DP, "source": "DPIRD West Coast bioregion rules (Yallingup Reef observation area); brook mouth from OpenStreetMap", "approx": True}, yal),
+  ({"local_law_id": "heirisson-lakes", "name": "Heirisson Island (lakes closed to fishing)", "zone_type": "restricted", "prohibits": [],
+    "note": "The lakes on Heirisson Island downstream of the Causeway are closed to all fishing. Fishing in the Swan River around the island follows the normal river rules (no spearfishing in rivers).",
+    "details": ["\u2717 No fishing in the lakes on the island", "\u2713 Line fishing in the river around the island (normal rules)", "\u2717 Spearfishing (all rivers and estuaries)"],
+    "link": DP, "source": "DPIRD West Coast bioregion rules; island outline OpenStreetMap"}, osm['Heirisson Island']),
+] + [({"local_law_id": "hamelin-rays", "name": "Hamelin Bay — rays and skates protected", "zone_type": "species", "prohibits": [],
+      "note": "All ray and skate species are protected in Hamelin Bay.", "details": ["\u2717 Rays and skates (all species)"], "link": DP,
+      "source": "DPIRD West Coast bioregion rules"}, g) for g in hamelin]
+
 path = 'data/zones/access.geojson'
 d = json.load(open(path))
 d['features'] = [f for f in d['features'] if not f['properties'].get('local_law_id')]
 d['features'] += [{"type": "Feature", "properties": COCKBURN, "geometry": mapping(strip)},
                   {"type": "Feature", "properties": JETTY, "geometry": mapping(jetty)}]
+d['features'] += [{"type": "Feature", "properties": p, "geometry": mapping(g)} for p, g in EXTRA]
 json.dump(d, open(path, 'w'), separators=(',', ':'))
 print('features', len(d['features']))

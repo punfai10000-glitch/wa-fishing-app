@@ -150,8 +150,11 @@ def classify(kind, a):
     if kind == "esperance_jetty":
         return z("sanctuary", "Former Esperance Tanker Jetty end", BOTH, "No fishing at any time in this small area at the old seaward end of the Tanker Jetty.", ["✗ No fishing at any time"])
     if kind == "fhpa":
-        return z("restricted", "Cottesloe Reef Fish Habitat Protection Area", [], "Protected reef: line fishing and spearfishing OK; no abalone, urchins or other shellfish.",
-                 ["✓ Line fishing and spearfishing under normal rules", "✗ Abalone, sea urchins and other shellfish", "✗ Fishing for sharks"])
+        # DPIRD Cottesloe Reef FHPA brochure: "Spearfishing is prohibited throughout the FHPA. This includes spear guns,
+        # gidgees, Hawaiian slings or other similar devices." (fixed 29 Nov 2026 - was wrongly "spearfishing OK")
+        return z("restricted", "Cottesloe Reef Fish Habitat Protection Area", ["spear"], "Protected reef: line fishing OK, but no spearfishing of any kind (spear guns, gidgees, Hawaiian slings).",
+                 ["✓ Line fishing under normal rules", "✗ Spearfishing — spear guns, gidgees, Hawaiian slings or similar", "✗ Abalone, sea urchins and other shellfish", "✗ Netting", "✗ Fishing for sharks"],
+                 link="https://www.dpird.wa.gov.au/siteassets/documents/fisheries/recreational/marine-parks/fhpa_cottesloe-reef.pdf")
     if kind == "lobster":
         num = int(re.match(r"\s*(\d+)", desc).group(1)) if re.match(r"\s*\d+", desc) else 0
         if num in (9, 13, 15):

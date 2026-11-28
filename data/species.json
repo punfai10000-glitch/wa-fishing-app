@@ -4427,13 +4427,13 @@
      "where": "West Coast",
      "min_size": "60 mm",
      "bag": 15,
-     "note": "Licence and open season days only."
+     "note": "Licence and open season days only. Closed north of Moore River."
     },
     {
      "where": "Other areas (incl. South Coast)",
      "min_size": "60 mm",
      "bag": 20,
-     "note": "Licence and open season only."
+     "note": "Licence and open season only. Closed north of Moore River."
     }
    ],
    "limits_verified": true,
@@ -4447,7 +4447,7 @@
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-29",
    "licence": "Recreational abalone licence required.",
    "group": "Molluscs"
   },
@@ -4478,7 +4478,7 @@
      "where": "All bioregions",
      "min_size": "140 mm",
      "bag": "5 (greenlip + brownlip combined)",
-     "note": "Licence required. Boat limit 10. Closed from Busselton Jetty to Shoal Cape."
+     "note": "Licence required. Boat limit 10. Closed from Busselton Jetty to Shoal Cape. Closed north of Moore River."
     }
    ],
    "limits_verified": true,
@@ -4492,7 +4492,7 @@
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-29",
    "licence": "Recreational abalone licence required.",
    "group": "Molluscs"
   },
@@ -4523,7 +4523,7 @@
      "where": "All bioregions",
      "min_size": "140 mm",
      "bag": "5 (greenlip + brownlip combined)",
-     "note": "Licence required. Boat limit 10."
+     "note": "Licence required. Boat limit 10. Closed north of Moore River."
     }
    ],
    "limits_verified": true,
@@ -4537,7 +4537,7 @@
      "url": "https://library.dpird.wa.gov.au/fr_fop/"
     }
    ],
-   "last_checked": "2026-11-25",
+   "last_checked": "2026-11-29",
    "licence": "Recreational abalone licence required.",
    "group": "Molluscs"
   },
