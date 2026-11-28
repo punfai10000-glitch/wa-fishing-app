@@ -630,3 +630,20 @@ details.guide summary { cursor:pointer; list-style:none; } details.guide summary
 #tb-label.long { flex-basis: 100%; order: 3; text-align: left; white-space: normal; padding-left: 44px; }
 .timebar-wrap { bottom: calc(var(--tabbar-h) + var(--safe-b) + 20px) !important; }
 .legend-box { bottom: calc(var(--tabbar-h) + var(--safe-b) + 100px) !important; }
+
+/* ======================================================================
+   Phones (Nov 28): search, species and the Fishing/Spear/Weather switch sit at the BOTTOM, above the time bar,
+   where a thumb reaches them. The map buttons and Key move up above them. --maptop-h is set from JS.
+   ====================================================================== */
+@media (max-width: 899px) {
+  .map-top { top: auto !important; bottom: calc(var(--tabbar-h) + var(--safe-b) + 80px) !important; flex-direction: column-reverse !important; }
+  .map-top #notes-slot { order: 0; }
+  #search-results { top: auto !important; bottom: 100%; margin: 0 0 6px !important; max-height: 45vh; }
+  .notes-panel { top: auto !important; bottom: 42px; }
+  .map-ctrl, .legend-box { bottom: calc(var(--tabbar-h) + var(--safe-b) + 88px + var(--maptop-h, 96px)) !important; }
+  .leaflet-top.leaflet-left { top: calc(8px + var(--safe-t)) !important; }
+  .back-view { top: calc(10px + var(--safe-t)) !important; }
+  .toast { top: calc(60px + var(--safe-t)) !important; }
+  .habitat-legend { top: calc(10px + var(--safe-t)) !important; }
+  .habitat-legend.clarity-legend { top: calc(10px + var(--safe-t)) !important; }
+}

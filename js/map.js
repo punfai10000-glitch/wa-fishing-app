@@ -88,7 +88,16 @@ const setLayer = (k, v) => store.set('layers', { ...layerOn(), [k]: v });
 
 export function getMap() { return map; }
 
+// phones: the controls stack at the bottom; tell CSS how tall it is so the map buttons sit above it
+function trackMapTopHeight() {
+  const el = document.querySelector('.map-top');
+  if (!el || !window.ResizeObserver) return;
+  const set = () => document.documentElement.style.setProperty('--maptop-h', `${Math.ceil(el.getBoundingClientRect().height)}px`);
+  new ResizeObserver(set).observe(el); set();
+}
+
 export function initMap() {
+  trackMapTopHeight();
   const L = window.L;
   // keep popups clear of the search bar/legend at the top and the time bar at the bottom
   L.Popup.mergeOptions({ autoPanPaddingTopLeft: L.point(10, 215), autoPanPaddingBottomRight: L.point(70, 160), maxWidth: 300 });

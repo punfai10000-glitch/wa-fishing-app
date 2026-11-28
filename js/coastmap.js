@@ -196,7 +196,9 @@ export function refreshCoastMap() {
     // currents only over water: use the coastline to test each grid cell
     const seaTest = (la, ln) => { const n = nearestShore(la, ln, 30); return !!n && !n.onLand && !riverWaterAt(la, ln, 0); };
     // swell field: open sea too (no shoreline within 30 km = offshore here, since it's only drawn near the forecast points)
-    const swellSea = (la, ln) => { const n = nearestShore(la, ln, 30); return n ? !n.onLand && !riverWaterAt(la, ln, 0) : true; };
+    // swell tint: only on the sea side of the coastline (search far enough that open water 30-80 km out still counts,
+    // and treat 'no coastline found' as unknown -> not drawn, so inland country is never tinted)
+    const swellSea = (la, ln) => { const n = nearestShore(la, ln, 80); return !!n && !n.onLand && !riverWaterAt(la, ln, 0); };
     setFlowData(wind, swell, { wind: on.windFlow, swell: on.swellFlow, current: on.currentFlow, currents, seaTest, swellSea });
   } else setFlowData([], [], {});
   const note = document.getElementById('flow-note');
