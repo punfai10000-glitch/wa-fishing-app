@@ -57,6 +57,14 @@ def classify(p):
         return "sanctuary", ["shore", "spear"]
     if "marine nature reserve" in text:
         return "marine_nature_reserve", ["shore", "spear"]
+    # Australian Marine Parks (Commonwealth waters, 3 nm+ offshore): CAPAD has no ZONE_TYPE for them, but each zone is
+    # its own polygon with an IUCN category. National Park Zones are IUCN II = no fishing of any kind (Parks Australia
+    # South-west Marine Parks Network Management Plan 2018). Habitat Protection (IV), Multiple Use (VI), Special
+    # Purpose (VI) and Recreational Use (IV) zones allow recreational fishing.
+    if not zt and (p.get("STATE") or "").upper() in ("COM", "EXT") and (p.get("IUCN") or "").upper() == "II":
+        return "sanctuary", ["shore", "spear"]
+    if not zt and (p.get("STATE") or "").upper() in ("COM", "EXT") and (p.get("IUCN") or "").upper() in ("IV", "VI", "IA", "V"):
+        return "general_use", []
     if "special purpose" in zt:
         return "special_purpose", []
     if "recreation" in zt or "recreational use" in zt:
@@ -115,14 +123,27 @@ def main(out="data/zones/marine-parks.geojson"):
     print("CAPAD polygons in area:", len(raw))
     print("ZONE_TYPE values:", Counter((f.get("properties") or {}).get("ZONE_TYPE") for f in raw).most_common(30))
     print("TYPE values:", Counter((f.get("properties") or {}).get("TYPE") for f in raw).most_common(15))
+    print("STATE/IUCN:", Counter(((f.get("properties") or {}).get("STATE"), (f.get("properties") or {}).get("IUCN")) for f in raw).most_common(20))
     found = []
     for f in raw:
         p = f.get("properties") or {}
         if not f.get("geometry"):
             continue
         zt, prohibits = classify(p)
-        f["properties"] = {"name": p.get("NAME") or "Marine park", "zone_type": zt, "prohibits": prohibits,
+        nm = p.get("NAME") or "Marine park"
+        com = (p.get("STATE") or "").upper() in ("COM", "EXT")
+        if com and zt == "sanctuary":
+            nm = f"{nm} Marine Park — National Park Zone (Australian Marine Park)"
+        f["properties"] = {"name": nm, "zone_type": zt, "prohibits": prohibits, "iucn": p.get("IUCN"),
                            "park_type": p.get("TYPE"), "authority": p.get("AUTHORITY"), "state": p.get("STATE")}
+        if com and zt == "sanctuary":
+            f["properties"].update({"note": "National Park Zone in an Australian Marine Park (Commonwealth waters): no fishing of any kind, including spearfishing.",
+                                    "details": ["✗ No line fishing or spearfishing", "✓ Boating, diving and snorkelling OK"],
+                                    "link": "https://parksaustralia.gov.au/marine/parks/south-west/"})
+        elif com and zt == "general_use":
+            f["properties"].update({"note": "Australian Marine Park zone (Commonwealth waters) that allows recreational fishing under the normal WA rules.",
+                                    "details": ["✓ Line fishing and spearfishing under the normal WA rules"],
+                                    "link": "https://parksaustralia.gov.au/marine/parks/south-west/"})
         found.append(f)
     # Marine parks newer than CAPAD 2024 (e.g. the South Coast Marine Park: Mamang Maambakoort, Wudjari,
     # created Dec 2024): outlines from DBCA Legislated Lands and Waters (DBCA-011, via SLIP)
