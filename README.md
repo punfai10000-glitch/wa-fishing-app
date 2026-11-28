@@ -25,7 +25,7 @@ The table that used to be here was the v0.5 checklist (24–25 Nov) and is long 
 | Unit tests (`npm test`) | ✅ 21 passing (incl. `tests/audit.test.js`) |
 | **Hand-checked spots** | ⚠️ The 10 starter spots are still `demo`. They are listed as "not yet checked", not ranked. Desk checks: `docs/location-checks.md` |
 | **Safety thresholds** | ⚠️ Calibrated against forecasts, not yet against real trips — needs diary reality-checks |
-| Reddit links | ⚠️ Need a free Reddit key (optional) |
+| Reddit / forum links | Added by hand to `data/community.json` (Reddit closed free API keys in Nov 2025) |
 
 **Do not promote the app publicly** until the starter spots and safety limits have been checked against real conditions.
 
@@ -50,7 +50,7 @@ Run the tests with `npm test` (requires Node 18+).
 5. **Actions** tab: if asked, click *I understand my workflows, go ahead and enable them*. Then run each of these once:
    - **Weekly data (shops, servos, toilets, community posts, marine zones)** → Run workflow
    - **Live data (measured buoys + weather stations)** → Run workflow
-6. Optional, for Reddit posts: create a free *script* app at https://www.reddit.com/prefs/apps. Then in the repo go to **Settings → Secrets and variables → Actions → New repository secret** and add `REDDIT_CLIENT_ID` and `REDDIT_CLIENT_SECRET`. Re-run the Weekly data job.
+6. Reddit and forum links: Reddit stopped giving out free API keys in Nov 2025 (new keys need Reddit's approval), so links are added by hand. Send Claude the thread links (or paste the thread text); Claude adds the title, link, date and a one-line note to `data/community.json` under the nearest area, marked `"curated": true`. If a Reddit key is ever approved, add it as the Actions secrets `REDDIT_CLIENT_ID` / `REDDIT_CLIENT_SECRET`; the weekly job keeps the hand-added links.
 7. Open the site and reload (Cmd + Shift + R). From v0.4 on, updates appear on the next normal reload.
 
 If a job fails, open it in the Actions tab, copy the red error lines and send them to Claude.

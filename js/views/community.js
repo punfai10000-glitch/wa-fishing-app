@@ -72,16 +72,16 @@ export function communityCard(loc) {
     const el = document.getElementById(id);
     const data = await loadCommunity();
     if (!el) return;
-    if (!data?.areas) { el.innerHTML = '<h2>Community talk</h2><p class="small muted">Reddit discussion links aren\'t switched on yet (needs a free Reddit app key — see README).</p>'; return; }
+    if (!data?.areas || !Object.keys(data.areas).length) { el.innerHTML = '<h2>Community talk</h2><p class="small muted">No community links added yet.</p>'; return; }
     const area = areaFor(loc, data.areas);
-    const posts = area ? data.areas[area] : [];
-    if (!posts?.length) { el.innerHTML = '<h2>Community talk</h2><p class="small muted">No recent public discussions found for this area.</p>'; return; }
+    const posts = (area ? data.areas[area] : []).filter(p => /^https:\/\//.test(p.url || ''));
+    if (!posts?.length) { el.innerHTML = '<h2>Community talk</h2><p class="small muted">No community links added for this area yet.</p>'; return; }
     const m = new Date().getMonth() + 1;
-    const near = p => [m - 1, m, m + 1].map(x => ((x + 11) % 12) + 1).includes(p.month);
+    const near = p => p.month != null && [m - 1, m, m + 1].map(x => ((x + 11) % 12) + 1).includes(p.month);
     const sorted = [...posts.filter(near), ...posts.filter(p => !near(p))].slice(0, 8);
     el.innerHTML = `<h2>Community talk — ${esc(area)}</h2>
-      <ul class="small">${sorted.map(p => `<li><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a> <span class="muted">r/${esc(p.subreddit)} · ${esc(p.date)}${near(p) ? ' · this time of year' : ''}</span></li>`).join('')}</ul>
-      <p class="small muted">Public Reddit posts, unverified. Shown for local knowledge only — never used in scores or rules. Facebook groups can't be included (no public access).</p>`;
+      <ul class="small">${sorted.map(p => `<li><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.title)}</a> <span class="muted">${p.subreddit ? `r/${esc(p.subreddit)}` : esc(p.site || 'forum')}${p.date ? ` · ${esc(p.date)}` : ''}${near(p) ? ' · this time of year' : ''}</span>${p.note ? `<br><span class="muted">${esc(p.note)}</span>` : ''}</li>`).join('')}</ul>
+      <p class="small muted">Public Reddit and forum posts, unverified. Shown for local knowledge only — never used in scores or rules.</p>`;
   });
   return `<div class="card" id="${id}"><h2>Community talk</h2><p class="small muted">Loading…</p></div>`;
 }

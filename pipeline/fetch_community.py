@@ -1,8 +1,10 @@
 """Weekly: find public Reddit discussions about fishing/spearfishing near each area.
 
 Stores ONLY the post title, subreddit, date and link (no post text, no usernames), so the app can show
-"Community talk (unverified)". Requires a free Reddit "script" app; put its id/secret in the repo's
-Actions secrets as REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET. Without them this script does nothing.
+"Community talk (unverified)". Needs a Reddit "script" app approved under Reddit's Responsible Builder Policy (since Nov 2025 new keys need
+Reddit's approval); put its id/secret in the repo's Actions secrets as REDDIT_CLIENT_ID and REDDIT_CLIENT_SECRET.
+Without them this script does nothing and the hand-added links in data/community.json stay as they are.
+Hand-added links have "curated": true and are always kept.
 Facebook groups are NOT included: Facebook offers no public API for group posts and forbids scraping.
 """
 import base64, json, os, sys, time, urllib.parse, urllib.request
@@ -54,6 +56,14 @@ def main(out_path):
             if p["url"] not in seen:
                 seen.add(p["url"]); uniq.append(p)
         result[area.replace(" WA", "")] = uniq[:15]
+    # keep the hand-added (curated) links
+    try:
+        old = json.load(open(out_path)).get("areas") or {}
+    except Exception:
+        old = {}
+    for a, posts in old.items():
+        keep = [p for p in posts if p.get("curated")]
+        result[a] = keep + [p for p in result.get(a, []) if p["url"] not in {k["url"] for k in keep}]
         print(area, len(uniq))
     with open(out_path, "w") as f:
         json.dump({"generated_at": datetime.now(timezone.utc).isoformat(timespec="seconds"), "source": "Reddit (public posts; titles and links only)", "type": "community, unverified", "areas": result}, f, separators=(",", ":"))

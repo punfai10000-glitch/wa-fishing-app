@@ -8,7 +8,7 @@ import { initMap, refreshMap, showMap } from './map.js';
 import { initSheet, closeSheet } from './sheet.js';
 import { renderLocation } from './views/location.js';
 import { loadCoastPoints, loadCoastConditions, nearestCoastPoint } from './coast.js';
-import { loadBuoys, loadBomObs } from './buoys.js';
+import { loadBuoys, loadBomObs, nearestStation } from './buoys.js';
 import { loadBomWarnings, warningsAt, loadLiveStatus } from './bomwarn.js';
 import { loadTides, loadClarity, clarityAt } from './ocean.js';
 import { loadTargets, seasonGuide, guideCovers } from './targets.js';
@@ -48,7 +48,7 @@ export function evalFor(loc, activity = state.activity) {
     const n = nearestCoastPoint(loc.geometry.coordinates[1], loc.geometry.coordinates[0], 15);
     if (n && state.coast.byId[n.p.id]?.length) { src = state.coast; id = n.p.id; }
   }
-  const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}|${id}|${state.bomWarn?.fetched_at || ''}`;
+  const key = `${loc.id}|${activity}|${state.species}|${src.fetchedAt}|${id}|${state.bomWarn?.fetched_at || ''}|${state.bom?.generated_at || ''}`;
   if (!state.evalCache.has(key)) {
     // satellite water clarity for this spot (used by the spearfishing visibility estimate)
     if (state.clarity && loc._satFor !== (state.clarity.fine?.newest || state.clarity.date)) {
@@ -61,10 +61,18 @@ export function evalFor(loc, activity = state.activity) {
       seasonFn: (l, m, sp) => seasonGuide(l, m, sp, activity),
       warningsFn: (l, t) => warningsAt(state.bomWarn, l.geometry.coordinates[1], l.geometry.coordinates[0], t),
       legalFn: (l, a) => legalStatus(state.data.zones, l, a),
+      measuredFn: l => measuredWindNear(l),
       zoneHits: l => zoneHitsFor(state.data.zones, l)
     }));
   }
   return state.evalCache.get(key);
+}
+
+// BOM station measuring wind within 25 km of the spot, reading less than 90 minutes old
+function measuredWindNear(loc) {
+  const st = nearestStation(state.bom, loc.geometry.coordinates[1], loc.geometry.coordinates[0], 25);
+  if (!st || st.s.wind_kmh == null || !(Date.now() - Date.parse(st.s.time) < 90 * 60000)) return null;
+  return { site: st.s.site, km: st.d, wind_kmh: st.s.wind_kmh, gust_kmh: st.s.gust_kmh ?? null, time: st.s.time };
 }
 
 export function visibleLocations({ ignoreRegion = false } = {}) {

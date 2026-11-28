@@ -62,6 +62,20 @@ export function evaluate(loc, hours, activity, ctx = {}) {
   const lsNow = legalUnchecked ? null : ctx.legalFn?.(loc, activity);
   const legalNote = legalUnchecked ? 'Marine park zones not loaded — can\'t confirm fishing is allowed here'
     : lsNow?.unverified ? `Check the zone map before fishing: ${lsNow.text}` : null;
+  // Forecast wind is often too low near the coast. If a BOM station close by is MEASURING clearly stronger wind
+  // right now, use the measured value for the current hour (only ever raises the wind — never makes it look calmer).
+  const meas = ctx.measuredFn?.(loc);
+  let measNote = null;
+  if (meas && meas.wind_kmh != null) {
+    const i = hours.findIndex(h => h.t <= now && h.t + HOUR > now);
+    const h = hours[i];
+    if (h && h.wind_speed != null && meas.wind_kmh > h.wind_speed * 1.4 && meas.wind_kmh - h.wind_speed >= 8) {
+      hours = hours.slice();
+      hours[i] = { ...h, wind_speed: meas.wind_kmh, wind_gust: Math.max(h.wind_gust ?? 0, meas.gust_kmh ?? meas.wind_kmh), measuredWind: meas, forecastWind: h.wind_speed, forecastGust: h.wind_gust,
+        types: { ...(h.types || {}), wind_speed: 'measured', wind_gust: 'measured' } };
+      measNote = `Windier than forecast: ${meas.site} is measuring ${Math.round(meas.wind_kmh)} km/h${meas.gust_kmh != null ? ` (gusts ${Math.round(meas.gust_kmh)})` : ''} right now, forecast said ${Math.round(h.wind_speed)} km/h`;
+    }
+  }
   addVisibilityContext(hours, loc);   // spear score + species targets (squid needs clear water)
   const sunCache = new Map();
   const hourly = hours.map(h => {
@@ -73,6 +87,7 @@ export function evaluate(loc, hours, activity, ctx = {}) {
     const all = checkBlocks(loc, h, activity, { thresholds: ctx.thresholds, rules: ctx.rules, sun: sunCache.get(dk), zoneHits: ctx.zoneHits?.(loc) ?? [],
       warnings: ctx.warningsFn?.(loc, h.t) ?? [] });
     if (legalNote) all.push({ kind: 'caution', reason: legalNote });
+    if (measNote && h.measuredWind) all.push({ kind: 'caution', reason: measNote, measured: true });
     const blocks = all.filter(b => b.kind !== 'caution'), cautions = blocks.some(b => b.kind === 'safety') ? [] : all.filter(b => b.kind === 'caution')
       .sort((a, b) => cautionRank(a) - cautionRank(b));
     return { t: h.t, hour: h, result, score: result.score, blocks, cautions, blocked: blocks.length > 0, blockKind: blockKindOf(blocks) };

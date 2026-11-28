@@ -222,18 +222,18 @@ export function refreshCoastMap() {
       const wh = h.wave_height ?? h.swell_height, wd = h.wave_direction ?? h.swell_direction;
       if (on.waves && wh != null && wd != null && p.sea) {
         const q = cp(p.sea[0], p.sea[1]);
-        if (room.place(q.x + 14, q.y + 6, 78, 40)) arrowLayer.addLayer(arrowMarker([p.sea[0], p.sea[1]], (wd + 180) % 360, 'wave', Math.min(1.7, 0.7 + wh / 2.5), `${wh.toFixed(1)} m`, waveColor(wh)));
+        if (room.place(q.x + 16, q.y + 2, 84, 40)) arrowLayer.addLayer(arrowMarker([p.sea[0], p.sea[1]], (wd + 180) % 360, 'wave', Math.min(1.7, 0.7 + wh / 2.5), `${wh.toFixed(1)} m`, waveColor(wh)));
       }
       // swell lines: say exactly what each set of lines is — height, period and where it comes from
       const sh = h.swell_height, sp = h.swell_period, sd = h.swell_direction;
       if (on.swellFlow && sh != null && sd != null && p.sea && z >= 9) {
         const q = cp(p.sea[0], p.sea[1]);
-        const o = room.place(q.x - 10, q.y + 30, 92, 18, [[0, 0], [0, 22], [-60, 0], [60, 0], [0, -46]]);
+        const o = room.place(q.x - 10, q.y + 21, 96, 20, [[0, 0], [0, 22], [-60, 0], [60, 0], [0, -46]]);
         if (o) arrowLayer.addLayer(swellLabel([p.sea[0], p.sea[1]], sh, sp, sd, o));
       }
       if (on.wind && h.wind_speed != null && h.wind_direction != null) {
         const q = cp(lat, lng);
-        const o = room.place(q.x + 12, q.y + 6, 72, 40, [[0, 0], [-56, 0], [0, -40], [0, 40], [-56, -40]]);
+        const o = room.place(q.x + 22, q.y + 2, 96, 40, [[0, 0], [-56, 0], [0, -40], [0, 40], [-56, -40]]);
         if (o) arrowLayer.addLayer(arrowMarker([lat, lng], (h.wind_direction + 180) % 360, 'wind', Math.min(1.6, 0.7 + h.wind_speed / 40), `${Math.round(h.wind_speed)} km/h`, null, o));
       }
     });
@@ -573,13 +573,13 @@ function glanceHTML(loc, h, vis, legal, ev, t, rs, rp, pillFor) {
   rows.push(['🎣', 'Scores', `<span class="glance-pills">Shore ${pillFor(rs)} Spear ${pillFor(rp)}</span>`]);
   if (h) {
     const exp = exposureOf(h.wind_direction, loc.exposure);
-    const sp = h.wind_speed;
+    const sp = h.wind_speed, fc = h.forecastWind ?? sp;
     const strength = sp == null ? 'unknown' : sp < 10 ? 'Light' : sp < 20 ? 'Moderate' : sp < 30 ? 'Fresh' : 'Strong';
     const dirWords = exp === 'sheltered' ? 'blowing off the land — calmer at the shore' : exp === 'onshore' ? 'blowing onto the shore — choppier' : exp === 'cross' ? 'blowing along the shore' : '';
     // forecast wind is often off near the coast: show what a BOM station nearby is MEASURING right now
     const st = Math.abs(t - Date.now()) < 2 * 3600e3 ? nearestStation(state.bom, loc.geometry.coordinates[1], loc.geometry.coordinates[0], 40) : null;
     const meas = st && st.s.wind_kmh != null && Date.now() - Date.parse(st.s.time) < 3 * 3600e3
-      ? `<br><span class="small muted">Measured now at ${esc(st.s.site)} (${st.d.toFixed(0)} km): ${Math.round(st.s.wind_kmh)} km/h${st.s.gust_kmh != null ? `, gusts ${Math.round(st.s.gust_kmh)}` : ''} · forecast ${Math.round(sp)} km/h${st.s.wind_kmh > sp * 1.4 && st.s.wind_kmh - sp >= 8 ? ' — <strong>windier than forecast</strong>' : ''}</span>` : '';
+      ? `<br><span class="small muted">Measured now at ${esc(st.s.site)} (${st.d.toFixed(0)} km): ${Math.round(st.s.wind_kmh)} km/h${st.s.gust_kmh != null ? `, gusts ${Math.round(st.s.gust_kmh)}` : ''} · forecast ${Math.round(fc)} km/h${st.s.wind_kmh > fc * 1.4 && st.s.wind_kmh - fc >= 8 ? ' — <strong>windier than forecast</strong>' : ''}${h.measuredWind ? ' (the app is using the measured wind for now)' : ''}</span>` : '';
     rows.push(['💨', 'Wind', sp == null ? 'No forecast' : `${strength}${dirWords ? `, ${dirWords}` : ''}${h.wind_gust != null && h.wind_gust > 40 ? ' · <strong>gusty</strong>' : ''}${meas}`]);
     if (!loc.estuary) {
       const wh = h.wave_height ?? h.swell_height, per = h.wave_period ?? h.swell_period;
